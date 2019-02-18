@@ -1,0 +1,53 @@
+https://keybase.io/franky47
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://francoisbest.com
+  * I am franky47 (https://keybase.io/franky47) on keybase.
+  * I have a public key ASD-QMOWfs9_Zj-uqXXmxrDZo0Wq4ahinrjxO06wxA57Igo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101df7d7b9b01b8e9b70a409a4991339bf67224baaf164a97fe0bb80eb0d5d32f960a",
+      "host": "keybase.io",
+      "kid": "0120fe40c3967ecf7f663faea975e6c6b0d9a345aae1a8629eb8f13b4eb0c40e7b220a",
+      "uid": "bc5f606c58a8cc8d5c8746e5984cdc19",
+      "username": "franky47"
+    },
+    "merkle_root": {
+      "ctime": 1550492798,
+      "hash": "fbe7ebf9dc76e983d92f74fd156e870d030444eb865c4451b94c4c908aed7e5060dc67b3b1b4dffb98ab4680b14d905fed7a384c53a140e36ae3b6f649c04bc2",
+      "hash_meta": "591079571e43e91b296df006d4946cbc3a7c8bff572bb9e512eca9b98c59683b",
+      "seqno": 4784766
+    },
+    "service": {
+      "entropy": "IxiG1+KQZxXWsWpAS3+z4ivc",
+      "hostname": "francoisbest.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "3.0.0"
+  },
+  "ctime": 1550492908,
+  "expire_in": 504576000,
+  "prev": "3ea27d0fe8d865e1ab1d6b11c2655f97077b0b5dfed1d28cd0d0b66f3b78db3b",
+  "seqno": 41,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg/kDDln7Pf2Y/rql15saw2aNFquGoYp648TtOsMQOeyIKp3BheWxvYWTESpcCKcQgPqJ9D+jYZeGrHWsRwmVflwd7C13+0dKM0NC2bzt42zvEII3zY/A5xCl6aLBMUKZlq8jbkCkA0IenzvhaQ+xpM8E+AgHCo3NpZ8RADs14Yr6KK9m9m7cfTIxhOibvyYVraLopg2/DX9bIQ5+L7x4lPeVd7AL/dM5ej4pRNvE09eqVbm8Lx1XcyMLzC6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIH9nJof2rW+MLcC0pd7KsDFuv+PDiYYYVT2G7GkWPbJMo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/franky47
