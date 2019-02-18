@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "parcel ./src/index.html",
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html --public-url .",
+    "build": "parcel build ./src/index.html",
     "clean": "rm -rf ./dist",
     "serve": "serve ./dist",
     "rebuild": "yarn clean && yarn build",
