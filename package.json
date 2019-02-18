@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "parcel": "^1.11.0",
-    "parcel-plugin-inliner": "^1.0.3",
     "parcel-plugin-static-files-copy": "^2.0.0",
     "sass": "^1.17.0",
     "serve": "^10.1.2"
