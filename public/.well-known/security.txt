@@ -1,0 +1,4 @@
+Contact: https://keybase.io/franky47
+Encryption: https://keybase.io/franky47/pgp_keys.asc
+Preferred-Languages: en, fr
+Canonical: https://francoisbest.com/.well-known/security.txt
