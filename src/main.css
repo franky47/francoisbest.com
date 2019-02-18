@@ -38,7 +38,7 @@ body {
 
 @media (min-width: 720px) {
   .container {
-    width: 720px;
+    width: calc(720px - 2rem);
     margin: 0 auto;
   }
 }
