@@ -14,15 +14,13 @@ ul {
 /* Open Sans for general sans-serif (short lines)*/
 /* Georgia for text blocks & quotes*/
 
-@import url('https://fonts.googleapis.com/css?family=Heebo:100,300,400,500,700,800,900|Open+Sans');
-
 /* h1, h2, h3 {*/
 /*   font-family: Heebo;*/
 /*   font-weight: 100;*/
 /* }*/
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: sans-serif;
   line-height: 1.25;
   font-weight: 500;
 }

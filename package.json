@@ -7,15 +7,17 @@
   "scripts": {
     "dev": "parcel ./src/index.html",
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html",
+    "build": "parcel build ./src/index.html --public-url .",
     "clean": "rm -rf ./dist",
     "serve": "serve ./dist",
     "rebuild": "yarn clean && yarn build",
     "fix:surge": "cp -f ./dist/index.html ./dist/200.html",
-    "deploy": "surge -d https://francoisbest.com -p ./dist"
+    "deploy": "surge -d https://francoisbest.com -p ./dist",
+    "release:prod": "yarn rebuild && yarn deploy"
   },
   "devDependencies": {
     "parcel": "^1.11.0",
+    "parcel-plugin-inliner": "^1.0.3",
     "parcel-plugin-static-files-copy": "^2.0.0",
     "sass": "^1.17.0",
     "serve": "^10.1.2"
