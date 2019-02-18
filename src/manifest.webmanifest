@@ -1,10 +1,11 @@
 {
   "name": "François Best",
-  "short_name": "François Best",
+  "short_name": "47ng",
   "description": "Freelance developer",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff",
+  "theme_color": "#fff",
   "icons": [
     {
       "src": "./icons/favicons/android-icon-36x36.png",
