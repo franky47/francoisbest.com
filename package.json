@@ -1,28 +1,35 @@
 {
   "name": "francoisbest.com",
   "version": "0.1.0",
-  "main": "index.js",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "parcel ./src/index.html",
-    "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html",
-    "clean": "rm -rf ./dist",
-    "serve": "serve ./dist",
-    "rebuild": "yarn clean && yarn build",
-    "fix:surge": "cp -f ./dist/index.html ./dist/200.html",
-    "deploy": "surge -d https://francoisbest.com -p ./dist",
-    "release:prod": "yarn rebuild && yarn deploy"
+    "dev": "next dev",
+    "clean": "rm -rf .next out",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "serve": "serve ./out",
+    "deploy": "surge -p ./out -d https://francoisbest.com",
+    "release": "run-s clean build export deploy"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.5.2",
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "next": "^9.2.1",
+    "next-seo": "^4.1.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-syntax-highlighter": "^12.2.1"
   },
   "devDependencies": {
-    "parcel": "^1.11.0",
-    "parcel-plugin-static-files-copy": "^2.0.0",
-    "sass": "^1.17.0",
-    "serve": "^10.1.2"
-  },
-  "staticFiles": {
-    "staticPath": "public",
-    "watcherGlob": "**/*.(xml|json|css)"
+    "@types/node": "^13.7.0",
+    "@types/react-syntax-highlighter": "^11.0.4",
+    "npm-run-all": "^4.1.5",
+    "serve": "^11.3.0",
+    "surge": "^0.21.3",
+    "typescript": "^3.7.5"
   }
 }
