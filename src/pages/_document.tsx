@@ -16,18 +16,25 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script
-            id="chiffre:analytics-config"
-            type="application/json"
-            dangerouslySetInnerHTML={{
-              __html: `{
-              "publicKey": "pk.JkCGUvZxyfMTZ4NB1pxwq7mgHC1Ih0j5EzuXVgRG5B0",
-              "pushURL": "https://push.chiffre.io/qlXAgUdLZmuW8vTm"
-            }
-            `
-            }}
-          />
-          <script src="https://embed.chiffre.io/analytics.js" async></script>
+          {process.env.NODE_ENV === 'production' && (
+            <>
+              <script
+                id="chiffre:analytics-config"
+                type="application/json"
+                dangerouslySetInnerHTML={{
+                  __html: `{
+                "publicKey": "pk.JkCGUvZxyfMTZ4NB1pxwq7mgHC1Ih0j5EzuXVgRG5B0",
+                "pushURL": "https://push.chiffre.io/qlXAgUdLZmuW8vTm"
+              }
+              `
+                }}
+              />
+              <script
+                src="https://embed.chiffre.io/analytics.js"
+                async
+              ></script>
+            </>
+          )}
         </body>
       </Html>
     )
