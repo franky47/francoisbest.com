@@ -26,6 +26,13 @@ const projects: Project[] = [
   },
   {
     type: 'npm',
+    name: 'session-keystore',
+    repo: '47ng/session-keystore',
+    description: 'Secure cryptographic key storage in the browser and Node.js',
+    keywords: ['key-storage', 'session-storage']
+  },
+  {
+    type: 'npm',
     name: 'redact-env',
     repo: '47ng/redact-env',
     description: 'Redact values of critical environment variables in a string',
