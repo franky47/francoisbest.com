@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo'
 import { Heading, Stack, Text, Link } from '@chakra-ui/core'
 import Logo from '../components/Logo'
 import JsonBlock from '../components/JsonBlock'
+import NextLink from 'next/link'
 
 const HomePage: NextPage = () => {
   return (
@@ -91,8 +92,13 @@ const HomePage: NextPage = () => {
             tier, so check it out !
           </Text> */}
           <Text>
-            I also love open-source, and have published a number of TypeScript
-            packages on GitHub &amp; NPM, at{' '}
+            I also love open-source, and have published a number of{' '}
+            <NextLink href="/open-source" prefetch passHref>
+              <Link fontWeight="medium" color="gray.800">
+                TypeScript packages
+              </Link>
+            </NextLink>{' '}
+            for Node.js and the browser, on GitHub &amp; NPM, at{' '}
             <Link
               isExternal
               href="https://github.com/47ng"

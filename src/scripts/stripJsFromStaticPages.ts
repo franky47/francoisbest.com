@@ -2,8 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import posthtml, { PostHTML } from 'posthtml'
 
-const filePath = path.resolve(__dirname, '../../out/index.html')
-
 function removeNextScripts(tree: PostHTML.Node) {
   tree.match({ tag: 'script' }, node => {
     if (
@@ -26,7 +24,7 @@ function removeNextScripts(tree: PostHTML.Node) {
       node.attrs.href.startsWith('/_next/static') &&
       node.attrs.href.endsWith('.js')
     ) {
-      console.log('Dropping link', node.attrs.href)
+      console.log('Dropping link  ', node.attrs.href)
       ;(node as any).tag = false
       node.content = []
     }
@@ -34,20 +32,20 @@ function removeNextScripts(tree: PostHTML.Node) {
   })
 }
 
-const main = async () => {
+async function processFile(filePath: string) {
   const html = fs.readFileSync(filePath).toString('utf8')
   const result = await posthtml()
     .use(removeNextScripts)
-    // .use(
-    //   minifier({
-    //     collapseWhitespace: true,
-    //     conservativeCollapse: true,
-    //     removeComments: false,
-    //     minifyCSS: true
-    //   })
-    // )
     .process(html, { sync: true })
   fs.writeFileSync(filePath, result.html)
 }
 
-main()
+const main = async () => {
+  await processFile(path.resolve(__dirname, '../../out/index.html'))
+  await processFile(path.resolve(__dirname, '../../out/open-source.html'))
+  await processFile(path.resolve(__dirname, '../../out/404.html'))
+}
+
+if (require.main === module) {
+  main()
+}
