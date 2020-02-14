@@ -7,6 +7,7 @@ import { Global, css } from '@emotion/core'
 const globalCss = css`
   html {
     font-family: ${theme.fonts['body']};
+    line-height: 1.6;
   }
 `
 

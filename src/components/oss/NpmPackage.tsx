@@ -1,15 +1,8 @@
 import React from 'react'
-import {
-  Text,
-  BoxProps,
-  Image,
-  Stack,
-  Link,
-  Badge,
-  useTheme
-} from '@chakra-ui/core'
+import { Text, BoxProps, Image, Stack, Badge, useTheme } from '@chakra-ui/core'
 import NpmIcon from '../icons/Npm'
 import GitHubIcon from '../icons/GitHub'
+import { OutgoingLink } from '../primitives/Links'
 
 export interface NpmPackageProps extends BoxProps {
   name: string
@@ -34,28 +27,26 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
     <Stack {...props}>
       <Stack isInline alignItems="center">
         <NpmIcon mb={-1} />
-        <Link
+        <OutgoingLink
           href={packageUrl}
-          isExternal
           fontSize="md"
           fontWeight="medium"
           color="gray.800"
         >
           {name}
-        </Link>
+        </OutgoingLink>
         <Text color="gray.400" fontWeight="thin">
           |
         </Text>
         <GitHubIcon size={4} />
-        <Link
+        <OutgoingLink
           href={repoUrl}
-          isExternal
           fontSize="md"
           fontWeight="medium"
           color="gray.800"
         >
           {repo}
-        </Link>
+        </OutgoingLink>
       </Stack>
 
       {keywords && (
@@ -78,52 +69,51 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
         {description}
       </Text>
       <Stack isInline flexWrap="wrap">
-        <Link href={repoUrl} isExternal>
+        <OutgoingLink href={repoUrl}>
           <Image
             fontSize="xs"
             src={`https://img.shields.io/github/stars/${repo}?color=${labelColor}&labelColor=${labelColor}&fontColor=red&labelFontColor=orange`}
             alt={`Repository stars for ${repo}`}
             mb={2}
           />
-        </Link>
-        <Link href={packageUrl} isExternal>
+        </OutgoingLink>
+        <OutgoingLink href={packageUrl}>
           <Image
             fontSize="xs"
             src={`https://img.shields.io/npm/v/${name}?color=red&labelColor=${labelColor}`}
             alt={`Latest version on NPM for ${name}`}
           />
-        </Link>
-        <Link href={`${repoUrl}/blob/master/LICENSE`} isExternal>
+        </OutgoingLink>
+        <OutgoingLink href={`${repoUrl}/blob/master/LICENSE`}>
           <Image
             fontSize="xs"
             src={`https://img.shields.io/npm/l/${name}?color=blue&labelColor=${labelColor}`}
             alt={`License for ${name}`}
           />
-        </Link>
-        <Link href={packageUrl} isExternal>
+        </OutgoingLink>
+        <OutgoingLink href={packageUrl}>
           <Image
             fontSize="xs"
             src={`https://img.shields.io/bundlephobia/minzip/${name}?label=size&labelColor=${labelColor}`}
             alt={`NPM bundle size for ${name}`}
           />
-        </Link>
-        <Link href={packageUrl} isExternal>
+        </OutgoingLink>
+        <OutgoingLink href={packageUrl}>
           <Image
             fontSize="xs"
             src={`https://img.shields.io/npm/dt/${name}?labelColor=${labelColor}`}
             alt={`Total NPM downloads for ${name}`}
           />
-        </Link>
-        <Link
+        </OutgoingLink>
+        <OutgoingLink
           href={`${repoUrl}/network/dependents?dependent_type=REPOSITORY`}
-          isExternal
         >
           <Image
             fontSize="xs"
             src={`https://img.shields.io/librariesio/dependent-repos/npm/${name}?label=dependent&labelColor=${labelColor}`}
             alt={`Dependent repositories for ${name}`}
           />
-        </Link>
+        </OutgoingLink>
       </Stack>
     </Stack>
   )
