@@ -83,6 +83,7 @@ export const mdxComponents = {
       p={4}
       my={8}
       borderRadius={4}
+      overflowX="auto"
       {...p}
     />
   ),
