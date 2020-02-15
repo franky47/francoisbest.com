@@ -43,7 +43,6 @@ export interface OutgoingLinkProps extends ChakraLinkProps {
 
 export const OutgoingLink: React.FC<OutgoingLinkProps> = ({
   children,
-  isExternal,
   showIcon = false,
   ...props
 }) => {

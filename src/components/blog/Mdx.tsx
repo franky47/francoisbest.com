@@ -41,7 +41,13 @@ export const mdxComponents = {
       {...p}
     />
   ),
-  a: (p: any) => <StyledLink color={useLinkColor()} {...p} />,
+  a: (p: any) => (
+    <StyledLink
+      color={useLinkColor()}
+      isExternal={!p.href.startsWith('#')}
+      {...p}
+    />
+  ),
   ul: (p: any) => (
     <Typography.Paragraph>
       <List styleType="disc" {...p} />
