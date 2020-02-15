@@ -1,5 +1,6 @@
 import Page from '~/src/components/blog/Page'
 import { RouteLink } from '~/src/components/primitives/Links'
+import { useLinkColor } from '~/src/ui/colors'
 
 export default ({ children, ...props }) => <Page {...props}>{children}</Page>
 
@@ -7,7 +8,7 @@ export default ({ children, ...props }) => <Page {...props}>{children}</Page>
 
 <RouteLink
   to="/blog/2019/how-to-store-e2ee-keys-in-the-browser"
-  color="blue.600"
+  color={useLinkColor()}
 >
   How to store E2EE keys in the browser
 </RouteLink>

@@ -1,16 +1,28 @@
-export interface ThemeableColor {
-  dark: string
-  light: string
+import { useColorMode } from '@chakra-ui/core'
+
+export function useColor(light: string, dark: string) {
+  const { colorMode } = useColorMode()
+  switch (colorMode) {
+    case 'dark':
+      return dark
+    case 'light':
+      return light
+  }
 }
 
-export type ThemeableColors = {
-  [color: string]: ThemeableColor
+// --
+
+export function useLinkColor() {
+  return useColor('blue.600', 'indigo.400')
 }
 
 // --
 
 // Tailwind CSS colors
 export const tailwindColors = {
+  '47ng-light': '#2f2f2f',
+  '47ng-dark': '#d3d3df',
+
   gray: {
     50: '#fcfeff',
     100: '#f7fafc',

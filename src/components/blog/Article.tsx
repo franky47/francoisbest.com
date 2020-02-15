@@ -8,6 +8,7 @@ import blogTheme from './theme'
 import Head from 'next/head'
 import ArticleFooter from './Footer'
 import { NextSeo } from 'next-seo'
+import Nav from '../Nav'
 
 export interface ArticleProps {
   meta: ArticleMeta
@@ -58,6 +59,7 @@ const Article: React.SFC<ArticleProps> = ({ meta, children, ...props }) => {
           }
         }}
       />
+      <Nav />
       <Box as="article" maxW="2xl" mx="auto" px={[3, 3, 1]} mt={12}>
         <ArticleHeader meta={meta} readingTime={readingTime} mb={12} />
         <ThemeProvider theme={blogTheme}>

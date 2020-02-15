@@ -5,10 +5,11 @@ import { Box, Text, Code, List, ListItem, Divider } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import theme from './theme'
 import { OutgoingLink } from '../primitives/Links'
+import { useColor, useLinkColor } from '../../ui/colors'
 
 const StyledLink = styled(OutgoingLink)`
   & code {
-    color: ${theme.colors.blue['600']};
+    color: ${p => theme.colors[p.color.split('.')[0]][p.color.split('.')[1]]};
   }
 `
 
@@ -18,7 +19,7 @@ const Blockquote = styled(Box)`
   }
 `
 
-const components = {
+export const mdxComponents = {
   h1: Typography.H1,
   h2: Typography.H2,
   h3: Typography.H3,
@@ -33,14 +34,14 @@ const components = {
   blockquote: (p: any) => (
     <Blockquote
       borderLeftWidth={4}
-      borderLeftColor="gray.400"
+      borderLeftColor={useColor('gray.400', 'gray.600')}
       pl={4}
       py={4}
       my={8}
       {...p}
     />
   ),
-  a: (p: any) => <StyledLink color="blue.600" {...p} />,
+  a: (p: any) => <StyledLink color={useLinkColor()} {...p} />,
   ul: (p: any) => (
     <Typography.Paragraph>
       <List styleType="disc" {...p} />
@@ -59,7 +60,8 @@ const components = {
       fontSize="sm"
       fontStyle="italic"
       textAlign="center"
-      color="gray.600"
+      color={useColor('gray.600', 'gray.400')}
+      mt={2}
       {...p}
     />
   ),
@@ -67,7 +69,7 @@ const components = {
     <Code
       fontSize="0.9em"
       fontWeight="medium"
-      color="gray.700"
+      color={useColor('gray.700', 'gray.300')}
       px={1}
       borderRadius={4}
       {...p}
@@ -77,18 +79,20 @@ const components = {
     <Box
       as="pre"
       fontSize="sm"
-      bg="gray.100"
+      bg={useColor('gray.100', 'gray.900')}
       p={4}
       my={8}
       borderRadius={4}
       {...p}
     />
   ),
-  hr: (p: any) => <Divider my={8} {...p} />
+  hr: (p: any) => (
+    <Divider my={8} borderColor={useColor('gray.400', 'gray.600')} {...p} />
+  )
 }
 
 const Mdx = ({ children }) => {
-  return <MDXProvider components={components}>{children}</MDXProvider>
+  return <MDXProvider components={mdxComponents}>{children}</MDXProvider>
 }
 
 export default Mdx

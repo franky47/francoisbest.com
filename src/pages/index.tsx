@@ -1,12 +1,17 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-import { Heading, Stack, Text, Link } from '@chakra-ui/core'
+import { Box, Heading, Stack, Text, Link, Button } from '@chakra-ui/core'
 import Logo from '../components/Logo'
 import JsonBlock from '../components/JsonBlock'
 import NextLink from 'next/link'
+import { useColor } from '../ui/colors'
+import Nav from '../components/Nav'
+import ProtonMailIcon from '../components/icons/ProtonMail'
 
 const HomePage: NextPage = () => {
+  const linkColor = useColor('gray.800', 'gray.100')
+
   return (
     <>
       <NextSeo
@@ -28,29 +33,46 @@ const HomePage: NextPage = () => {
           // todo: Add images
         }}
       />
+      <Nav />
       <Stack as="main" spacing={20} py={20} px={2}>
-        <Stack as="section" id="hero" textAlign="center" spacing={4}>
-          <Logo aria-label="Logo" mx="auto" />
-          <>
+        <Stack
+          as="section"
+          id="hero"
+          textAlign="center"
+          alignItems="center"
+          spacing={4}
+        >
+          <Logo mx="auto" circledWhenDark />
+          <Box>
             <Heading
               as="h1"
               fontSize="3xl"
               fontWeight="semibold"
-              color="#2F2F2F"
+              color={useColor('47ng-light', '47ng-dark')}
             >
               François Best
             </Heading>
-            <Text color="gray.600" fontSize="xl">
+            <Text color={useColor('gray.600', 'gray.500')} fontSize="xl">
               Freelance Developer
             </Text>
-          </>
+          </Box>
+          <Link href="mailto:contact+web@francoisbest.com">
+            <Button
+              variant="outline"
+              variantColor="indigo"
+              leftIcon={ProtonMailIcon}
+            >
+              Contact
+            </Button>
+          </Link>
         </Stack>
         <Stack as="section" id="about" maxW="xl" w="100%" mx="auto" spacing={6}>
           <Heading as="h2" fontSize="xl" fontWeight="medium">
             Hi !
           </Heading>
           <Text>
-            I’m passionate about security and privacy in web technologies.
+            I’m a web developer interested in security and privacy in web
+            technologies.
           </Text>
           <Text>
             In this day and age of{' '}
@@ -58,7 +80,7 @@ const HomePage: NextPage = () => {
               href="https://en.wikipedia.org/wiki/Surveillance_capitalism"
               isExternal
               fontWeight="medium"
-              color="gray.800"
+              color={linkColor}
             >
               surveillance capitalism
             </Link>
@@ -67,34 +89,21 @@ const HomePage: NextPage = () => {
           </Text>
           <Text>
             I'm currently working on end-to-end encrypted alternatives to
-            various services. If you're interested, drop me a line on{' '}
+            various services. If you'd like to know more, drop me a line on{' '}
             <Link
               href="https://twitter.com/fortysevenfx"
               isExternal
               fontWeight="medium"
-              color="gray.800"
+              color={linkColor}
             >
               Twitter
             </Link>{' '}
             !
           </Text>
-          {/* <Text>
-            My current endeavour on this subject is{' '}
-            <Link
-              isExternal
-              href="https://chiffre.io"
-              fontWeight="medium"
-              color="gray.800"
-            >
-              Chiffre.io
-            </Link>
-            , an end-to-end encrypted analytics platform. It has a nice free
-            tier, so check it out !
-          </Text> */}
           <Text>
             I also love open-source, and have published a number of{' '}
-            <NextLink href="/open-source" prefetch passHref>
-              <Link fontWeight="medium" color="gray.800">
+            <NextLink href="/open-source" passHref>
+              <Link fontWeight="medium" color={linkColor}>
                 TypeScript packages
               </Link>
             </NextLink>{' '}
@@ -103,7 +112,7 @@ const HomePage: NextPage = () => {
               isExternal
               href="https://github.com/47ng"
               fontWeight="medium"
-              color="gray.800"
+              color={linkColor}
             >
               @47ng
             </Link>
@@ -114,17 +123,17 @@ const HomePage: NextPage = () => {
           <Heading as="h2" fontSize="xl" fontWeight="medium">
             About me
           </Heading>
-          <Text fontSize="xs" color="gray.500">
+          <Stack fontSize="xs" color="gray.500" isInline flexWrap="wrap">
             <Text as="span" fontWeight="medium">
               Source:
-            </Text>{' '}
+            </Text>
             <Link
               href="https://francoisbest.com/.well-known/aboutme.json"
               isExternal
             >
               <code>https://francoisbest.com/.well-known/aboutme.json</code>
             </Link>
-          </Text>
+          </Stack>
 
           <JsonBlock />
         </Stack>

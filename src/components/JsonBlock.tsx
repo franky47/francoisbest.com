@@ -1,5 +1,5 @@
 import React from 'react'
-import { BoxProps, Box, useTheme } from '@chakra-ui/core'
+import { BoxProps, Box, useTheme, useColorMode } from '@chakra-ui/core'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import createElement from 'react-syntax-highlighter/dist/cjs/create-element'
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
@@ -74,6 +74,7 @@ function renderer({ rows, stylesheet, useInlineStyles }) {
 
 const JsonBlock: React.FC<JsonBlockProps> = ({ ...props }) => {
   const theme = useTheme()
+  const { colorMode } = useColorMode()
 
   return (
     <Box fontSize="xs" borderRadius={4} {...props} overflow="hidden">
@@ -84,15 +85,15 @@ const JsonBlock: React.FC<JsonBlockProps> = ({ ...props }) => {
           hljs: {
             ...docco.hljs,
             padding: '0.75em',
-            color: theme.colors.gray['700'],
-            background: theme.colors.gray['100']
+            color: theme.colors.gray[colorMode === 'light' ? 700 : 500],
+            background: theme.colors.gray[colorMode === 'light' ? 100 : 900]
           },
           'hljs-number': {
-            color: theme.colors.green['600'],
+            color: theme.colors.green[colorMode === 'light' ? 600 : 400],
             fontWeight: 500
           },
           'hljs-string': {
-            color: theme.colors.blue['600']
+            color: theme.colors.blue[colorMode === 'light' ? 600 : 500]
           }
         }}
         renderer={renderer}

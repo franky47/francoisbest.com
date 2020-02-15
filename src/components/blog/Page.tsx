@@ -4,6 +4,7 @@ import { ArticleMeta } from './types'
 import Mdx from './Mdx'
 import blogTheme from './theme'
 import Head from 'next/head'
+import Nav from '../Nav'
 
 export interface ArticleProps {
   meta: ArticleMeta
@@ -20,7 +21,8 @@ const Article: React.SFC<ArticleProps> = ({ meta, children, ...props }) => {
           rel="stylesheet"
         />
       </Head>
-      <Box as="main" maxW="2xl" mx="auto" px={[3, 3, 1]} mt={12}>
+      <Nav />
+      <Box as="main" maxW="xl" mx="auto" px={[3, 3, 1]} mt={12}>
         <ThemeProvider theme={blogTheme}>
           <Mdx>{children}</Mdx>
         </ThemeProvider>

@@ -8,22 +8,27 @@ import {
   ListIcon,
   ListItem,
   Divider,
-  Stack
+  Stack,
+  useColorMode
 } from '@chakra-ui/core'
 import { FaDev, FaTwitter, FaKeybase, FaGithub } from 'react-icons/fa'
 import Logo from '../Logo'
 import { H4 } from '../primitives/Typography'
 import { RouteLink, OutgoingLink } from '../primitives/Links'
+import { useLinkColor, useColor } from '../../ui/colors'
+import { mdxComponents } from './Mdx'
 
 export interface ArticleFooterProps extends BoxProps {
   meta: ArticleMeta
 }
 
 const ArticleFooter: React.SFC<ArticleFooterProps> = ({ meta, ...props }) => {
+  const { colorMode } = useColorMode()
+  const linkColor = useLinkColor()
   return (
     <>
-      <Divider mb={8} borderColor="gray.200" />
-      <Box as="footer" {...props} color="gray.600">
+      <mdxComponents.hr />
+      <Box as="footer" {...props} color={useColor('gray.600', 'gray.500')}>
         {meta.alsoPublishedOn?.length > 0 && (
           <>
             <Text fontStyle="italic" mb={2}>
@@ -38,18 +43,23 @@ const ArticleFooter: React.SFC<ArticleFooterProps> = ({ meta, ...props }) => {
         )}
 
         <Stack isInline alignItems="center" spacing={4} mt={8} mb={4}>
-          <Logo size={16} />
+          <Logo size={16} circledWhenDark />
           <Box>
-            <H4 my={0} fontSize="lg" fontWeight="semibold" color="#2f2f2f">
+            <H4
+              my={0}
+              fontSize="lg"
+              fontWeight="semibold"
+              color={`47ng-${colorMode}`}
+            >
               <RouteLink to="/">François Best</RouteLink>
             </H4>
             <Text>Freelance developer &amp; founder</Text>
             <Text fontWeight="medium">
-              <OutgoingLink href="https://47ng.com" color="blue.600">
+              <OutgoingLink href="https://47ng.com" color={linkColor}>
                 47ng
               </OutgoingLink>
               <Divider orientation="vertical" display="inline" />
-              <OutgoingLink href="https://chiffre.io" color="blue.600">
+              <OutgoingLink href="https://chiffre.io" color={linkColor}>
                 Chiffre.io
               </OutgoingLink>
             </Text>
@@ -64,26 +74,26 @@ const ArticleFooter: React.SFC<ArticleFooterProps> = ({ meta, ...props }) => {
             <ListIcon icon={FaTwitter} mt={-1} />
             <OutgoingLink
               href="https://twitter.com/fortysevenfx"
-              color="blue.600"
+              color={linkColor}
             >
               Twitter
             </OutgoingLink>
           </ListItem>
           <ListItem>
             <ListIcon icon={FaDev} mt={-1} />
-            <OutgoingLink href="https://dev.to/franky47" color="blue.600">
+            <OutgoingLink href="https://dev.to/franky47" color={linkColor}>
               DEV.to
             </OutgoingLink>
           </ListItem>
           <ListItem>
             <ListIcon icon={FaKeybase} mt={-1} />
-            <OutgoingLink href="https://keybase.io/franky47" color="blue.600">
+            <OutgoingLink href="https://keybase.io/franky47" color={linkColor}>
               Keybase
             </OutgoingLink>
           </ListItem>
           <ListItem>
             <ListIcon icon={FaGithub} mt={-1} />
-            <OutgoingLink href="https://github.com/franky47" color="blue.600">
+            <OutgoingLink href="https://github.com/franky47" color={linkColor}>
               GitHub
             </OutgoingLink>
           </ListItem>
@@ -107,7 +117,7 @@ export default ArticleFooter
 const AlsoPublishedOnComponent: React.FC<AlsoPublishedOn> = ({ url, name }) => {
   return (
     <ListItem>
-      <OutgoingLink href={url} color="blue.600">
+      <OutgoingLink href={url} color={useLinkColor()}>
         {name}
       </OutgoingLink>
     </ListItem>

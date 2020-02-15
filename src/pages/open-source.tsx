@@ -1,10 +1,11 @@
 import React from 'react'
 import { NextPage } from 'next'
-import NextLink from 'next/link'
 import { NextSeo } from 'next-seo'
-import { Box, Link, Stack, Text, Icon, Divider } from '@chakra-ui/core'
+import { Box, Link, Stack, Text, Divider } from '@chakra-ui/core'
 import NpmPackage, { NpmPackageProps } from '../components/oss/NpmPackage'
-import Logo from '../components/Logo'
+import Nav from '../components/Nav'
+import { H2 } from '../components/primitives/Typography'
+import { OutgoingLink } from '../components/primitives/Links'
 
 type Project = NpmPackageProps & { type: 'npm' }
 
@@ -122,31 +123,13 @@ const OpenSourcePage: NextPage = () => {
           // todo: Add images
         }}
       />
-      <Box as="nav" p={2}>
-        <NextLink href="/" passHref>
-          <Link fontWeight="medium">
-            <Stack isInline alignItems="center">
-              <Icon name="arrow-back" />
-              <Text fontSize="sm">Home</Text>
-            </Stack>
-          </Link>
-        </NextLink>
-      </Box>
-      <Stack as="main" spacing={16} py={12} px={2}>
+      <Nav />
+      <Stack as="main" spacing={16} py={8} px={2}>
         <Stack as="section" id="about" maxW="xl" w="100%" mx="auto" spacing={6}>
-          <Stack
-            isInline
-            as="h2"
-            fontSize="xl"
-            fontWeight="medium"
-            alignItems="center"
-          >
-            <Logo size={8} />
-            <Text as="span" color="gray.400" fontWeight="thin">
-              |
-            </Text>
-            <Text>Open Source</Text>
-          </Stack>
+          <H2 fontWeight="medium">
+            Open Source{' '}
+            <OutgoingLink href="https://github.com/47ng">@47ng</OutgoingLink>
+          </H2>
           <Text>
             This is a list of open-source projects &amp; packages I have
             published or contribute to:
@@ -168,8 +151,7 @@ const OpenSourcePage: NextPage = () => {
           ))}
         </Stack>
       </Stack>
-
-      <Box textAlign="center" p={8} fontSize="sm" color="#888" as="footer">
+      <Box textAlign="center" p={8} fontSize="sm" color="gray.500" as="footer">
         This website is open source too !{' - '}
         <Link
           href="https://github.com/franky47/francoisbest.com"

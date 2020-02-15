@@ -3,6 +3,7 @@ import { Text, BoxProps, Image, Stack, Badge, useTheme } from '@chakra-ui/core'
 import NpmIcon from '../icons/Npm'
 import GitHubIcon from '../icons/GitHub'
 import { OutgoingLink } from '../primitives/Links'
+import { useColor } from '../../ui/colors'
 
 export interface NpmPackageProps extends BoxProps {
   name: string
@@ -31,7 +32,7 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
           href={packageUrl}
           fontSize="md"
           fontWeight="medium"
-          color="gray.800"
+          color={useColor('gray.800', 'gray.300')}
         >
           {name}
         </OutgoingLink>
@@ -43,7 +44,7 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
           href={repoUrl}
           fontSize="md"
           fontWeight="medium"
-          color="gray.800"
+          color={useColor('gray.800', 'gray.300')}
         >
           {repo}
         </OutgoingLink>

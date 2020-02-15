@@ -1,10 +1,9 @@
 {
   "name": "François Best",
   "description": "Freelance developer",
-  "age": 32,
   "location": "(Nancy|Grenoble), France",
   "lang": ["en-GB", "fr-FR"],
-  "contact": "mailto:contact@francoisbest.com",
+  "contact": "mailto:contact+aboutme@francoisbest.com",
   "social": {
     "twitter": "https://twitter.com/fortysevenfx",
     "DEV": "https://dev.to/franky47",

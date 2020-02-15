@@ -11,6 +11,7 @@ import {
   Text
 } from '@chakra-ui/core'
 import { RouteLink } from '../primitives/Links'
+import { useColor } from '../../ui/colors'
 
 export interface ArticleHeaderProps extends BoxProps {
   meta: ArticleMeta
@@ -25,7 +26,12 @@ const ArticleHeader: React.SFC<ArticleHeaderProps> = ({
   return (
     <Box as="header" {...props}>
       <H1>{meta.title}</H1>
-      <Flex fontSize="sm" fontWeight="medium" color="gray.600" flexWrap="wrap">
+      <Flex
+        fontSize="sm"
+        fontWeight="medium"
+        color={useColor('gray.600', 'gray.500')}
+        flexWrap="wrap"
+      >
         {meta.publicationDate ? (
           <Text>
             Published on {meta.publicationDate} by{' '}

@@ -1,6 +1,6 @@
 import React from 'react'
 import App from 'next/app'
-import { ThemeProvider, CSSReset } from '@chakra-ui/core'
+import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core'
 import theme from '../ui/theme'
 import { Global, css } from '@emotion/core'
 
@@ -30,11 +30,13 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
-      <ThemeProvider theme={theme}>
-        <CSSReset config={globalConfig} />
-        <Global styles={[globalCss]} />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <ColorModeProvider>
+        <ThemeProvider theme={theme}>
+          <CSSReset config={globalConfig} />
+          <Global styles={[globalCss]} />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ColorModeProvider>
     )
   }
 }

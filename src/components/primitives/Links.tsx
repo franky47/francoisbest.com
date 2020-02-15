@@ -6,23 +6,31 @@ import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps
 } from '@chakra-ui/core'
+import { useRouter } from 'next/dist/client/router'
 
 export interface RouteLinkProps
   extends Omit<NextLinkProps, 'as' | 'href'>,
     Omit<ChakraLinkProps, 'as' | 'href'> {
   as?: string
   to: string
+  navLink?: boolean
 }
 
 export const RouteLink: React.FC<RouteLinkProps> = ({
   to,
   as = to,
   children,
+  navLink = false,
   ...props
 }) => {
+  const router = useRouter()
+  const underline = navLink && router?.asPath === as
+
   return (
     <NextLink href={to} passHref as={as}>
-      <ChakraLink {...props}>{children}</ChakraLink>
+      <ChakraLink textDecoration={underline ? 'underline' : 'none'} {...props}>
+        {children}
+      </ChakraLink>
     </NextLink>
   )
 }
