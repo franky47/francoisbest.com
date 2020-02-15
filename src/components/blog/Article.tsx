@@ -41,7 +41,7 @@ const Article: React.SFC<ArticleProps> = ({ meta, children, ...props }) => {
       </Head>
       <NextSeo
         title={meta.title}
-        description="A blog article by François Best"
+        description="A blog post by François Best"
         additionalMetaTags={[{ property: 'author', content: 'François Best' }]}
         twitter={{
           cardType: 'summary',

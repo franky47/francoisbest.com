@@ -38,7 +38,7 @@ const Nav: React.FC<NavProps> = ({ showLogo = true, ...props }) => {
         <RouteLink navLink to="/open-source">
           Open Source
         </RouteLink>
-        <RouteLink navLink to="/blog">
+        <RouteLink navLink to="/posts">
           Articles
         </RouteLink>
       </Stack>
