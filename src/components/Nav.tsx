@@ -42,14 +42,14 @@ const Nav: React.FC<NavProps> = ({ showLogo = true, ...props }) => {
           Articles
         </RouteLink>
       </Stack>
-      <Stack isInline ml="auto" alignItems="center" spacing={8}>
+      {/* <Stack isInline ml="auto" alignItems="center" spacing={8}>
         <IconButton
           icon={colorMode === 'dark' ? 'sun' : 'moon'}
           aria-label={colorMode === 'dark' ? 'Light mode' : 'Dark mode'}
           onClick={toggleColorMode}
           variant="ghost"
         />
-      </Stack>
+      </Stack> */}
     </Stack>
   )
 }

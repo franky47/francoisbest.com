@@ -30,13 +30,13 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
-      <ColorModeProvider>
-        <ThemeProvider theme={theme}>
-          <CSSReset config={globalConfig} />
-          <Global styles={[globalCss]} />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </ColorModeProvider>
+      // <ColorModeProvider>
+      <ThemeProvider theme={theme}>
+        <CSSReset config={globalConfig} />
+        <Global styles={[globalCss]} />
+        <Component {...pageProps} />
+      </ThemeProvider>
+      // </ColorModeProvider>
     )
   }
 }
