@@ -54,7 +54,7 @@ const ArticleFooter: React.SFC<ArticleFooterProps> = ({ meta, ...props }) => {
               <RouteLink to="/">François Best</RouteLink>
             </H4>
             <Text>Freelance developer &amp; founder</Text>
-            <Text fontWeight="medium">
+            <Text as="nav" fontWeight="medium">
               <OutgoingLink href="https://47ng.com" color={linkColor}>
                 47ng
               </OutgoingLink>
@@ -98,13 +98,13 @@ const ArticleFooter: React.SFC<ArticleFooterProps> = ({ meta, ...props }) => {
             </OutgoingLink>
           </ListItem>
         </List>
-        <Text fontSize="sm" mt={8}>
+        <Box fontSize="sm" mt={8}>
           Copyright © 2020
           <Divider orientation="vertical" display="inline" />
           <OutgoingLink href="https://github.com/franky47/francoisbest.com">
             Edit this page on GitHub
           </OutgoingLink>
-        </Text>
+        </Box>
       </Box>
     </>
   )

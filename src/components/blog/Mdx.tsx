@@ -51,12 +51,12 @@ export const mdxComponents = {
     />
   ),
   ul: (p: any) => (
-    <Typography.Paragraph>
+    <Typography.Paragraph as="div">
       <List styleType="disc" {...p} />
     </Typography.Paragraph>
   ),
   ol: (p: any) => (
-    <Typography.Paragraph>
+    <Typography.Paragraph as="div">
       <List as="ol" styleType="decimal" {...p} />
     </Typography.Paragraph>
   ),
