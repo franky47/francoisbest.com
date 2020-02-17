@@ -26,6 +26,7 @@ const HomePage: NextPage = () => {
         }}
         openGraph={{
           type: 'website',
+          site_name: 'François Best',
           profile: {
             firstName: 'François',
             lastName: 'Best'
