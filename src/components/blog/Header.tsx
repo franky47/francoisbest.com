@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/core'
 import { RouteLink } from '../primitives/Links'
 import { useColor } from '../../ui/colors'
+import Tags from './Tags'
 
 export interface ArticleHeaderProps extends BoxProps {
   meta: ArticleMeta
@@ -51,13 +52,7 @@ const ArticleHeader: React.SFC<ArticleHeaderProps> = ({
         {meta.tags?.length > 0 && (
           <>
             <Divider orientation="vertical" />
-            <Stack isInline alignItems="center">
-              {meta.tags.map(tag => (
-                <Badge key={tag} variantColor="blue" textTransform="none">
-                  {tag}
-                </Badge>
-              ))}
-            </Stack>
+            <Tags tags={meta.tags} />
           </>
         )}
       </Flex>
