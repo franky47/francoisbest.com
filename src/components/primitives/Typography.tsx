@@ -35,4 +35,4 @@ export const H6 = (p: HeadingProps) => (
   <Heading as="h6" mt={6} mb={4} size="xs" {...p} />
 )
 
-export const Paragraph = (p: any) => <Text lineHeight="1.6" mb={8} {...p} />
+export const Paragraph = (p: any) => <Text lineHeight="1.7" mb={8} {...p} />

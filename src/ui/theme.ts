@@ -1,14 +1,14 @@
 import { theme as chakraTheme } from '@chakra-ui/core'
 import { tailwindColors } from './colors'
 
-const fontStack = `-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`
+const systemFontStack = `-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`
 
 const theme: any = {
   ...chakraTheme,
   fonts: {
     ...chakraTheme.fonts,
-    body: fontStack,
-    heading: fontStack,
+    body: systemFontStack,
+    heading: systemFontStack,
     mono: `"Source Code Pro",Consolas,Monaco,Menlo,monospace`
   },
   colors: {

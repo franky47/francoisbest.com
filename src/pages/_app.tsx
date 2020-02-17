@@ -4,6 +4,8 @@ import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core'
 import theme from '../ui/theme'
 import { Global, css } from '@emotion/core'
 
+import 'source-serif-pro/source-serif-pro.css'
+
 const globalCss = css`
   html {
     font-family: ${theme.fonts['body']};

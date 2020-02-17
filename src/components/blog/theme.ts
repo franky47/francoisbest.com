@@ -4,7 +4,7 @@ const blogTheme = {
   ...baseTheme,
   fonts: {
     ...baseTheme.fonts,
-    body: 'Bitter,Georgia,serif'
+    body: '"Source Serif Pro",Georgia,serif'
   }
 }
 

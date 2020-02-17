@@ -5,7 +5,6 @@ import { ArticleMeta } from './types'
 import ArticleHeader from './Header'
 import Mdx from './Mdx'
 import blogTheme from './theme'
-import Head from 'next/head'
 import ArticleFooter from './Footer'
 import { NextSeo } from 'next-seo'
 import Nav from '../Nav'
@@ -33,12 +32,6 @@ const Article: React.SFC<ArticleProps> = ({ meta, children, ...props }) => {
   const { ref, readingTime } = useReadingTime()
   return (
     <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css?family=Bitter&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
       <NextSeo
         title={meta.title}
         description="A blog post by François Best"

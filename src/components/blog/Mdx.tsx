@@ -4,6 +4,7 @@ import * as Typography from '../primitives/Typography'
 import { Box, Text, Code, List, ListItem, Divider } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import theme from './theme'
+import baseTheme from '../../ui/theme'
 import { OutgoingLink } from '../primitives/Links'
 import { useColor, useLinkColor } from '../../ui/colors'
 
@@ -27,8 +28,9 @@ export const mdxComponents = {
   h5: Typography.H5,
   h6: Typography.H6,
   p: Typography.Paragraph,
+
   small: (p: any) => <Text as="small" {...p} />,
-  b: (p: any) => <Text as="b" {...p} />,
+  strong: (p: any) => <Text as="strong" fontWeight="semibold" {...p} />,
   i: (p: any) => <Text as="i" {...p} />,
 
   blockquote: (p: any) => (
@@ -64,8 +66,8 @@ export const mdxComponents = {
   figcaption: (p: any) => (
     <Text
       fontSize="sm"
-      fontStyle="italic"
       textAlign="center"
+      fontFamily={baseTheme.fonts.body}
       color={useColor('gray.600', 'gray.400')}
       mt={2}
       {...p}
@@ -73,7 +75,7 @@ export const mdxComponents = {
   ),
   inlineCode: (p: any) => (
     <Code
-      fontSize="0.9em"
+      fontSize="0.85em"
       fontWeight="medium"
       color={useColor('gray.700', 'gray.300')}
       px={1}
