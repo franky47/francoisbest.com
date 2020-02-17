@@ -10,6 +10,7 @@ import { H3, H4 } from '../../components/primitives/Typography'
 import { RouteLink } from '../../components/primitives/Links'
 import Tags, { Tag } from '../../components/blog/Tags'
 import { useRouter } from 'next/dist/client/router'
+import { NextSeo } from 'next-seo'
 
 interface Post {
   slug: string
@@ -50,6 +51,24 @@ const PostsIndex: NextPage<IndexProps> = ({ posts }) => {
 
   return (
     <>
+      <NextSeo
+        title="Articles | François Best"
+        description="I write about TypeScript, Node.js, security and privacy."
+        canonical="https://francoisbest.com/posts"
+        additionalMetaTags={[{ property: 'author', content: 'François Best' }]}
+        twitter={{
+          cardType: 'summary',
+          handle: 'fortysevenfx',
+          site: 'fortysevenfx'
+        }}
+        openGraph={{
+          type: 'website',
+          profile: {
+            firstName: 'François',
+            lastName: 'Best'
+          }
+        }}
+      />
       <Nav />
       <Box as="main" maxW="xl" mx="auto" px={[3, 3, 1]} mt={12}>
         {tag && (

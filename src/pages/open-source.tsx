@@ -105,7 +105,7 @@ const OpenSourcePage: NextPage = () => {
   return (
     <>
       <NextSeo
-        title="François Best | Open Source"
+        title="Open Source | François Best"
         description="A list of open-source projects &amp; packages I contribute to."
         canonical="https://francoisbest.com/open-source"
         additionalMetaTags={[{ property: 'author', content: 'François Best' }]}

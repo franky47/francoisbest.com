@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { NextSeo } from 'next-seo'
+import { NextSeo, SocialProfileJsonLd } from 'next-seo'
 import { Box, Heading, Stack, Text, Link, Button } from '@chakra-ui/core'
 import Logo from '../components/Logo'
 import JsonBlock from '../components/JsonBlock'
@@ -32,6 +32,12 @@ const HomePage: NextPage = () => {
           }
           // todo: Add images
         }}
+      />
+      <SocialProfileJsonLd
+        type="Person"
+        name="François Best"
+        url="https://francoisbest.com"
+        sameAs={['https://twitter.com/fortysevenfx']}
       />
       <Nav />
       <Stack as="main" spacing={20} py={20} px={2}>
