@@ -9,6 +9,6 @@ Built with:
 
 ## Inspiration & Thanks
 
-[Juan Olvera](https://jolvera.dev/blog)
-[Max Stoiber](https://github.com/mxstbr/mxstbr.com)
-[Guillermo Rauch](https://rauchg.com)
+- [Juan Olvera](https://jolvera.dev/blog)
+- [Max Stoiber](https://github.com/mxstbr/mxstbr.com)
+- [Guillermo Rauch](https://rauchg.com)
