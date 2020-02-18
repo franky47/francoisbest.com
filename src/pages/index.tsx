@@ -16,9 +16,36 @@ const HomePage: NextPage = () => {
     <>
       <NextSeo
         title="François Best | Freelance Developer"
-        description="Freelance Developer"
+        description="I am a web developer interested in security and privacy in web technologies."
         canonical="https://francoisbest.com"
-        additionalMetaTags={[{ property: 'author', content: 'François Best' }]}
+        additionalMetaTags={[
+          { property: 'author', content: 'François Best' },
+          {
+            property: 'keywords',
+            content: [
+              'bio',
+              'homepage',
+              'engineer',
+              'developer',
+              'freelance',
+              'remote',
+              'typescript',
+              'node.js',
+              'node',
+              'react',
+              'open-source',
+              'open source',
+              'privacy',
+              'security',
+              'cryptography',
+              'e2ee',
+              'end-to-end encryption',
+              'end to end encryption',
+              'surveillance',
+              'web'
+            ].join(',')
+          }
+        ]}
         twitter={{
           cardType: 'summary',
           handle: 'fortysevenfx',
