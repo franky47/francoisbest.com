@@ -25,7 +25,6 @@ export const RouteLink: React.FC<RouteLinkProps> = ({
 }) => {
   const router = useRouter()
   const underline = navLink && router?.asPath === as
-
   return (
     <NextLink href={to} passHref as={as}>
       <ChakraLink textDecoration={underline ? 'underline' : 'none'} {...props}>

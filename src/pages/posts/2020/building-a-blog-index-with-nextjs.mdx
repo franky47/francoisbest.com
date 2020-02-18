@@ -1,0 +1,109 @@
+import { Alert, AlertIcon, Text } from '@chakra-ui/core'
+import Article from '~/src/components/blog/Article'
+import { OutgoingLink } from '~/src/components/primitives/Links'
+
+export const meta = {
+  title: 'Building A Blog Index With Next.js',
+  // publicationDate: '2020-02-17',
+  tags: ['next.js'],
+  summary:
+    'How this page was build using getStaticProps, the experimental Static Site Generation (SSG) feature from Next.js.',
+  alsoPublishedOn: []
+}
+
+export default ({ children, ...props }) => (
+  <Article meta={meta} {...props}>
+    {children}
+  </Article>
+)
+
+<!----------------------------------------------------------------------------->
+
+I've been using [Next.js](https://nextjs.org/) to build web applications for
+my clients, and I really enjoy it. It's simple to pick up, and opinionated just
+enough to remove some of the annoying boilerplate of maintaining a React app.
+
+It also makes it very easy to export static sites, a feature I use for this
+very blog, as there is no need for a server: the articles are
+[versioned on GitHub](https://github.com/franky47/francoisbest.com/tree/develop/src/pages/posts),
+compiled from [MDX](https://mdxjs.com) to HTML/CSS/JS and uploaded to a static
+file hosting service.
+
+A few months ago, an [RFC](https://github.com/zeit/next.js/issues/9524)
+was opened to discuss Static Site Generation (SSR) on the Next.js repository.
+This blog gave me an occasion to try this feature, to build the index page
+found at [francoisbest.com/posts](/posts).
+
+One of the proposed additions in the RFC is a function exported from any page,
+that will calculate props only at build time and not at runtime.
+
+Next.js already has one of these opt-in "magic methods" that add functionnality,
+`getInitialProps`, to server-side render things. It could have worked to
+generate the index server-side, but considering that the list of articles is
+a static resource, it would be incredibly wasteful, hence the proposition to
+add a new magic method, `getStaticProps`, which runs only at build time.
+
+## Requirements & Specifications
+
+To generate a list of articles, we need the following information:
+
+- A list of all the articles, from the filesystem
+- For each article, the exported metadata
+
+From this, we can generate an index that will:
+
+- List only published articles (drafts are unlisted)
+- Sort the articles by year/date of publication
+- Expose tags as links for filtering by category
+
+## Listing The Articles
+
+Most of the code required to list the articles, extract the metadata is
+available in an
+[example in the Next.js repository](https://github.com/zeit/next.js/blob/canary/examples/blog-starter/posts/get-blog-posts.js).
+
+I'm going to list some issues I had integrating it.
+
+## When `__dirname` does not work
+
+Because the index lives
+
+## Metadata Import, `require` and Webpack
+
+Each article exports metadata, including the title of the article, its
+publication date, some tags, links to other blogging services & discussion
+platforms etc..
+It looks like this:
+
+```ts
+export const meta = {
+  title: 'Building A Blog Index With Next.js',
+  publicationDate: '2020-02-17',
+  tags: ['next.js'],
+  alsoPublishedOn: []
+}
+```
+
+To get access to this metadata, the first thing I tried was to `require` the
+MDX file, which gave me this error:
+
+```
+Critical dependency: the request of a dependency is an expression
+```
+
+It turns out webpack does not like runtime expressions in its `require` or
+`import` statements, it needs hardcoded paths to do its thing.
+
+A solution that was added as an
+
+is to read the file from the filesystem, extract the metadata block using
+a Regex, and `eval` the result.
+
+This is the kind of thing I would never do with external data, but since I'm
+only working locally with my own articles, I'm OK to put that behind me.
+
+## Final Code
+
+The source code for the index page can be found along the rest of the articles,
+in the [`franky47/francoisbest.com`](https://github.com/franky47/francoisbest.com/blob/d057962039e55262e7629281a6193175bc524e72/src/pages/posts/index.tsx)
+repository on GitHub.

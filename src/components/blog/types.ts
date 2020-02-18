@@ -5,8 +5,8 @@ export interface AlsoPublishedOn {
 
 export interface ArticleMeta {
   title: string
+  summary: string
   publicationDate?: string
-  preview?: () => JSX.Element
   tags?: string[]
   alsoPublishedOn?: AlsoPublishedOn[]
 }

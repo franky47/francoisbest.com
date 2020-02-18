@@ -1,12 +1,12 @@
 import React from 'react'
 import readingTime from 'reading-time'
+import { NextSeo } from 'next-seo'
 import { Box, ThemeProvider } from '@chakra-ui/core'
 import { ArticleMeta } from './types'
 import ArticleHeader from './Header'
 import Mdx from './Mdx'
 import blogTheme from './theme'
 import ArticleFooter from './Footer'
-import { NextSeo } from 'next-seo'
 import Nav from '../Nav'
 
 export interface ArticleProps {
@@ -34,8 +34,14 @@ const Article: React.SFC<ArticleProps> = ({ meta, children, ...props }) => {
     <>
       <NextSeo
         title={meta.title}
-        description="A blog post by François Best"
-        additionalMetaTags={[{ property: 'author', content: 'François Best' }]}
+        description={meta.summary}
+        additionalMetaTags={[
+          { property: 'author', content: 'François Best' },
+          meta.tags?.length > 0 && {
+            property: 'keywords',
+            content: meta.tags.join(',')
+          }
+        ].filter(Boolean)}
         twitter={{
           cardType: 'summary',
           handle: 'fortysevenfx',
@@ -44,9 +50,9 @@ const Article: React.SFC<ArticleProps> = ({ meta, children, ...props }) => {
         openGraph={{
           type: 'article',
           title: meta.title,
+          description: meta.summary,
           article: {
             publishedTime: meta.publicationDate,
-            modifiedTime: meta.publicationDate,
             authors: ['https://francoisbest.com'],
             tags: meta.tags
           }
