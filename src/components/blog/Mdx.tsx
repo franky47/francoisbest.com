@@ -5,7 +5,7 @@ import { Box, Text, Code, List, ListItem, Divider } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import theme from './theme'
 import baseTheme from '../../ui/theme'
-import { OutgoingLink } from '../primitives/Links'
+import { OutgoingLink, RouteLink } from '../primitives/Links'
 import { useColor, useLinkColor } from '../../ui/colors'
 
 const StyledLink = styled(OutgoingLink)`
@@ -43,13 +43,13 @@ export const mdxComponents = {
       {...p}
     />
   ),
-  a: (p: any) => (
-    <StyledLink
-      color={useLinkColor()}
-      isExternal={!p.href.startsWith('#')}
-      {...p}
-    />
-  ),
+  a: (p: any) => {
+    if (p.href.startsWith('#') || p.href.startsWith('/')) {
+      return <RouteLink to={p.href} color={useLinkColor()} {...p} />
+    }
+    return <StyledLink color={useLinkColor()} {...p} />
+  },
+
   ul: (p: any) => (
     <Typography.Paragraph as="div">
       <List styleType="disc" {...p} />
