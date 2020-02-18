@@ -82,7 +82,7 @@ export async function generateSyndicationFeeds(posts: Post[]) {
     .forEach(post => {
       feed.addItem({
         title: post.meta.title,
-        id: `${post.year}-${post.slug}`,
+        id: `https://francoisbest.com/posts/${post.year}/${post.slug}`,
         link: `https://francoisbest.com/posts/${post.year}/${post.slug}`,
         description: post.meta.summary,
         content: `${post.meta.summary}
