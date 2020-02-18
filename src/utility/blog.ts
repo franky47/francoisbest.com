@@ -86,12 +86,7 @@ export async function generateSyndicationFeeds(posts: Post[]) {
         link: `https://francoisbest.com/posts/${post.year}/${post.slug}`,
         description: post.meta.summary,
         content: `${post.meta.summary}
-
-Read the full article at:
-https://francoisbest.com/posts/${post.year}/${post.slug}
-
-(no ads, paywall or corporate tracking, I hate those things too)
-`,
+<a href="https://francoisbest.com/posts/${post.year}/${post.slug}">Full article</a>.`,
         author: [
           {
             name: 'Francois Best',
