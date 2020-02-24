@@ -32,7 +32,8 @@ const ArticleFooter: React.SFC<ArticleFooterProps> = ({ meta, ...props }) => {
         {meta.alsoPublishedOn?.length > 0 && (
           <>
             <Text fontStyle="italic" mb={2}>
-              I'm interested in your feedback ! Leave a comment on:
+              I'm interested in your feedback ! Leave a (constructive) comment
+              on:
             </Text>
             <List styleType="disc" mb={4} ml={2}>
               {meta.alsoPublishedOn.map(apo => (
