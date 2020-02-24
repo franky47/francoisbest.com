@@ -83,7 +83,7 @@ So what can you do to protect yourself ?
 There has been some research by
 [Julien Renaux](https://julienrenaux.fr/2019/12/20/github-actions-security-risk/)
 on this topic, where he recommends pinning action versions not by Git tags,
-as recommended by GitHub, but by Git SHA-1, which is immutable.
+but by Git SHA-1, which is immutable.
 
 This article builds on top of this research, looking specifically at actions
 using Docker and environment variables.
@@ -194,10 +194,15 @@ So what about security updates ? If versions are pinned forever, we miss out on
 critical vulnerabilities being patched up in the actions we use, their
 dependencies and all the dependency graph.
 
-I would like to see services like Dependabot be able to analyse the dependency
-tree of a workflow file, make sure with CodeQL that it is free of known
-vulnerabilities or malicious code, and suggest updates back to the workflow file
-in the form of SHA-1 pinnings.
+Unfortunately for now, while security and maintenance updates of dependencies
+can be automated for action authors, action users have to manually check and
+update their actions, and remember to pin the SHA-1 hash every time.
+
+Services like [Dependabot](https://dependabot.com/github-actions/)
+will eventually become able to analyse the dependency tree of a workflow file,
+make sure with [CodeQL](https://securitylab.github.com/tools/codeql)
+that it is free of known vulnerabilities or malicious code, and suggest updates
+back to the workflow file, hopefully in the form of SHA-1 pinnings.
 
 ---
 
@@ -232,10 +237,12 @@ When used, one can optionally pass an input for the `foo` argument:
 
 - uses: owner/repo@deadf00d
   name: This action does not specify 'foo'
+  # Here, foo = undefined
 - uses: owner/repo@deadf00d
   name: This action specifies 'foo=bar'
   with:
     foo: bar
+  # Here, foo = 'bar'
 ```
 
 In the first call of the `owner/repo` action, the `INPUT_FOO` environment variable
@@ -255,10 +262,12 @@ first call will be vulnerable to injection:
     INPUT_FOO: evil
 - uses: owner/repo@deadf00d
   name: This action does not specify 'foo'
+  # Here, foo = 'evil'
 - uses: owner/repo@deadf00d
   name: This action specifies 'foo=bar'
   with:
     foo: bar
+  # Here, foo = 'bar'
 ```
 
 The first call of `owner/repo` will think the input `foo` was set to `evil`,
@@ -269,8 +278,7 @@ as there is no way to tell if an input environment variable comes from an
 explicit definition or from the global environment of the workflow.
 
 I contacted GitHub on Hacker One regarding that matter, proposing that
-unspecified inputs be cleared of global values, but their response was as
-follows:
+unspecified inputs be cleared of global values, their response was as follows:
 
 > _"In an effort to make the CI environment as dynamic as possible,
 > we've decided to allow full access to the environment and have made the
