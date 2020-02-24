@@ -8,7 +8,12 @@ export const meta = {
   tags: ['security', 'tooling'],
   summary:
     'GitHub Actions are a great way to build powerful customised CI/CD workflows using the power of community-driven resources, but they can be tricky to get right in terms of security.',
-  alsoPublishedOn: []
+  alsoPublishedOn: [
+    {
+      name: 'DEV.to',
+      url: 'https://dev.to/franky47/the-security-of-github-actions-ggj#comments'
+    }
+  ]
 }
 
 export default ({ children, ...props }) => (
@@ -301,7 +306,7 @@ can be compromised, without any GitHub involvement.
 
 As demonstrated before, there are attacks on the NPM ecosystem, and
 a lot of actions use JavaScript because of the convenience it brings.
-A targetted attack on an action's dependency tree could go unnoticed if it
+A targeted attack on an action's dependency tree could go unnoticed if it
 activates only in the context of a specific workflow run.
 
 ## Closing Notes
