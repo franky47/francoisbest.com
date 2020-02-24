@@ -1,0 +1,304 @@
+import { Alert, AlertIcon, Text } from '@chakra-ui/core'
+import Article from '~/src/components/blog/Article'
+import { OutgoingLink } from '~/src/components/primitives/Links'
+
+export const meta = {
+  title: 'The Security of GitHub Actions',
+  // publicationDate: '2020-02-17',
+  tags: ['security', 'tooling'],
+  summary:
+    'GitHub Actions are a great way to build powerful customised CI/CD workflows using the power of community-driven resources, but they can be tricky to get right in terms of security.',
+  alsoPublishedOn: []
+}
+
+export default ({ children, ...props }) => (
+  <Article meta={meta} {...props}>
+    {children}
+  </Article>
+)
+
+<!----------------------------------------------------------------------------->
+
+[GitHub Actions](https://github.com/features/actions)
+are a great way to build powerful customised CI/CD workflows using the power of
+community-driven resources, but they can be tricky to get right in terms of
+security.
+
+## Remote Code Execution as a Service
+
+What GitHub gave us with Actions is basically the opportunity to run
+([almost](https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions#usage-limits))
+any code on their servers. This makes for a large attack surface and lengthy
+discussions, so let me define some boundaries.
+
+This article is not about the kind of security regarding attacks against GitHub,
+but rather against yourself, when implementing a workflow.
+
+It will also not consider GitHub itself as an adversary, and instead focus on
+threats coming from compromised third party actions and their impact on our
+workflows.
+
+## Attack Vectors
+
+There are a few bad things that can happen to your workflow:
+
+#### 1. Data Theft
+
+A malicious action leaks/steals your API tokens or other secrets required by
+legitimate actions.
+
+#### 2. Data Integrity Breaches
+
+A malicious action modifies one of your built artefacts, injecting it with
+malicious code or corrupting it before it is processed or deployed by a
+legitimate action.
+
+#### 3. Availability
+
+A malicious action crashes on purpose to prevent your workflow from executing
+successfully.
+
+## The Blessings & Curse of the Community
+
+Having people work on their own actions and contributing them back to the
+community is definitely a blessing, as can be seen with the flourishing of the
+JavaScript ecosystem through NPM in the last decade.
+
+But it comes with its woes, as we have seen in the past. Some famous examples
+being the
+[`leftPad` incident](https://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm)
+(an availability _"attack"_), the
+[attacks on ESLint](https://eslint.org/blog/2018/07/postmortem-for-malicious-package-publishes)
+that leaked credentials (data theft) or the
+[`event-stream` attack](https://blog.npmjs.org/post/180565383195/details-about-the-event-stream-incident)
+that targeted Copay's build process (data integrity).
+
+I guess every popular system will gather the interest of attackers, and in the
+end the benefits will probably outweigh the risks, as long as some protections
+are in place. Some are in the hands of GitHub (scanning and removing malicious
+actions), but some are in the hands of the users.
+
+So what can you do to protect yourself ?
+
+There has been some research by
+[Julien Renaux](https://julienrenaux.fr/2019/12/20/github-actions-security-risk/)
+on this topic, where he recommends pinning action versions not by Git tags,
+as recommended by GitHub, but by Git SHA-1, which is immutable.
+
+This article builds on top of this research, looking specifically at actions
+using Docker and environment variables.
+
+## Docker-based Actions
+
+Actions can run in a Docker container, created from an image pulled from
+Docker hub or GitHub's Image Registry. You can specify a tag to use for the
+image, but just like Git tags,
+[Docker tags are not immutable](https://renovate.whitesourcesoftware.com/blog/overcoming-dockers-mutable-image-tags/).
+
+As an example, I have created a small Node.js image:
+
+```dockerfile
+# Dockerfile
+FROM mhart/alpine-node:slim-12
+
+CMD node -e 'console.log("hello")'
+```
+
+```shell
+$ docker build -t franky47/test:foo .
+$ docker push franky47/test:foo
+foo: digest: sha256:0916addef9806b26b46f685028e8d95d4c37e7ed8e6274b822797e90ae6fd88f size: 740
+$ docker run --rm -it franky47/test:foo
+hello
+```
+
+Later on, I modify the image, rebuild and upload it using the same tag:
+
+```dockerfile
+# Dockerfile
+FROM mhart/alpine-node:slim-12
+
+CMD node -e 'console.log("evil")'
+```
+
+```shell
+$ docker build -t franky47/test:foo .
+$ docker push franky47/test:foo
+foo: digest: sha256:85fe141a80820b9db0631252ca4e06cc3ced6f662c540b9c25da645168ae5be7 size: 740
+$ docker run --rm -it franky47/test:foo
+evil
+```
+
+You can see how the tag transparently allows the evil version to run.
+The only defence against that is, just like Git, to use the SHA-256 digest hash
+to pin the image:
+
+```shell
+$ docker run --rm -it franky47/test@sha256:0916addef9806b26b46f685028e8d95d4c37e7ed8e6274b822797e90ae6fd88f
+hello
+$ docker run --rm -it franky47/test@sha256:85fe141a80820b9db0631252ca4e06cc3ced6f662c540b9c25da645168ae5be7
+evil
+```
+
+## Docker for Action Authors
+
+Action authors can use Docker too. They add their Dockerfile to the action
+repository, and tell GitHub where to find it in the `action.yml` metadata file.
+Most of the time, the job runner will build the Docker image from the sources
+before running it onto the workflow.
+
+Because those images are built out-of-band before the workflow runs, it's less
+likely that the Docker build context gets injected with malicious files or
+environment variables to compromise the built image. However, because the
+Dockerfile and the rest of the action repository come from Git, SHA-1 pinning
+is still recommended to be sure of what is being built.
+
+#### Performance vs Security
+
+It seems wasteful to rebuild images for every workflow run that depends
+on a Docker-based action. The image may take a long time to build, and that time
+is taken from the usage limits of everyone who depends on your action,
+it slows their workflows down, and it generally wastes energy.
+
+Once your action is stable, you can build and publish the Docker image, then
+pin it to your `action.yml` file by digest hash:
+
+```yml
+# action.yml
+name: Some action
+runs:
+  using: docker
+  image: docker://franky47/test@sha256:0916addef9806b26b46f685028e8d95d4c37e7ed8e6274b822797e90ae6fd88f
+```
+
+This way, the users of your action will pull the image from the Docker registry
+instead of building it.
+
+The threat model for this kind of delivery method now shifts from your action's
+users to your own workflow (the one you use to build & deploy the Docker image).
+But it has a few advantages:
+- You can review and pin any action you may need to build the image
+- Your image cannot be compromised by being built outside of a boundary you control.
+
+<Alert variant="subtle" status="info" fontSize="md" fontStyle="italic" mb={8}>
+  <AlertIcon />
+  <>
+    Note: the threat model of the Docker registry being compromised or untrusted is out
+    of the scope of this article.
+  </>
+</Alert>
+
+## Keeping Up With The <span style={{ textDecoration: 'line-through'}}>Kardashians</span> Security Updates
+
+So what about security updates ? If versions are pinned forever, we miss out on
+critical vulnerabilities being patched up in the actions we use, their
+dependencies and all the dependency graph.
+
+I would like to see services like Dependabot be able to analyse the dependency
+tree of a workflow file, make sure with CodeQL that it is free of known
+vulnerabilities or malicious code, and suggest updates back to the workflow file
+in the form of SHA-1 pinnings.
+
+---
+
+Regardless of how you provide your action, there is another threat both action
+authors and consumers need to be aware of:
+
+## Environment Variables
+
+GitHub Actions can communicate between one another through environment variables,
+in tandem with the I/O system that GitHub provides. It's considered a feature,
+but it has obvious security implications: **any environment variable exported
+by an action will be part of the environment of all subsequent actions**.
+
+This means that any action that uses the environment should consider it
+potentially hostile. One example is the use of the environment for inputs when
+coupled with the fact that inputs can be optional.
+
+Let's say an action defines its manifest as such:
+
+```yml
+# owner/repo/action.yml
+name: An action
+inputs:
+  foo:
+    required: false
+```
+
+When used, one can optionally pass an input for the `foo` argument:
+
+```yml
+# workflow.yml
+
+- uses: owner/repo@deadf00d
+  name: This action does not specify 'foo'
+- uses: owner/repo@deadf00d
+  name: This action specifies 'foo=bar'
+  with:
+    foo: bar
+```
+
+In the first call of the `owner/repo` action, the `INPUT_FOO` environment variable
+will not be defined, indicating to the action that the user did not specify
+an input for `foo`, asking to use the default value.
+
+The second call specifies a value, so the action will see
+`process.env.INPUT_FOO === 'bar'`
+
+But now if a malicious action inserts itself before those two actions, the
+first call will be vulnerable to injection:
+
+```yml
+# Yep, there's even an action to mutate the global environment:
+- uses: allenevans/set-env@67961d8
+  with:
+    INPUT_FOO: evil
+- uses: owner/repo@deadf00d
+  name: This action does not specify 'foo'
+- uses: owner/repo@deadf00d
+  name: This action specifies 'foo=bar'
+  with:
+    foo: bar
+```
+
+The first call of `owner/repo` will think the input `foo` was set to `evil`,
+but the second call's explicit definition will take precedence.
+
+Unfortunately, there seems to be no defence against that kind of behaviour,
+as there is no way to tell if an input environment variable comes from an
+explicit definition or from the global environment of the workflow.
+
+I contacted GitHub on Hacker One regarding that matter, proposing that
+unspecified inputs be cleared of global values, but their response was as
+follows:
+
+> _"In an effort to make the CI environment as dynamic as possible,
+> we've decided to allow full access to the environment and have made the
+> strict security barrier lie at the ability to write to the workflow file."_
+
+#### Alternative Solution
+
+Because the proposed solution would break existing behaviour, an alternative
+could be for GitHub to define an additional environment variable that lists
+the specified inputs, and to make this variable not injectable from the global
+environment. This way, actions that want to protect themselves could read from
+this variable, look for suspicious input variables and decide what to do.
+
+## Practicality of attacks
+
+GitHub limiting their liability to attacks against the workflow files
+(a malicious maintainer modifying the workflow file in a sneaky pull request)
+is fair enough. However I believe there are other vectors in which an action
+can be compromised, without any GitHub involvement.
+
+As demonstrated before, there are attacks on the NPM ecosystem, and
+a lot of actions use JavaScript because of the convenience it brings.
+A targetted attack on an action's dependency tree could go unnoticed if it
+activates only in the context of a specific workflow run.
+
+## Closing Notes
+
+I think there is a market for automated action dependency analysis, where some
+services like [Snyk](https://snyk.io/) can analyse workflows and report on
+vulnerabilities, suggest actions (pun intended) via pull requests and keep a
+close eye on malicious activity around GitHub Actions.
