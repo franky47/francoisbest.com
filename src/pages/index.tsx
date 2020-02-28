@@ -122,8 +122,20 @@ const HomePage: NextPage = () => {
             way we design, develop and market our digital products.
           </Text>
           <Text>
-            I'm currently working on end-to-end encrypted alternatives to
-            various services. If you'd like to know more, drop me a line on{' '}
+            My current endeavour on this subject is{' '}
+            <Link
+              isExternal
+              href="https://chiffre.io"
+              fontWeight="medium"
+              color="gray.800"
+            >
+              Chiffre.io
+            </Link>
+            , an end-to-end encrypted analytics platform. Short pitch: your
+            business metrics should not be anyone else's business, and E2EE is
+            the only way to make sure of that.
+            <br />
+            If you want to know more, drop me a line on{' '}
             <Link
               href="https://twitter.com/fortysevenfx"
               isExternal
@@ -141,7 +153,7 @@ const HomePage: NextPage = () => {
                 TypeScript packages
               </Link>
             </NextLink>{' '}
-            for Node.js and the browser, on GitHub &amp; NPM, at{' '}
+            for Node.js and the browser, on GitHub &amp; NPM, under the{' '}
             <Link
               isExternal
               href="https://github.com/47ng"
@@ -149,8 +161,8 @@ const HomePage: NextPage = () => {
               color={linkColor}
             >
               @47ng
-            </Link>
-            .
+            </Link>{' '}
+            banner.
           </Text>
         </Stack>
         <Stack as="section" id="code" maxW="xl" w="100%" mx="auto">

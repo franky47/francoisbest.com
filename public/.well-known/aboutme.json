@@ -21,6 +21,11 @@
   },
   "projects": [
     {
+      "name": "Chiffre.io",
+      "description": "End-to-end encrypted analytics platform",
+      "url": "https://chiffre.io"
+    },
+    {
       "name": "Stravels",
       "description": "Share your travels from Strava",
       "url": "https://pwa.stravels.io"
