@@ -13,36 +13,31 @@ jobs:
       - id: yarn-cache
         name: Get Yarn cache path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@722adc6
+      - uses: actions/setup-node@1c5c137
         with:
           node-version: 12.x
-      - uses: actions/cache@v1
+      - uses: actions/cache@70655ec
         name: Load Yarn cache
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      # - uses: actions/cache@v1
-      #   name: Load Next.js cache
-      #   with:
-      #     path: ${{ github.workspace }}/.next/cache
-      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('.next/cache/**') }}
       - run: yarn install --ignore-scripts
         name: Install dependencies
       - run: yarn build
         name: Build Next.js
       - run: yarn export
         name: Export to static HTML/CSS/JS
-      - uses: dswistowski/surge-sh-action@v1
+      - uses: dswistowski/surge-sh-action@341bcbd
         name: Publish to Surge
         with:
           domain: https://francoisbest.com
           project: ./out
           login: ${{ secrets.SURGE_LOGIN }}
           token: ${{ secrets.SURGE_TOKEN }}
-      - uses: 8398a7/action-slack@v2
+      - uses: 8398a7/action-slack@78391c2
         name: Notify on Slack
         if: always() # Pick up events even if the job fails or is canceled.
         with:
