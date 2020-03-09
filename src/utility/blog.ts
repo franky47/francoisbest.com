@@ -7,6 +7,7 @@ import path from 'path'
 export interface Post {
   slug: string
   year: string
+  file: string
   meta: ArticleMeta
 }
 
@@ -42,6 +43,7 @@ export async function listBlogPosts(postsDir: string): Promise<YearPostsMap> {
       ...(posts[year] || []),
       {
         slug: slug.replace(/\.mdx$/, ''), // Remove extension
+        file: postPath,
         year,
         meta
       }

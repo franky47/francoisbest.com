@@ -2,3 +2,4 @@ node_modules/
 out/
 .next/
 public/posts/feed
+public/sitemap.xml

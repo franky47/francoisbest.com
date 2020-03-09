@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://francoisbest.com/sitemap.xml

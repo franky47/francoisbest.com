@@ -12,6 +12,7 @@ class MyDocument extends Document {
       <Html lang="en-GB">
         <Head>
           <Favicons />
+          <link rel="sitemap" href="sitemap.xml" type="application/xml" />
         </Head>
         <body>
           <Main />

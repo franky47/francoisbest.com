@@ -11,6 +11,7 @@ import { useRouter } from 'next/dist/client/router'
 import { NextSeo } from 'next-seo'
 import { FaRss } from 'react-icons/fa'
 import { listBlogPosts, generateSyndicationFeeds } from '../../utility/blog'
+import generateSiteMap from '../../scripts/generateSiteMap'
 
 interface Post {
   slug: string
@@ -123,7 +124,9 @@ export async function unstable_getStaticProps(): Promise<{
 }> {
   const postsDir = path.resolve(process.cwd(), 'src/pages/posts')
   const posts = await listBlogPosts(postsDir)
-  await generateSyndicationFeeds(Object.values(posts).flat())
+  const postsList = Object.values(posts).flat()
+  await generateSyndicationFeeds(postsList)
+  await generateSiteMap(postsList)
 
   return {
     props: {
