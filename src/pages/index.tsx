@@ -109,7 +109,7 @@ const HomePage: NextPage = () => {
             technologies.
           </Text>
           <Text>
-            In this day and age of{' '}
+            In this day and age of&nbsp;
             <Link
               href="https://en.wikipedia.org/wiki/Surveillance_capitalism"
               isExternal

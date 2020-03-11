@@ -15,24 +15,24 @@
     "release": "run-s clean build export deploy"
   },
   "dependencies": {
-    "@chakra-ui/core": "^0.5.2",
-    "@emotion/core": "^10.0.27",
+    "@chakra-ui/core": "^0.6.1",
+    "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
-    "@mdx-js/loader": "^1.5.5",
-    "@next/mdx": "^9.2.1",
+    "@mdx-js/loader": "^1.5.7",
+    "@next/mdx": "^9.3.0",
     "emotion-theming": "^10.0.27",
     "feed": "^4.1.0",
-    "next": "^9.2.1",
-    "next-seo": "^4.1.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "next": "^9.3.0",
+    "next-seo": "^4.4.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
     "react-syntax-highlighter": "^12.2.1",
     "reading-time": "^1.2.0",
     "source-serif-pro": "^3.1.0"
   },
   "devDependencies": {
-    "@types/node": "^13.7.0",
+    "@types/node": "^13.9.0",
     "@types/react-syntax-highlighter": "^11.0.4",
     "globby": "^11.0.0",
     "npm-run-all": "^4.1.5",
@@ -41,7 +41,7 @@
     "serve": "^11.3.0",
     "surge": "^0.21.3",
     "ts-node": "^8.6.2",
-    "typescript": "^3.7.5",
+    "typescript": "^3.8.3",
     "walkdir": "^0.4.1"
   }
 }

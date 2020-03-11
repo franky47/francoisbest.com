@@ -119,7 +119,7 @@ const PostsIndex: NextPage<IndexProps> = ({ posts }) => {
   )
 }
 
-export async function unstable_getStaticProps(): Promise<{
+export async function getStaticProps(): Promise<{
   props: IndexProps
 }> {
   const postsDir = path.resolve(process.cwd(), 'src/pages/posts')
