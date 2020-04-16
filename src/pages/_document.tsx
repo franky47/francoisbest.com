@@ -25,9 +25,9 @@ class MyDocument extends Document {
                 dangerouslySetInnerHTML={{
                   __html: `{
                 "publicKey": "pk.JkCGUvZxyfMTZ4NB1pxwq7mgHC1Ih0j5EzuXVgRG5B0",
-                "pushURL": "https://push.chiffre.io/qlXAgUdLZmuW8vTm"
+                "pushURL": "https://push.chiffre.io/event/qlXAgUdLZmuW8vTm"
               }
-              `
+              `,
                 }}
               />
               <script
