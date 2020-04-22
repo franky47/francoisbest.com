@@ -16,21 +16,42 @@ const projects: Project[] = [
     repo: '47ng/fastify-micro',
     description:
       'Opinionated Node.js microservices framework built on fastify ⚡️',
-    keywords: ['fastify', 'microservice-framework']
+    keywords: ['fastify', 'microservice-framework'],
+  },
+  {
+    type: 'npm',
+    name: '@47ng/chakra-next',
+    repo: '47ng/chakra-next',
+    description:
+      'Opinionated design system for React, based on Chakra UI + Next.js, written in TypeScript',
+    keywords: ['react', 'nextjs', 'chakra-ui', 'design-system', 'typescript'],
+  },
+  {
+    type: 'npm',
+    name: 'actions-clever-cloud',
+    repo: '47ng/actions-clever-cloud',
+    description: 'GitHub Action to deploy to Clever Cloud',
+    keywords: [
+      'github-actions',
+      'clever-cloud',
+      'deployment',
+      'ci/cd',
+      'tooling',
+    ],
   },
   {
     type: 'npm',
     name: 'fastify-cron',
     repo: '47ng/fastify-cron',
     description: 'Run cron jobs alongside your Fastify server 👷',
-    keywords: ['fastify', 'fastify-plugin', 'cron']
+    keywords: ['fastify', 'fastify-plugin', 'cron'],
   },
   {
     type: 'npm',
     name: 'session-keystore',
     repo: '47ng/session-keystore',
     description: 'Secure cryptographic key storage in the browser and Node.js',
-    keywords: ['key-storage', 'session-storage']
+    keywords: ['key-storage', 'session-storage'],
   },
   {
     type: 'npm',
@@ -42,8 +63,8 @@ const projects: Project[] = [
       'redact',
       'secrets',
       'security',
-      'logging'
-    ]
+      'logging',
+    ],
   },
   {
     type: 'npm',
@@ -56,8 +77,8 @@ const projects: Project[] = [
       'env',
       'environment',
       'environment-variables',
-      'alias'
-    ]
+      'alias',
+    ],
   },
   {
     type: 'npm',
@@ -65,7 +86,7 @@ const projects: Project[] = [
     repo: '47ng/check-env',
     description:
       'Check that required environment variables are set for your app',
-    keywords: ['environment', 'environment-variables']
+    keywords: ['environment', 'environment-variables'],
   },
   {
     type: 'npm',
@@ -73,7 +94,7 @@ const projects: Project[] = [
     repo: '47ng/cloak',
     description:
       'Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js',
-    keywords: ['cryptography', 'aes-256-gcm']
+    keywords: ['cryptography', 'aes-256-gcm'],
   },
   {
     type: 'npm',
@@ -89,16 +110,16 @@ const projects: Project[] = [
       'hex',
       'browser',
       'nodejs',
-      'int8array'
-    ]
+      'int8array',
+    ],
   },
   {
     type: 'npm',
     name: 'tapers',
     repo: '47ng/tapers',
     description: 'Transform [0;1] <=> [X,Y] values with custom curves',
-    keywords: ['maths', 'curves', 'transforms', 'normalize', 'denormalize']
-  }
+    keywords: ['maths', 'curves', 'transforms', 'normalize', 'denormalize'],
+  },
 ]
 
 const OpenSourcePage: NextPage = () => {
@@ -112,14 +133,14 @@ const OpenSourcePage: NextPage = () => {
         twitter={{
           cardType: 'summary',
           handle: 'fortysevenfx',
-          site: 'fortysevenfx'
+          site: 'fortysevenfx',
         }}
         openGraph={{
           type: 'website',
           profile: {
             firstName: 'François',
-            lastName: 'Best'
-          }
+            lastName: 'Best',
+          },
           // todo: Add images
         }}
       />
