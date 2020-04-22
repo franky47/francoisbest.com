@@ -28,19 +28,6 @@ const projects: Project[] = [
   },
   {
     type: 'npm',
-    name: 'actions-clever-cloud',
-    repo: '47ng/actions-clever-cloud',
-    description: 'GitHub Action to deploy to Clever Cloud',
-    keywords: [
-      'github-actions',
-      'clever-cloud',
-      'deployment',
-      'ci/cd',
-      'tooling',
-    ],
-  },
-  {
-    type: 'npm',
     name: 'fastify-cron',
     repo: '47ng/fastify-cron',
     description: 'Run cron jobs alongside your Fastify server 👷',
