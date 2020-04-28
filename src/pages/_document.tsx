@@ -32,8 +32,16 @@ class MyDocument extends Document {
               />
               <script
                 src="https://embed.chiffre.io/analytics.js"
+                crossOrigin="anonymous"
                 async
               ></script>
+              <noscript>
+                <img
+                  src="https://push.chiffre.io/noscript/qlXAgUdLZmuW8vTm?xhr=noscript"
+                  alt="Chiffre.io anonymous visit counting for clients without JavaScript"
+                  crossOrigin="anonymous"
+                />
+              </noscript>
             </>
           )}
         </body>
