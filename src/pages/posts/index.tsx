@@ -24,7 +24,14 @@ const PostsIndex: NextPage = () => {
         description="I write about TypeScript, Node.js, React, security and privacy."
         canonical={useURL('/posts')}
         openGraph={{
-          title: 'Articles by François Best'
+          title: 'Articles by François Best',
+          images: [
+            {
+              url: '/images/posts/og.jpg',
+              width: 1280,
+              height: 720
+            }
+          ]
         }}
       />
       <PageLayout>
