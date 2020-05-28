@@ -1,5 +1,4 @@
 import React from 'react'
-import Divider from '@chakra-ui/core/dist/Divider'
 import Stack from '@chakra-ui/core/dist/Stack'
 import { NextSeo } from 'next-seo'
 import { ExtendedPostFrontMatter, PostMetadata } from 'src/types'

@@ -1,9 +1,17 @@
 import React from 'react'
-import { Text, BoxProps, Image, Stack, Badge, useTheme } from '@chakra-ui/core'
-// import NpmIcon from '../icons/Npm'
-import GitHubIcon from '../icons/GitHub'
+import {
+  Text,
+  BoxProps,
+  Image,
+  Stack,
+  Badge,
+  useTheme,
+  Box
+} from '@chakra-ui/core'
+import { NpmIcon } from '../icons/Npm'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { useColor } from '../../ui/colors'
+import { useColor } from 'src/ui/colors'
+import { FiGithub } from 'react-icons/fi'
 
 export interface NpmPackageProps extends BoxProps {
   name: string
@@ -27,7 +35,7 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
   return (
     <Stack {...props}>
       <Stack isInline alignItems="center">
-        {/* // <NpmIcon mb={-1} /> */}
+        <NpmIcon mb={-1} />
         <OutgoingLink
           href={packageUrl}
           fontSize="md"
@@ -39,7 +47,7 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
         <Text color="gray.400" fontWeight="thin">
           |
         </Text>
-        <GitHubIcon size={4} />
+        <Box as={FiGithub} size={4} role="img" aria-label="GitHub" />
         <OutgoingLink
           href={repoUrl}
           fontSize="md"

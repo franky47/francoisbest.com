@@ -1,7 +1,7 @@
 import React from 'react'
-import SvgBox, { SvgBoxProps } from '../primitives/SvgBox'
+import { SvgBox, SvgBoxProps } from '@47ng/chakra-next'
 
-const GitHubIcon: React.FC<SvgBoxProps> = ({ size = 6, ...props }) => (
+export const NpmIcon: React.FC<SvgBoxProps> = ({ size = 6, ...props }) => (
   <SvgBox role="img" viewBox="0 0 24 24" width={size} height={size} {...props}>
     <title>NPM icon</title>
     <path
@@ -10,5 +10,3 @@ const GitHubIcon: React.FC<SvgBoxProps> = ({ size = 6, ...props }) => (
     />
   </SvgBox>
 )
-
-export default GitHubIcon

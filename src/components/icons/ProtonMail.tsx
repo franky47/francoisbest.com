@@ -1,7 +1,10 @@
 import React from 'react'
-import SvgBox, { SvgBoxProps } from '../primitives/SvgBox'
+import { SvgBox, SvgBoxProps } from '@47ng/chakra-next'
 
-const ProtonMailIcon: React.FC<SvgBoxProps> = ({ size = 4, ...props }) => (
+export const ProtonMailIcon: React.FC<SvgBoxProps> = ({
+  size = 4,
+  ...props
+}) => (
   <SvgBox role="img" viewBox="0 0 24 24" width={size} height={size} {...props}>
     <title>ProtonMail icon</title>
     <path
@@ -10,5 +13,3 @@ const ProtonMailIcon: React.FC<SvgBoxProps> = ({ size = 4, ...props }) => (
     />
   </SvgBox>
 )
-
-export default ProtonMailIcon
