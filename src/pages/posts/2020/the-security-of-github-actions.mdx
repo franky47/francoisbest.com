@@ -1,36 +1,28 @@
+---
+title: The Security of GitHub Actions
+description: GitHub Actions are a great way to build powerful customised CI/CD workflows using the power of community-driven resources, but they can be tricky to get right in terms of security.
+publicationDate: 2020-02-24
+# tags:
+#   - security
+#   - tooling
+---
+
 import { Alert, AlertIcon, Text } from '@chakra-ui/core'
-import Article from '~/src/components/blog/Article'
-import { OutgoingLink } from '~/src/components/primitives/Links'
 
-export const meta = {
-  title: 'The Security of GitHub Actions',
-  publicationDate: '2020-02-24',
-  tags: ['security', 'tooling'],
-  summary:
-    'GitHub Actions are a great way to build powerful customised CI/CD workflows using the power of community-driven resources, but they can be tricky to get right in terms of security.',
-  alsoPublishedOn: [
-    {
-      name: 'DEV.to',
-      url: 'https://dev.to/franky47/the-security-of-github-actions-ggj#comments'
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/fortysevenfx/status/1231943857283137537'
-    },
-    {
-      name: 'Hacker News',
-      url: 'https://news.ycombinator.com/item?id=22404046'
-    }
-  ]
-}
-
-export default ({ children, ...props }) => (
-  <Article meta={meta} {...props}>
-    {children}
-  </Article>
-)
-
-<!----------------------------------------------------------------------------->
+<!--
+  {
+    name: 'DEV.to',
+    url: 'https://dev.to/franky47/the-security-of-github-actions-ggj#comments'
+  },
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/fortysevenfx/status/1231943857283137537'
+  },
+  {
+    name: 'Hacker News',
+    url: 'https://news.ycombinator.com/item?id=22404046'
+  }
+-->
 
 [GitHub Actions](https://github.com/features/actions)
 are a great way to build powerful customised CI/CD workflows using the power of
@@ -190,14 +182,15 @@ instead of building it.
 The threat model for this kind of delivery method now shifts from your action's
 users to your own workflow (the one you use to build & deploy the Docker image).
 But it has a few advantages:
+
 - You can review and pin any action you may need to build the image
 - Your image cannot be compromised by being built outside of a boundary you control.
 
 <Alert variant="subtle" status="info" fontSize="md" fontStyle="italic" mb={8}>
   <AlertIcon />
   <>
-    Note: the threat model of the Docker registry being compromised or untrusted is out
-    of the scope of this article.
+    Note: the threat model of the Docker registry being compromised or untrusted
+    is out of the scope of this article.
   </>
 </Alert>
 

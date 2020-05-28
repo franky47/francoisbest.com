@@ -1,23 +1,9 @@
-import { Alert, AlertIcon, Text } from '@chakra-ui/core'
-import Article from '~/src/components/blog/Article'
-import { OutgoingLink } from '~/src/components/primitives/Links'
-
-export const meta = {
-  title: 'Building A Blog Index With Next.js',
-  // publicationDate: '2020-02-17',
-  tags: ['next.js'],
-  summary:
-    'How this page was build using getStaticProps, the experimental Static Site Generation (SSG) feature from Next.js.',
-  alsoPublishedOn: []
-}
-
-export default ({ children, ...props }) => (
-  <Article meta={meta} {...props}>
-    {children}
-  </Article>
-)
-
-<!----------------------------------------------------------------------------->
+---
+title: Building A Blog Index With Next.js
+description: How this page was build using getStaticProps, the experimental Static Site Generation (SSG) feature from Next.js
+tags:
+  - next.js
+---
 
 I've been using [Next.js](https://nextjs.org/) to build web applications for
 my clients, and I really enjoy it. It's simple to pick up, and opinionated just

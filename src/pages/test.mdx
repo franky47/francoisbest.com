@@ -1,0 +1,124 @@
+---
+title: 'Title goes here'
+layout: PageLayout
+---
+
+<TweetEmbed id="1257955937882648576" />
+
+## Headings
+
+# H1 heading
+
+## H2 heading
+
+### H3 heading
+
+#### H4 heading
+
+##### H5 heading
+
+###### H6 heading
+
+## Typography
+
+Paragraph of text
+
+_italic text_
+
+**bold text**
+
+_**bold italic**_
+
+## Lists
+
+- first
+- second
+- third
+
+1. first
+2. second
+3. third
+
+## Code
+
+`inline code`
+
+```
+code block without code type
+```
+
+```ts
+const code = 'TypeScript'
+```
+
+```ts{3:4}
+// Testing line highlighting
+const foo = (p: any) => {
+  const isInternal = p.href.startsWith('#') || p.href.startsWith('/')
+  const color = useLinkColor()
+  if (isInternal) {
+    return <RouteLink to={p.href} color={color} {...p} />
+  }
+  return <StyledLink color={color} {...p} />
+}
+```
+
+    Four spaces before text block
+
+## Links
+
+[Link](https://example.com)
+
+[`link/with/code`](https://example.com)
+
+[Broken external link](https://nope.francoisbest.com)
+
+[Broken internal link](/nope)
+
+[Broken anchor](#nope)
+
+[Reference link][ref]
+
+[ref] https://example.com
+
+## Footnotes
+
+Here is a footnote reference,[^1]
+another,[^longnote],
+and optionally there are inline
+notes.^[is it spaces ?]
+
+[^1]: Here is the footnote.
+[^longnote]: Here’s one with multiple blocks.
+
+  Subsequent paragraphs are indented to show that they
+
+belong to the previous footnote.
+
+        { some.code }
+
+    The whole paragraph can be indented, or just the first
+    line.  In this way, multi-paragraph footnotes work like
+    multi-paragraph list items.
+
+This paragraph won’t be part of the note, because it
+isn’t indented.
+
+## Other
+
+> Blockquote
+
+Type <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>cmd</kbd> to get started
+
+---
+
+- [ ] Checkbox
+- [x] Checked
+- ( ) Radio
+- (•) Checked ?
+- ✅ Yay
+- ❌ Nope
+
+Image:
+
+![Alt text](/favicons/apple-icon.png)

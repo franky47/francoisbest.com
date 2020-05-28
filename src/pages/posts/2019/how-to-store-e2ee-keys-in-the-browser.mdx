@@ -1,26 +1,11 @@
-import Article from '~/src/components/blog/Article'
-
-export const meta = {
-  title: 'How To Store End-to-End Encryption Keys In The Browser',
-  publicationDate: '2019-12-13',
-  summary:
-    "End-to-end encrypted applications use cryptographic keys that don't leave the client, so how do we store them securely in the browser ?",
-  tags: ['e2ee', 'security'],
-  alsoPublishedOn: [
-    {
-      name: 'DEV.to',
-      url: 'https://dev.to/franky47/how-to-store-e2ee-keys-in-the-browser-2550'
-    }
-  ]
-}
-
-export default ({ children, ...props }) => (
-  <Article meta={meta} {...props}>
-    {children}
-  </Article>
-)
-
-<!----------------------------------------------------------------------------->
+---
+title: How To Store End-to-End Encryption Keys In The Browser
+description: End-to-end encrypted applications use cryptographic keys that don't leave the client, so how do we store them securely in the browser ?
+publicationDate: 2019-12-13
+tags:
+  - e2ee
+  - security
+---
 
 End-to-end encrypted apps (E2EE) use cryptographic keys that are generated in
 the client, and never sent to the server in clear-text. This is what makes the

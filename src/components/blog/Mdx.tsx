@@ -1,16 +1,24 @@
 import React from 'react'
-import { MDXProvider } from '@mdx-js/react'
-import * as Typography from '../primitives/Typography'
-import { Box, Text, Code, List, ListItem, Divider } from '@chakra-ui/core'
 import styled from '@emotion/styled'
-import theme from './theme'
-import baseTheme from '../../ui/theme'
-import { OutgoingLink, RouteLink } from '../primitives/Links'
-import { useColor, useLinkColor } from '../../ui/colors'
+import Box from '@chakra-ui/core/dist/Box'
+import Text from '@chakra-ui/core/dist/Text'
+import Code from '@chakra-ui/core/dist/Code'
+import Kbd from '@chakra-ui/core/dist/Kbd'
+import List, { ListItem } from '@chakra-ui/core/dist/List'
+import Divider from '@chakra-ui/core/dist/Divider'
+import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
+import * as Typography from 'src/components/primitives/Typography'
+import { theme } from 'src/ui/theme'
+import { useColor, useLinkColor } from 'src/ui/colors'
 
 const StyledLink = styled(OutgoingLink)`
   & code {
-    color: ${p => theme.colors[p.color.split('.')[0]][p.color.split('.')[1]]};
+    color: ${p =>
+      // @ts-ignore
+      theme.colors.accent[p.color.split('.')[1]]};
+  }
+  &:hover code {
+    text-decoration: underline;
   }
 `
 
@@ -22,11 +30,11 @@ const Blockquote = styled(Box)`
 
 export const mdxComponents = {
   h1: Typography.H1,
-  h2: Typography.H2,
-  h3: Typography.H3,
-  h4: Typography.H4,
-  h5: Typography.H5,
-  h6: Typography.H6,
+  h2: (p: Typography.HeadingProps) => <Typography.H2 linkable {...p} />,
+  h3: (p: Typography.HeadingProps) => <Typography.H3 linkable {...p} />,
+  h4: (p: Typography.HeadingProps) => <Typography.H4 linkable {...p} />,
+  h5: (p: Typography.HeadingProps) => <Typography.H5 linkable {...p} />,
+  h6: (p: Typography.HeadingProps) => <Typography.H6 linkable {...p} />,
   p: Typography.Paragraph,
 
   small: (p: any) => <Text as="small" {...p} />,
@@ -44,10 +52,12 @@ export const mdxComponents = {
     />
   ),
   a: (p: any) => {
-    if (p.href.startsWith('#') || p.href.startsWith('/')) {
-      return <RouteLink to={p.href} color={useLinkColor()} {...p} />
+    const isInternal = p.href.startsWith('#') || p.href.startsWith('/')
+    const color = useLinkColor()
+    if (isInternal) {
+      return <RouteLink to={p.href} color={color} {...p} />
     }
-    return <StyledLink color={useLinkColor()} {...p} />
+    return <StyledLink color={color} {...p} />
   },
 
   ul: (p: any) => (
@@ -67,7 +77,6 @@ export const mdxComponents = {
     <Text
       fontSize="sm"
       textAlign="center"
-      fontFamily={baseTheme.fonts.body}
       color={useColor('gray.600', 'gray.400')}
       mt={2}
       {...p}
@@ -83,25 +92,25 @@ export const mdxComponents = {
       {...p}
     />
   ),
-  pre: (p: any) => (
-    <Box
-      as="pre"
-      fontSize="sm"
-      bg={useColor('gray.100', 'gray.900')}
-      p={4}
+  // pre: (p: any) => (
+  //   <Box
+  //     as="pre"
+  //     fontSize="sm"
+  //     bg={useColor('gray.100', '#0f141c')}
+  //     p={4}
+  //     my={8}
+  //     borderRadius={4}
+  //     overflowX="auto"
+  //     {...p}
+  //   />
+  // ),
+  hr: (p: any) => (
+    <Divider
       my={8}
-      borderRadius={4}
-      overflowX="auto"
+      borderColor={useColor('gray.400', 'gray.600')}
+      w="100%"
       {...p}
     />
   ),
-  hr: (p: any) => (
-    <Divider my={8} borderColor={useColor('gray.400', 'gray.600')} {...p} />
-  )
+  kbd: Kbd
 }
-
-const Mdx = ({ children }) => {
-  return <MDXProvider components={mdxComponents}>{children}</MDXProvider>
-}
-
-export default Mdx

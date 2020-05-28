@@ -1,0 +1,53 @@
+import React from 'react'
+import { Container, ContainerProps } from '@47ng/chakra-next'
+import { NavHeader } from './components/NavHeader'
+import { Footer } from './components/Footer'
+import { PageFrontMatter } from 'src/types'
+import { NextSeo } from 'next-seo'
+
+export interface PageLayoutProps extends ContainerProps {}
+
+export const PageLayout: React.FC<PageLayoutProps> = ({
+  children,
+  ...props
+}) => {
+  return (
+    <>
+      <Container as="header" maxW="3xl" w="100%" pt={[2, 12]} px={2}>
+        <NavHeader />
+      </Container>
+      <Container as="main" w="100%" maxW="2xl" px={4} py={8} {...props}>
+        {children}
+      </Container>
+      <Footer />
+    </>
+  )
+}
+
+export default function createPageLayout({
+  title,
+  description,
+  titleAppendSiteName = true,
+  url,
+  ...frontMatter
+}: PageFrontMatter) {
+  return ({ children }: any) => {
+    return (
+      <>
+        <NextSeo
+          title={title}
+          description={description}
+          titleTemplate={titleAppendSiteName ? undefined : '%s'}
+          openGraph={{
+            title,
+            description,
+            url,
+            images: frontMatter.ogImage ? [frontMatter.ogImage] : undefined
+          }}
+          canonical={url}
+        />
+        <PageLayout>{children}</PageLayout>
+      </>
+    )
+  }
+}

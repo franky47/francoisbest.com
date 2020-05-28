@@ -6,8 +6,9 @@ import Logo from '../components/Logo'
 import JsonBlock from '../components/JsonBlock'
 import NextLink from 'next/link'
 import { useColor } from '../ui/colors'
-import Nav from '../components/Nav'
 import ProtonMailIcon from '../components/icons/ProtonMail'
+
+import { PageLayout } from '../layouts/PageLayout'
 
 const HomePage: NextPage = () => {
   const linkColor = useColor('gray.800', 'gray.100')
@@ -67,6 +68,8 @@ const HomePage: NextPage = () => {
         url="https://francoisbest.com"
         sameAs={['https://twitter.com/fortysevenfx']}
       />
+      <PageLayout>Foo</PageLayout>
+
       <Nav />
       <Stack as="main" spacing={20} py={20} px={2}>
         <Stack

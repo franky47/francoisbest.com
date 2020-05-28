@@ -1,23 +1,41 @@
 import React from 'react'
-import { Badge, FlexProps, Flex } from '@chakra-ui/core'
-import { RouteLink } from '../primitives/Links'
+import Flex, { FlexProps } from '@chakra-ui/core/dist/Flex'
+import Badge, { BadgeProps } from '@chakra-ui/core/dist/Badge'
+import { RouteLink } from '@47ng/chakra-next'
 
-export const Tag = ({ name, ...props }) => {
+export interface TagProps extends BadgeProps {
+  name: string
+  interactive?: boolean
+}
+
+export const Tag: React.FC<TagProps> = ({
+  name,
+  interactive = true,
+  ...props
+}) => {
+  const p = {
+    variant: 'subtle',
+    variantColor: 'blue',
+    textTransform: 'none',
+    fontWeight: 'medium',
+    ...props
+  } as const
+  if (!interactive) {
+    return <Badge {...p}>{name}</Badge>
+  }
   return (
     <RouteLink to={`/posts?tag=${name}`}>
-      <Badge variantColor="blue" textTransform="none" {...props}>
-        {name}
-      </Badge>
+      <Badge {...p}>{name}</Badge>
     </RouteLink>
   )
 }
 
 export interface TagsProps extends FlexProps {
-  tags: string[]
+  tags?: string[]
 }
 
-const Tags: React.FC<TagsProps> = ({ tags, ...props }) => {
-  if (tags.length === 0) {
+export const Tags: React.FC<TagsProps> = ({ tags, ...props }) => {
+  if (!tags || tags.length === 0) {
     return null
   }
   return (
@@ -28,5 +46,3 @@ const Tags: React.FC<TagsProps> = ({ tags, ...props }) => {
     </Flex>
   )
 }
-
-export default Tags

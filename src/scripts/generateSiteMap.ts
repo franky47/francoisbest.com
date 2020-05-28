@@ -1,9 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 import globby from 'globby'
-import { Post } from '../utility/blog'
+import { ExtendedPostFrontMatter } from '../types'
+import { useURL } from 'src/hooks/useURL'
 
-export default async function generateSiteMap(posts: Post[]) {
+export async function generateSiteMap(posts: ExtendedPostFrontMatter[]) {
   const pagesDir = path.resolve(process.cwd(), 'src/pages')
 
   const pages = [
@@ -15,7 +16,7 @@ export default async function generateSiteMap(posts: Post[]) {
       `!${pagesDir}/api`
     ])),
     // Inject posts separately (with drafts pre-filtered)
-    ...posts.map(post => post.file)
+    ...posts.map(post => post.path)
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -27,7 +28,7 @@ export default async function generateSiteMap(posts: Post[]) {
         .replace('.tsx', '')
         .replace('.mdx', '')
         .replace(/\/index$/, '')
-      return `<url><loc>https://francoisbest.com${path}</loc></url>`
+      return `<url><loc>${useURL(path)}</loc></url>`
     })
     .join('\n  ')}
 </urlset>`
