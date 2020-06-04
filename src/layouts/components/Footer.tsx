@@ -49,8 +49,8 @@ export const Footer: React.FC<FooterProps> = ({ ...props }) => {
         {...iconProps}
       />
       <OutgoingIconButtonLink
-        icon={props => <DevDotTo {...props} />}
-        aria-label="Dev.to"
+        icon={DevDotTo}
+        aria-label="DEV.to"
         href="https://dev.to/franky47"
         {...iconProps}
       />
