@@ -150,6 +150,15 @@ export const mdxComponents: any = {
   ),
   kbd: Kbd,
   mark: Annotation,
+  del: (p: any) => (
+    <Annotation
+      as="del"
+      type="strike-through"
+      color="black"
+      strokeWidth={2}
+      {...p}
+    />
+  ),
 
   // Global scope:
   RouteLink,

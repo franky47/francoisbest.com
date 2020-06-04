@@ -13,6 +13,10 @@ export interface AnnotationProps extends PseudoBoxProps {
 }
 
 const colors = {
+  black: {
+    light: 'currentColor',
+    dark: 'currentColor'
+  },
   accent: {
     light: 'accent.500',
     dark: 'accent.400'
@@ -20,10 +24,25 @@ const colors = {
   red: {
     light: 'red.600',
     dark: 'red.400'
+  },
+  blue: {
+    light: 'blue.500',
+    dark: 'blue.400'
+  },
+  yellow: {
+    light: 'yellow.400',
+    dark: 'yellow.900'
+  },
+  green: {
+    light: 'green.500',
+    dark: 'green.400'
   }
 } as const
 
 function resolveColor(color: string, theme: CustomTheme) {
+  if (color === 'currentColor') {
+    return 'currentColor'
+  }
   const [hue, level] = color.split('.')
   return theme.colors[(hue as unknown) as keyof CustomTheme['colors']][
     (level as unknown) as keyof ColorHues
@@ -32,22 +51,16 @@ function resolveColor(color: string, theme: CustomTheme) {
 
 export const Annotation: React.FC<AnnotationProps> = ({
   type = 'underline',
-  // color = 'accent',
+  color = 'accent',
   children,
   ...props
 }) => {
   const [hydrated, setHydrated] = React.useState(false)
-  const [color, setColor] = React.useState<keyof typeof colors>('accent')
-
   const theme = useTheme() as CustomTheme
   const { colorMode } = useColorMode()
 
   React.useEffect(() => {
     setHydrated(true)
-  }, [])
-
-  React.useEffect(() => {
-    setTimeout(() => setColor('red'), 3000)
   }, [])
 
   const colorValue = resolveColor(colors[color][colorMode], theme)
@@ -56,16 +69,14 @@ export const Annotation: React.FC<AnnotationProps> = ({
     return children as any
   }
   return (
-    // <Box as="span" color={colorValue}>
     <PseudoBox
-      as={({ type: _type, ...p }) => (
-        <As type={type} color={colorValue} {...p} />
-      )}
       {...props}
+      as={({ type: _type, ...p }) => (
+        <As type={type} color={colorValue} customElement={props.as} {...p} />
+      )}
     >
       {children}
     </PseudoBox>
-    // </Box>
   )
 }
 

@@ -46,6 +46,9 @@ export default createChakraNextApp({
       background: none;
       color: inherit;
     }
+    del {
+      text-decoration: none;
+    }
   `,
   Providers: ({ children }) => {
     return (
