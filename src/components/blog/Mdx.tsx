@@ -66,7 +66,7 @@ export const mdxComponents: any = {
       borderLeftWidth={4}
       borderLeftColor={useColor('gray.400', 'gray.600')}
       as="blockquote"
-      rounded="sm"
+      rounded={['none', 'sm']}
       color={useColor('gray.700', 'gray.400')}
       bg={useColor('gray.50', 'gray.800')}
       fontStyle="italic"
@@ -162,6 +162,7 @@ export const mdxComponents: any = {
     <Note
       mb={8}
       mx={[-4, 0]}
+      rounded={['none', 'sm']}
       css={{
         '& p:last-child': {
           marginBottom: 0
