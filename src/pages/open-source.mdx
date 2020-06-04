@@ -10,8 +10,135 @@ import { GitHubRepository } from 'src/components/oss/GitHubRepository'
 
 This page lists some of the open source packages and repositories I have published or contribute to.
 
-Most of them are published under my company: **[@47ng](https://github.com/47ng)**
+Most of them are published under my company [47ng](https://github.com/47ng).
 
-<GitHubRepository name="47ng/fastify-micro" />
+## Frontend
 
-<GitHubRepository name="47ng/check-env" />
+My tech stack of choice is [Next.js](https://nextjs.org) and [Chakra UI](https://chakra-ui.com).
+
+Next.js makes it super easy to build static or dynamic webapps, depending on
+what is needed.
+
+Chakra UI offers accessibility out of the box with great default styles, that are
+easy to override thanks to the styled-system approach.
+
+<GitHubRepository
+  slug="47ng/chakra-next"
+  description="Opinionated design system for React, based on Chakra UI + Next.js, written in TypeScript"
+  npm="@47ng/chakra-next"
+  version="v2.4.2"
+/>
+
+<br />
+
+## Backend
+
+I like to use [Fastify](https://fastify.io) to build backend services in Node.js.
+
+What I like about it:
+
+- More opinionated and structured than Express.js
+- Damn fast
+- Easy to write plugins
+- Good defaults out of the box
+
+<GitHubRepository
+  slug="47ng/fastify-micro"
+  description="Opinionated Node.js microservices framework built on fastify ⚡️"
+  npm="fastify-micro"
+/>
+
+<GitHubRepository
+  slug="fastify-cron"
+  description="Run cron jobs alongside your Fastify server 👷"
+  npm="fastify-cron"
+/>
+
+<br />
+
+## Security & Encryption
+
+<GitHubRepository
+  slug="47ng/session-keystore"
+  description="Secure cryptographic key storage in the browser and Node.js"
+  npm="session-keystore"
+/>
+
+I wrote an article about how I came to build `session-keystore`:
+
+import { frontMatter as sessionKeystore } from './posts/2019/how-to-store-e2ee-keys-in-the-browser.mdx'
+
+<PostReference {...sessionKeystore} />
+
+<GitHubRepository
+  slug="47ng/cloak"
+  description="Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js"
+  npm="@47ng/cloak"
+/>
+
+<br />
+
+## Environment Variables
+
+The [Twelve Factor App](https://12factor.net/config) model uses environment
+variables extensively for configuration and passing runtime data to a web app.
+
+However, there are things to look out for when working with environment
+variables, so I built a few packages to make their management easier and more
+secure:
+
+<GitHubRepository
+  slug="47ng/redact-env"
+  description="Redact values of critical environment variables in a string"
+  npm="redact-env"
+/>
+
+<GitHubRepository
+  slug="47ng/env-alias"
+  description="Define aliases for environment variables and bind them at runtime"
+  npm="env-alias"
+/>
+
+<GitHubRepository
+  slug="47ng/check-env"
+  description="Check that required environment variables are set for your app"
+  npm="@47ng/check-env"
+/>
+
+<br />
+
+## Miscellaneous
+
+<GitHubRepository
+  slug="FortySevenEffects/arduino_midi_library"
+  title="Arduino MIDI Library"
+  version="v5.0"
+  stars={800}
+  description={
+    <>
+      <p>My longest-running open-source project: MIDI for Arduino.</p>
+      <p mb={0}>
+        I learned programming in C++ in 2008 with this project and discovered my
+        passion for open-source software.
+      </p>
+    </>
+  }
+/>
+
+<GitHubRepository
+  slug="47ng/codec"
+  description="Universal conversion of Uint8Array from/into UTF-8, base64url and hex in the browser and Node.js"
+  npm="@47ng/codec"
+/>
+
+<GitHubRepository
+  slug="franky47/francoisbest.com"
+  description={
+    <p mb={0}>
+      The source code for this website! Made with{' '}
+      <a href="https://nextjs.org">Next.js</a>,{' '}
+      <a href="https://chakra-ui.com">ChakraUI</a> and{' '}
+      <a href="https://mdxjs.com/">MDX</a>.
+    </p>
+  }
+/>

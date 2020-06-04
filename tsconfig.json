@@ -5,6 +5,7 @@
     "lib": ["DOM", "ESNext"],
     "module": "esnext",
     "declaration": true,
+    "types": ["@chiffre/analytics-tracker"],
     "outDir": "./dist",
     "rootDir": "./src",
     "esModuleInterop": true,

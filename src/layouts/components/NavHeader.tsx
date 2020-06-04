@@ -4,8 +4,9 @@ import IconButton from '@chakra-ui/core/dist/IconButton'
 import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
 import { Logo } from 'src/components/Logo'
 import { NavLink, RouteLink, navLinkMatch } from '@47ng/chakra-next'
-import { FiTwitter, FiGithub, FiSun, FiMoon } from 'react-icons/fi'
+import { FiTwitter, FiSun, FiMoon } from 'react-icons/fi'
 import { OutgoingIconButtonLink } from './OutgoingIconButtonLink'
+import { AccentPicker } from 'src/components/Accent'
 
 export interface NavHeaderProps extends StackProps {}
 
@@ -28,8 +29,8 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
       flexWrap="wrap"
       {...props}
     >
-      <RouteLink to="/" rounded={16}>
-        <Logo size={8} />
+      <RouteLink to="/" rounded="full">
+        <Logo size={8} aria-label="François Best" />
       </RouteLink>
       <NavLink to="/" {...navLinkProps} shouldBeActive={navLinkMatch.exact}>
         About
@@ -43,24 +44,22 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
       <Stack ml="auto" isInline spacing={0}>
         <OutgoingIconButtonLink
           icon={FiTwitter}
-          aria-label="Twitter"
+          aria-label="Follow me on Twitter"
           href="https://twitter.com/fortysevenfx"
           variant="ghost"
           isRound
         />
-        <OutgoingIconButtonLink
-          icon={FiGithub}
-          aria-label="GitHub"
-          href="https://github.com/franky47"
+        <AccentPicker
+          aria-label="Accent Color Picker"
           variant="ghost"
-          isRound
           zIndex={1} // Allow the outline to display over siblings
         />
         <IconButton
-          aria-label="Dark mode"
+          aria-label={colorMode === 'dark' ? 'Dark Mode' : 'Light Mode'}
           icon={colorMode === 'dark' ? FiMoon : FiSun}
           isRound
-          onClick={toggleColorMode}
+          variant="ghost"
+          onMouseDown={toggleColorMode}
         />
       </Stack>
     </Stack>

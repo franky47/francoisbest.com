@@ -2,13 +2,13 @@ const fs = require('fs')
 const nodePath = require('path')
 const webpack = require('webpack')
 const chalk = require('chalk').default
-const mdxPrism = require('mdx-prism')
 const readingTime = require('reading-time')
 const checkEnv = require('@47ng/check-env').default
 const withPlugins = require('next-compose-plugins')
 const withMdxEnhanced = require('next-mdx-enhanced')
 const withBundleAnalyzer = require('@next/bundle-analyzer')
 const withTranspilation = require('next-transpile-modules')
+const withSvgr = require('next-svgr')
 
 checkEnv({
   required: ['NEXT_PUBLIC_DEPLOYMENT_URL']
@@ -19,8 +19,7 @@ checkEnv({
 const nextConfig = {
   devIndicators: {
     autoPrerender: false
-  },
-  pageExtensions: ['mdx', 'tsx']
+  }
 }
 
 const useURL = path => `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}${path || ''}`
@@ -31,12 +30,18 @@ module.exports = withPlugins(
       enabled: process.env.ANALYZE === 'true'
     }),
     withTranspilation(['@47ng/chakra-next']),
+    withSvgr,
     withMdxEnhanced({
       layoutPath: 'src/layouts',
       defaultLayout: true,
       fileExtensions: ['mdx'],
-      remarkPlugins: [require('remark-slug'), require('remark-footnotes')],
-      rehypePlugins: [mdxPrism],
+      remarkPlugins: [
+        require('remark-slug'),
+        require('remark-footnotes'),
+        require('remark-code-titles')
+        //require('@fec/remark-a11y-emoji')
+      ],
+      rehypePlugins: [require('mdx-prism')],
       extendFrontMatter: {
         process: (mdxContent, frontMatter) => {
           const pagesDir = nodePath.resolve(__dirname, 'src/pages')
@@ -63,7 +68,7 @@ module.exports = withPlugins(
 // --
 
 function resolveOpenGraphImage(path, frontMatter) {
-  let ogImagePath = `/images${path}/og.jpg`
+  let ogImagePath = `/images${path}${path.endsWith('/') ? '' : '/'}og.jpg`
   const ogImageFile = nodePath.join(__dirname, 'public', ogImagePath)
   const ogImageFileExists = fs.existsSync(ogImageFile)
   if (!ogImageFileExists) {
@@ -78,9 +83,6 @@ function resolveOpenGraphImage(path, frontMatter) {
         )
       }
     } else {
-      console.warn(
-        `${chalk.yellow('warn')}  - Missing OG image: ${chalk.cyanBright(path)}`
-      )
       ogImagePath = '/images/og.jpg'
     }
   }

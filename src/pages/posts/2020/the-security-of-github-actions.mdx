@@ -2,12 +2,10 @@
 title: The Security of GitHub Actions
 description: GitHub Actions are a great way to build powerful customised CI/CD workflows using the power of community-driven resources, but they can be tricky to get right in terms of security.
 publicationDate: 2020-02-24
-# tags:
-#   - security
-#   - tooling
+tags:
+  - security
+  - tooling
 ---
-
-import { Alert, AlertIcon, Text } from '@chakra-ui/core'
 
 <!--
   {
@@ -102,8 +100,7 @@ image, but just like Git tags,
 
 As an example, I have created a small Node.js image:
 
-```dockerfile
-# Dockerfile
+```dockerfile:Dockerfile
 FROM mhart/alpine-node:slim-12
 
 CMD node -e 'console.log("hello")'
@@ -119,8 +116,7 @@ hello
 
 Later on, I modify the image, rebuild and upload it using the same tag:
 
-```dockerfile
-# Dockerfile
+```dockerfile{3}:Dockerfile
 FROM mhart/alpine-node:slim-12
 
 CMD node -e 'console.log("evil")'
@@ -168,8 +164,7 @@ it slows their workflows down, and it generally wastes energy.
 Once your action is stable, you can build and publish the Docker image, then
 pin it to your `action.yml` file by digest hash:
 
-```yml
-# action.yml
+```yml:action.yml
 name: Some action
 runs:
   using: docker
@@ -186,15 +181,16 @@ But it has a few advantages:
 - You can review and pin any action you may need to build the image
 - Your image cannot be compromised by being built outside of a boundary you control.
 
-<Alert variant="subtle" status="info" fontSize="md" fontStyle="italic" mb={8}>
-  <AlertIcon />
-  <>
-    Note: the threat model of the Docker registry being compromised or untrusted
-    is out of the scope of this article.
-  </>
-</Alert>
+import { FiPaperclip } from 'react-icons/fi'
 
-## Keeping Up With The <span style={{ textDecoration: 'line-through'}}>Kardashians</span> Security Updates
+<Note title="Note" icon={FiPaperclip}>
+  <em>
+    The threat model of the Docker registry being compromised or untrusted is
+    out of the scope of this article.
+  </em>
+</Note>
+
+## Keeping Up With The ~~Kardashians~~ Security Updates
 
 So what about security updates ? If versions are pinned forever, we miss out on
 critical vulnerabilities being patched up in the actions we use, their
@@ -228,8 +224,7 @@ coupled with the fact that inputs can be optional.
 
 Let's say an action defines its manifest as such:
 
-```yml
-# owner/repo/action.yml
+```yml:owner/repo/action.yml
 name: An action
 inputs:
   foo:
@@ -238,9 +233,7 @@ inputs:
 
 When used, one can optionally pass an input for the `foo` argument:
 
-```yml
-# workflow.yml
-
+```yml:workflow.yml
 - uses: owner/repo@deadf00d
   name: This action does not specify 'foo'
   # Here, foo = undefined

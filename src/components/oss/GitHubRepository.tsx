@@ -2,40 +2,32 @@ import React from 'react'
 import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import { H3, Paragraph } from 'src/components/primitives/Typography'
 import Box from '@chakra-ui/core/dist/Box'
-import {
-  FiPackage,
-  FiFileText,
-  FiStar,
-  FiActivity,
-  FiGithub,
-  // FiBox,
-  // FiFeather,
-  // FiCode,
-  // FiDownload,
-  FiInfo
-} from 'react-icons/fi'
+import { FiPackage, FiFileText, FiGithub, FiTag, FiStar } from 'react-icons/fi'
 import List, { ListItem, ListIcon } from '@chakra-ui/core/dist/List'
 import Tooltip from '@chakra-ui/core/dist/Tooltip'
-import Skeleton from '@chakra-ui/core/dist/Skeleton'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { GitHubMeta } from './types'
 
 export interface GitHubRepositoryProps extends StackProps {
-  name: string
-  showSize?: boolean
+  slug: string
+  title?: string
+  description: string
+  version?: string
+  license?: string
+  stars?: number
+  npm?: string
 }
 
-export interface GitHubRepositoryViewProps extends GitHubRepositoryProps {
-  meta?: GitHubMeta
-}
-
-export const GitHubRepositoryView: React.FC<GitHubRepositoryViewProps> = ({
-  name,
-  meta,
-  showSize = false,
+export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
+  slug,
+  title = slug,
+  description,
+  version,
+  stars,
+  license = 'MIT',
+  npm,
   ...props
 }) => {
-  const repoUrl = `https://github.com/${name}`
+  const repoUrl = `https://github.com/${slug}`
   return (
     <Stack spacing={4} mb={8} {...props}>
       <H3 d="flex" alignItems="center">
@@ -47,41 +39,41 @@ export const GitHubRepositoryView: React.FC<GitHubRepositoryViewProps> = ({
           ml={[0, null, -10]}
           color="gray.500"
         />
-        <OutgoingLink href={repoUrl}>{name}</OutgoingLink>
+        <OutgoingLink href={repoUrl}>{title}</OutgoingLink>
       </H3>
-      <Skeleton isLoaded h={!!meta ? undefined : '4em'}>
-        <Paragraph>{meta?.description}</Paragraph>
-        <List
-          as={p => <Stack isInline spacing={6} as="ul" {...p} />}
-          fontSize="sm"
-        >
-          <MetaListItem icon={FiStar} text={meta?.stars} iconAlt="Stars" />
+      <Paragraph as="div">{description}</Paragraph>
+      <List
+        as={p => <Stack isInline spacing={6} as="ul" {...p} />}
+        fontSize="sm"
+      >
+        {!!stars && <MetaListItem icon={FiStar} text={stars} iconAlt="Stars" />}
+        {!!npm && (
+          <OutgoingLink href={`https://npmjs.com/package/${npm}`}>
+            <MetaListItem
+              icon={FiPackage}
+              text={npm}
+              iconAlt="NPM package"
+              tooltip="NPM package"
+            />
+          </OutgoingLink>
+        )}
+        {!!version && (
           <MetaListItem
-            icon={FiPackage}
-            text="@47ng/cloak"
-            iconAlt="NPM package"
-            tooltip="NPM package"
-          />
-          <MetaListItem
-            icon={FiInfo}
-            text={meta?.version}
+            icon={FiTag}
+            text={version}
             iconAlt="Last release"
             tooltip="Last release"
           />
+        )}
+        {!!license && (
           <MetaListItem
             icon={FiFileText}
-            text={meta?.license}
+            text={license}
             iconAlt="License"
             tooltip="License"
           />
-          <MetaListItem
-            icon={FiActivity}
-            text={meta?.lastCommit}
-            iconAlt="Last commit"
-            tooltip="Last commit"
-          />
-        </List>
-      </Skeleton>
+        )}
+      </List>
     </Stack>
   )
 }

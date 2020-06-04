@@ -29,7 +29,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install --ignore-scripts
         name: Install dependencies
-      - run: yarn build ; yarn build # see https://github.com/hashicorp/next-mdx-enhanced/issues/45
+      - run: yarn build
         name: Build Next.js
       - run: yarn export
         name: Export to static HTML/CSS/JS

@@ -1,34 +1,53 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Box from '@chakra-ui/core/dist/Box'
 import Text from '@chakra-ui/core/dist/Text'
 import Code from '@chakra-ui/core/dist/Code'
+import Image from '@chakra-ui/core/dist/Image'
+import Badge, { BadgeProps } from '@chakra-ui/core/dist/Badge'
 import Kbd from '@chakra-ui/core/dist/Kbd'
 import List, { ListItem } from '@chakra-ui/core/dist/List'
 import Divider from '@chakra-ui/core/dist/Divider'
+import { BoxProps } from '@chakra-ui/core/dist/Box'
+import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import * as Typography from 'src/components/primitives/Typography'
 import { theme } from 'src/ui/theme'
 import { useColor, useLinkColor } from 'src/ui/colors'
+import { Note, NoteProps } from './Note'
+import { Annotation } from './Annotation'
+import { PostReference } from './PostReference'
 
 const StyledLink = styled(OutgoingLink)`
   & code {
-    color: ${p =>
-      // @ts-ignore
-      theme.colors.accent[p.color.split('.')[1]]};
+    color: currentColor;
   }
   &:hover code {
     text-decoration: underline;
   }
 `
 
-const Blockquote = styled(Box)`
+const Blockquote = styled(PseudoBox)`
+  font-family: 'Georgia';
   & p:last-child {
     margin-bottom: 0;
   }
+  & p {
+    font-family: 'Georgia';
+  }
 `
 
-export const mdxComponents = {
+const InlineCode: React.FC<PseudoBoxProps> = p => (
+  <Code
+    fontSize="0.85em"
+    fontWeight="medium"
+    color={useColor('gray.700', 'gray.300')}
+    px={1}
+    rounded="md"
+    {...p}
+  />
+)
+
+export const mdxComponents: any = {
   h1: Typography.H1,
   h2: (p: Typography.HeadingProps) => <Typography.H2 linkable {...p} />,
   h3: (p: Typography.HeadingProps) => <Typography.H3 linkable {...p} />,
@@ -41,16 +60,59 @@ export const mdxComponents = {
   strong: (p: any) => <Text as="strong" fontWeight="semibold" {...p} />,
   i: (p: any) => <Text as="i" {...p} />,
 
-  blockquote: (p: any) => (
+  blockquote: (p: PseudoBoxProps) => (
     <Blockquote
       borderLeftWidth={4}
       borderLeftColor={useColor('gray.400', 'gray.600')}
-      pl={4}
-      py={4}
+      as="blockquote"
+      rounded="sm"
+      color={useColor('gray.700', 'gray.400')}
+      bg={useColor('gray.50', 'gray.800')}
+      fontStyle="italic"
+      mx={[-4, 0]}
+      p={6}
       my={8}
+      position="relative"
+      fontWeight="medium"
+      textAlign="center"
+      fontSize="2xl"
       {...p}
+      _before={{
+        content: '"“"',
+        position: 'absolute',
+        color: useColor('gray.400', 'gray.600'),
+        fontSize: '4xl',
+        top: 0,
+        left: 2
+      }}
+      _after={{
+        content: '"”"',
+        position: 'absolute',
+        color: useColor('gray.400', 'gray.600'),
+        fontSize: '4xl',
+        bottom: -4,
+        right: 3
+      }}
     />
   ),
+  author: ({ children, ...p }: any) => (
+    <Text
+      as="div"
+      fontFamily={theme.fonts.body}
+      fontSize="sm"
+      fontWeight="normal"
+      fontStyle="normal"
+      color="gray.600"
+      mt={-2}
+      _before={{
+        content: '"-- "'
+      }}
+      {...p}
+    >
+      -- {children}
+    </Text>
+  ),
+
   a: (p: any) => {
     const isInternal = p.href.startsWith('#') || p.href.startsWith('/')
     const color = useLinkColor()
@@ -60,20 +122,14 @@ export const mdxComponents = {
     return <StyledLink color={color} {...p} />
   },
 
-  ul: (p: any) => (
-    <Typography.Paragraph as="div">
-      <List styleType="disc" {...p} />
-    </Typography.Paragraph>
-  ),
+  ul: (p: any) => <List styleType="disc" mb={8} spacing={1} {...p} />,
   ol: (p: any) => (
-    <Typography.Paragraph as="div">
-      <List as="ol" styleType="decimal" {...p} />
-    </Typography.Paragraph>
+    <List as="ol" styleType="decimal" mb={8} spacing={1} {...p} />
   ),
-  li: ListItem,
+  li: (p: any) => <ListItem ml={4} {...p} />,
 
-  figure: (p: any) => <Box my={12} {...p} />,
-  figcaption: (p: any) => (
+  figure: (p: PseudoBoxProps) => <PseudoBox my={12} {...p} />,
+  figcaption: (p: PseudoBoxProps) => (
     <Text
       fontSize="sm"
       textAlign="center"
@@ -82,29 +138,8 @@ export const mdxComponents = {
       {...p}
     />
   ),
-  inlineCode: (p: any) => (
-    <Code
-      fontSize="0.85em"
-      fontWeight="medium"
-      color={useColor('gray.700', 'gray.300')}
-      px={1}
-      borderRadius={4}
-      {...p}
-    />
-  ),
-  // pre: (p: any) => (
-  //   <Box
-  //     as="pre"
-  //     fontSize="sm"
-  //     bg={useColor('gray.100', '#0f141c')}
-  //     p={4}
-  //     my={8}
-  //     borderRadius={4}
-  //     overflowX="auto"
-  //     {...p}
-  //   />
-  // ),
-  hr: (p: any) => (
+  inlineCode: InlineCode,
+  hr: (p: BoxProps) => (
     <Divider
       my={8}
       borderColor={useColor('gray.400', 'gray.600')}
@@ -112,5 +147,25 @@ export const mdxComponents = {
       {...p}
     />
   ),
-  kbd: Kbd
+  kbd: Kbd,
+  mark: Annotation,
+
+  // Global scope:
+  RouteLink,
+  OutgoingLink,
+  PostReference,
+  Image,
+  Badge: (p: BadgeProps) => <Badge variantColor="accent" {...p} />,
+  Note: (p: NoteProps) => (
+    <Note
+      mb={8}
+      mx={[-4, 0]}
+      css={{
+        '& p:last-child': {
+          marginBottom: 0
+        }
+      }}
+      {...p}
+    />
+  )
 }

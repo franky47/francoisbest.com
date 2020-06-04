@@ -8,7 +8,7 @@ import {
   useTheme,
   Box
 } from '@chakra-ui/core'
-import { NpmIcon } from '../icons/Npm'
+import { Npm } from '@icons-pack/react-simple-icons'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
 import { FiGithub } from 'react-icons/fi'
@@ -35,7 +35,7 @@ const NpmPackage: React.FC<NpmPackageProps> = ({
   return (
     <Stack {...props}>
       <Stack isInline alignItems="center">
-        <NpmIcon mb={-1} />
+        <Box as={Npm} mb={-1} size={6} />
         <OutgoingLink
           href={packageUrl}
           fontSize="md"
