@@ -16,6 +16,7 @@ import { useColor, useLinkColor } from 'src/ui/colors'
 import { Note, NoteProps } from './Note'
 import { Annotation } from './Annotation'
 import { PostReference } from './PostReference'
+import { WideContainer } from '../WideContainer'
 
 const StyledLink = styled(OutgoingLink)`
   & code {
@@ -154,7 +155,8 @@ export const mdxComponents: any = {
   RouteLink,
   OutgoingLink,
   PostReference,
-  Image,
+  WideContainer,
+  Image: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Badge: (p: BadgeProps) => <Badge variantColor="accent" {...p} />,
   Note: (p: NoteProps) => (
     <Note
