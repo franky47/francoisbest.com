@@ -2,13 +2,14 @@ import { createChakraNextApp } from '@47ng/chakra-next'
 import { DefaultSeo, SocialProfileJsonLd } from 'next-seo'
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react'
-import { css } from '@emotion/core'
+import { css, Global } from '@emotion/core'
 import { mdxComponents } from 'src/components/blog/Mdx'
 import { theme } from 'src/ui/theme'
 import { PrismStaticStyles, PrismDynamicStyles } from 'src/ui/prism'
 import { useURL } from 'src/hooks/useURL'
 import defaultSeoConfig from 'src/next-seo.json'
 import { AccentThemeProvider } from 'src/components/Accent'
+import { useColorMode } from '@chakra-ui/core'
 
 export default createChakraNextApp({
   enableColorMode: 'light',
@@ -51,6 +52,7 @@ export default createChakraNextApp({
     }
   `,
   Providers: ({ children }) => {
+    const { colorMode } = useColorMode()
     return (
       <>
         <DefaultSeo {...defaultSeoConfig} />
@@ -61,6 +63,16 @@ export default createChakraNextApp({
           sameAs={['https://twitter.com/fortysevenfx']}
         />
         <PrismStaticStyles />
+        <Global
+          styles={css`
+            /* Source: https://dbaron.org/log/20110430-invert-colors */
+            .darkModeInvertLuminosity {
+              filter: ${colorMode === 'dark'
+                ? 'invert(100%) hue-rotate(180deg)'
+                : 'none'};
+            }
+          `}
+        />
         <AccentThemeProvider>
           <PrismDynamicStyles />
           <MDXProvider components={mdxComponents}>{children}</MDXProvider>

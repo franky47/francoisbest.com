@@ -1,0 +1,15 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 339.5 259">
+  <!-- svg-source:excalidraw -->
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/FG_Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+    </style>
+  </defs>
+  <g transform="translate(10 137) rotate(0 119 13)"><text x="0" y="18" font-family="Virgil" font-size="20px" fill="#2b8a3e" text-anchor="start" style="white-space: pre;">Green: Everything is OK!</text></g><g transform="translate(10.5 179) rotate(0 159.5 13)"><text x="0" y="18" font-family="Virgil" font-size="20px" fill="#e67700" text-anchor="start" style="white-space: pre;">Orange: There might be issues...</text></g><g transform="translate(12.5 223) rotate(0 153.5 13)"><text x="0" y="18" font-family="Virgil" font-size="20px" fill="#c92a2a" text-anchor="start" style="white-space: pre;">Red: Definitely a problem here.</text></g><g transform="translate(11.5 94) rotate(0 142.5 13)"><text x="0" y="18" font-family="Virgil" font-size="20px" fill="#1864ab" text-anchor="start" style="white-space: pre;">Blue: Just to let you know...</text></g><g transform="translate(13 10) rotate(0 61 13)"><text x="0" y="18" font-family="Virgil" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;">Normal text</text></g><g transform="translate(10 49) rotate(0 107 13)"><text x="0" y="18" font-family="Virgil" font-size="20px" fill="#888" text-anchor="start" style="white-space: pre;">Slightly less important</text></g></svg>
