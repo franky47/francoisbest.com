@@ -10,12 +10,13 @@
     }
   ],
   "twitter": {
-    "cardType": "summary",
+    "cardType": "summary_large_image",
     "handle": "fortysevenfx",
     "site": "fortysevenfx"
   },
   "openGraph": {
     "type": "website",
+    "locale": "en_GB",
     "site_name": "François Best",
     "profile": {
       "firstName": "François",
