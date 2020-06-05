@@ -12,7 +12,7 @@ export const PostLinks: React.SFC<PostLinksProps> = ({
   ...props
 }) => {
   const editUrl = `
-  https://github.com/franky47/francoisbest.com/edit/develop/src/pages${path}.mdx`
+  https://github.com/franky47/francoisbest.com/edit/next/src/pages${path}.mdx`
   const twitterUrl = `https://twitter.com/search?q=${encodeURIComponent(url)}`
 
   return (
