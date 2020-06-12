@@ -80,20 +80,20 @@ export default createChakraNextApp({
   }
 })
 
-export function reportWebVitals(metric: any) {
-  if (
-    process.env.NODE_ENV !== 'production' ||
-    !process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID ||
-    !process.env.NEXT_PUBLIC_CHIFFRE_PUBLIC_KEY
-  ) {
-    // Only log metrics in production
-    return
-  }
-  window.chiffre?.sendNumber({
-    name: metric.name,
-    value: metric.value,
-    meta: {
-      path: window.location.pathname
-    }
-  })
-}
+// export function reportWebVitals(metric: any) {
+//   if (
+//     process.env.NODE_ENV !== 'production' ||
+//     !process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID ||
+//     !process.env.NEXT_PUBLIC_CHIFFRE_PUBLIC_KEY
+//   ) {
+//     // Only log metrics in production
+//     return
+//   }
+//   window.chiffre?.sendNumber({
+//     name: metric.name,
+//     value: metric.value,
+//     meta: {
+//       path: window.location.pathname
+//     }
+//   })
+// }
