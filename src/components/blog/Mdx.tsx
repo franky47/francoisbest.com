@@ -115,7 +115,9 @@ export const mdxComponents: any = {
   ),
 
   a: (p: any) => {
-    const isInternal = p.href.startsWith('#') || p.href.startsWith('/')
+    const isInternal =
+      p.href.startsWith('#') ||
+      (p.href.startsWith('/') && !p.href.startsWith('/images'))
     const color = useLinkColor()
     if (isInternal) {
       return <RouteLink to={p.href} color={color} {...p} />
