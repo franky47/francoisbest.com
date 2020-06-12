@@ -29,6 +29,7 @@ export default function createPageLayout({
   description,
   titleAppendSiteName = true,
   url,
+  containerProps = {},
   ...frontMatter
 }: PageFrontMatter) {
   return ({ children }: any) => {
@@ -46,7 +47,7 @@ export default function createPageLayout({
           }}
           canonical={url}
         />
-        <PageLayout>{children}</PageLayout>
+        <PageLayout {...containerProps}>{children}</PageLayout>
       </>
     )
   }

@@ -1,5 +1,6 @@
 import { Object } from 'ts-toolbelt'
 import readingTime from 'reading-time'
+import type { ContainerProps } from '@47ng/chakra-next'
 
 /**
  * Basic frontmatter exposed by next-mdx-enhanced
@@ -29,6 +30,7 @@ export interface PageFrontMatter extends ExtendedMDXFrontMatter {
   title: string
   description: string
   titleAppendSiteName?: boolean
+  containerProps?: ContainerProps
 }
 
 export interface PostFrontMatter extends PageFrontMatter {
