@@ -1,11 +1,10 @@
 import React from 'react'
 import IconButton, { IconButtonProps } from '@chakra-ui/core/dist/IconButton'
-import ThemeProvider, { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
-import type { ColorHues } from '@chakra-ui/core'
 import { SvgBox, SvgBoxProps } from '@47ng/chakra-next'
-import { CustomTheme } from 'src/ui/theme'
-import { useLinkColor } from 'src/ui/colors'
+import { theme, ColorKeys } from 'src/ui/theme'
+import { useLinkColor, accentKeys } from 'src/ui/colors'
 import { useLocalSetting } from 'src/hooks/useLocalSetting'
+import { css, Global } from '@emotion/core'
 
 export const AccentPickerIcon: React.FC<SvgBoxProps> = ({ ...props }) => {
   const color = useLinkColor()
@@ -16,21 +15,8 @@ export const AccentPickerIcon: React.FC<SvgBoxProps> = ({ ...props }) => {
   )
 }
 
-const accentKeys: (keyof CustomTheme['colors'])[] = [
-  'defaultAccent',
-  'green',
-  'indigo',
-  'orange',
-  'blue',
-  'pink',
-  'teal',
-  'purple',
-  'cyan',
-  'red'
-]
-
 export const AccentPicker: React.FC<IconButtonProps> = ({ ...props }) => {
-  const [key, setAccentKey] = useLocalSetting<keyof CustomTheme['colors']>(
+  const [key, setAccentKey] = useLocalSetting<ColorKeys>(
     'accent',
     'defaultAccent'
   )
@@ -51,21 +37,26 @@ export const AccentPicker: React.FC<IconButtonProps> = ({ ...props }) => {
   )
 }
 
-export const AccentThemeProvider: React.FC = ({ children }) => {
-  const baseTheme = useTheme() as CustomTheme
-  const [accentKey] = useLocalSetting<keyof CustomTheme['colors']>(
-    'accent',
-    'defaultAccent'
-  )
-  const theme = React.useMemo(
-    () => ({
-      ...baseTheme,
-      colors: {
-        ...baseTheme.colors,
-        accent: baseTheme.colors[accentKey] as ColorHues
+export const AccentGlobal: React.FC = () => {
+  const [accentKey] = useLocalSetting<ColorKeys>('accent', 'defaultAccent')
+  const accent = theme.colors[accentKey]
+  const styles = React.useMemo(
+    () => css`
+      :root {
+        --colors-accent-50: ${accent[50]};
+        --colors-accent-100: ${accent[100]};
+        --colors-accent-200: ${accent[200]};
+        --colors-accent-300: ${accent[300]};
+        --colors-accent-400: ${accent[400]};
+        --colors-accent-500: ${accent[500]};
+        --colors-accent-600: ${accent[600]};
+        --colors-accent-700: ${accent[700]};
+        --colors-accent-800: ${accent[800]};
+        --colors-accent-900: ${accent[900]};
+        --colors-badge-bg-dark: ${theme.badgeBgDark[accentKey]};
       }
-    }),
+    `,
     [accentKey]
   )
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return <Global styles={styles} />
 }

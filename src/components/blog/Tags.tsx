@@ -1,7 +1,7 @@
 import React from 'react'
 import Flex, { FlexProps } from '@chakra-ui/core/dist/Flex'
-import Badge, { BadgeProps } from '@chakra-ui/core/dist/Badge'
 import { RouteLink } from '@47ng/chakra-next'
+import { Badge, BadgeProps } from '../Badge'
 
 export interface TagProps extends BadgeProps {
   name: string
@@ -13,19 +13,12 @@ export const Tag: React.FC<TagProps> = ({
   interactive = true,
   ...props
 }) => {
-  const p = {
-    variant: 'subtle',
-    variantColor: 'accent',
-    textTransform: 'none',
-    fontWeight: 'medium',
-    ...props
-  } as const
   if (!interactive) {
-    return <Badge {...p}>{name}</Badge>
+    return <Badge {...props}>{name}</Badge>
   }
   return (
     <RouteLink to={`/posts?tag=${name}`}>
-      <Badge {...p}>{name}</Badge>
+      <Badge {...props}>{name}</Badge>
     </RouteLink>
   )
 }

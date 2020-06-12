@@ -5,10 +5,10 @@ import { MDXProvider } from '@mdx-js/react'
 import { css, Global } from '@emotion/core'
 import { mdxComponents } from 'src/components/blog/Mdx'
 import { theme } from 'src/ui/theme'
-import { PrismStaticStyles, PrismDynamicStyles } from 'src/ui/prism'
 import { useURL } from 'src/hooks/useURL'
 import defaultSeoConfig from 'src/next-seo.json'
-import { AccentThemeProvider } from 'src/components/Accent'
+import { PrismGlobal } from 'src/ui/prism'
+import { AccentGlobal } from 'src/components/Accent'
 import { useColorMode } from '@chakra-ui/core'
 
 export default createChakraNextApp({
@@ -62,7 +62,6 @@ export default createChakraNextApp({
           url={useURL()}
           sameAs={['https://twitter.com/fortysevenfx']}
         />
-        <PrismStaticStyles />
         <Global
           styles={css`
             /* Source: https://dbaron.org/log/20110430-invert-colors */
@@ -73,10 +72,9 @@ export default createChakraNextApp({
             }
           `}
         />
-        <AccentThemeProvider>
-          <PrismDynamicStyles />
-          <MDXProvider components={mdxComponents}>{children}</MDXProvider>
-        </AccentThemeProvider>
+        <AccentGlobal />
+        <PrismGlobal />
+        <MDXProvider components={mdxComponents}>{children}</MDXProvider>
       </>
     )
   }

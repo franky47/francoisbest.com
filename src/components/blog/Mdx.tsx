@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import Text from '@chakra-ui/core/dist/Text'
 import Code from '@chakra-ui/core/dist/Code'
 import Image from '@chakra-ui/core/dist/Image'
-import Badge, { BadgeProps } from '@chakra-ui/core/dist/Badge'
 import Kbd from '@chakra-ui/core/dist/Kbd'
 import List, { ListItem } from '@chakra-ui/core/dist/List'
 import Divider from '@chakra-ui/core/dist/Divider'
@@ -15,6 +14,7 @@ import { theme } from 'src/ui/theme'
 import { useColor, useLinkColor } from 'src/ui/colors'
 import { Note, NoteProps } from './Note'
 import { Annotation } from './Annotation'
+import { Badge, BadgeProps } from '../Badge'
 import { PostReference } from './PostReference'
 import { WideContainer } from '../WideContainer'
 
@@ -166,7 +166,7 @@ export const mdxComponents: any = {
   PostReference,
   WideContainer,
   Image: (p: any) => <Image mb={8} rounded="md" {...p} />,
-  Badge: (p: BadgeProps) => <Badge variantColor="accent" {...p} />,
+  Badge: (p: BadgeProps) => <Badge {...p} />,
   Note: (p: NoteProps) => (
     <Note
       mb={8}

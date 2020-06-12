@@ -2,11 +2,11 @@ import React from 'react'
 import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import Box from '@chakra-ui/core/dist/Box'
 import Text from '@chakra-ui/core/dist/Text'
-import Badge from '@chakra-ui/core/dist/Badge'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { H3, H4, Paragraph } from './primitives/Typography'
-import { Tags } from './blog/Tags'
 import { useColor } from 'src/ui/colors'
+import { H3, H4, Paragraph } from './primitives/Typography'
+import { Badge } from './Badge'
+import { Tags } from './blog/Tags'
 
 export interface ExperienceProps extends StackProps {
   title: string
@@ -38,7 +38,7 @@ export const Experience: React.FC<ExperienceProps> = ({
           </H3>
         </OutgoingLink>
         {badge && (
-          <Badge variantColor="accent" ml="auto">
+          <Badge ml="auto" textTransform="uppercase">
             {badge}
           </Badge>
         )}

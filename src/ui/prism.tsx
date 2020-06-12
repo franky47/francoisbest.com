@@ -1,8 +1,7 @@
 import React from 'react'
 import { css, Global } from '@emotion/core'
-import { useTheme, useColorMode } from '@chakra-ui/core'
-import { theme, CustomTheme } from 'src/ui/theme'
-import { useColor } from 'src/ui/colors'
+import { useColorMode } from '@chakra-ui/core'
+import { theme } from 'src/ui/theme'
 
 const prismBaseTheme = css`
   code {
@@ -57,7 +56,6 @@ const prismBaseTheme = css`
     margin-right: -${theme.space[4]};
     padding-left: ${theme.space[4]};
     padding-right: ${theme.space[4]};
-    min-width: fit-content;
   }
 
   .remark-code-title {
@@ -148,6 +146,7 @@ export const prismLightTheme = css`
 
   .mdx-marker {
     background-color: ${theme.colors.gray[100]};
+    box-shadow: inset 3px 0px 0 0px var(--colors-accent-400);
   }
 
   .remark-code-title {
@@ -229,6 +228,7 @@ export const prismDarkTheme = css`
 
   .mdx-marker {
     background-color: ${theme.colors.gray[900]};
+    box-shadow: inset 3px 0px 0 0px var(--colors-accent-300);
   }
 
   .remark-code-title {
@@ -239,26 +239,9 @@ export const prismDarkTheme = css`
   }
 `
 
-export const PrismStaticStyles = () => {
+export const PrismGlobal = () => {
   const { colorMode } = useColorMode()
   return (
     <Global styles={colorMode === 'light' ? prismLightTheme : prismDarkTheme} />
-  )
-}
-
-export const PrismDynamicStyles = () => {
-  const theme = useTheme() as CustomTheme
-  const mdxMarkerAsideColor = useColor(
-    theme.colors.accent[400],
-    theme.colors.accent[300]
-  )
-  return (
-    <Global
-      styles={css`
-        .mdx-marker {
-          box-shadow: inset 3px 0px 0 0px ${mdxMarkerAsideColor};
-        }
-      `}
-    />
   )
 }
