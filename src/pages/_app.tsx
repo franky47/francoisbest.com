@@ -70,6 +70,13 @@ export default createChakraNextApp({
                 ? 'invert(100%) hue-rotate(180deg)'
                 : 'none'};
             }
+            ::selection {
+              background-color: var(
+                ${colorMode === 'dark'
+                  ? '--colors-accent-700'
+                  : '--colors-accent-200'}
+              );
+            }
           `}
         />
         <AccentGlobal />
