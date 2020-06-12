@@ -27,7 +27,7 @@ const PostsIndex: NextPage = () => {
           title: 'Articles by François Best',
           images: [
             {
-              url: '/images/posts/og.jpg',
+              url: useURL('/images/posts/og.jpg'),
               width: 1280,
               height: 720
             }
