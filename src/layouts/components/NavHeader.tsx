@@ -3,7 +3,7 @@ import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import { Logo } from 'src/components/Logo'
 import { NavLink, RouteLink, navLinkMatch } from '@47ng/chakra-next'
 import { FiTwitter } from 'react-icons/fi'
-import { OutgoingIconButtonLink } from './OutgoingIconButtonLink'
+import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 import { AccentPicker } from 'src/components/Accent'
 import { ColorModeSwitch } from 'src/components/ColorModeSwitch'
 

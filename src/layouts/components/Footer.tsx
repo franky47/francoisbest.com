@@ -2,7 +2,7 @@ import React from 'react'
 import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import { FiTwitter, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { Keybase, DevDotTo } from '@icons-pack/react-simple-icons'
-import { OutgoingIconButtonLink } from './OutgoingIconButtonLink'
+import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 
 export interface FooterProps extends StackProps {}
 
