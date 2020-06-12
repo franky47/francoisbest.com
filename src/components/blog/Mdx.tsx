@@ -167,6 +167,7 @@ export const mdxComponents: any = {
   OutgoingLink,
   PostReference,
   WideContainer,
+  img: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Image: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Badge: (p: BadgeProps) => <Badge {...p} />,
   Note: (p: NoteProps) => (
