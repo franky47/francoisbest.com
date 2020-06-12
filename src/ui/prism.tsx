@@ -5,11 +5,14 @@ import { theme, CustomTheme } from 'src/ui/theme'
 import { useColor } from 'src/ui/colors'
 
 const prismBaseTheme = css`
+  code {
+    white-space: pre;
+  }
+
   code[class*='language-'],
   pre[class*='language-'] {
     font-family: ${theme.fonts.mono};
     text-align: left;
-    white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
@@ -30,6 +33,7 @@ const prismBaseTheme = css`
     padding-left: ${theme.space[4]};
     padding-right: ${theme.space[4]};
     margin: ${theme.space[6]} 0;
+    white-space: nowrap;
     overflow: auto;
     min-width: 100%;
     font-size: 0.9rem;
