@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import Favicons from '../components/head/Favicons'
+import Favicons from 'src/components/head/Favicons'
+import { useURL } from 'src/hooks/useURL'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
@@ -11,6 +12,8 @@ class MyDocument extends Document {
     return (
       <Html lang="en-GB">
         <Head>
+          <link rel="preconnect" href="https://excalidraw.com" />
+          <link rel="dns-prefetch" href="https://excalidraw.com" />
           <Favicons />
           <link rel="sitemap" href="sitemap.xml" type="application/xml" />
           <link
