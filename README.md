@@ -13,3 +13,7 @@ Built with:
 - [Juan Olvera](https://jolvera.dev/blog)
 - [Max Stoiber](https://github.com/mxstbr/mxstbr.com)
 - [Guillermo Rauch](https://rauchg.com)
+
+## License
+
+[MIT](https://github.com/47ng/check-env/blob/master/LICENSE) - Made with ❤️ by [François Best](https://francoisbest.com) - [Donations welcome](https://paypal.me/francoisbest?locale.x=fr_FR) 🙏
