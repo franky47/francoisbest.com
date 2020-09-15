@@ -9,17 +9,14 @@ export const RawLayout: React.FC<RawLayoutProps> = ({ children }) => {
   return children as any
 }
 
-export default function createRawLayout({
-  title,
-  description,
-  url
-}: PageFrontMatter) {
-  return ({ children }: any) => {
-    return (
-      <>
-        <NextSeo title={title} description={description} canonical={url} />
-        <RawLayout>{children}</RawLayout>
-      </>
-    )
-  }
+export default function RawLayoutWithSEO({
+  children,
+  frontMatter: { title, description, url }
+}: React.PropsWithChildren<{ frontMatter: PageFrontMatter }>) {
+  return (
+    <>
+      <NextSeo title={title} description={description} canonical={url} />
+      <RawLayout>{children}</RawLayout>
+    </>
+  )
 }

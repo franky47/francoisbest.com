@@ -33,62 +33,63 @@ export const PostLayout: React.FC<PostLayoutProps> = ({
   )
 }
 
-export default function createPostLayout({
-  title,
-  url,
-  publicationDate,
-  description,
-  tags,
-  path,
-  ...frontMatter
-}: ExtendedPostFrontMatter) {
-  return ({ children }: any) => {
-    return (
-      <>
-        <NextSeo
-          title={title}
-          description={description}
-          additionalMetaTags={[
-            { property: 'author', content: 'François Best' },
-            ...(tags
-              ? [
-                  {
-                    property: 'keywords',
-                    content: tags.join(',')
-                  }
-                ]
-              : [])
-          ]}
-          canonical={url}
-          openGraph={{
-            type: 'article',
-            title,
-            description,
-            url,
-            article: {
-              publishedTime:
-                publicationDate &&
-                new Date(publicationDate)?.toISOString().slice(0, 10),
-              authors: [useURL()],
-              tags
-            },
-            images: frontMatter.ogImage ? [frontMatter.ogImage] : undefined
-          }}
-        />
-        <PostLayout
-          postMetadata={{
-            title,
-            url,
-            path,
-            publicationDate,
-            description,
-            tags,
-            ...frontMatter
-          }}
-        >
-          {children}
-        </PostLayout>
-      </>
-    )
+export default function PostLayoutWithSEO({
+  children,
+  frontMatter: {
+    title,
+    url,
+    publicationDate,
+    description,
+    tags,
+    path,
+    ...frontMatter
   }
+}: React.PropsWithChildren<{ frontMatter: ExtendedPostFrontMatter }>) {
+  return (
+    <>
+      <NextSeo
+        title={title}
+        description={description}
+        additionalMetaTags={[
+          { property: 'author', content: 'François Best' },
+          ...(tags
+            ? [
+                {
+                  property: 'keywords',
+                  content: tags.join(',')
+                }
+              ]
+            : [])
+        ]}
+        canonical={url}
+        openGraph={{
+          type: 'article',
+          title,
+          description,
+          url,
+          article: {
+            publishedTime:
+              publicationDate &&
+              new Date(publicationDate)?.toISOString().slice(0, 10),
+            authors: [useURL()],
+            tags
+          },
+          images: frontMatter.ogImage ? [frontMatter.ogImage] : undefined
+        }}
+      />
+      <PostLayout
+        postMetadata={{
+          title,
+          url,
+          path,
+          publicationDate,
+          description,
+          tags,
+          ...frontMatter
+        }}
+      >
+        {children}
+      </PostLayout>
+    </>
+  )
 }

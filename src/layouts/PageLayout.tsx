@@ -24,31 +24,32 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   )
 }
 
-export default function createPageLayout({
-  title,
-  description,
-  titleAppendSiteName = true,
-  url,
-  containerProps = {},
-  ...frontMatter
-}: PageFrontMatter) {
-  return ({ children }: any) => {
-    return (
-      <>
-        <NextSeo
-          title={title}
-          description={description}
-          titleTemplate={titleAppendSiteName ? undefined : '%s'}
-          openGraph={{
-            title,
-            description,
-            url,
-            images: frontMatter.ogImage ? [frontMatter.ogImage] : undefined
-          }}
-          canonical={url}
-        />
-        <PageLayout {...containerProps}>{children}</PageLayout>
-      </>
-    )
+export default function PageLayoutWithSEO({
+  children,
+  frontMatter: {
+    title,
+    description,
+    titleAppendSiteName = true,
+    url,
+    containerProps = {},
+    ...frontMatter
   }
+}: React.PropsWithChildren<{ frontMatter: PageFrontMatter }>) {
+  return (
+    <>
+      <NextSeo
+        title={title}
+        description={description}
+        titleTemplate={titleAppendSiteName ? undefined : '%s'}
+        openGraph={{
+          title,
+          description,
+          url,
+          images: frontMatter.ogImage ? [frontMatter.ogImage] : undefined
+        }}
+        canonical={url}
+      />
+      <PageLayout {...containerProps}>{children}</PageLayout>
+    </>
+  )
 }
