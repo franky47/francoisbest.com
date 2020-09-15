@@ -55,20 +55,26 @@ share what I've learned.
 
 ## About Me
 
-<Image
-  src="/images/grenoble-640@2x.png"
-  srcset="/images/grenoble-640.png 1x, /images/grenoble-640@2x.png 2x"
-  alt="Grenoble, France, seen from the Bastille fort, looking south-west."
-  rounded="md"
-  borderColor={useColor('gray.300', 'gray.700')}
-  borderWidth="1px"
-  shadow="md"
-  mb={8}
-/>
+<WideContainer>
+  <Image
+    src="/images/grenoble-640@2x.png"
+    srcset="/images/grenoble-640.png 1x, /images/grenoble-640@2x.png 2x"
+    alt="Grenoble, France, seen from the Bastille fort, looking south-west."
+    rounded="md"
+    borderColor={useColor('gray.300', 'gray.700')}
+    borderWidth="1px"
+    shadow="md"
+    mb={8}
+  />
+</WideContainer>
 
 I live in Grenoble, in the French Alps, with my wife and our expected baby boy.
 
-I love cycling, both for transportation and tourism. With my friends,
+My hobbies vary a lot based on my current interests, but playing music
+(piano/synths & guitar) is always a constant. I'm currently learning woodworking
+to build toys for my son, and take sunrise hikes to enjoy the surrounding mountains.
+
+I also love cycling, both for transportation and tourism. With my friends,
 I've toured across 7 countries on my bike, along the French Atlantic
 coast, in the Alps and in the Balkans:
 
@@ -110,7 +116,7 @@ import Badge from '@chakra-ui/core/dist/Badge'
   icon={Logo}
   description={
     <>
-      <p>I do freelance development for various clients:</p>
+      <p>I've done freelance software development for various clients:</p>
       <ul>
         <Client
           as="li"
@@ -145,8 +151,8 @@ import Badge from '@chakra-ui/core/dist/Badge'
       </ul>
       <Note status="success" title="Add your business">
         <p my={4}>
-          I will be accepting new freelance contracts for web development again
-          soon.
+          I'm currently accepting new freelance contracts for web app
+          development.
         </p>
         <a href="mailto:contact+freelance@francoisbest.com">Send me an email</a>
         , I'd love to discuss your needs and what solutions I can bring.
