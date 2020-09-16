@@ -1,9 +1,11 @@
 ---
 layout: PageLayout
-title: Code Tips
+title: Code Snippets
 ---
 
 <script src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+
+# Code Snippets
 
 Here are some code snippets you might find useful. I leave them there when they
 don't deserve a library on their own.
@@ -34,6 +36,12 @@ export function url(base: string, args: object): string {
 }
 
 // Example usage:
+url('https://accounts.spotify.com/authorize', {
+  client_id: process.env.SPOTIFY_CLIENT_ID,
+  redirect_uri: 'http://localhost:12345',
+  response_type: 'token'
+})
+// -> https://accounts.spotify.com/authorize?client_id=foobar&redirect_uri=http%3A%2F%2Flocalhost%3A12345&response_type=token
 ```
 
 Browser support for `URLSearchParams` (used in `url.searchParams`):
