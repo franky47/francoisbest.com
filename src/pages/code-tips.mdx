@@ -1,0 +1,111 @@
+---
+layout: PageLayout
+title: Code Tips
+---
+
+<script src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>
+
+Here are some code snippets you might find useful. I leave them there when they
+don't deserve a library on their own.
+
+You can find more on my [Twitter](https://twitter.com/fortysevenfx) account.
+
+<Note status="success" fontSize="sm" fontStyle="italic">
+  Copy-paste at will, everything here is free to use (licensed under MIT).
+</Note>
+
+### URL query string from object
+
+<p as="div" mt={-2} mb={4}>
+  <Badge>TypeScript</Badge>&nbsp;
+  <Badge variantColor="yellow">Browser</Badge>&nbsp;
+  <Badge variantColor="green">Node.js</Badge>
+</p>
+
+Create a URL with escaped query string arguments from an object, without any dependencies:
+
+```ts
+export function url(base: string, args: object): string {
+  const url = new URL(base)
+  Object.entries(args).forEach(([key, value]) => {
+    url.searchParams.set(key, value)
+  })
+  return url.toString()
+}
+
+// Example usage:
+```
+
+Browser support for `URLSearchParams` (used in `url.searchParams`):
+
+<p
+  className="ciu_embed"
+  data-feature="urlsearchparams"
+  data-periods="future_1,current,past_1,past_2"
+  data-accessible-colours="false"
+>
+  <picture>
+    <source
+      type="image/webp"
+      srcSet="https://caniuse.bitsofco.de/image/urlsearchparams.webp"
+    />
+    <source
+      type="image/png"
+      srcSet="https://caniuse.bitsofco.de/image/urlsearchparams.png"
+    />
+    <img
+      src="https://caniuse.bitsofco.de/image/urlsearchparams.jpg"
+      alt="Data on support for the urlsearchparams feature across the major browsers from caniuse.com"
+    />
+  </picture>
+</p>
+
+<br />
+
+### Interface type filtering
+
+<p as="div" mt={-2} mb={4}>
+  <Badge>TypeScript</Badge>&nbsp;
+  <Badge variantColor="gray">Metaprogramming</Badge>
+</p>
+
+Get the keys of an object for which the value is of a given type:
+
+```ts
+export type FilterKeys<Source, Condition> = {
+  [key in keyof Source]: Source[key] extends Condition ? key : never
+}[keyof Source]
+
+// Example usage:
+interface User {
+  firstName: string
+  lastName: string
+  age: number
+}
+
+type UserStringKeys = FilterKeys<User, string> // 'firstName' | 'lastName'
+```
+
+<br />
+
+### Make RFCs easier to read
+
+<p as="div" mt={-2} mb={4}>
+  <Badge variantColor="yellow">Browser</Badge>&nbsp;
+  <Badge variantColor="blue">CSS</Badge>
+</p>
+
+Ahh [RFCs](https://en.wikipedia.org/wiki/Request_for_Comments), the core
+documentation of the Internet, so useful at times, but still visually anchored
+in the 1980s. Let's make them look nicer with a bit of CSS, shall we ?
+
+Copy and paste this in your console when viewing an RFC:
+
+```js
+document
+  .querySelector('.content')
+  .setAttribute(
+    'style',
+    'margin:0 auto;font-size:16px;line-height:1.4;color:#333'
+  )
+```
