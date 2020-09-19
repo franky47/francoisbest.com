@@ -4,6 +4,9 @@ import Image from '@chakra-ui/core/dist/Image'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
 import Head from 'next/head'
+import { Box } from '@chakra-ui/core'
+import { FiPlay } from 'react-icons/fi'
+import styled from '@emotion/styled'
 
 export interface SpotifyAlbumData {
   name: string
@@ -23,6 +26,45 @@ export interface SpotifyAlbumData {
 }
 
 export interface SpotifyAlbumProps extends PseudoBoxProps, SpotifyAlbumData {}
+
+const Overlay = styled(PseudoBox)`
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+  .album-cover:hover &,
+  a:focus > .album-cover & {
+    opacity: 1;
+  }
+  & .svg {
+    stroke-width: 0;
+    fill: white;
+  }
+
+  @media (prefers-reduced-motion) {
+    .album-cover:hover &,
+    a:focus > .album-cover & {
+      opacity: 0;
+    }
+  }
+`
+
+const AlbumCover = styled(PseudoBox)`
+  &:hover img {
+    filter: blur(3px);
+  }
+  transition: all 0.1s ease-out;
+  & img {
+    transition: filter 0.1s ease-out;
+  }
+  @media (prefers-reduced-motion) {
+    &:hover img {
+      filter: none;
+    }
+    transition: none;
+    & img {
+      transition: none;
+    }
+  }
+`
 
 export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
   url,
@@ -46,21 +88,40 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
         />
       </Head>
       <PseudoBox as="figure" {...props}>
-        <OutgoingLink href={url}>
-          <PseudoBox
+        <OutgoingLink href={url} bg="red.100">
+          <AlbumCover
+            className="album-cover"
             rounded="md"
             shadow="md"
             maxW="250px"
             maxH="250px"
             mx="auto"
             overflow="hidden"
-            transition="transform 0.1s ease-out"
+            fontSize="xs"
             _hover={{
-              transform: 'scale(1.05)'
+              shadow: 'lg'
             }}
+            position="relative"
           >
-            <Image src={cover.src} alt={`${name} - ${artist.name}`} />
-          </PseudoBox>
+            <Image
+              src={cover.src}
+              alt={`${name}, an album by ${artist.name}`}
+            />
+            <Overlay
+              bg="rgba(0,0,0,0.3)"
+              position="absolute"
+              left={0}
+              right={0}
+              top={0}
+              bottom={0}
+              zIndex={1}
+              d="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Box as={FiPlay} color="white" size="20%" className="svg" />
+            </Overlay>
+          </AlbumCover>
         </OutgoingLink>
         <PseudoBox
           as="figcaption"
