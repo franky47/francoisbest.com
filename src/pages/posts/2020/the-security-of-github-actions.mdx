@@ -213,6 +213,23 @@ authors and consumers need to be aware of:
 
 ## Environment Variables
 
+<Note title="Update 2020-09-02" status="warning">
+  <em>
+    What is stated in this section is no longer correct, as GitHub seems to have
+    fixed the issues aforementionned.
+    <br />
+    I'm leaving the original article for reference. For a proof of fix, see the
+    following{' '}
+    <OutgoingLink
+      href="https://github.com/docker/build-push-action/issues/10"
+      textDecoration="underline"
+    >
+      GitHub issue on Docker's action
+    </OutgoingLink>
+    .
+  </em>
+</Note>
+
 GitHub Actions can communicate between one another through environment variables,
 in tandem with the I/O system that GitHub provides. It's considered a feature,
 but it has obvious security implications: **any environment variable exported
