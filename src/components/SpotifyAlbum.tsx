@@ -3,6 +3,7 @@ import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
 import Image from '@chakra-ui/core/dist/Image'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
+import Head from 'next/head'
 
 export interface SpotifyAlbumData {
   name: string
@@ -31,34 +32,48 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
   ...props
 }) => {
   return (
-    <PseudoBox as="figure" {...props}>
-      <OutgoingLink href={url}>
+    <>
+      <Head>
+        <link
+          key="spotify-preconnect"
+          rel="preconnect"
+          href="https://i.scdn.co"
+        />
+        <link
+          key="spotify-prefetch"
+          rel="dns-prefetch"
+          href="https://i.scdn.co"
+        />
+      </Head>
+      <PseudoBox as="figure" {...props}>
+        <OutgoingLink href={url}>
+          <PseudoBox
+            rounded="md"
+            shadow="md"
+            maxW="250px"
+            maxH="250px"
+            mx="auto"
+            overflow="hidden"
+            transition="transform 0.1s ease-out"
+            _hover={{
+              transform: 'scale(1.05)'
+            }}
+          >
+            <Image src={cover.src} alt={`${name} - ${artist.name}`} />
+          </PseudoBox>
+        </OutgoingLink>
         <PseudoBox
-          rounded="md"
-          shadow="md"
-          maxW="250px"
-          maxH="250px"
-          mx="auto"
-          overflow="hidden"
-          transition="transform 0.1s ease-out"
-          _hover={{
-            transform: 'scale(1.05)'
-          }}
+          as="figcaption"
+          textAlign="center"
+          color={useColor('gray.600', 'gray.500')}
+          fontSize="sm"
+          mt={2}
         >
-          <Image src={cover.src} alt={`${name} - ${artist.name}`} />
+          <OutgoingLink href={url}>{name}</OutgoingLink>
+          {' - '}
+          <OutgoingLink href={artist.url}>{artist.name}</OutgoingLink>
         </PseudoBox>
-      </OutgoingLink>
-      <PseudoBox
-        as="figcaption"
-        textAlign="center"
-        color={useColor('gray.600', 'gray.500')}
-        fontSize="sm"
-        mt={2}
-      >
-        <OutgoingLink href={url}>{name}</OutgoingLink>
-        {' - '}
-        <OutgoingLink href={artist.url}>{artist.name}</OutgoingLink>
       </PseudoBox>
-    </PseudoBox>
+    </>
   )
 }
