@@ -11,7 +11,8 @@
     "export": "next export",
     "serve": "serve ./out",
     "deploy": "surge -p ./out -d https://francoisbest.com",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "spotify": "node --loader ts-node/esm ./src/scripts/spotify.ts"
   },
   "dependencies": {
     "@47ng/chakra-next": "^2.4.2",
@@ -44,11 +45,16 @@
   },
   "devDependencies": {
     "@47ng/check-env": "^2.0.1",
+    "@47ng/codec": "^1.0.0",
     "@chiffre/analytics-tracker": "^1.1.7",
     "@next/bundle-analyzer": "^9.5.3",
     "@types/node": "^14.10.1",
+    "axios": "^0.20.0",
+    "dotenv": "^8.2.0",
+    "fastify": "^3.4.1",
     "globby": "^11.0.1",
     "npm-run-all": "^4.1.5",
+    "open": "^7.2.1",
     "posthtml": "^0.13.3",
     "posthtml-remove-tags": "^0.1.0",
     "rehype": "11.0.0",

@@ -212,6 +212,273 @@ import Badge from '@chakra-ui/core/dist/Badge'
   tags={['C++', 'Analog Electronics', 'Synthesizer Design', 'Hardware Design']}
 />
 
+<br />
+
+import { SpotifyAlbum } from 'src/components/SpotifyAlbum'
+import { SimpleGrid } from '@chakra-ui/core'
+import { FiVolume2 } from 'react-icons/fi'
+
+## Music
+
+<Note status="success" icon={FiVolume2}>
+  Check out my{' '}
+  <OutgoingLink
+    href="https://open.spotify.com/playlist/09JVRjAbg8ETlHWznfVOQf?si=F9Vksg9aQp2D7q5MbecMqw"
+    textDecoration="underline"
+  >
+    web development playlist
+  </OutgoingLink>{' '}
+  on Spotify.
+</Note>
+
+I like listening to progressive metal, fusion jazz and synthwave when working:
+syncopated beats, meter changes and arpeggios do wonders for web development. 🤘
+
+My favourite albums of the moment:
+
+<SimpleGrid columns={[1, 2]} spacingX={4} spacingY={8} justifyContent="center">
+  <SpotifyAlbum
+    name="The Further Side"
+    url="https://open.spotify.com/album/2opFAZPTe5dgHgNnDO2Ak4"
+    artist={{
+      name: 'Nova Collective',
+      url: 'https://open.spotify.com/artist/6VyHswI5PKKQ8bSw8bOsIz'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b2733095898b149963dd77235118',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b2733095898b149963dd77235118 640w, https://i.scdn.co/image/ab67616d00001e023095898b149963dd77235118 300w, https://i.scdn.co/image/ab67616d000048513095898b149963dd77235118 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b2733095898b149963dd77235118'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e023095898b149963dd77235118'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d000048513095898b149963dd77235118'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="Igneous"
+    url="https://open.spotify.com/album/5kU3Q43bmLdARkMOCOLNkB"
+    artist={{
+      name: 'Polynation',
+      url: 'https://open.spotify.com/artist/4Rcol4u0q89lypqKI83GDz'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b2733caf395cb159288678e3fd65',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b2733caf395cb159288678e3fd65 640w, https://i.scdn.co/image/ab67616d00001e023caf395cb159288678e3fd65 300w, https://i.scdn.co/image/ab67616d000048513caf395cb159288678e3fd65 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b2733caf395cb159288678e3fd65'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e023caf395cb159288678e3fd65'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d000048513caf395cb159288678e3fd65'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="Vector"
+    url="https://open.spotify.com/album/1PhYHO7Pva9e1YQY5GQ8zx"
+    artist={{
+      name: 'Haken',
+      url: 'https://open.spotify.com/artist/2SRIVGDkdqQnrQdaXxDkJt'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b273323b4aa0576a1bc3801c0bc3',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b273323b4aa0576a1bc3801c0bc3 640w, https://i.scdn.co/image/ab67616d00001e02323b4aa0576a1bc3801c0bc3 300w, https://i.scdn.co/image/ab67616d00004851323b4aa0576a1bc3801c0bc3 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b273323b4aa0576a1bc3801c0bc3'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e02323b4aa0576a1bc3801c0bc3'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d00004851323b4aa0576a1bc3801c0bc3'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="Virus"
+    url="https://open.spotify.com/album/1i6DTKXsonvhHZYdLhIbk1"
+    artist={{
+      name: 'Haken',
+      url: 'https://open.spotify.com/artist/2SRIVGDkdqQnrQdaXxDkJt'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b273774e1a80566840638170eab7',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b273774e1a80566840638170eab7 640w, https://i.scdn.co/image/ab67616d00001e02774e1a80566840638170eab7 300w, https://i.scdn.co/image/ab67616d00004851774e1a80566840638170eab7 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b273774e1a80566840638170eab7'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e02774e1a80566840638170eab7'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d00004851774e1a80566840638170eab7'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="Epicloud"
+    url="https://open.spotify.com/album/4WA0COIl14e6amUlwz89pN"
+    artist={{
+      name: 'Devin Townsend Project',
+      url: 'https://open.spotify.com/artist/54Xuca1P5nDqfKYZGDfHxl'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b273cea0d3447f76631f0df8d737',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b273cea0d3447f76631f0df8d737 640w, https://i.scdn.co/image/ab67616d00001e02cea0d3447f76631f0df8d737 300w, https://i.scdn.co/image/ab67616d00004851cea0d3447f76631f0df8d737 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b273cea0d3447f76631f0df8d737'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e02cea0d3447f76631f0df8d737'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d00004851cea0d3447f76631f0df8d737'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="Ziltoid Live"
+    url="https://open.spotify.com/album/6gwHddBxh92zNI459I2PPD"
+    artist={{
+      name: 'Devin Townsend Project',
+      url: 'https://open.spotify.com/artist/54Xuca1P5nDqfKYZGDfHxl'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b2732b8666405ca7d2184cd77b3e',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b2732b8666405ca7d2184cd77b3e 640w, https://i.scdn.co/image/ab67616d00001e022b8666405ca7d2184cd77b3e 300w, https://i.scdn.co/image/ab67616d000048512b8666405ca7d2184cd77b3e 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b2732b8666405ca7d2184cd77b3e'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e022b8666405ca7d2184cd77b3e'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d000048512b8666405ca7d2184cd77b3e'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="TRILOGY"
+    url="https://open.spotify.com/album/0io5pe55YRCTVqEjwlOBdN"
+    artist={{
+      name: 'Carpenter Brut',
+      url: 'https://open.spotify.com/artist/1l2oLiukA9i5jEtIyNWIEP'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b2731b1d6c550aaaae5acf220e84',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b2731b1d6c550aaaae5acf220e84 640w, https://i.scdn.co/image/ab67616d00001e021b1d6c550aaaae5acf220e84 300w, https://i.scdn.co/image/ab67616d000048511b1d6c550aaaae5acf220e84 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b2731b1d6c550aaaae5acf220e84'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e021b1d6c550aaaae5acf220e84'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d000048511b1d6c550aaaae5acf220e84'
+        }
+      ]
+    }}
+  />
+  <SpotifyAlbum
+    name="Much Against Everyone's Advice"
+    url="https://open.spotify.com/album/1Zisq1gECqPQtxvny6AUXP"
+    artist={{
+      name: 'Soulwax',
+      url: 'https://open.spotify.com/artist/43mWhBXSflupNLuNjM5vff'
+    }}
+    cover={{
+      src: 'https://i.scdn.co/image/ab67616d0000b2737bfeee00cff9f919099770bb',
+      srcset:
+        'https://i.scdn.co/image/ab67616d0000b2737bfeee00cff9f919099770bb 640w, https://i.scdn.co/image/ab67616d00001e027bfeee00cff9f919099770bb 300w, https://i.scdn.co/image/ab67616d000048517bfeee00cff9f919099770bb 64w',
+      sizes: [
+        {
+          size: 640,
+          src:
+            'https://i.scdn.co/image/ab67616d0000b2737bfeee00cff9f919099770bb'
+        },
+        {
+          size: 300,
+          src:
+            'https://i.scdn.co/image/ab67616d00001e027bfeee00cff9f919099770bb'
+        },
+        {
+          size: 64,
+          src:
+            'https://i.scdn.co/image/ab67616d000048517bfeee00cff9f919099770bb'
+        }
+      ]
+    }}
+  />
+</SimpleGrid>
+
 ---
 
 This website is [open source](https://github.com/franky47/francoisbest.com),
