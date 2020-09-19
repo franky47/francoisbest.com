@@ -105,6 +105,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
           >
             <Image
               src={cover.src}
+              fallbackSrc="/images/album-cover-placeholder.jpg"
               alt={`${name}, an album by ${artist.name}`}
             />
             <Overlay
