@@ -147,10 +147,9 @@ export function renderAlbumComponent(meta: SpotifyAlbumData) {
 
 export async function main() {
   const id = process.argv[2].split(':')[2]
-  console.dir({ argv: process.argv, id })
   const token = await requestAccessToken()
   const meta = await getAlbumMetadata(id, token)
-  console.log(renderAlbumComponent(meta))
+  console.log(`"${meta.name}": ${JSON.stringify(meta, null, 2)}`)
 }
 
 main()

@@ -1,0 +1,109 @@
+---
+title: Music I Enjoy
+description: A few albums I like listening to, for work and relaxing.
+layout: PageLayout
+---
+
+import { SpotifyAlbum } from 'src/components/SpotifyAlbum'
+import { SimpleGrid } from '@chakra-ui/core'
+import { FiVolume2 } from 'react-icons/fi'
+import albums from 'src/data/albums.json'
+
+## Music
+
+<Note status="success" icon={FiVolume2}>
+  Check out my{' '}
+  <OutgoingLink
+    href="https://open.spotify.com/playlist/09JVRjAbg8ETlHWznfVOQf?si=F9Vksg9aQp2D7q5MbecMqw"
+    textDecoration="underline"
+  >
+    Spotify playlist
+  </OutgoingLink>{' '}
+  for web development.
+</Note>
+
+### Progressive Rock / Metal
+
+<WideContainer>
+  <SimpleGrid
+    columns={[1, 2, 3]}
+    spacingX={4}
+    spacingY={8}
+    justifyContent="center"
+  >
+    <SpotifyAlbum {...albums['The Mountain']} />
+    <SpotifyAlbum {...albums['Vector']} />
+    <SpotifyAlbum {...albums['Virus']} />
+    <SpotifyAlbum {...albums['Epicloud']} />
+    <SpotifyAlbum {...albums['Casualties of Cool']} />
+    <SpotifyAlbum {...albums['Empath']} />
+    <SpotifyAlbum {...albums['Ziltoid Live']} />
+    <SpotifyAlbum {...albums["Much Against Everyone's Advice"]} />
+    <SpotifyAlbum {...albums['Any Minute Now']} />
+    <SpotifyAlbum {...albums['The Further Side']} />
+    <SpotifyAlbum {...albums['Superunknown']} />
+    <SpotifyAlbum {...albums['Audioslave']} />
+    <SpotifyAlbum {...albums['Insurgentes']} />
+    <SpotifyAlbum {...albums['The Raven That Refused to Sing']} />
+    <SpotifyAlbum {...albums['Hand Cannot Erase']} />
+  </SimpleGrid>
+</WideContainer>
+
+<br />
+
+### Electro / Synthwave
+
+<WideContainer>
+  <SimpleGrid
+    columns={[1, 2, 3]}
+    spacingX={4}
+    spacingY={8}
+    justifyContent="center"
+  >
+    <SpotifyAlbum {...albums['Igneous']} />
+    <SpotifyAlbum {...albums['TRILOGY']} />
+    <SpotifyAlbum {...albums['Dangerous Days']} />
+    <SpotifyAlbum {...albums['Kid Velo']} />
+    <SpotifyAlbum {...albums['Nite Versions']} />
+  </SimpleGrid>
+</WideContainer>
+
+<br />
+
+### Extreme Prog
+
+It gets wild. You've been warned.
+
+<WideContainer>
+  <SimpleGrid
+    columns={[1, 2, 3]}
+    spacingX={4}
+    spacingY={8}
+    justifyContent="center"
+  >
+    <SpotifyAlbum {...albums['Rococo Holocaust']} />
+    <SpotifyAlbum {...albums['Hyperblast Super Collider']} />
+    <SpotifyAlbum {...albums['Brute Force']} />
+    <SpotifyAlbum {...albums['Polymorphic Code']} />
+    <SpotifyAlbum {...albums['Tea Time for Punks']} />
+  </SimpleGrid>
+</WideContainer>
+
+<br />
+
+### Calm / Meditation
+
+If the previous section was too wild for your taste, check out those albums & artists:
+
+<WideContainer>
+  <SimpleGrid
+    columns={[1, 2, 3]}
+    spacingX={4}
+    spacingY={8}
+    justifyContent="center"
+  >
+    <SpotifyAlbum {...albums['Passage']} />
+    <SpotifyAlbum {...albums['Contact Note']} />
+    <SpotifyAlbum {...albums['Immunity']} />
+  </SimpleGrid>
+</WideContainer>

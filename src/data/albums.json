@@ -1,0 +1,730 @@
+{
+  "The Further Side": {
+    "name": "The Further Side",
+    "url": "https://open.spotify.com/album/2opFAZPTe5dgHgNnDO2Ak4",
+    "artist": {
+      "name": "Nova Collective",
+      "url": "https://open.spotify.com/artist/6VyHswI5PKKQ8bSw8bOsIz"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2733095898b149963dd77235118",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2733095898b149963dd77235118 640w, https://i.scdn.co/image/ab67616d00001e023095898b149963dd77235118 300w, https://i.scdn.co/image/ab67616d000048513095898b149963dd77235118 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2733095898b149963dd77235118"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e023095898b149963dd77235118"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048513095898b149963dd77235118"
+        }
+      ]
+    }
+  },
+  "Igneous": {
+    "name": "Igneous",
+    "url": "https://open.spotify.com/album/5kU3Q43bmLdARkMOCOLNkB",
+    "artist": {
+      "name": "Polynation",
+      "url": "https://open.spotify.com/artist/4Rcol4u0q89lypqKI83GDz"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2733caf395cb159288678e3fd65",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2733caf395cb159288678e3fd65 640w, https://i.scdn.co/image/ab67616d00001e023caf395cb159288678e3fd65 300w, https://i.scdn.co/image/ab67616d000048513caf395cb159288678e3fd65 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2733caf395cb159288678e3fd65"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e023caf395cb159288678e3fd65"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048513caf395cb159288678e3fd65"
+        }
+      ]
+    }
+  },
+  "The Mountain": {
+    "name": "The Mountain",
+    "url": "https://open.spotify.com/album/3RBULTZJ97bvVzZLpxcB0j",
+    "artist": {
+      "name": "Haken",
+      "url": "https://open.spotify.com/artist/2SRIVGDkdqQnrQdaXxDkJt"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273817a9af094d11b2b6936f0ba",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273817a9af094d11b2b6936f0ba 640w, https://i.scdn.co/image/ab67616d00001e02817a9af094d11b2b6936f0ba 300w, https://i.scdn.co/image/ab67616d00004851817a9af094d11b2b6936f0ba 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273817a9af094d11b2b6936f0ba"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02817a9af094d11b2b6936f0ba"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851817a9af094d11b2b6936f0ba"
+        }
+      ]
+    }
+  },
+  "Vector": {
+    "name": "Vector",
+    "url": "https://open.spotify.com/album/1PhYHO7Pva9e1YQY5GQ8zx",
+    "artist": {
+      "name": "Haken",
+      "url": "https://open.spotify.com/artist/2SRIVGDkdqQnrQdaXxDkJt"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273323b4aa0576a1bc3801c0bc3",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273323b4aa0576a1bc3801c0bc3 640w, https://i.scdn.co/image/ab67616d00001e02323b4aa0576a1bc3801c0bc3 300w, https://i.scdn.co/image/ab67616d00004851323b4aa0576a1bc3801c0bc3 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273323b4aa0576a1bc3801c0bc3"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02323b4aa0576a1bc3801c0bc3"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851323b4aa0576a1bc3801c0bc3"
+        }
+      ]
+    }
+  },
+  "Virus": {
+    "name": "Virus",
+    "url": "https://open.spotify.com/album/1i6DTKXsonvhHZYdLhIbk1",
+    "artist": {
+      "name": "Haken",
+      "url": "https://open.spotify.com/artist/2SRIVGDkdqQnrQdaXxDkJt"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273774e1a80566840638170eab7",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273774e1a80566840638170eab7 640w, https://i.scdn.co/image/ab67616d00001e02774e1a80566840638170eab7 300w, https://i.scdn.co/image/ab67616d00004851774e1a80566840638170eab7 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273774e1a80566840638170eab7"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02774e1a80566840638170eab7"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851774e1a80566840638170eab7"
+        }
+      ]
+    }
+  },
+  "Kid Velo": {
+    "name": "Kid Velo",
+    "url": "https://open.spotify.com/album/6nj966rHe5ui3JKwqh8a32",
+    "artist": {
+      "name": "Rival Consoles",
+      "url": "https://open.spotify.com/artist/05lIUgmmsmTX2N9dCKc8rC"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273a78a649aab3f9e38974fe76c",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273a78a649aab3f9e38974fe76c 640w, https://i.scdn.co/image/ab67616d00001e02a78a649aab3f9e38974fe76c 300w, https://i.scdn.co/image/ab67616d00004851a78a649aab3f9e38974fe76c 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273a78a649aab3f9e38974fe76c"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02a78a649aab3f9e38974fe76c"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851a78a649aab3f9e38974fe76c"
+        }
+      ]
+    }
+  },
+  "Epicloud": {
+    "name": "Epicloud",
+    "url": "https://open.spotify.com/album/4WA0COIl14e6amUlwz89pN",
+    "artist": {
+      "name": "Devin Townsend Project",
+      "url": "https://open.spotify.com/artist/54Xuca1P5nDqfKYZGDfHxl"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273cea0d3447f76631f0df8d737",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273cea0d3447f76631f0df8d737 640w, https://i.scdn.co/image/ab67616d00001e02cea0d3447f76631f0df8d737 300w, https://i.scdn.co/image/ab67616d00004851cea0d3447f76631f0df8d737 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273cea0d3447f76631f0df8d737"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02cea0d3447f76631f0df8d737"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851cea0d3447f76631f0df8d737"
+        }
+      ]
+    }
+  },
+  "Ziltoid Live": {
+    "name": "Ziltoid Live",
+    "url": "https://open.spotify.com/album/6gwHddBxh92zNI459I2PPD",
+    "artist": {
+      "name": "Devin Townsend Project",
+      "url": "https://open.spotify.com/artist/54Xuca1P5nDqfKYZGDfHxl"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2732b8666405ca7d2184cd77b3e",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2732b8666405ca7d2184cd77b3e 640w, https://i.scdn.co/image/ab67616d00001e022b8666405ca7d2184cd77b3e 300w, https://i.scdn.co/image/ab67616d000048512b8666405ca7d2184cd77b3e 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2732b8666405ca7d2184cd77b3e"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e022b8666405ca7d2184cd77b3e"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048512b8666405ca7d2184cd77b3e"
+        }
+      ]
+    }
+  },
+  "Empath": {
+    "name": "Empath",
+    "url": "https://open.spotify.com/album/7MPJRyMFbWbgezRP2Pj4TZ",
+    "artist": {
+      "name": "Devin Townsend",
+      "url": "https://open.spotify.com/artist/6uejjWIOshliv2Ho0OJAQN"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273df6ec30f70a001f7d7b74909",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273df6ec30f70a001f7d7b74909 640w, https://i.scdn.co/image/ab67616d00001e02df6ec30f70a001f7d7b74909 300w, https://i.scdn.co/image/ab67616d00004851df6ec30f70a001f7d7b74909 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273df6ec30f70a001f7d7b74909"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02df6ec30f70a001f7d7b74909"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851df6ec30f70a001f7d7b74909"
+        }
+      ]
+    }
+  },
+  "Casualties of Cool": {
+    "name": "Casualties of Cool",
+    "url": "https://open.spotify.com/album/37cVlKDwp4lcIqb3Bwv4et",
+    "artist": {
+      "name": "Devin Townsend",
+      "url": "https://open.spotify.com/artist/6uejjWIOshliv2Ho0OJAQN"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273542eccdde77fb44412d09fa6",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273542eccdde77fb44412d09fa6 640w, https://i.scdn.co/image/ab67616d00001e02542eccdde77fb44412d09fa6 300w, https://i.scdn.co/image/ab67616d00004851542eccdde77fb44412d09fa6 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273542eccdde77fb44412d09fa6"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02542eccdde77fb44412d09fa6"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851542eccdde77fb44412d09fa6"
+        }
+      ]
+    }
+  },
+  "TRILOGY": {
+    "name": "TRILOGY",
+    "url": "https://open.spotify.com/album/0io5pe55YRCTVqEjwlOBdN",
+    "artist": {
+      "name": "Carpenter Brut",
+      "url": "https://open.spotify.com/artist/1l2oLiukA9i5jEtIyNWIEP"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2731b1d6c550aaaae5acf220e84",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2731b1d6c550aaaae5acf220e84 640w, https://i.scdn.co/image/ab67616d00001e021b1d6c550aaaae5acf220e84 300w, https://i.scdn.co/image/ab67616d000048511b1d6c550aaaae5acf220e84 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2731b1d6c550aaaae5acf220e84"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e021b1d6c550aaaae5acf220e84"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048511b1d6c550aaaae5acf220e84"
+        }
+      ]
+    }
+  },
+  "Dangerous Days": {
+    "name": "Dangerous Days",
+    "url": "https://open.spotify.com/album/0GzBfwarPFhAdfLNHfgaRT",
+    "artist": {
+      "name": "Perturbator",
+      "url": "https://open.spotify.com/artist/244uLu9lkdw39BJwlul3k8"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2737be0bdb1f8731f9af3e95812",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2737be0bdb1f8731f9af3e95812 640w, https://i.scdn.co/image/ab67616d00001e027be0bdb1f8731f9af3e95812 300w, https://i.scdn.co/image/ab67616d000048517be0bdb1f8731f9af3e95812 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2737be0bdb1f8731f9af3e95812"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e027be0bdb1f8731f9af3e95812"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048517be0bdb1f8731f9af3e95812"
+        }
+      ]
+    }
+  },
+  "Much Against Everyone's Advice": {
+    "name": "Much Against Everyone's Advice",
+    "url": "https://open.spotify.com/album/1Zisq1gECqPQtxvny6AUXP",
+    "artist": {
+      "name": "Soulwax",
+      "url": "https://open.spotify.com/artist/43mWhBXSflupNLuNjM5vff"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2737bfeee00cff9f919099770bb",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2737bfeee00cff9f919099770bb 640w, https://i.scdn.co/image/ab67616d00001e027bfeee00cff9f919099770bb 300w, https://i.scdn.co/image/ab67616d000048517bfeee00cff9f919099770bb 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2737bfeee00cff9f919099770bb"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e027bfeee00cff9f919099770bb"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048517bfeee00cff9f919099770bb"
+        }
+      ]
+    }
+  },
+  "Any Minute Now": {
+    "name": "Any Minute Now",
+    "url": "https://open.spotify.com/album/6oAU1ajSCbepPdsQVUfsbj",
+    "artist": {
+      "name": "Soulwax",
+      "url": "https://open.spotify.com/artist/43mWhBXSflupNLuNjM5vff"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273c2ce4cca1b1f985d1e5dd26d",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273c2ce4cca1b1f985d1e5dd26d 640w, https://i.scdn.co/image/ab67616d00001e02c2ce4cca1b1f985d1e5dd26d 300w, https://i.scdn.co/image/ab67616d00004851c2ce4cca1b1f985d1e5dd26d 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273c2ce4cca1b1f985d1e5dd26d"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02c2ce4cca1b1f985d1e5dd26d"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851c2ce4cca1b1f985d1e5dd26d"
+        }
+      ]
+    }
+  },
+  "Nite Versions": {
+    "name": "Nite Versions",
+    "url": "https://open.spotify.com/album/5ftdUoPzoh1y5bIroXw68G",
+    "artist": {
+      "name": "Soulwax",
+      "url": "https://open.spotify.com/artist/43mWhBXSflupNLuNjM5vff"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2735ee157bfe0f437ddbbcc4411",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2735ee157bfe0f437ddbbcc4411 640w, https://i.scdn.co/image/ab67616d00001e025ee157bfe0f437ddbbcc4411 300w, https://i.scdn.co/image/ab67616d000048515ee157bfe0f437ddbbcc4411 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2735ee157bfe0f437ddbbcc4411"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e025ee157bfe0f437ddbbcc4411"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048515ee157bfe0f437ddbbcc4411"
+        }
+      ]
+    }
+  },
+  "Superunknown": {
+    "name": "Superunknown",
+    "url": "https://open.spotify.com/album/4K8bxkPDa5HENw0TK7WxJh",
+    "artist": {
+      "name": "Soundgarden",
+      "url": "https://open.spotify.com/artist/5xUf6j4upBrXZPg6AI4MRK"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2735124ed45a94033830b320500",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2735124ed45a94033830b320500 640w, https://i.scdn.co/image/ab67616d00001e025124ed45a94033830b320500 300w, https://i.scdn.co/image/ab67616d000048515124ed45a94033830b320500 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2735124ed45a94033830b320500"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e025124ed45a94033830b320500"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048515124ed45a94033830b320500"
+        }
+      ]
+    }
+  },
+  "The Raven That Refused to Sing": {
+    "name": "The Raven That Refused to Sing (and Other Stories)",
+    "url": "https://open.spotify.com/album/2xJFvV7JzoYYMere5rqjVf",
+    "artist": {
+      "name": "Steven Wilson",
+      "url": "https://open.spotify.com/artist/4X42BfuhWCAZ2swiVze9O0"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273957ae146a564181e7bbbfbd2",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273957ae146a564181e7bbbfbd2 640w, https://i.scdn.co/image/ab67616d00001e02957ae146a564181e7bbbfbd2 300w, https://i.scdn.co/image/ab67616d00004851957ae146a564181e7bbbfbd2 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273957ae146a564181e7bbbfbd2"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02957ae146a564181e7bbbfbd2"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851957ae146a564181e7bbbfbd2"
+        }
+      ]
+    }
+  },
+  "Hand Cannot Erase": {
+    "name": "Hand Cannot Erase",
+    "url": "https://open.spotify.com/album/6P7vL4vGgyrD7q9VR9BcnV",
+    "artist": {
+      "name": "Steven Wilson",
+      "url": "https://open.spotify.com/artist/4X42BfuhWCAZ2swiVze9O0"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b27359fee416d114b30583afef48",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b27359fee416d114b30583afef48 640w, https://i.scdn.co/image/ab67616d00001e0259fee416d114b30583afef48 300w, https://i.scdn.co/image/ab67616d0000485159fee416d114b30583afef48 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b27359fee416d114b30583afef48"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e0259fee416d114b30583afef48"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d0000485159fee416d114b30583afef48"
+        }
+      ]
+    }
+  },
+  "Insurgentes": {
+    "name": "Insurgentes",
+    "url": "https://open.spotify.com/album/3psPvfJX0dMn05RK7fqcIL",
+    "artist": {
+      "name": "Steven Wilson",
+      "url": "https://open.spotify.com/artist/4X42BfuhWCAZ2swiVze9O0"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273ecafe5607a782dd3df893751",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273ecafe5607a782dd3df893751 640w, https://i.scdn.co/image/ab67616d00001e02ecafe5607a782dd3df893751 300w, https://i.scdn.co/image/ab67616d00004851ecafe5607a782dd3df893751 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273ecafe5607a782dd3df893751"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02ecafe5607a782dd3df893751"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851ecafe5607a782dd3df893751"
+        }
+      ]
+    }
+  },
+  "Audioslave": {
+    "name": "Audioslave",
+    "url": "https://open.spotify.com/album/78guAsers0klWl6RwzgDLd",
+    "artist": {
+      "name": "Audioslave",
+      "url": "https://open.spotify.com/artist/2ziB7fzrXBoh1HUPS6sVFn"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273a7292b6863258e889b78d787",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273a7292b6863258e889b78d787 640w, https://i.scdn.co/image/ab67616d00001e02a7292b6863258e889b78d787 300w, https://i.scdn.co/image/ab67616d00004851a7292b6863258e889b78d787 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273a7292b6863258e889b78d787"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02a7292b6863258e889b78d787"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851a7292b6863258e889b78d787"
+        }
+      ]
+    }
+  },
+  "Rococo Holocaust": {
+    "name": "Rococo Holocaust",
+    "url": "https://open.spotify.com/album/2iuftfHy8BAyG4ePAB7xcY",
+    "artist": {
+      "name": "Pryapisme",
+      "url": "https://open.spotify.com/artist/0cY02eEDjlx9VL1rLIaUdW"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273cb96dad1ce96ff4052deb08a",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273cb96dad1ce96ff4052deb08a 640w, https://i.scdn.co/image/ab67616d00001e02cb96dad1ce96ff4052deb08a 300w, https://i.scdn.co/image/ab67616d00004851cb96dad1ce96ff4052deb08a 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273cb96dad1ce96ff4052deb08a"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02cb96dad1ce96ff4052deb08a"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851cb96dad1ce96ff4052deb08a"
+        }
+      ]
+    }
+  },
+  "Hyperblast Super Collider": {
+    "name": "Hyperblast Super Collider",
+    "url": "https://open.spotify.com/album/7Glnx0Uhu8f7QdKRKx6nlN",
+    "artist": {
+      "name": "Pryapisme",
+      "url": "https://open.spotify.com/artist/0cY02eEDjlx9VL1rLIaUdW"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2734c4b90746ec07f60c9eb22cf",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2734c4b90746ec07f60c9eb22cf 640w, https://i.scdn.co/image/ab67616d00001e024c4b90746ec07f60c9eb22cf 300w, https://i.scdn.co/image/ab67616d000048514c4b90746ec07f60c9eb22cf 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2734c4b90746ec07f60c9eb22cf"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e024c4b90746ec07f60c9eb22cf"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048514c4b90746ec07f60c9eb22cf"
+        }
+      ]
+    }
+  },
+  "Brute Force": {
+    "name": "Brute Force",
+    "url": "https://open.spotify.com/album/3HNzOyPbz5vPvUie7lI97X",
+    "artist": {
+      "name": "The Algorithm",
+      "url": "https://open.spotify.com/artist/14u4KXVp0iXQil79EpxXGc"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2739ea19f163bcf1986d37439fa",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2739ea19f163bcf1986d37439fa 640w, https://i.scdn.co/image/ab67616d00001e029ea19f163bcf1986d37439fa 300w, https://i.scdn.co/image/ab67616d000048519ea19f163bcf1986d37439fa 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2739ea19f163bcf1986d37439fa"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e029ea19f163bcf1986d37439fa"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048519ea19f163bcf1986d37439fa"
+        }
+      ]
+    }
+  },
+  "Polymorphic Code": {
+    "name": "Polymorphic Code",
+    "url": "https://open.spotify.com/album/2wPyt8oSnSAXsuYeQMzTzq",
+    "artist": {
+      "name": "The Algorithm",
+      "url": "https://open.spotify.com/artist/14u4KXVp0iXQil79EpxXGc"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b27342d07686c4aa1898c5d11a69",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b27342d07686c4aa1898c5d11a69 640w, https://i.scdn.co/image/ab67616d00001e0242d07686c4aa1898c5d11a69 300w, https://i.scdn.co/image/ab67616d0000485142d07686c4aa1898c5d11a69 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b27342d07686c4aa1898c5d11a69"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e0242d07686c4aa1898c5d11a69"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d0000485142d07686c4aa1898c5d11a69"
+        }
+      ]
+    }
+  },
+  "Tea Time for Punks": {
+    "name": "Tea Time for Punks",
+    "url": "https://open.spotify.com/album/6ceOYvxgsFYpTPgdgYgnie",
+    "artist": {
+      "name": "Morglbl",
+      "url": "https://open.spotify.com/artist/12tjYZofJ1CqwpSsbSbAIe"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2733ecea018e80500a0db666838",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2733ecea018e80500a0db666838 640w, https://i.scdn.co/image/ab67616d00001e023ecea018e80500a0db666838 300w, https://i.scdn.co/image/ab67616d000048513ecea018e80500a0db666838 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2733ecea018e80500a0db666838"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e023ecea018e80500a0db666838"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048513ecea018e80500a0db666838"
+        }
+      ]
+    }
+  },
+  "Passage": {
+    "name": "Passage",
+    "url": "https://open.spotify.com/album/4Aumawi2PZuCxo10dQc3vn",
+    "artist": {
+      "name": "Ulrich Schnauss",
+      "url": "https://open.spotify.com/artist/4znPt0HV6Ik0iR8sR4GAJE"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273b13303d1bb809274f0ca36b5",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273b13303d1bb809274f0ca36b5 640w, https://i.scdn.co/image/ab67616d00001e02b13303d1bb809274f0ca36b5 300w, https://i.scdn.co/image/ab67616d00004851b13303d1bb809274f0ca36b5 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273b13303d1bb809274f0ca36b5"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02b13303d1bb809274f0ca36b5"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851b13303d1bb809274f0ca36b5"
+        }
+      ]
+    }
+  },
+  "Contact Note": {
+    "name": "Contact Note",
+    "url": "https://open.spotify.com/album/582EKMkWdR5wmroAm9NqfE",
+    "artist": {
+      "name": "Jon Hopkins",
+      "url": "https://open.spotify.com/artist/7yxi31szvlbwvKq9dYOmFI"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b2736fe9069227c9362c561a27d1",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b2736fe9069227c9362c561a27d1 640w, https://i.scdn.co/image/ab67616d00001e026fe9069227c9362c561a27d1 300w, https://i.scdn.co/image/ab67616d000048516fe9069227c9362c561a27d1 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b2736fe9069227c9362c561a27d1"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e026fe9069227c9362c561a27d1"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d000048516fe9069227c9362c561a27d1"
+        }
+      ]
+    }
+  },
+  "Immunity": {
+    "name": "Immunity",
+    "url": "https://open.spotify.com/album/1rxWlYQcH945S3jpIMYR35",
+    "artist": {
+      "name": "Jon Hopkins",
+      "url": "https://open.spotify.com/artist/7yxi31szvlbwvKq9dYOmFI"
+    },
+    "cover": {
+      "src": "https://i.scdn.co/image/ab67616d0000b273235e762de339c6076aa824dd",
+      "srcset": "https://i.scdn.co/image/ab67616d0000b273235e762de339c6076aa824dd 640w, https://i.scdn.co/image/ab67616d00001e02235e762de339c6076aa824dd 300w, https://i.scdn.co/image/ab67616d00004851235e762de339c6076aa824dd 64w",
+      "sizes": [
+        {
+          "size": 640,
+          "src": "https://i.scdn.co/image/ab67616d0000b273235e762de339c6076aa824dd"
+        },
+        {
+          "size": 300,
+          "src": "https://i.scdn.co/image/ab67616d00001e02235e762de339c6076aa824dd"
+        },
+        {
+          "size": 64,
+          "src": "https://i.scdn.co/image/ab67616d00004851235e762de339c6076aa824dd"
+        }
+      ]
+    }
+  }
+}

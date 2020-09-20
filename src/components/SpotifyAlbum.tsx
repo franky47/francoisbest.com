@@ -93,10 +93,14 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
             className="album-cover"
             rounded="md"
             shadow="md"
-            maxW="250px"
-            maxH="250px"
+            h="250px"
+            w="250px"
             mx="auto"
             overflow="hidden"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            bg="black"
             fontSize="xs"
             _hover={{
               shadow: 'lg'
