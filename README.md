@@ -16,4 +16,9 @@ Built with:
 
 ## License
 
-[MIT](https://github.com/47ng/check-env/blob/master/LICENSE) - Made with ❤️ by [François Best](https://francoisbest.com) - [Donations welcome](https://paypal.me/francoisbest?locale.x=fr_FR) 🙏
+[Simple license](./LICENSE.txt):
+
+- Inspiration is welcome
+- No plagiarism
+
+Made with ❤️ by [François Best](https://francoisbest.com) - [Donations welcome](https://paypal.me/francoisbest?locale.x=fr_FR) 🙏
