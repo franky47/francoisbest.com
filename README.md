@@ -14,9 +14,7 @@ Built with:
 - [Max Stoiber](https://github.com/mxstbr/mxstbr.com)
 - [Guillermo Rauch](https://rauchg.com)
 
-## License
-
-[Simple license](./LICENSE.txt):
+## [License](./LICENSE.txt)
 
 - Inspiration is welcome
 - No plagiarism

@@ -2,7 +2,7 @@
   "name": "francoisbest.com",
   "version": "0.0.0",
   "private": true,
-  "license": "MIT",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "clean": "rm -rf .next .mdx-data out",
