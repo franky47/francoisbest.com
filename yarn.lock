@@ -28,10 +28,10 @@
     "@stablelib/base64" "^1.0.0"
     "@stablelib/hex" "^1.0.0"
 
-"@47ng/simple-e2ee@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@47ng/simple-e2ee/-/simple-e2ee-1.0.0.tgz#06cda7f1f92cf48812f2b0ab22da346e51188aea"
-  integrity sha512-lZ0us1EQYcDdZUgDoOim0EQq4U+FSQWlWNdQEe/0aBK0cPFX6/+/REN4uebNoLe+PVcKjCmwR7gSmBhsmN1Ijw==
+"@47ng/simple-e2ee@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@47ng/simple-e2ee/-/simple-e2ee-1.0.1.tgz#741a2b958caee4b31dc4b8562b8506e7f722befb"
+  integrity sha512-5pQJmuhdcWbxROLmGOEQnPEFZKo49ZnWy3WMpscKweReCEunArePZRM+YD1E2zI7VjwOF5yURy7sw91U+IhS0A==
   dependencies:
     "@47ng/codec" "^1.0.0"
     tweetnacl "^1.0.3"
