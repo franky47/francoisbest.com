@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@47ng/chakra-next": "^2.4.2",
+    "@47ng/simple-e2ee": "^1.0.0",
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",

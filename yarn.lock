@@ -28,6 +28,14 @@
     "@stablelib/base64" "^1.0.0"
     "@stablelib/hex" "^1.0.0"
 
+"@47ng/simple-e2ee@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@47ng/simple-e2ee/-/simple-e2ee-1.0.0.tgz#06cda7f1f92cf48812f2b0ab22da346e51188aea"
+  integrity sha512-lZ0us1EQYcDdZUgDoOim0EQq4U+FSQWlWNdQEe/0aBK0cPFX6/+/REN4uebNoLe+PVcKjCmwR7gSmBhsmN1Ijw==
+  dependencies:
+    "@47ng/codec" "^1.0.0"
+    tweetnacl "^1.0.3"
+
 "@ampproject/toolbox-core@^2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@ampproject/toolbox-core/-/toolbox-core-2.6.0.tgz#9824d5f133d82106a9bf0774920843c69fa5c869"
