@@ -15,7 +15,9 @@ const E2EE: NextPage<E2EEProps> = ({}) => {
     const url = new URL(
       e2ee.applyKeyToURL(
         key,
-        window.location.toString().replace(/\/encrypt$/, `/${payload}`)
+        window.location
+          .toString()
+          .replace(/\/encrypt$/, `/decrypt?payload=${payload}`)
       )
     )
     router.push(url)
