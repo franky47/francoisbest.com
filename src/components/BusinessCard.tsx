@@ -2,10 +2,13 @@ import React from 'react'
 import { Text } from '@chakra-ui/core'
 import { Card, CardProps } from '@47ng/chakra-next'
 import { Footer } from 'src/layouts/components/Footer'
+import { H4, HeadingProps } from 'src/components/primitives/Typography'
 import { useColor } from 'src/ui/colors'
 import { Author } from './blog/Author'
 
 export interface BusinessCardProps extends CardProps {}
+
+const Heading = (p: HeadingProps) => <H4 as="h1" {...p} />
 
 export const BusinessCard: React.FC<BusinessCardProps> = ({ ...props }) => {
   return (
@@ -20,7 +23,7 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ ...props }) => {
       shadow="xl"
       mx="auto"
     >
-      <Author justifyContent="center" mt={4} mb={8} />
+      <Author justifyContent="center" mt={4} mb={8} TitleHeading={Heading} />
       <Text
         px={4}
         mb={2}
