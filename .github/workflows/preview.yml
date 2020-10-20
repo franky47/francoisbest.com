@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@722adc6
       - uses: actions/setup-node@1c5c137
         with:
-          node-version: 12.x
+          node-version: 14.x
       - uses: actions/cache@70655ec
         name: Load Yarn cache
         with:
