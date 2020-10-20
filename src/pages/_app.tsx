@@ -31,11 +31,11 @@ export default createChakraNextApp({
   globalCss: css`
     @font-face {
       font-family: 'Virgil';
-      src: url('https://excalidraw.com/FG_Virgil.woff2');
+      src: url('/fonts/FG_Virgil.woff2');
     }
     @font-face {
       font-family: 'Cascadia';
-      src: url('https://excalidraw.com/Cascadia.woff2');
+      src: url('/fonts/Cascadia.woff2');
     }
     html {
       font-family: ${theme.fonts.body};

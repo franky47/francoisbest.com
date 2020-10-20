@@ -12,8 +12,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en-GB">
         <Head>
-          <link rel="preconnect" href="https://excalidraw.com" />
-          <link rel="dns-prefetch" href="https://excalidraw.com" />
           <Favicons />
           <link rel="sitemap" href="sitemap.xml" type="application/xml" />
           <link
