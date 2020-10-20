@@ -11,7 +11,8 @@ function formatPhotoData(data: any): UnsplashImageData {
     color: data.color,
     blurhash: data.blur_hash,
     author: {
-      username: data.user.username
+      username: data.user.username,
+      name: data.user.name
     }
   }
 }

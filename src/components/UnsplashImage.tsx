@@ -1,7 +1,11 @@
 import React from 'react'
 import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Image from '@chakra-ui/core/dist/Image'
+import Text from '@chakra-ui/core/dist/Text'
 import { useStaticData } from 'src/hooks/useStaticData'
-import { Image } from '@chakra-ui/core'
+import { OutgoingLink } from '@47ng/chakra-next'
+import { useColor } from 'src/ui/colors'
+import { useURL } from 'src/hooks/useURL'
 
 export interface UnsplashImageData {
   w: number
@@ -12,6 +16,7 @@ export interface UnsplashImageData {
   color: string
   blurhash: string
   author: {
+    name: string
     username: string
   }
 }
@@ -24,19 +29,59 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   id,
   ...props
 }) => {
-  const { src, alt, w, h, color } = useStaticData<UnsplashImageData>(
+  const { src, alt, w, h, color, author } = useStaticData<UnsplashImageData>(
     'unsplash',
     id
   )
+  const linkHoverProps = {
+    color: useColor('gray.800', 'gray.300')
+  }
+
+  const deploymentDomain = useURL()
+    .replace('https://', '')
+    .replace('http://', '')
+
+  const utm =
+    navigator.doNotTrack === '1' // Respect DNT
+      ? ''
+      : `?utm_source=${deploymentDomain}&utm_medium=referral`
+
   return (
-    <PseudoBox overflow="hidden" rounded="md" shadow="md" {...props}>
+    <PseudoBox as="figure" {...props}>
       <Image
         src={src}
         alt={alt}
         htmlWidth={w}
         htmlHeight={h}
+        rounded="md"
+        shadow="md"
         backgroundColor={color}
       />
+      <Text
+        as="figcaption"
+        textAlign="center"
+        fontSize="sm"
+        mt={2}
+        color="gray.600"
+      >
+        Image by{' '}
+        <OutgoingLink
+          href={`https://unsplash.com/@${author.username}${utm}`}
+          textDecoration="underline"
+          _hover={linkHoverProps}
+        >
+          {author.name}
+        </OutgoingLink>{' '}
+        on{' '}
+        <OutgoingLink
+          href={`https://unsplash.com/photos/${id}${utm}`}
+          textDecoration="underline"
+          _hover={linkHoverProps}
+        >
+          Unsplash
+        </OutgoingLink>
+        .
+      </Text>
     </PseudoBox>
   )
 }
