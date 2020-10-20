@@ -36,15 +36,7 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   const linkHoverProps = {
     color: useColor('gray.800', 'gray.300')
   }
-
-  const deploymentDomain = useURL()
-    .replace('https://', '')
-    .replace('http://', '')
-
-  const utm =
-    typeof navigator === 'undefined' || navigator.doNotTrack === '1' // Respect DNT
-      ? ''
-      : `?utm_source=${deploymentDomain}&utm_medium=referral`
+  const utm = useUTM()
 
   return (
     <PseudoBox as="figure" {...props}>
@@ -84,4 +76,22 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
       </Text>
     </PseudoBox>
   )
+}
+
+// Only add UTM on client-side, after first hydration and if DNT is off
+function useUTM() {
+  const deploymentDomain = useURL()
+    .replace('https://', '')
+    .replace('http://', '')
+
+  const [utm, setUTM] = React.useState('')
+
+  React.useEffect(() => {
+    if (navigator.doNotTrack === '1') {
+      return
+    }
+    setUTM(`?utm_source=${deploymentDomain}&utm_medium=referral`)
+  }, [deploymentDomain])
+
+  return utm
 }
