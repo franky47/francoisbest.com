@@ -125,10 +125,8 @@ export const mdxComponents: any = {
     return <StyledLink color={color} {...p} />
   },
 
-  ul: (p: any) => <List styleType="disc" mb={8} spacing={1} {...p} />,
-  ol: (p: any) => (
-    <List as="ol" styleType="decimal" mb={8} spacing={1} {...p} />
-  ),
+  ul: (p: any) => <List styleType="disc" spacing={1} {...p} />,
+  ol: (p: any) => <List as="ol" styleType="decimal" spacing={1} {...p} />,
   li: (p: any) => <ListItem ml={4} {...p} />,
 
   figure: (p: PseudoBoxProps) => <PseudoBox my={12} {...p} />,
@@ -164,7 +162,7 @@ export const mdxComponents: any = {
 
   // Global scope:
   RouteLink,
-  OutgoingLink,
+  OutgoingLink: StyledLink,
   PostReference,
   WideContainer,
   img: (p: any) => <Image mb={8} rounded="md" {...p} />,
