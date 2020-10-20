@@ -31,11 +31,13 @@ export default createChakraNextApp({
   globalCss: css`
     @font-face {
       font-family: 'Virgil';
-      src: url('/fonts/FG_Virgil.woff2');
+      src: url('/fonts/FG_Virgil.woff2') format('woff2'),
+        url('/fonts/FG_Virgil.woff') format('woff');
     }
     @font-face {
       font-family: 'Cascadia';
-      src: url('/fonts/Cascadia.woff2');
+      src: url('/fonts/Cascadia.woff2') format('woff2'),
+        url('/fonts/Cascadia.woff') format('woff');
     }
     html {
       font-family: ${theme.fonts.body};
@@ -92,6 +94,14 @@ export default createChakraNextApp({
                   ? '--colors-accent-700'
                   : '--colors-accent-200'}
               );
+            }
+            ul,
+            ol {
+              margin-bottom: 2rem;
+            }
+            li > ul,
+            li > ol {
+              margin-bottom: 0;
             }
           `}
         />
