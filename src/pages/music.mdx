@@ -7,7 +7,6 @@ layout: PageLayout
 import { SpotifyAlbum } from 'src/components/SpotifyAlbum'
 import { SimpleGrid } from '@chakra-ui/core'
 import { FiVolume2 } from 'react-icons/fi'
-import albums from 'src/data/albums.json'
 
 ## Music
 
@@ -31,21 +30,55 @@ import albums from 'src/data/albums.json'
     spacingY={8}
     justifyContent="center"
   >
-    <SpotifyAlbum {...albums['The Mountain']} />
-    <SpotifyAlbum {...albums['Vector']} />
-    <SpotifyAlbum {...albums['Virus']} />
-    <SpotifyAlbum {...albums['Epicloud']} />
-    <SpotifyAlbum {...albums['Casualties of Cool']} />
-    <SpotifyAlbum {...albums['Empath']} />
-    <SpotifyAlbum {...albums['Ziltoid Live']} />
-    <SpotifyAlbum {...albums["Much Against Everyone's Advice"]} />
-    <SpotifyAlbum {...albums['Any Minute Now']} />
-    <SpotifyAlbum {...albums['The Further Side']} />
-    <SpotifyAlbum {...albums['Superunknown']} />
-    <SpotifyAlbum {...albums['Audioslave']} />
-    <SpotifyAlbum {...albums['Insurgentes']} />
-    <SpotifyAlbum {...albums['The Raven That Refused to Sing']} />
-    <SpotifyAlbum {...albums['Hand Cannot Erase']} />
+    <SpotifyAlbum
+      uri="spotify:album:3RBULTZJ97bvVzZLpxcB0j" // The Mountain - Haken
+    />
+    <SpotifyAlbum
+      uri="spotify:album:1PhYHO7Pva9e1YQY5GQ8zx" // Vector - Haken
+    />
+    <SpotifyAlbum
+      uri="spotify:album:1i6DTKXsonvhHZYdLhIbk1" // Virus - Haken
+    />
+    <SpotifyAlbum
+      uri="spotify:album:4WA0COIl14e6amUlwz89pN" // Epicloud - Devin Townsend Project
+    />
+    <SpotifyAlbum
+      uri="spotify:album:37cVlKDwp4lcIqb3Bwv4et" // Casualties of Cool - Devin Townsend
+    />
+    <SpotifyAlbum
+      uri="spotify:album:7MPJRyMFbWbgezRP2Pj4TZ" // Empath - Devin Townsend
+    />
+    <SpotifyAlbum
+      uri="spotify:album:6gwHddBxh92zNI459I2PPD" // Ziltoid Live - Devin Townsend Project
+      name="Ziltoid Live"
+    />
+    <SpotifyAlbum
+      uri="spotify:album:1Zisq1gECqPQtxvny6AUXP" // Much Against Everyone's Advice - Soulwax
+    />
+    <SpotifyAlbum
+      uri="spotify:album:6oAU1ajSCbepPdsQVUfsbj" // Any Minute Now - Soulwax
+    />
+    <SpotifyAlbum
+      uri="spotify:album:2opFAZPTe5dgHgNnDO2Ak4" // The Further Side - Nova Collective
+    />
+    <SpotifyAlbum
+      uri="spotify:album:4K8bxkPDa5HENw0TK7WxJh" // Superunknown - Soundgarden
+      name="Superunknown"
+    />
+    <SpotifyAlbum
+      uri="spotify:album:78guAsers0klWl6RwzgDLd" // Audioslave
+    />
+    <SpotifyAlbum
+      uri="spotify:album:3psPvfJX0dMn05RK7fqcIL"
+      name="Insurgentes"
+    />
+    <SpotifyAlbum
+      uri="spotify:album:2xJFvV7JzoYYMere5rqjVf"
+      name="The Raven That Refused to Sing"
+    />
+    <SpotifyAlbum
+      uri="spotify:album:6P7vL4vGgyrD7q9VR9BcnV" // Hand Cannot Erase
+    />
   </SimpleGrid>
 </WideContainer>
 
@@ -60,11 +93,21 @@ import albums from 'src/data/albums.json'
     spacingY={8}
     justifyContent="center"
   >
-    <SpotifyAlbum {...albums['Igneous']} />
-    <SpotifyAlbum {...albums['TRILOGY']} />
-    <SpotifyAlbum {...albums['Dangerous Days']} />
-    <SpotifyAlbum {...albums['Kid Velo']} />
-    <SpotifyAlbum {...albums['Nite Versions']} />
+    <SpotifyAlbum
+      uri="spotify:album:5kU3Q43bmLdARkMOCOLNkB" // Igneous - Polynation
+    />
+    <SpotifyAlbum
+      uri="spotify:album:0io5pe55YRCTVqEjwlOBdN" // Trilogy - Carpenter Brut
+    />
+    <SpotifyAlbum
+      uri="spotify:album:0GzBfwarPFhAdfLNHfgaRT" // Dangerous Days
+    />
+    <SpotifyAlbum
+      uri="spotify:album:6nj966rHe5ui3JKwqh8a32" // Kid Velo - Rival Consoles
+    />
+    <SpotifyAlbum
+      uri="spotify:album:5ftdUoPzoh1y5bIroXw68G" // Nite Versions - Soulwax
+    />
   </SimpleGrid>
 </WideContainer>
 
@@ -81,11 +124,21 @@ It gets wild. You've been warned.
     spacingY={8}
     justifyContent="center"
   >
-    <SpotifyAlbum {...albums['Rococo Holocaust']} />
-    <SpotifyAlbum {...albums['Hyperblast Super Collider']} />
-    <SpotifyAlbum {...albums['Brute Force']} />
-    <SpotifyAlbum {...albums['Polymorphic Code']} />
-    <SpotifyAlbum {...albums['Tea Time for Punks']} />
+    <SpotifyAlbum
+      uri="spotify:album:2iuftfHy8BAyG4ePAB7xcY" // Rococo Holocaust - Pryapisme
+    />
+    <SpotifyAlbum
+      uri="spotify:album:7Glnx0Uhu8f7QdKRKx6nlN" // Hyperblast Super Collider - Pryapisme
+    />
+    <SpotifyAlbum
+      uri="spotify:album:3HNzOyPbz5vPvUie7lI97X" // Brute Force - The Algorithm
+    />
+    <SpotifyAlbum
+      uri="spotify:album:2wPyt8oSnSAXsuYeQMzTzq" // Polymorphic Code - The Algorithm
+    />
+    <SpotifyAlbum
+      uri="spotify:album:6ceOYvxgsFYpTPgdgYgnie" // Tea Time for Punks - Morglbl
+    />
   </SimpleGrid>
 </WideContainer>
 
@@ -102,8 +155,14 @@ If the previous section was too wild for your taste, check out those albums & ar
     spacingY={8}
     justifyContent="center"
   >
-    <SpotifyAlbum {...albums['Passage']} />
-    <SpotifyAlbum {...albums['Contact Note']} />
-    <SpotifyAlbum {...albums['Immunity']} />
+    <SpotifyAlbum
+      uri="spotify:album:4Aumawi2PZuCxo10dQc3vn" // Passage - Ulrich Schnauss
+    />
+    <SpotifyAlbum
+      uri="spotify:album:582EKMkWdR5wmroAm9NqfE" // Contact Note - Jon Hopkins
+    />
+    <SpotifyAlbum
+      uri="spotify:album:1rxWlYQcH945S3jpIMYR35" // Immunity - Jon Hopkins
+    />
   </SimpleGrid>
 </WideContainer>

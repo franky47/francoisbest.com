@@ -70,6 +70,22 @@ export default createChakraNextApp({
                 ? 'invert(100%) hue-rotate(180deg)'
                 : 'none'};
             }
+            // Inject Chakra link styles for external links (eg: in tweets)
+            a.highlighted-link {
+              transition: all 0.15s ease-out;
+              outline: none;
+              color: var(
+                ${colorMode === 'dark'
+                  ? '--colors-accent-300'
+                  : '--colors-accent-500'}
+              );
+              &:hover {
+                text-decoration: underline;
+              }
+              &:focus {
+                box-shadow: ${theme.shadows.outline};
+              }
+            }
             ::selection {
               background-color: var(
                 ${colorMode === 'dark'

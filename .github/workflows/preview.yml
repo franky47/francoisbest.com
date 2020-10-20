@@ -31,8 +31,16 @@ jobs:
         name: Install dependencies
       - run: yarn build
         name: Build Next.js
-      - run: yarn export
-        name: Export to static HTML/CSS/JS
+        env:
+          SPOTIFY_CLIENT_ID:            ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET:        ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_CLIENT_REFRESH_TOKEN: ${{ secrets.SPOTIFY_CLIENT_REFRESH_TOKEN }}
+          TWITTER_API_KEY:              ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET_KEY:       ${{ secrets.TWITTER_API_SECRET_KEY }}
+          TWITTER_ACCESS_TOKEN:         ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET:  ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          UNSPLASH_ACCESS_KEY:          ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          UNSPLASH_SECRET_KEY:          ${{ secrets.UNSPLASH_SECRET_KEY }}
       - uses: dswistowski/surge-sh-action@341bcbd
         name: Publish to Surge
         with:

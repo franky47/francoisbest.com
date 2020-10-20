@@ -7,6 +7,7 @@ import Head from 'next/head'
 import { Box } from '@chakra-ui/core'
 import { FiPlay } from 'react-icons/fi'
 import styled from '@emotion/styled'
+import { useStaticData } from 'src/hooks/useStaticData'
 
 export interface SpotifyAlbumData {
   name: string
@@ -25,7 +26,11 @@ export interface SpotifyAlbumData {
   }
 }
 
-export interface SpotifyAlbumProps extends PseudoBoxProps, SpotifyAlbumData {}
+export interface SpotifyAlbumProps extends PseudoBoxProps {
+  uri: string
+  name?: string
+  by?: string
+}
 
 const Overlay = styled(PseudoBox)`
   opacity: 0;
@@ -67,12 +72,15 @@ const AlbumCover = styled(PseudoBox)`
 `
 
 export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
-  url,
-  cover,
-  artist,
+  uri,
   name,
+  by,
   ...props
 }) => {
+  const { name: originalName, url, artist, cover } = useStaticData<
+    SpotifyAlbumData
+  >('spotify', uri)
+
   return (
     <>
       <Head>
@@ -110,7 +118,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
             <Image
               src={cover.src}
               fallbackSrc="/images/album-cover-placeholder.jpg"
-              alt={`${name}, an album by ${artist.name}`}
+              alt={`${name ?? originalName}, an album by ${by ?? artist.name}`}
             />
             <Overlay
               bg="rgba(0,0,0,0.3)"
@@ -135,9 +143,9 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
           fontSize="sm"
           mt={2}
         >
-          <OutgoingLink href={url}>{name}</OutgoingLink>
+          <OutgoingLink href={url}>{name ?? originalName}</OutgoingLink>
           {' - '}
-          <OutgoingLink href={artist.url}>{artist.name}</OutgoingLink>
+          <OutgoingLink href={artist.url}>{by ?? artist.name}</OutgoingLink>
         </PseudoBox>
       </PseudoBox>
     </>

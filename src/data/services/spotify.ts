@@ -1,19 +1,18 @@
-import dotenv from 'dotenv'
 import crypto from 'crypto'
 import codec from '@47ng/codec'
 import Fastify from 'fastify'
 import axios from 'axios'
 import open from 'open'
 import qs from 'querystring'
-import { SpotifyAlbumData } from 'src/components/SpotifyAlbum'
-
-dotenv.config()
+import chunk from 'lodash/chunk'
+import { injectQuery } from '../utility'
+import type { SpotifyAlbumData } from '../../components/SpotifyAlbum'
 
 // Auth --
 
-export async function requestAuthorizationCode() {
+async function requestAuthorizationCode() {
   const state = codec.b64.encode(crypto.randomBytes(8))
-  const authorizeUrl = url('https://accounts.spotify.com/authorize', {
+  const authorizeUrl = injectQuery('https://accounts.spotify.com/authorize', {
     client_id: process.env.SPOTIFY_CLIENT_ID,
     redirect_uri: 'http://localhost:12345',
     response_type: 'code',
@@ -41,7 +40,7 @@ export async function requestAuthorizationCode() {
   return query.code
 }
 
-export async function requestTokens(code: string) {
+async function requestTokens(code: string) {
   const res = await axios.post(
     'https://accounts.spotify.com/api/token',
     qs.stringify({
@@ -60,7 +59,7 @@ export async function requestTokens(code: string) {
   return res.data
 }
 
-export async function refreshAccessToken() {
+async function refreshAccessToken() {
   const res = await axios.post(
     'https://accounts.spotify.com/api/token',
     qs.stringify({
@@ -78,7 +77,7 @@ export async function refreshAccessToken() {
   return res.data.access_token
 }
 
-export async function requestAccessToken() {
+async function requestAccessToken() {
   try {
     return await refreshAccessToken()
   } catch (e) {
@@ -93,30 +92,15 @@ export async function requestAccessToken() {
   }
 }
 
-// --
+// -----------------------------------------------------------------------------
 
-export function url(base: string, args: object): string {
-  const url = new URL(base)
-  Object.entries(args).forEach(([key, value]) => {
-    url.searchParams.set(key, value)
-  })
-  return url.toString()
-}
-
-// --
-
-export async function getAlbumMetadata(
-  id: string,
-  token: string
-): Promise<SpotifyAlbumData> {
-  const { data } = await axios.get(`https://api.spotify.com/v1/albums/${id}`, {
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  })
+function formatAlbumMetadata(data: any): SpotifyAlbumData | null {
+  if (data === null) {
+    return null
+  }
   return {
     name: data.name,
-    url: `https://open.spotify.com/album/${id}`,
+    url: `https://open.spotify.com/album/${data.id}`,
     artist: {
       name: data.artists[0].name,
       url: `https://open.spotify.com/artist/${
@@ -136,20 +120,52 @@ export async function getAlbumMetadata(
   }
 }
 
-export function renderAlbumComponent(meta: SpotifyAlbumData) {
-  return `<SpotifyAlbum
-  name="${meta.name}"
-  url="${meta.url}"
-  artist={${JSON.stringify(meta.artist, null, 2)}}
-  cover={${JSON.stringify(meta.cover, null, 2)}}
-/>`
+// async function getAlbumMetadata(
+//   id: string,
+//   token: string
+// ): Promise<SpotifyAlbumData> {
+//   const { data } = await axios.get(`https://api.spotify.com/v1/albums/${id}`, {
+//     headers: {
+//       authorization: `Bearer ${token}`
+//     }
+//   })
+//   return formatAlbumMetadata(data)
+// }
+
+async function getAlbumsMetadata(
+  ids: string[],
+  token: string
+): Promise<SpotifyAlbumData[]> {
+  const url = injectQuery('https://api.spotify.com/v1/albums', {
+    ids: ids.join(',')
+  })
+  const { data } = await axios.get(url, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+  return data.albums.map((album: any) => formatAlbumMetadata(album))
 }
 
-export async function main() {
-  const id = process.argv[2].split(':')[2]
+// -----------------------------------------------------------------------------
+
+async function fetchAlbums(albumIDs: string[], token: string) {
+  const MAX_BATCH_SIZE = 20
+  const albumChunks = chunk(albumIDs, MAX_BATCH_SIZE)
+  return (
+    await Promise.all(albumChunks.map(chunk => getAlbumsMetadata(chunk, token)))
+  ).flat()
+}
+
+export async function fetch(
+  contentIDs: string[]
+): Promise<[string, SpotifyAlbumData][]> {
   const token = await requestAccessToken()
-  const meta = await getAlbumMetadata(id, token)
-  console.log(`"${meta.name}": ${JSON.stringify(meta, null, 2)}`)
-}
 
-main()
+  const albumIDs = contentIDs
+    .filter(contentID => contentID.startsWith('spotify:album:'))
+    .map(albumID => albumID.split(':')[2])
+
+  const albums = await fetchAlbums(albumIDs, token)
+  return albums.map((album, i) => [`spotify:album:${albumIDs[i]}`, album])
+}
