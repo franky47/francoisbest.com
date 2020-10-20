@@ -1,7 +1,7 @@
 import React from 'react'
 import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import { FiTwitter, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
-import { Keybase, DevDotTo } from '@icons-pack/react-simple-icons'
+import { FaKeybase, FaDev } from 'react-icons/fa'
 import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 
 export interface FooterProps extends StackProps {}
@@ -35,21 +35,13 @@ export const Footer: React.FC<FooterProps> = ({ ...props }) => {
         {...iconProps}
       />
       <OutgoingIconButtonLink
-        icon={props => (
-          <Keybase
-            width="18px"
-            height="18px"
-            strokeWidth="0.4"
-            stroke="currentColor"
-            {...props}
-          />
-        )}
+        icon={FaKeybase}
         aria-label="Keybase"
         href="https://keybase.io/franky47"
         {...iconProps}
       />
       <OutgoingIconButtonLink
-        icon={DevDotTo}
+        icon={FaDev}
         aria-label="DEV.to"
         href="https://dev.to/franky47"
         {...iconProps}
