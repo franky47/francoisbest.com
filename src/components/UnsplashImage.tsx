@@ -42,7 +42,7 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
     .replace('http://', '')
 
   const utm =
-    navigator.doNotTrack === '1' // Respect DNT
+    typeof navigator === 'undefined' || navigator.doNotTrack === '1' // Respect DNT
       ? ''
       : `?utm_source=${deploymentDomain}&utm_medium=referral`
 
