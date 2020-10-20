@@ -10,7 +10,7 @@ import { useLinkColor } from 'src/ui/colors'
 
 const headingColors = {
   light: 'gray.900',
-  dark: 'gray.100'
+  dark: 'gray.200'
 }
 
 export interface HeadingProps extends ChakraHeadingProps {

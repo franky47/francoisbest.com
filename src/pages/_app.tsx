@@ -23,7 +23,7 @@ export default createChakraNextApp({
     },
     dark: {
       bg: theme.colors.gray[900],
-      color: theme.colors.gray[300],
+      color: theme.colors.gray[400],
       borderColor: theme.colors.gray[500],
       placeholderColor: theme.colors.gray[600]
     }
@@ -67,7 +67,7 @@ export default createChakraNextApp({
             /* Source: https://dbaron.org/log/20110430-invert-colors */
             .darkModeInvertLuminosity {
               filter: ${colorMode === 'dark'
-                ? 'invert(100%) hue-rotate(180deg)'
+                ? 'invert(93%) hue-rotate(180deg)'
                 : 'none'};
             }
             // Inject Chakra link styles for external links (eg: in tweets)
