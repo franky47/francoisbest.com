@@ -5,6 +5,7 @@ layout: PageLayout
 ---
 
 import { GitHubRepository } from 'src/components/oss/GitHubRepository'
+import { NpmPackageStats } from 'src/components/oss/NpmPackageStats'
 
 # Open Source
 
@@ -29,6 +30,8 @@ easy to override thanks to the styled-system approach.
   version="v2.4.2"
 />
 
+<NpmPackageStats {...require('npm:@47ng/chakra-next')} />
+
 <br />
 
 ## Backend
@@ -48,11 +51,15 @@ What I like about it:
   npm="fastify-micro"
 />
 
+<NpmPackageStats {...require('npm:fastify-micro')} />
+
 <GitHubRepository
   slug="47ng/fastify-cron"
   description="Run cron jobs alongside your Fastify server 👷"
   npm="fastify-cron"
 />
+
+<NpmPackageStats {...require('npm:fastify-cron')} />
 
 <GitHubRepository
   slug="47ng/actions-clever-cloud"
@@ -74,6 +81,8 @@ What I like about it:
   npm="session-keystore"
 />
 
+<NpmPackageStats {...require('npm:session-keystore')} />
+
 I wrote an article about how I came to build `session-keystore`:
 
 import { frontMatter as sessionKeystore } from './posts/2019/how-to-store-e2ee-keys-in-the-browser.mdx'
@@ -85,6 +94,8 @@ import { frontMatter as sessionKeystore } from './posts/2019/how-to-store-e2ee-k
   description="Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js"
   npm="@47ng/cloak"
 />
+
+<NpmPackageStats {...require('npm:@47ng/cloak')} />
 
 <br />
 
@@ -103,17 +114,23 @@ secure:
   npm="redact-env"
 />
 
+<NpmPackageStats {...require('npm:redact-env')} />
+
 <GitHubRepository
   slug="47ng/env-alias"
   description="Define aliases for environment variables and bind them at runtime"
   npm="env-alias"
 />
 
+<NpmPackageStats {...require('npm:env-alias')} />
+
 <GitHubRepository
   slug="47ng/check-env"
   description="Check that required environment variables are set for your app"
   npm="@47ng/check-env"
 />
+
+<NpmPackageStats {...require('npm:@47ng/check-env')} />
 
 <br />
 
@@ -140,6 +157,8 @@ secure:
   description="Universal conversion of Uint8Array from/into UTF-8, base64url and hex in the browser and Node.js"
   npm="@47ng/codec"
 />
+
+<NpmPackageStats {...require('npm:@47ng/codec')} />
 
 <GitHubRepository
   slug="franky47/francoisbest.com"
