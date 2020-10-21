@@ -108,14 +108,14 @@ function formatAlbumMetadata(data: any): SpotifyAlbumData | null {
       }`
     },
     cover: {
-      src: data.images[0].url,
-      srcset: data.images
-        .map(({ width, url }: any) => `${url} ${width}w`)
-        .join(', '),
-      sizes: data.images.map(({ width, url }: any) => ({
-        size: width,
-        src: url
-      }))
+      src: data.images[0].url
+      // srcset: data.images
+      //   .map(({ width, url }: any) => `${url} ${width}w`)
+      //   .join(', '),
+      // sizes: data.images.map(({ width, url }: any) => ({
+      //   size: width,
+      //   src: url
+      // }))
     }
   }
 }

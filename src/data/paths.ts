@@ -3,7 +3,8 @@ import { Services } from './services'
 
 export type ServicePaths = { [k in Services]: string }
 
-export const STORAGE_DIR = path.resolve(process.cwd(), '.storage')
+const STORAGE_DIR = path.resolve(process.cwd(), './src/data/.storage')
+const FETCHLISTS_DIR = path.resolve(process.cwd(), './src/data/fetchlists')
 
 export const SERVICE_DIRS: ServicePaths = {
   npm: path.resolve(STORAGE_DIR, 'npm'),
@@ -12,11 +13,6 @@ export const SERVICE_DIRS: ServicePaths = {
   twitter: path.resolve(STORAGE_DIR, 'twitter'),
   unsplash: path.resolve(STORAGE_DIR, 'unsplash')
 }
-
-export const FETCHLISTS_DIR = path.resolve(
-  process.cwd(),
-  './src/data/fetchlists'
-)
 
 export const FETCHLIST_PATHS: ServicePaths = {
   npm: path.resolve(FETCHLISTS_DIR, 'npm.txt'),

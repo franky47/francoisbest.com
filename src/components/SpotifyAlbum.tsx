@@ -7,7 +7,6 @@ import Head from 'next/head'
 import { Box } from '@chakra-ui/core'
 import { FiPlay } from 'react-icons/fi'
 import styled from '@emotion/styled'
-import { useStaticData } from 'src/hooks/useStaticData'
 
 export interface SpotifyAlbumData {
   name: string
@@ -18,11 +17,11 @@ export interface SpotifyAlbumData {
   }
   cover: {
     src: string
-    srcset: string
-    sizes: Array<{
-      src: string
-      size: number
-    }>
+    // srcset: string
+    // sizes: Array<{
+    //   src: string
+    //   size: number
+    // }>
   }
 }
 
@@ -77,9 +76,12 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
   by,
   ...props
 }) => {
-  const { name: originalName, url, artist, cover } = useStaticData<
-    SpotifyAlbumData
-  >('spotify', uri)
+  const {
+    name: originalName,
+    url,
+    artist,
+    cover
+  } = require(`src/data/.storage/spotify/${uri}`) as SpotifyAlbumData
 
   return (
     <>

@@ -21,9 +21,10 @@ export function readServiceFetchlist(service: Services) {
 
 export function store<T>(service: Services, contentID: string, data: T) {
   const json = JSON.stringify(data, null, 2)
+  const body = `module.exports = ${json}`
   const serviceDir = SERVICE_DIRS[service]
   const fileSafeContentID = contentID.replace(/\//g, '_')
-  const filePath = path.resolve(serviceDir, `${fileSafeContentID}.json`)
+  const filePath = path.resolve(serviceDir, `${fileSafeContentID}.ts`)
   mkdirp.sync(serviceDir)
-  fs.writeFileSync(filePath, json)
+  fs.writeFileSync(filePath, body)
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
 import Image from '@chakra-ui/core/dist/Image'
 import Text from '@chakra-ui/core/dist/Text'
-import { useStaticData } from 'src/hooks/useStaticData'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
 import { useURL } from 'src/hooks/useURL'
@@ -29,10 +28,14 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   id,
   ...props
 }) => {
-  const { src, alt, w, h, color, author } = useStaticData<UnsplashImageData>(
-    'unsplash',
-    id
-  )
+  const {
+    src,
+    alt,
+    w,
+    h,
+    color,
+    author
+  } = require(`src/data/.storage/unsplash/${id}`) as UnsplashImageData
   const linkHoverProps = {
     color: useColor('gray.800', 'gray.300')
   }

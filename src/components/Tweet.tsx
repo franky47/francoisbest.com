@@ -12,7 +12,6 @@ import { FiHeart, FiRepeat, FiTwitter } from 'react-icons/fi'
 import { H5 } from 'src/components/primitives/Typography'
 import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 import { formatDate, formatTime } from 'src/ui/format'
-import { useStaticData } from 'src/hooks/useStaticData'
 import { useColor } from 'src/ui/colors'
 
 export interface TweetPhotoData {
@@ -55,10 +54,15 @@ export interface TweetProps extends StackProps {
 }
 
 export const Tweet: React.FC<TweetProps> = ({ id, ...props }) => {
-  const { author, meta, body, media, largeText, quotedTweet } = useStaticData(
-    'twitter',
-    id
-  )
+  const {
+    author,
+    meta,
+    body,
+    media,
+    largeText,
+    quotedTweet
+  } = require(`src/data/.storage/twitter/${id}`) as TweetData
+
   const baseProps = {
     mx: 'auto',
     rounded: 'lg',
