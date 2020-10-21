@@ -36,6 +36,7 @@
     "next-transpile-modules": "^4.1.0",
     "next-usequerystate": "^1.2.1",
     "react": "^16.14.0",
+    "react-charts": "^2.0.0-beta.7",
     "react-dom": "^16.14.0",
     "react-icons": "^3.11.0",
     "react-rough-notation": "^0.0.8",

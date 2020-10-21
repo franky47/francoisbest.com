@@ -1,6 +1,17 @@
 import React from 'react'
 import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
-import { Stat, StatLabel, StatNumber, StatGroup } from '@chakra-ui/core'
+import {
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatGroup,
+  Box,
+  Flex
+} from '@chakra-ui/core'
+import { Graph } from '../Graph'
+import dayjs from 'dayjs'
+import { H5 } from 'src/components/primitives/Typography'
+import { FiDownload } from 'react-icons/fi'
 
 export interface NpmPackageStatsData {
   lastWeek: number
@@ -24,11 +35,19 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
   lastMonth,
   lastYear,
   allTime,
+  last30Days,
   ...props
 }) => {
+  const now = dayjs()
   return (
-    <Stack {...props}>
-      <StatGroup textAlign="center">
+    <Stack spacing={4} mb={8} {...props}>
+      <Flex justifyContent="space-between" alignItems="baseline">
+        <H5 my={0}>
+          <Box as={FiDownload} mr={2} mt={-1} d="inline" />
+          NPM Downloads
+        </H5>
+      </Flex>
+      <StatGroup textAlign="center" mb={4}>
         <Stat>
           <StatLabel fontSize="xs">Last Week</StatLabel>
           <StatNumber fontSize="xl">{formatNumber(lastWeek)}</StatNumber>
@@ -46,6 +65,13 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
           <StatNumber fontSize="xl">{formatNumber(allTime)}</StatNumber>
         </Stat>
       </StatGroup>
+      <Graph
+        h="80px"
+        data={last30Days.map((value, i) => ({
+          date: now.subtract(30 - i, 'day').format('YYYY-MM-DD'),
+          value
+        }))}
+      />
     </Stack>
   )
 }
