@@ -49,20 +49,17 @@ export interface TweetData {
 
 // --
 
-export interface TweetProps extends StackProps {
-  id: string
-}
+export interface TweetProps extends StackProps, TweetData {}
 
-export const Tweet: React.FC<TweetProps> = ({ id, ...props }) => {
-  const {
-    author,
-    meta,
-    body,
-    media,
-    largeText,
-    quotedTweet
-  } = require(`src/data/.storage/twitter/${id}`) as TweetData
-
+export const Tweet: React.FC<TweetProps> = ({
+  author,
+  meta,
+  body,
+  media,
+  largeText,
+  quotedTweet,
+  ...props
+}) => {
   const baseProps = {
     mx: 'auto',
     rounded: 'lg',

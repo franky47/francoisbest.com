@@ -25,9 +25,8 @@ export interface SpotifyAlbumData {
   }
 }
 
-export interface SpotifyAlbumProps extends PseudoBoxProps {
+export interface SpotifyAlbumProps extends PseudoBoxProps, SpotifyAlbumData {
   uri: string
-  name?: string
   by?: string
 }
 
@@ -73,16 +72,12 @@ const AlbumCover = styled(PseudoBox)`
 export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
   uri,
   name,
-  by,
+  artist,
+  cover,
+  url,
+  by = artist.name,
   ...props
 }) => {
-  const {
-    name: originalName,
-    url,
-    artist,
-    cover
-  } = require(`src/data/.storage/spotify/${uri}`) as SpotifyAlbumData
-
   return (
     <>
       <Head>
@@ -120,7 +115,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
             <Image
               src={cover.src}
               fallbackSrc="/images/album-cover-placeholder.jpg"
-              alt={`${name ?? originalName}, an album by ${by ?? artist.name}`}
+              alt={`${name}, an album by ${by}`}
             />
             <Overlay
               bg="rgba(0,0,0,0.3)"
@@ -145,9 +140,9 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
           fontSize="sm"
           mt={2}
         >
-          <OutgoingLink href={url}>{name ?? originalName}</OutgoingLink>
+          <OutgoingLink href={url}>{name}</OutgoingLink>
           {' - '}
-          <OutgoingLink href={artist.url}>{by ?? artist.name}</OutgoingLink>
+          <OutgoingLink href={artist.url}>{by}</OutgoingLink>
         </PseudoBox>
       </PseudoBox>
     </>

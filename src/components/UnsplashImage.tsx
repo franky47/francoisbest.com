@@ -7,6 +7,7 @@ import { useColor } from 'src/ui/colors'
 import { useURL } from 'src/hooks/useURL'
 
 export interface UnsplashImageData {
+  id: string
   w: number
   h: number
   alt: string
@@ -20,22 +21,20 @@ export interface UnsplashImageData {
   }
 }
 
-export interface UnsplashImageProps extends PseudoBoxProps {
-  id: string
-}
+export interface UnsplashImageProps
+  extends UnsplashImageData,
+    Omit<PseudoBoxProps, keyof UnsplashImageData> {}
 
 export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   id,
+  src,
+  alt,
+  w,
+  h,
+  color,
+  author,
   ...props
 }) => {
-  const {
-    src,
-    alt,
-    w,
-    h,
-    color,
-    author
-  } = require(`src/data/.storage/unsplash/${id}`) as UnsplashImageData
   const linkHoverProps = {
     color: useColor('gray.800', 'gray.300')
   }

@@ -3,6 +3,7 @@ import type { UnsplashImageData } from '../../components/UnsplashImage'
 
 function formatPhotoData(data: any): UnsplashImageData {
   return {
+    id: data.id,
     w: data.width,
     h: data.height,
     alt: data.description,

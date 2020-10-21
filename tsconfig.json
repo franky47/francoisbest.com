@@ -28,7 +28,14 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "spotify:*": ["./src/data/.storage/spotify/spotify:*"],
+      "twitter:*": ["./src/data/.storage/twitter/*"],
+      "unsplash:*": ["./src/data/.storage/unsplash/*"],
+      "github:": ["./src/data/.storage/github/*"],
+      "npm:": ["./src/data/.storage/npm/*"],
+    }
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["./src/**/*.test.ts", "./dist", "./node_modules"]
