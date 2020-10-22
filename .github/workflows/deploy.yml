@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+      - cron: '0 4 * * *' # Everyday at 04:00 UTC
 
 env:
   NEXT_PUBLIC_DEPLOYMENT_URL: https://francoisbest.com
