@@ -1,44 +1,55 @@
 import React from 'react'
 import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import { H3, Paragraph } from 'src/components/primitives/Typography'
-import Box from '@chakra-ui/core/dist/Box'
-import { FiPackage, FiFileText, FiGithub, FiTag, FiStar } from 'react-icons/fi'
+import {
+  FiFileText,
+  FiTag,
+  FiStar,
+  FiAlertCircle,
+  FiGitPullRequest
+} from 'react-icons/fi'
 import List, { ListItem, ListIcon } from '@chakra-ui/core/dist/List'
 import Tooltip from '@chakra-ui/core/dist/Tooltip'
 import { OutgoingLink } from '@47ng/chakra-next'
 
-export interface GitHubRepositoryProps extends StackProps {
+export interface GitHubRepositoryData {
   slug: string
   title?: string
-  description: string
+  description?: string
   version?: string
   license?: string
-  stars?: number
-  npm?: string
+  stars: number
+  issues: number
+  prs: number
 }
+
+export interface GitHubRepositoryProps
+  extends StackProps,
+    GitHubRepositoryData {}
 
 export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
   slug,
   title = slug,
   description,
   version,
-  stars,
-  license = 'MIT',
-  npm,
+  stars = 0,
+  issues = 0,
+  prs = 0,
+  license,
   ...props
 }) => {
   const repoUrl = `https://github.com/${slug}`
   return (
-    <Stack spacing={4} mb={8} {...props}>
+    <Stack spacing={4} {...props}>
       <H3 d="flex" alignItems="center">
-        <Box
+        {/* <Box
           as={FiGithub}
           mr={[2, null, 4]}
           size={[5, null, 6]}
           display="inline-block"
           ml={[0, null, -10]}
           color="gray.500"
-        />
+        /> */}
         <OutgoingLink href={repoUrl}>{title}</OutgoingLink>
       </H3>
       <Paragraph as="div">{description}</Paragraph>
@@ -46,8 +57,20 @@ export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
         as={p => <Stack isInline spacing={6} as="ul" {...p} />}
         fontSize="sm"
       >
-        {!!stars && <MetaListItem icon={FiStar} text={stars} iconAlt="Stars" />}
-        {!!npm && (
+        {stars > 0 && (
+          <MetaListItem icon={FiStar} text={stars} iconAlt="Stars" />
+        )}
+        <MetaListItem
+          icon={FiAlertCircle}
+          text={issues}
+          iconAlt="Open Issues"
+        />
+        <MetaListItem
+          icon={FiGitPullRequest}
+          text={prs}
+          iconAlt="Open Pull Requests"
+        />
+        {/* {!!npm && (
           <OutgoingLink href={`https://npmjs.com/package/${npm}`}>
             <MetaListItem
               icon={FiPackage}
@@ -56,11 +79,11 @@ export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
               tooltip="NPM package"
             />
           </OutgoingLink>
-        )}
+        )} */}
         {!!version && (
           <MetaListItem
             icon={FiTag}
-            text={version}
+            text={`v${version}`}
             iconAlt="Last release"
             tooltip="Last release"
           />

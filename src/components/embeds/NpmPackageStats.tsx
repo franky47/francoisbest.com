@@ -6,14 +6,16 @@ import {
   StatNumber,
   StatGroup,
   Box,
-  Flex
+  Text
 } from '@chakra-ui/core'
 import { Graph } from '../Graph'
 import dayjs from 'dayjs'
 import { H5 } from 'src/components/primitives/Typography'
-import { FiDownload } from 'react-icons/fi'
+import { FiDownload, FiPackage } from 'react-icons/fi'
+import { OutgoingLink } from '@47ng/chakra-next'
 
 export interface NpmPackageStatsData {
+  packageName: string
   lastWeek: number
   lastMonth: number
   lastYear: number
@@ -31,6 +33,7 @@ function formatNumber(number: number): string {
 }
 
 export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
+  packageName,
   lastWeek,
   lastMonth,
   lastYear,
@@ -40,14 +43,20 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
 }) => {
   const now = dayjs()
   return (
-    <Stack spacing={4} mb={8} {...props}>
-      <Flex justifyContent="space-between" alignItems="baseline">
+    <Stack spacing={4} {...props}>
+      <Stack isInline alignItems="baseline" spacing={4}>
         <H5 my={0}>
-          <Box as={FiDownload} mr={2} mt={-1} d="inline" />
-          NPM Downloads
+          <OutgoingLink href={`https://www.npmjs.com/package/${packageName}`}>
+            <Box as={FiPackage} d="inline" mr={1} mt={-0.75} />
+            {packageName}
+          </OutgoingLink>
         </H5>
-      </Flex>
-      <StatGroup textAlign="center" mb={4}>
+        <Text fontSize="sm" fontWeight="medium" display={['none', 'block']}>
+          <Box as={FiDownload} mr={1} mt={-1} d="inline" />
+          NPM Downloads
+        </Text>
+      </Stack>
+      <StatGroup textAlign="center" alignItems="flex-end" mb={4}>
         <Stat>
           <StatLabel fontSize="xs">Last Week</StatLabel>
           <StatNumber fontSize="xl">{formatNumber(lastWeek)}</StatNumber>

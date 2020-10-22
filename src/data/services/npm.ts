@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import axios from 'axios'
-import { NpmPackageStatsData } from 'src/components/oss/NpmPackageStats'
+import type { NpmPackageStatsData } from 'src/components/embeds/NpmPackageStats'
 
 async function getStatPoint(
   pkg: string,
@@ -45,6 +45,7 @@ async function getAllTime(pkg: string): Promise<number> {
 
 async function fetchPackage(pkg: string): Promise<NpmPackageStatsData> {
   return {
+    packageName: pkg,
     last30Days: await getLastNDays(pkg, 30),
     lastWeek: await getStatPoint(pkg, 'last-week'),
     lastMonth: await getStatPoint(pkg, 'last-month'),

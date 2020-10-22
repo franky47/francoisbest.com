@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
-    "clean": "rm -rf .next .mdx-data out .storage build",
+    "clean": "rm -rf .next .mdx-data out ./src/data/.storage build",
     "build": "run-s build:tools fetch build:next export",
     "build:next": "next build",
     "build:tools": "tsc --project tsconfig.dev.json",
@@ -22,6 +22,7 @@
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
     "@fec/remark-a11y-emoji": "^1.0.0",
+    "@octokit/rest": "^18.0.6",
     "babel-plugin-import-glob-array": "^0.2.0",
     "dayjs": "^1.9.3",
     "emotion-theming": "^10.0.27",

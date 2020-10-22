@@ -1,7 +1,7 @@
 import {
   GitHubRepository,
   GitHubRepositoryProps
-} from 'src/components/oss/GitHubRepository'
+} from 'src/components/embeds/GitHubRepository'
 import { FiGithub } from 'react-icons/fi'
 import { ReferenceCardProps, ReferenceCard } from './ReferenceCard'
 

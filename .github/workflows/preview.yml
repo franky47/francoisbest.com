@@ -29,8 +29,10 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install --ignore-scripts
         name: Install dependencies
-      - run: yarn build
-        name: Build Next.js
+      - run: yarn build:tools
+        name: Build tools
+      - run: yarn fetch
+        name: Fetch static data
         env:
           SPOTIFY_CLIENT_ID:            ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET:        ${{ secrets.SPOTIFY_CLIENT_SECRET }}
@@ -41,6 +43,11 @@ jobs:
           TWITTER_ACCESS_TOKEN_SECRET:  ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           UNSPLASH_ACCESS_KEY:          ${{ secrets.UNSPLASH_ACCESS_KEY }}
           UNSPLASH_SECRET_KEY:          ${{ secrets.UNSPLASH_SECRET_KEY }}
+          GITHUB_TOKEN:                 ${{ secrets.GITHUB_TOKEN }}
+      - run: yarn build:next
+        name: Build Next.js
+      - run: yarn export
+        name: Export static HTML/CSS/JS
       - uses: dswistowski/surge-sh-action@341bcbd
         name: Publish to Surge
         with:

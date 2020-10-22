@@ -4,8 +4,8 @@ description: A list of open-source projects & packages I contribute to.
 layout: PageLayout
 ---
 
-import { GitHubRepository } from 'src/components/oss/GitHubRepository'
-import { NpmPackageStats } from 'src/components/oss/NpmPackageStats'
+import { GitHubRepository } from 'src/components/embeds/GitHubRepository'
+import { NpmPackageStats } from 'src/components/embeds/NpmPackageStats'
 
 # Open Source
 
@@ -23,15 +23,9 @@ what is needed.
 Chakra UI offers accessibility out of the box with great default styles, that are
 easy to override thanks to the styled-system approach.
 
-<GitHubRepository
-  slug="47ng/chakra-next"
-  description="Opinionated design system for React, based on Chakra UI + Next.js, written in TypeScript"
-  npm="@47ng/chakra-next"
-  version="v2.4.2"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/chakra-next')} />
 
-<NpmPackageStats {...require('npm:@47ng/chakra-next')} />
+<NpmPackageStats {...require('npm:@47ng/chakra-next')} mb={12} />
 
 <br />
 
@@ -46,26 +40,16 @@ What I like about it:
 - Easy to write plugins
 - Good defaults out of the box
 
-<GitHubRepository
-  slug="47ng/fastify-micro"
-  description="Opinionated Node.js microservices framework built on fastify ⚡️"
-  npm="fastify-micro"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/fastify-micro')} />
 
-<NpmPackageStats {...require('npm:fastify-micro')} />
+<NpmPackageStats {...require('npm:fastify-micro')} mb={12} />
 
-<GitHubRepository
-  slug="47ng/fastify-cron"
-  description="Run cron jobs alongside your Fastify server 👷"
-  npm="fastify-cron"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/fastify-cron')} />
 
-<NpmPackageStats {...require('npm:fastify-cron')} />
+<NpmPackageStats {...require('npm:fastify-cron')} mb={12} />
 
 <GitHubRepository
-  slug="47ng/actions-clever-cloud"
+  {...require('github:47ng/actions-clever-cloud')}
   description={
     <p mb={0}>
       GitHub Action to deploy to{' '}
@@ -78,14 +62,9 @@ What I like about it:
 
 ## Security & Encryption
 
-<GitHubRepository
-  slug="47ng/session-keystore"
-  description="Secure cryptographic key storage in the browser and Node.js"
-  npm="session-keystore"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/session-keystore')} />
 
-<NpmPackageStats {...require('npm:session-keystore')} />
+<NpmPackageStats {...require('npm:session-keystore')} mb={12} />
 
 I wrote an article about how I came to build `session-keystore`:
 
@@ -93,14 +72,9 @@ import { frontMatter as sessionKeystore } from './posts/2019/how-to-store-e2ee-k
 
 <PostReference {...sessionKeystore} />
 
-<GitHubRepository
-  slug="47ng/cloak"
-  description="Serialized AES-GCM 256 encryption, decryption and key management in the browser & Node.js"
-  npm="@47ng/cloak"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/cloak')} />
 
-<NpmPackageStats {...require('npm:@47ng/cloak')} />
+<NpmPackageStats {...require('npm:@47ng/cloak')} mb={12} />
 
 <br />
 
@@ -113,42 +87,24 @@ However, there are things to look out for when working with environment
 variables, so I built a few packages to make their management easier and more
 secure:
 
-<GitHubRepository
-  slug="47ng/redact-env"
-  description="Redact values of critical environment variables in a string"
-  npm="redact-env"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/redact-env')} />
 
-<NpmPackageStats {...require('npm:redact-env')} />
+<NpmPackageStats {...require('npm:redact-env')} mb={12} />
 
-<GitHubRepository
-  slug="47ng/env-alias"
-  description="Define aliases for environment variables and bind them at runtime"
-  npm="env-alias"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/env-alias')} />
 
-<NpmPackageStats {...require('npm:env-alias')} />
+<NpmPackageStats {...require('npm:env-alias')} mb={12} />
 
-<GitHubRepository
-  slug="47ng/check-env"
-  description="Check that required environment variables are set for your app"
-  npm="@47ng/check-env"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/check-env')} />
 
-<NpmPackageStats {...require('npm:@47ng/check-env')} />
+<NpmPackageStats {...require('npm:@47ng/check-env')} mb={12} />
 
 <br />
 
 ## Miscellaneous
 
 <GitHubRepository
-  slug="FortySevenEffects/arduino_midi_library"
-  title="Arduino MIDI Library"
-  version="v5.0"
-  stars={800}
+  {...require('github:FortySevenEffects/arduino_midi_library')}
   description={
     <>
       <p>My longest-running open-source project: MIDI for Arduino.</p>
@@ -160,17 +116,12 @@ secure:
   }
 />
 
-<GitHubRepository
-  slug="47ng/codec"
-  description="Universal conversion of Uint8Array from/into UTF-8, base64url and hex in the browser and Node.js"
-  npm="@47ng/codec"
-  mb={0}
-/>
+<GitHubRepository {...require('github:47ng/codec')} />
 
-<NpmPackageStats {...require('npm:@47ng/codec')} />
+<NpmPackageStats {...require('npm:@47ng/codec')} mb={12} />
 
 <GitHubRepository
-  slug="franky47/francoisbest.com"
+  {...require('github:franky47/francoisbest.com')}
   description={
     <p mb={0}>
       The source code for this website! Made with{' '}

@@ -59,7 +59,7 @@ export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
   const graphData = React.useMemo(
     () => [
       {
-        label: 'Downloads',
+        label: 'NPM Downloads',
         data: data.map(({ date, value }) => [new Date(date), value])
       }
     ],

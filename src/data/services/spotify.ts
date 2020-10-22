@@ -6,7 +6,7 @@ import open from 'open'
 import qs from 'querystring'
 import chunk from 'lodash/chunk'
 import { injectQuery } from '../utility'
-import type { SpotifyAlbumData } from '../../components/SpotifyAlbum'
+import type { SpotifyAlbumData } from 'src/components/embeds/SpotifyAlbum'
 
 // Auth --
 

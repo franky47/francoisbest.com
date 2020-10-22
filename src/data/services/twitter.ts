@@ -1,4 +1,8 @@
-import { TweetData, TweetPhotoData, TweetVideoData } from 'src/components/Tweet'
+import {
+  TweetData,
+  TweetPhotoData,
+  TweetVideoData
+} from 'src/components/embeds/Tweet'
 import TwitterClient from 'twitter-api-client'
 import twitterText from 'twitter-text'
 import twemoji from 'twemoji'

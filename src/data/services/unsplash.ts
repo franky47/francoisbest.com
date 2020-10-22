@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { UnsplashImageData } from '../../components/UnsplashImage'
+import type { UnsplashImageData } from 'src/components/embeds/UnsplashImage'
 
 function formatPhotoData(data: any): UnsplashImageData {
   return {
