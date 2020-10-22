@@ -14,12 +14,14 @@ async function fetchRepository(
       const releases = await gh.repos.getLatestRelease({ owner, repo })
       version = releases.data.tag_name.replace(/^v/, '')
     } catch {}
+    const numPrs = prs.data.filter(pr => pr.state === 'open').length
+
     return {
       slug,
       title: res.data.name,
       description: res.data.description,
-      issues: res.data.open_issues_count,
-      prs: prs.data.filter(pr => pr.state === 'open').length,
+      issues: Math.max(0, res.data.open_issues_count - numPrs),
+      prs: numPrs,
       stars: res.data.stargazers_count,
       license: res.data.license.name,
       version
