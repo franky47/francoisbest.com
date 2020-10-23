@@ -102,7 +102,7 @@ export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
   return (
     <NoSSR>
       <>
-        <Container {...props}>
+        <Container overflow="hidden" {...props}>
           <Chart
             data={graphData}
             series={series}
