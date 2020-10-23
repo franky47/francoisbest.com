@@ -40,7 +40,7 @@ export const timeRanges: TimeRange[] = [
   { from: 'now-3h', to: 'now', step: '5m', label: 'Last 3 hours' },
   { from: 'now-6h', to: 'now', step: '10m', label: 'Last 6 hours' },
   { from: 'now-12h', to: 'now', step: '15m', label: 'Last 12 hours' },
-  { from: 'now-24h', to: 'now', step: '30m', label: 'Last 24 hours' },
+  { from: 'now-1d', to: 'now', step: '30m', label: 'Last 24 hours' },
   { from: 'now-2d', to: 'now', step: '1h', label: 'Last 2 days' },
   { from: 'now-7d', to: 'now', step: '4h', label: 'Last 7 days' },
   { from: 'now-14d', to: 'now', step: '1d', label: 'Last 14 days' },
@@ -74,7 +74,7 @@ export const timeRanges: TimeRange[] = [
 ]
 
 export const defaultTimeRange: TimeRange = {
-  from: 'now-24h',
+  from: 'now-1d',
   to: 'now',
   step: '30m',
   label: 'Last 24 hours'
@@ -148,7 +148,6 @@ export function resolveQueryToTimestamp(
   query: ParsedQuery | null,
   now = Date.now()
 ): number | null {
-  // console.dir({ _: 'resolveQueryToTimestamp', query })
   if (query === null) {
     return null
   }
@@ -184,7 +183,6 @@ export function resolveQueryToTimestamp(
 }
 
 export function resolveQueryToString(query: ParsedQuery): string | null {
-  // console.dir({ _: 'resolveQueryToString', query })
   if (query.absoluteValue !== undefined) {
     return query.absoluteValue.toString()
   }
@@ -290,7 +288,6 @@ export function getSuitableTimeRange(
   // Generate an alternative
   let fromTime = resolveQueryToTimestamp(fromQuery, now)
   let toTime = resolveQueryToTimestamp(toQuery, now)
-  // console.dir({ fromTime, toTime, fromQuery, toQuery })
   if (fromTime === null && toTime === null) {
     return defaultTimeRange
   }
@@ -344,7 +341,6 @@ export function useTimeRange() {
 
   const { next, previous, canDoNext, canDoPrevious } = React.useMemo(() => {
     const { previous, next } = getPreviousNextQuery(range)
-    // console.dir({ previous, next })
     return {
       canDoPrevious: Boolean(previous?.from && previous?.to),
       canDoNext: Boolean(next?.from && previous?.to),
@@ -362,10 +358,6 @@ export function useTimeRange() {
         })
     }
   }, [range])
-
-  // console.dir({
-  //   range
-  // })
 
   return {
     range,
