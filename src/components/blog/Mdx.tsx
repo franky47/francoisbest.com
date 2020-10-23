@@ -16,9 +16,11 @@ import { Note, NoteProps } from './Note'
 import { Annotation } from './Annotation'
 import { Badge, BadgeProps } from '../Badge'
 import { PostReference } from './PostReference'
+import { RepoReference } from './RepoReference'
 import { WideContainer } from '../WideContainer'
+import { css } from '@emotion/core'
 
-const StyledLink = styled(OutgoingLink)`
+const linkStyles = css`
   & code {
     color: currentColor;
   }
@@ -120,9 +122,9 @@ export const mdxComponents: any = {
       (p.href.startsWith('/') && !p.href.startsWith('/images'))
     const color = useLinkColor()
     if (isInternal) {
-      return <RouteLink to={p.href} color={color} {...p} />
+      return <RouteLink to={p.href} color={color} css={linkStyles} {...p} />
     }
-    return <StyledLink color={color} {...p} />
+    return <OutgoingLink color={color} css={linkStyles} {...p} />
   },
 
   ul: (p: any) => <List styleType="disc" spacing={1} {...p} />,
@@ -162,8 +164,9 @@ export const mdxComponents: any = {
 
   // Global scope:
   RouteLink,
-  OutgoingLink: StyledLink,
+  OutgoingLink: (p: any) => <OutgoingLink css={linkStyles} {...p} />,
   PostReference,
+  RepoReference,
   WideContainer,
   img: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Image: (p: any) => <Image mb={8} rounded="md" {...p} />,

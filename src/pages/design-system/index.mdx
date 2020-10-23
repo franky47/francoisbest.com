@@ -80,5 +80,8 @@ Testing <mark type="box">bounds</mark> overspill on <mark type="circle">surround
 ## Post References
 
 import { frontMatter as securityGithubActions } from '../posts/2020/the-security-of-github-actions.mdx'
+import { RepoReference } from 'src/components/blog/RepoReference'
 
 <PostReference {...securityGithubActions} />
+
+<RepoReference {...require('github:franky47/francoisbest.com')} />

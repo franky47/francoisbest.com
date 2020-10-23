@@ -31,7 +31,7 @@ export const ReferenceCard: React.FC<ReferenceCardProps> = ({
         href
           ? p => (
               <Link
-                to={href}
+                href={href}
                 _hover={{
                   textDecoration: 'none',
                   shadow: 'lg'

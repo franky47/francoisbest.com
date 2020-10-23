@@ -25,7 +25,11 @@ export interface GitHubRepositoryData {
 
 export interface GitHubRepositoryProps
   extends StackProps,
-    GitHubRepositoryData {}
+    GitHubRepositoryData {
+  noMargin?: boolean
+  useFullSlug?: boolean
+  linkTitle?: boolean
+}
 
 export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
   slug,
@@ -36,26 +40,28 @@ export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
   issues = 0,
   prs = 0,
   license,
+  noMargin = false,
+  useFullSlug = false,
+  linkTitle = true,
   ...props
 }) => {
   const repoUrl = `https://github.com/${slug}`
   return (
-    <Stack spacing={4} {...props}>
-      <H3 d="flex" alignItems="center">
-        {/* <Box
-          as={FiGithub}
-          mr={[2, null, 4]}
-          size={[5, null, 6]}
-          display="inline-block"
-          ml={[0, null, -10]}
-          color="gray.500"
-        /> */}
-        <OutgoingLink href={repoUrl}>{title}</OutgoingLink>
+    <Stack spacing={4} {...props} mb={noMargin ? -8 : undefined}>
+      <H3 d="flex" alignItems="center" mt={noMargin ? 0 : undefined}>
+        {linkTitle ? (
+          <OutgoingLink href={repoUrl}>
+            {useFullSlug ? slug : title}
+          </OutgoingLink>
+        ) : (
+          <>{useFullSlug ? slug : title}</>
+        )}
       </H3>
       <Paragraph as="div">{description}</Paragraph>
       <List
         as={p => <Stack isInline spacing={6} as="ul" {...p} />}
         fontSize="sm"
+        mb={noMargin ? 0 : undefined}
       >
         {stars > 0 && (
           <MetaListItem icon={FiStar} text={stars} iconAlt="Stars" />

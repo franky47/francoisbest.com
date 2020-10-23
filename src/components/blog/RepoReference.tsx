@@ -13,7 +13,7 @@ export const RepoReference: React.FC<RepoReferenceProps> = ({ ...props }) => {
   const url = `https://github.com/${props.slug}`
   return (
     <ReferenceCard href={url} icon={FiGithub} iconProps={{ top: -10 }}>
-      <GitHubRepository {...props} />
+      <GitHubRepository noMargin useFullSlug linkTitle={false} {...props} />
     </ReferenceCard>
   )
 }
