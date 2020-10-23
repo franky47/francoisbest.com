@@ -43,7 +43,7 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
 }) => {
   const now = dayjs()
   return (
-    <Stack spacing={4} {...props}>
+    <Stack spacing={4} pb="2px" overflow="hidden" {...props}>
       <Stack isInline alignItems="baseline" spacing={4}>
         <H5 my={0}>
           <OutgoingLink href={`https://www.npmjs.com/package/${packageName}`}>
