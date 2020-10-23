@@ -6,6 +6,7 @@ import { NoSSR } from '@47ng/chakra-next'
 import { CustomTheme } from 'src/ui/theme'
 // @ts-ignore
 import { Chart } from 'react-charts'
+import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
 
 export type GraphData = {
   data: Array<{
@@ -56,6 +57,7 @@ const Container = styled(PseudoBox)`
 
 export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
   const theme = useTheme() as CustomTheme
+  const { colorMode } = useColorMode()
   const graphData = React.useMemo(
     () => [
       {
@@ -76,10 +78,10 @@ export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
       line: {
         fill: `url(#graph-gradient)`,
         strokeWidth: '2px',
-        stroke: theme.colors.accent[500]
+        stroke: theme.colors.accent[colorMode === 'light' ? 500 : 300]
       }
     }),
-    []
+    [colorMode]
   )
   const axes = React.useMemo(
     () => [
