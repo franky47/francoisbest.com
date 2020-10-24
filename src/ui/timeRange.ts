@@ -159,7 +159,18 @@ export function resolveQueryToTimestamp(
     return null
   }
   if (query.relativeValue === 0) {
-    return now
+    if (!query.roundTo || !query.roundUnit) {
+      return now
+    }
+    // Add rounding
+    let ref = dayjs.utc(now)
+    if (query.roundTo === 'start') {
+      ref = ref.startOf(query.roundUnit)
+    }
+    if (query.roundTo === 'end') {
+      ref = ref.endOf(query.roundUnit)
+    }
+    return ref.valueOf()
   }
   if (!query.unit) {
     // We need a unit from now on
@@ -188,6 +199,20 @@ export function resolveQueryToString(query: ParsedQuery): string | null {
   }
   if (query.relativeValue === undefined) {
     return null
+  }
+  if (query.relativeValue === 0) {
+    if (!query.roundTo || !query.roundUnit) {
+      return 'now'
+    }
+    let out = 'now'
+    // Add rounding
+    if (query.roundTo === 'start') {
+      out += `<${query.roundUnit}`
+    }
+    if (query.roundTo === 'end') {
+      out += `>${query.roundUnit}`
+    }
+    return out
   }
   if (query.unit === undefined) {
     return null
@@ -322,6 +347,7 @@ export function createTimeRangeListener(
   const listener = () => {
     const query = new URLSearchParams()
     const range = getSuitableTimeRange(query.get('from'), query.get('to'))
+    range.step = query.get('step') ?? undefined
     onChange(range)
   }
 
