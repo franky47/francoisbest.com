@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
-    "clean": "rm -rf .next .mdx-data out ./src/data/.storage build",
+    "clean": "rm -rf .next out ./src/data/.storage build",
     "build": "run-s build:tools fetch build:next export",
     "build:next": "next build",
     "build:tools": "tsc --project tsconfig.dev.json",
@@ -31,7 +31,7 @@
     "mitt": "^2.1.0",
     "next": "^9.5.5",
     "next-compose-plugins": "^2.2.0",
-    "next-mdx-enhanced": "4.0.0",
+    "next-mdx-enhanced": "^5.0.0",
     "next-seo": "^4.13.0",
     "next-svgr": "^0.0.2",
     "next-transpile-modules": "^4.1.0",
