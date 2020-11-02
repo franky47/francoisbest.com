@@ -44,7 +44,7 @@ export async function generateFeeds(posts: PostFrontMatter[]) {
       feed.addItem({
         title: post.title,
         id: post.url,
-        link: post.url,
+        link: postUrl.toString(),
         image: post.ogImage?.url,
         category: post.tags?.map(tag => ({
           name: tag,
