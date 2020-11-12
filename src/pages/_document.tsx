@@ -51,7 +51,7 @@ class MyDocument extends Document {
                   }}
                 />
                 <script
-                  src="https://staging-embed.chiffre.io/analytics.js"
+                  src={`${process.env.NEXT_PUBLIC_CHIFFRE_CDN_DOMAIN}/analytics.js`}
                   crossOrigin="anonymous"
                   async
                 ></script>

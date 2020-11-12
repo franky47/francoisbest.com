@@ -7,6 +7,9 @@ on:
 
 env:
   NEXT_PUBLIC_DEPLOYMENT_URL: https://preview.francoisbest.com
+  NEXT_PUBLIC_CHIFFRE_PROJECT_ID: FMMnKLEnj2CDsV9g
+  NEXT_PUBLIC_CHIFFRE_PUBLIC_KEY: pk.uuA8_Fy3voi1geHuJa6Z3Phg1JZQxDYvphH4MhTcsgg
+  NEXT_PUBLIC_CHIFFRE_CDN_DOMAIN: https://staging-embed.chiffre.io
 
 jobs:
   deploy:
