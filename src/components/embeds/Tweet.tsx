@@ -282,7 +282,7 @@ const TweetMedia: React.FC<TweetMediaProps> = ({ media, ...props }) => (
           style={{ margin: '0 auto' }}
         >
           {img.sources.map(src => (
-            <source src={src.url} type={src.type} />
+            <source key={src.url} src={src.url} type={src.type} />
           ))}
         </video>
       ) : (
