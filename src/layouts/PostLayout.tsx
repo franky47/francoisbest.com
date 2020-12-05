@@ -8,6 +8,7 @@ import { PostLinks } from 'src/components/blog/PostLinks'
 import { Author } from 'src/components/blog/Author'
 import { useURL } from 'src/hooks/useURL'
 import { mdxComponents } from 'src/components/blog/Mdx'
+import { useCountPageView } from 'src/hooks/usePageViews'
 
 export interface PostLayoutProps extends Omit<PageLayoutProps, 'title'> {
   postMetadata: PostMetadata
@@ -18,10 +19,11 @@ export const PostLayout: React.FC<PostLayoutProps> = ({
   children,
   ...props
 }) => {
+  const views = useCountPageView(postMetadata.path)
   return (
     <>
       <PageLayout as="article" maxW="2xl" {...props} lineHeight={1.7}>
-        <PostHeader {...postMetadata} mb={12} />
+        <PostHeader {...postMetadata} views={views} mb={12} />
         {children}
         <Stack as="footer" spacing={8} mt={8}>
           <mdxComponents.hr my={0} w="100%" />

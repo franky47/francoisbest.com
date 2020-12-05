@@ -23,3 +23,9 @@ export function formatTime(date: Date | string | number) {
     minute: '2-digit'
   })
 }
+
+const numberFormat = Intl.NumberFormat('en-GB')
+
+export function formatPageViews(views: number) {
+  return numberFormat.format(views)
+}

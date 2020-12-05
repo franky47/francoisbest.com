@@ -24,6 +24,7 @@
     "@fec/remark-a11y-emoji": "^1.0.0",
     "@octokit/rest": "^18.0.6",
     "babel-plugin-import-glob-array": "^0.2.0",
+    "countapi-js": "^1.0.1",
     "dayjs": "^1.9.3",
     "emotion-theming": "^10.0.27",
     "feed": "^4.2.1",

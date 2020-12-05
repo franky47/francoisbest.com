@@ -8,16 +8,17 @@ import Stack from '@chakra-ui/core/dist/Stack'
 import { H1 } from 'src/components/primitives/Typography'
 import { PostMetadata } from 'src/types'
 import { Tags } from './Tags'
-import { formatDate } from 'src/ui/format'
+import { formatDate, formatPageViews } from 'src/ui/format'
 
-export interface PostHeaderProps
-  extends Omit<BoxProps, 'title'>,
-    PostMetadata {}
+export interface PostHeaderProps extends Omit<BoxProps, 'title'>, PostMetadata {
+  views?: number
+}
 
 export const PostHeader: React.FC<PostHeaderProps> = ({
   title,
   publicationDate,
   readingTime,
+  views = 0,
   tags = [],
   ...props
 }) => {
@@ -37,6 +38,12 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
             {formatDate(publicationDate)}
             &nbsp;•&nbsp;
             {readingTime.text}
+            {views > 0 && (
+              <>
+                &nbsp;•&nbsp;
+                {formatPageViews(views)} views
+              </>
+            )}
           </Text>
         ) : (
           <Stack isInline alignItems="center">
