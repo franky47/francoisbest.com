@@ -6,11 +6,12 @@ import { useRouter } from 'next/router'
 export function usePageParams(path?: string) {
   const router = useRouter()
   const pathname = path || router.pathname
-  const key = pathname.slice('/posts/20'.length, 64).replaceAll('/', '_')
+  const key = pathname.slice('/posts/20'.length, 64).replace(/\//g, '_')
   const host =
     process.env.NEXT_PUBLIC_DEPLOYMENT_URL?.replace('https://', '') ??
     window.location.hostname
   const namespace = `views.${host}`
+  console.dir({ namespace, key })
   return { namespace, key }
 }
 
