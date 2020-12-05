@@ -39,15 +39,11 @@ export function useCountPageView(path?: string) {
     if (path?.startsWith('/posts/drafts')) {
       return
     }
-    if (process.env.NODE_ENV !== 'production') {
-      // Read-only
-      countAPI
-        .get(namespace, key)
-        .then((result: CountAPIResult) => setViews(result.value ?? undefined))
-      return
-    }
-    countAPI
-      .hit(namespace, key)
+    // Read-only in development, count only in production
+    const method =
+      process.env.NODE_ENV === 'production' ? countAPI.hit : countAPI.get
+    method
+      .call(countAPI, namespace, key)
       .then((result: CountAPIResult) => setViews(result.value ?? undefined))
   }, [namespace, key])
   return views
