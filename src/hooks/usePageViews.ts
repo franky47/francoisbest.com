@@ -11,7 +11,6 @@ export function usePageParams(path?: string) {
     process.env.NEXT_PUBLIC_DEPLOYMENT_URL?.replace('https://', '') ??
     window.location.hostname
   const namespace = `views.${host}`
-  console.dir({ namespace, key })
   return { namespace, key }
 }
 
