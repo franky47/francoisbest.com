@@ -1,9 +1,8 @@
 import React from 'react'
-import { Text } from '@chakra-ui/react'
+import { Text, useColorModeValue } from '@chakra-ui/react'
 import { Card, CardProps } from '@47ng/chakra-next'
 import { Footer } from 'src/layouts/components/Footer'
 import { H4, HeadingProps } from 'src/components/primitives/Typography'
-import { useColor } from 'src/ui/colors'
 import { Author } from './blog/Author'
 
 export interface BusinessCardProps extends CardProps {}
@@ -16,9 +15,9 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ ...props }) => {
       my={8}
       maxW="sm"
       {...props}
-      borderColor={useColor('gray.200', 'gray.800')}
+      borderColor={useColorModeValue('gray.200', 'gray.800')}
       borderWidth="1px"
-      bg={useColor('white', '#151922')}
+      bg={useColorModeValue('white', '#151922')}
       rounded="md"
       shadow="xl"
       mx="auto"

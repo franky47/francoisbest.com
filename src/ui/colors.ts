@@ -1,16 +1,6 @@
-import { useColorMode } from '@chakra-ui/react'
+import { useColorModeValue } from '@chakra-ui/react'
 import { defaultTheme } from '@47ng/chakra-next/dist/ui/theme'
 import { CustomTheme, ColorKeys } from './theme'
-
-export function useColor(light: string, dark: string) {
-  const { colorMode } = useColorMode()
-  switch (colorMode) {
-    case 'dark':
-      return dark
-    case 'light':
-      return light
-  }
-}
 
 export const linkColors = {
   light: 'accent.500',
@@ -18,8 +8,7 @@ export const linkColors = {
 }
 
 export function useLinkColor() {
-  const { colorMode } = useColorMode()
-  return linkColors[colorMode]
+  return useColorModeValue(linkColors.light, linkColors.dark)
 }
 
 export const accentKeys: ColorKeys[] = [

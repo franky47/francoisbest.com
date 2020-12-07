@@ -9,12 +9,13 @@ import {
   ListItem,
   Divider,
   Box,
-  BoxProps
+  BoxProps,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import * as Typography from 'src/components/primitives/Typography'
 import { theme } from 'src/ui/theme'
-import { useColor, useLinkColor } from 'src/ui/colors'
+import { useLinkColor } from 'src/ui/colors'
 import { Note, NoteProps } from './Note'
 import { Annotation } from './Annotation'
 import { Badge, BadgeProps } from '../Badge'
@@ -46,7 +47,7 @@ const InlineCode: React.FC<BoxProps> = p => (
   <Code
     fontSize="0.85em"
     fontWeight="medium"
-    color={useColor('gray.700', 'gray.300')}
+    color={useColorModeValue('gray.700', 'gray.300')}
     px={1}
     rounded="md"
     {...p}
@@ -69,11 +70,11 @@ export const mdxComponents: any = {
   blockquote: (p: BoxProps) => (
     <Blockquote
       borderLeftWidth={4}
-      borderLeftColor={useColor('gray.400', 'gray.600')}
+      borderLeftColor={useColorModeValue('gray.400', 'gray.600')}
       as="blockquote"
       rounded={['none', 'sm']}
-      color={useColor('gray.700', 'gray.400')}
-      bg={useColor('gray.50', 'gray.800')}
+      color={useColorModeValue('gray.700', 'gray.400')}
+      bg={useColorModeValue('gray.50', 'gray.800')}
       fontStyle="italic"
       mx={[-4, 0]}
       p={6}
@@ -86,7 +87,7 @@ export const mdxComponents: any = {
       _before={{
         content: '"“"',
         position: 'absolute',
-        color: useColor('gray.400', 'gray.600'),
+        color: useColorModeValue('gray.400', 'gray.600'),
         fontSize: '4xl',
         top: 0,
         left: 2
@@ -94,7 +95,7 @@ export const mdxComponents: any = {
       _after={{
         content: '"”"',
         position: 'absolute',
-        color: useColor('gray.400', 'gray.600'),
+        color: useColorModeValue('gray.400', 'gray.600'),
         fontSize: '4xl',
         bottom: -4,
         right: 3
@@ -139,7 +140,7 @@ export const mdxComponents: any = {
     <Text
       fontSize="sm"
       textAlign="center"
-      color={useColor('gray.600', 'gray.400')}
+      color={useColorModeValue('gray.600', 'gray.400')}
       mt={2}
       {...p}
     />
@@ -148,7 +149,7 @@ export const mdxComponents: any = {
   hr: (p: BoxProps) => (
     <Divider
       my={8}
-      borderColor={useColor('gray.400', 'gray.600')}
+      borderColor={useColorModeValue('gray.400', 'gray.600')}
       w="100%"
       {...p}
     />

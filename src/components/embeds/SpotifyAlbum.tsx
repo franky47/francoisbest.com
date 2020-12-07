@@ -1,7 +1,6 @@
 import React from 'react'
-import { Box, BoxProps, Image } from '@chakra-ui/react'
+import { Box, BoxProps, Image, useColorModeValue } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { useColor } from 'src/ui/colors'
 import Head from 'next/head'
 import { FiPlay } from 'react-icons/fi'
 import styled from '@emotion/styled'
@@ -134,7 +133,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
         <Box
           as="figcaption"
           textAlign="center"
-          color={useColor('gray.600', 'gray.500')}
+          color={useColorModeValue('gray.600', 'gray.500')}
           fontSize="sm"
           mt={2}
         >

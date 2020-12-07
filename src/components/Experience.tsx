@@ -1,7 +1,12 @@
 import React from 'react'
-import { Box, Stack, StackProps, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Stack,
+  StackProps,
+  Text,
+  useColorModeValue
+} from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { useColor } from 'src/ui/colors'
 import { H3, H4, Paragraph } from './primitives/Typography'
 import { Badge } from './Badge'
 import { Tags } from './blog/Tags'
@@ -44,7 +49,7 @@ export const Experience: React.FC<ExperienceProps> = ({
           <Text
             fontSize="sm"
             ml={badge ? 0 : 'auto'}
-            color={useColor('gray.600', 'gray.500')}
+            color={useColorModeValue('gray.600', 'gray.500')}
           >
             {years}
           </Text>

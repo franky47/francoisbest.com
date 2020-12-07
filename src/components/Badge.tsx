@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box, BoxProps, useTheme } from '@chakra-ui/react'
-import { useColor } from 'src/ui/colors'
+import { Box, BoxProps, useTheme, useColorModeValue } from '@chakra-ui/react'
 import { ColorKeys, CustomTheme } from 'src/ui/theme'
 
 export interface BadgeProps extends BoxProps {
@@ -15,9 +14,12 @@ export const Badge: React.FC<BadgeProps> = ({
   const colorProps = {
     bg:
       colorScheme === 'accent'
-        ? useColor('accent.100', 'var(--colors-badge-bg-dark)')
-        : useColor(`${colorScheme}.100`, theme.badgeBgDark[colorScheme]),
-    color: useColor(`${colorScheme}.800`, `${colorScheme}.200`)
+        ? useColorModeValue('accent.100', 'var(--colors-badge-bg-dark)')
+        : useColorModeValue(
+            `${colorScheme}.100`,
+            theme.badgeBgDark[colorScheme]
+          ),
+    color: useColorModeValue(`${colorScheme}.800`, `${colorScheme}.200`)
   } as const
   return (
     <Box
