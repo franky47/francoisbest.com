@@ -6,7 +6,7 @@ export interface OutgoingIconButtonLinkProps
   extends Omit<OutgoingLinkProps, 'size' | 'aria-label'>,
     Pick<
       IconButtonProps,
-      'icon' | 'aria-label' | 'variant' | 'variantColor' | 'size' | 'isRound'
+      'icon' | 'aria-label' | 'variant' | 'colorScheme' | 'size' | 'isRound'
     > {}
 
 export const OutgoingIconButtonLink: React.FC<OutgoingIconButtonLinkProps> = ({

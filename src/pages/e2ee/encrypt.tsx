@@ -32,7 +32,7 @@ const E2EE: NextPage<E2EEProps> = ({}) => {
         maxLength={256}
         minH="200px"
       />
-      <Button variantColor="green" onClick={encrypt}>
+      <Button colorScheme="green" onClick={encrypt}>
         Encrypt
       </Button>
     </StackContainer>

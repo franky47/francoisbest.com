@@ -43,7 +43,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
           </Text>
         ) : (
           <Stack isInline alignItems="center">
-            <Badge variantColor="orange">unpublished draft</Badge>
+            <Badge colorScheme="orange">unpublished draft</Badge>
           </Stack>
         )}
         <Tags tags={tags} ml={[0, 'auto']} />

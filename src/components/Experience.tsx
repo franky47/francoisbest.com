@@ -54,7 +54,7 @@ export const Experience: React.FC<ExperienceProps> = ({
       <Tags
         tags={tags}
         interactive={false}
-        tagProps={{ variantColor: 'gray' }}
+        tagProps={{ colorScheme: 'gray' }}
       />
     </Stack>
   )
@@ -82,7 +82,7 @@ export const Client: React.FC<ExperienceProps> = ({
       <Tags
         tags={tags}
         interactive={false}
-        tagProps={{ variantColor: 'gray' }}
+        tagProps={{ colorScheme: 'gray' }}
       />
     </Stack>
   )
