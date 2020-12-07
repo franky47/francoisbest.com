@@ -2,14 +2,14 @@ import { createChakraNextApp } from '@47ng/chakra-next'
 import { DefaultSeo, SocialProfileJsonLd } from 'next-seo'
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react'
-import { css, Global } from '@emotion/core'
+import { css, Global } from '@emotion/react'
 import { mdxComponents } from 'src/components/blog/Mdx'
 import { theme } from 'src/ui/theme'
 import { useURL } from 'src/hooks/useURL'
 import defaultSeoConfig from 'src/next-seo.json'
 import { PrismGlobal } from 'src/ui/prism'
 import { AccentGlobal } from 'src/components/Accent'
-import { useColorMode } from '@chakra-ui/core'
+import { useColorMode } from '@chakra-ui/react'
 
 export default createChakraNextApp({
   enableColorMode: 'light',

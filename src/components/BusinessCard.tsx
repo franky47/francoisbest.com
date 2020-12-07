@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@chakra-ui/core'
+import { Text } from '@chakra-ui/react'
 import { Card, CardProps } from '@47ng/chakra-next'
 import { Footer } from 'src/layouts/components/Footer'
 import { H4, HeadingProps } from 'src/components/primitives/Typography'

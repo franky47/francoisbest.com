@@ -1,10 +1,11 @@
 import React from 'react'
-import Text from '@chakra-ui/core/dist/Text'
-import ChakraHeading, {
+import {
+  Text,
+  useColorMode,
+  BoxProps,
+  Heading as ChakraHeading,
   HeadingProps as ChakraHeadingProps
-} from '@chakra-ui/core/dist/Heading'
-import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
-import { BoxProps } from '@chakra-ui/core/dist/Box'
+} from '@chakra-ui/react'
 import { RouteLink } from '@47ng/chakra-next'
 import { useLinkColor } from 'src/ui/colors'
 

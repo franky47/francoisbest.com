@@ -1,6 +1,6 @@
 import React from 'react'
 import { OutgoingLink, OutgoingLinkProps } from '@47ng/chakra-next'
-import IconButton, { IconButtonProps } from '@chakra-ui/core/dist/IconButton'
+import { IconButton, IconButtonProps } from '@chakra-ui/react'
 
 export interface OutgoingIconButtonLinkProps
   extends Omit<OutgoingLinkProps, 'size' | 'aria-label'>,

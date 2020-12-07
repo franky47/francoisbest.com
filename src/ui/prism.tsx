@@ -1,6 +1,6 @@
 import React from 'react'
-import { css, Global } from '@emotion/core'
-import { useColorMode } from '@chakra-ui/core'
+import { css, Global } from '@emotion/react'
+import { useColorMode } from '@chakra-ui/react'
 import { theme } from 'src/ui/theme'
 
 const prismBaseTheme = css`

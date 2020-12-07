@@ -1,5 +1,5 @@
 import React from 'react'
-import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
+import { Stack, StackProps } from '@chakra-ui/react'
 import { Logo } from 'src/components/Logo'
 import { NavLink, RouteLink, navLinkMatch } from '@47ng/chakra-next'
 import { FiTwitter } from 'react-icons/fi'

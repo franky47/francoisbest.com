@@ -10,7 +10,7 @@ import {
   Text,
   Textarea,
   useClipboard
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 export interface E2EEProps {}
 

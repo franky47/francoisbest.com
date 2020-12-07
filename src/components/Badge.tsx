@@ -1,6 +1,5 @@
 import React from 'react'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
-import { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
+import { Box, BoxProps, useTheme } from '@chakra-ui/react'
 import { useColor } from 'src/ui/colors'
 import { ColorKeys, CustomTheme } from 'src/ui/theme'
 

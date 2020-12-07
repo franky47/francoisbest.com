@@ -1,10 +1,8 @@
 import React from 'react'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
-import Image from '@chakra-ui/core/dist/Image'
+import { Box, BoxProps, Image } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
 import Head from 'next/head'
-import { Box } from '@chakra-ui/core'
 import { FiPlay } from 'react-icons/fi'
 import styled from '@emotion/styled'
 

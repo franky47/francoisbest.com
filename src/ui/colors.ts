@@ -1,4 +1,4 @@
-import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
+import { useColorMode } from '@chakra-ui/react'
 import { defaultTheme } from '@47ng/chakra-next/dist/ui/theme'
 import { CustomTheme, ColorKeys } from './theme'
 

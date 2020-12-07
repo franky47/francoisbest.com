@@ -2,7 +2,7 @@ import React from 'react'
 import { NextPage } from 'next'
 import * as e2ee from '@47ng/simple-e2ee'
 import { StackContainer } from '@47ng/chakra-next'
-import { Button, Textarea } from '@chakra-ui/core'
+import { Button, Textarea } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 export interface E2EEProps {}

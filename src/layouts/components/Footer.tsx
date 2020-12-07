@@ -1,5 +1,5 @@
 import React from 'react'
-import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
+import { Stack, StackProps } from '@chakra-ui/react'
 import { FiTwitter, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { FaKeybase, FaDev } from 'react-icons/fa'
 import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'

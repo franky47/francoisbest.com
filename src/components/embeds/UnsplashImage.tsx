@@ -1,7 +1,5 @@
 import React from 'react'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
-import Image from '@chakra-ui/core/dist/Image'
-import Text from '@chakra-ui/core/dist/Text'
+import { Box, BoxProps, Image, Text } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
 import { useURL } from 'src/hooks/useURL'
