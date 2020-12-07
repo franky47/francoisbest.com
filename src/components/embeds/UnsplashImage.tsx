@@ -1,5 +1,5 @@
 import React from 'react'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import Image from '@chakra-ui/core/dist/Image'
 import Text from '@chakra-ui/core/dist/Text'
 import { OutgoingLink } from '@47ng/chakra-next'
@@ -23,7 +23,7 @@ export interface UnsplashImageData {
 
 export interface UnsplashImageProps
   extends UnsplashImageData,
-    Omit<PseudoBoxProps, keyof UnsplashImageData> {}
+    Omit<BoxProps, keyof UnsplashImageData> {}
 
 export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   id,
@@ -41,7 +41,7 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   const utm = useUTM()
 
   return (
-    <PseudoBox as="figure" {...props}>
+    <Box as="figure" {...props}>
       <Image
         src={src}
         alt={alt}
@@ -76,7 +76,7 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
         </OutgoingLink>
         .
       </Text>
-    </PseudoBox>
+    </Box>
   )
 }
 

@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/core/dist/Alert'
 import Flex from '@chakra-ui/core/dist/Flex'
 import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import {
   FiInfo,
   FiAlertCircle,
@@ -19,7 +19,7 @@ import type { IconType } from 'react-icons/lib/cjs'
 export interface NoteProps extends Omit<AlertProps, 'status'> {
   status: AlertProps['status'] | 'note'
   icon?: IconType
-  titleProps?: PseudoBoxProps
+  titleProps?: BoxProps
 }
 
 const styles = {
@@ -128,7 +128,7 @@ export const Note: React.FC<NoteProps> = ({
       {(Icon || !!title) && (
         <HeaderWrapper wrap={!!title} mb={2} alignItems="center">
           {Icon && (
-            <PseudoBox
+            <Box
               as={Icon}
               size={5}
               color={accent[colorMode]}

@@ -1,4 +1,4 @@
-import { Box, PseudoBoxProps } from '@chakra-ui/core'
+import { Box, BoxProps } from '@chakra-ui/core'
 import { RouteLink, Card, CardProps, OutgoingLink } from '@47ng/chakra-next'
 import { IconType } from 'react-icons/lib/cjs'
 import { useColor } from 'src/ui/colors'
@@ -6,7 +6,7 @@ import { useColor } from 'src/ui/colors'
 export interface ReferenceCardProps extends CardProps {
   href?: string
   icon?: IconType
-  iconProps?: PseudoBoxProps
+  iconProps?: BoxProps
 }
 
 function useLink(href?: string) {

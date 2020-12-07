@@ -1,12 +1,12 @@
 import React from 'react'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
 import { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
 import { CustomTheme } from 'src/ui/theme'
 import { ColorHues } from '@chakra-ui/core/dist/theme'
 import { RoughNotation, RoughNotationProps } from 'react-rough-notation'
 
-export interface AnnotationProps extends PseudoBoxProps {
+export interface AnnotationProps extends BoxProps {
   type: RoughNotationProps['type']
   color: keyof typeof colors
   children: React.ReactNode // Required
@@ -69,14 +69,14 @@ export const Annotation: React.FC<AnnotationProps> = ({
     return children as any
   }
   return (
-    <PseudoBox
+    <Box
       {...props}
       as={({ type: _type, ...p }) => (
         <As type={type} color={colorValue} customElement={props.as} {...p} />
       )}
     >
       {children}
-    </PseudoBox>
+    </Box>
   )
 }
 

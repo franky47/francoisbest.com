@@ -1,10 +1,10 @@
 import React from 'react'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
 import { useColor } from 'src/ui/colors'
 import { ColorKeys, CustomTheme } from 'src/ui/theme'
 
-export interface BadgeProps extends PseudoBoxProps {
+export interface BadgeProps extends BoxProps {
   variantColor?: ColorKeys
 }
 
@@ -21,7 +21,7 @@ export const Badge: React.FC<BadgeProps> = ({
     color: useColor(`${variantColor}.800`, `${variantColor}.200`)
   } as const
   return (
-    <PseudoBox
+    <Box
       display="inline-block"
       px={1}
       fontSize="xs"
