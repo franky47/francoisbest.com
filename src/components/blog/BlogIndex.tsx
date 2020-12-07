@@ -9,13 +9,13 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement
+  InputRightElement,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { PostPreview } from './PostPreview'
 import { Tag } from './Tags'
 import { FiRss, FiTag, FiSearch } from 'react-icons/fi'
-import { useColor } from 'src/ui/colors'
 import { ExtendedPostFrontMatter } from 'src/types'
 import { H1, Paragraph } from 'src/components/primitives/Typography'
 
@@ -85,8 +85,8 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
           children={<Box as={FiSearch} />}
           color={
             search.length > 0
-              ? useColor('gray.600', 'gray.400')
-              : useColor('gray.400', 'gray.600')
+              ? useColorModeValue('gray.600', 'gray.400')
+              : useColorModeValue('gray.400', 'gray.600')
           }
         />
         <Input
@@ -110,21 +110,21 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
         <Stack
           isInline
           alignItems="center"
-          bg={useColor('blue.50', 'gray.800')}
+          bg={useColorModeValue('blue.50', 'gray.800')}
           p={2}
           pl={3}
           spacing={3}
           rounded="md"
           borderWidth="1px"
-          borderColor={useColor('blue.200', 'blue.800')}
-          color={useColor('blue.900', 'blue.300')}
+          borderColor={useColorModeValue('blue.200', 'blue.800')}
+          color={useColorModeValue('blue.900', 'blue.300')}
           fontSize="sm"
         >
           <Box
             as={FiTag}
             role="img"
             aria-label="Info"
-            color={useColor('blue.600', 'blue.400')}
+            color={useColorModeValue('blue.600', 'blue.400')}
             w={4}
             h={4}
           />
@@ -147,7 +147,7 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
           textAlign="center"
           my={12}
           fontSize="sm"
-          color={useColor('gray.600', 'gray.500')}
+          color={useColorModeValue('gray.600', 'gray.500')}
         >
           No posts found.
         </Paragraph>

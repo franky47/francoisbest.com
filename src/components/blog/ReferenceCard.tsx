@@ -1,7 +1,6 @@
-import { Box, BoxProps } from '@chakra-ui/react'
+import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react'
 import { RouteLink, Card, CardProps, OutgoingLink } from '@47ng/chakra-next'
 import { IconType } from 'react-icons/lib/cjs'
-import { useColor } from 'src/ui/colors'
 
 export interface ReferenceCardProps extends CardProps {
   href?: string
@@ -47,9 +46,9 @@ export const ReferenceCard: React.FC<ReferenceCardProps> = ({
           marginTop: 0
         }
       }}
-      bg={useColor('white', 'gray.800')}
+      bg={useColorModeValue('white', 'gray.800')}
       borderWidth="1px"
-      borderColor={useColor('gray.400', 'gray.700')}
+      borderColor={useColorModeValue('gray.400', 'gray.700')}
       rounded="md"
       shadow="md"
       mb={8}
@@ -63,8 +62,8 @@ export const ReferenceCard: React.FC<ReferenceCardProps> = ({
         h={6}
         role="img"
         position="absolute"
-        color={useColor('gray.400', 'gray.500')}
-        fill={useColor('white', 'gray.900')}
+        color={useColorModeValue('gray.400', 'gray.500')}
+        fill={useColorModeValue('white', 'gray.900')}
         right={2}
         top={-8}
         {...iconProps}

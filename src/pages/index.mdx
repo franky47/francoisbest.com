@@ -8,7 +8,7 @@ import { frontMatter as featured1 } from './posts/2020/dark-mode-for-excalidraw.
 import { frontMatter as featured2 } from './posts/2020/the-security-of-github-actions.mdx'
 import { frontMatter as featured3 } from './posts/2020/password-reset-for-e2ee-apps.mdx'
 import { Experience, Client } from 'src/components/Experience'
-import { useColor } from 'src/ui/colors'
+import { useColorModeValue } from '@chakra-ui/react'
 
 # Hi, I'm François Best
 
@@ -34,19 +34,19 @@ import { FiSend } from 'react-icons/fi'
 <PostReference
   {...featured1}
   shadow="none"
-  borderColor={useColor('gray.300', 'gray.700')}
+  borderColor={useColorModeValue('gray.300', 'gray.700')}
   mb={4}
 />
 <PostReference
   {...featured2}
   shadow="none"
-  borderColor={useColor('gray.300', 'gray.700')}
+  borderColor={useColorModeValue('gray.300', 'gray.700')}
   mb={4}
 />
 <PostReference
   {...featured3}
   shadow="none"
-  borderColor={useColor('gray.300', 'gray.700')}
+  borderColor={useColorModeValue('gray.300', 'gray.700')}
 />
 
 <a href="/posts" display="block" textAlign="center" fontSize="sm">
@@ -78,7 +78,7 @@ Here are some of the major personal projects I've worked on:
     srcset="/images/grenoble-640.png 1x, /images/grenoble-640@2x.png 2x"
     alt="Grenoble, France, seen from the Bastille fort, looking south-west."
     rounded="md"
-    borderColor={useColor('gray.300', 'gray.700')}
+    borderColor={useColorModeValue('gray.300', 'gray.700')}
     borderWidth="1px"
     shadow="md"
     mb={8}
@@ -96,13 +96,13 @@ I've toured across 7 countries on my bike, along the French Atlantic
 coast, in the Alps and in the Balkans:
 
 <Image
-  src={useColor(
+  src={useColorModeValue(
     '/images/balkans-tour-2019-light.jpg',
     '/images/balkans-tour-2019-dark.jpg'
   )}
   alt="We rode 1010km, 11697m of elevation, for 65+ hours, across Albania, Montenegro, Bosnia and Herzegovina, Croatia, Slovenia and Italy."
   rounded="md"
-  borderColor={useColor('gray.300', 'gray.700')}
+  borderColor={useColorModeValue('gray.300', 'gray.700')}
   borderWidth="1px"
   shadow="md"
   mb={8}

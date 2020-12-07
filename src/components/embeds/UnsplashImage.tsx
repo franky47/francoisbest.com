@@ -1,7 +1,6 @@
 import React from 'react'
-import { Box, BoxProps, Image, Text } from '@chakra-ui/react'
+import { Box, BoxProps, Image, Text, useColorModeValue } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { useColor } from 'src/ui/colors'
 import { useURL } from 'src/hooks/useURL'
 
 export interface UnsplashImageData {
@@ -34,7 +33,7 @@ export const UnsplashImage: React.FC<UnsplashImageProps> = ({
   ...props
 }) => {
   const linkHoverProps = {
-    color: useColor('gray.800', 'gray.300')
+    color: useColorModeValue('gray.800', 'gray.300')
   }
   const utm = useUTM()
 
