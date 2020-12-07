@@ -66,7 +66,8 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
         >
           <Box
             as={FiRss}
-            size={4}
+            w={4}
+            h={4}
             color="orange.500"
             role="img"
             aria-label="RSS/Atom feeds"
@@ -124,7 +125,8 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
             role="img"
             aria-label="Info"
             color={useColor('blue.600', 'blue.400')}
-            size={4}
+            w={4}
+            h={4}
           />
           <Text>Showing posts tagged</Text>
           <Tag name={tag} mt="1px" interactive={false} />

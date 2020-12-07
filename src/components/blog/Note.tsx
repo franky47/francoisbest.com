@@ -131,7 +131,8 @@ export const Note: React.FC<NoteProps> = ({
           {Icon && (
             <Box
               as={Icon}
-              size={5}
+              w={5}
+              h={5}
               color={accent[colorMode]}
               mr={2}
               flexShrink={0}

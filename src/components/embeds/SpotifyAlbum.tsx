@@ -127,7 +127,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
               justifyContent="center"
               alignItems="center"
             >
-              <Box as={FiPlay} color="white" size="20%" className="svg" />
+              <Box as={FiPlay} color="white" w="20%" h="20%" className="svg" />
             </Overlay>
           </AlbumCover>
         </OutgoingLink>

@@ -3,14 +3,14 @@ import { Svg, SvgProps } from '@47ng/chakra-next'
 
 export interface LogoProps extends SvgProps {}
 
-export const Logo: React.FC<LogoProps> = ({ size = 8, ...props }) => {
+export const Logo: React.FC<LogoProps> = ({ w = 8, h = 8, ...props }) => {
   return (
     <Svg
       aria-label="Logo"
       viewBox="0 0 148 144"
-      width={size}
-      height={size}
       overflow="visible"
+      w={w}
+      h={h}
       {...props}
     >
       <circle fill="#fff" cx="74" cy="72" r="85" />

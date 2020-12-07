@@ -38,7 +38,8 @@ export const PostReference: React.FC<PostReferenceProps> = ({ ...props }) => {
     >
       <Box
         as={FiBookmark}
-        size={6}
+        w={6}
+        h={6}
         role="img"
         position="absolute"
         color={useColor('gray.400', 'gray.500')}
