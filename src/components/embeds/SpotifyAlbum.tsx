@@ -1,5 +1,5 @@
 import React from 'react'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import Image from '@chakra-ui/core/dist/Image'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
@@ -25,12 +25,12 @@ export interface SpotifyAlbumData {
   }
 }
 
-export interface SpotifyAlbumProps extends PseudoBoxProps, SpotifyAlbumData {
+export interface SpotifyAlbumProps extends BoxProps, SpotifyAlbumData {
   uri: string
   by?: string
 }
 
-const Overlay = styled(PseudoBox)`
+const Overlay = styled(Box)`
   opacity: 0;
   transition: opacity 0.1s ease-out;
   .album-cover:hover &,
@@ -50,7 +50,7 @@ const Overlay = styled(PseudoBox)`
   }
 `
 
-const AlbumCover = styled(PseudoBox)`
+const AlbumCover = styled(Box)`
   &:hover img {
     filter: blur(3px);
   }
@@ -92,7 +92,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
           href="https://i.scdn.co"
         />
       </Head>
-      <PseudoBox as="figure" {...props}>
+      <Box as="figure" {...props}>
         <OutgoingLink href={url} bg="red.100">
           <AlbumCover
             className="album-cover"
@@ -133,7 +133,7 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
             </Overlay>
           </AlbumCover>
         </OutgoingLink>
-        <PseudoBox
+        <Box
           as="figcaption"
           textAlign="center"
           color={useColor('gray.600', 'gray.500')}
@@ -143,8 +143,8 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
           <OutgoingLink href={url}>{name}</OutgoingLink>
           {' - '}
           <OutgoingLink href={artist.url}>{by}</OutgoingLink>
-        </PseudoBox>
-      </PseudoBox>
+        </Box>
+      </Box>
     </>
   )
 }

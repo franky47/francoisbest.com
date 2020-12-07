@@ -7,7 +7,7 @@ import Kbd from '@chakra-ui/core/dist/Kbd'
 import List, { ListItem } from '@chakra-ui/core/dist/List'
 import Divider from '@chakra-ui/core/dist/Divider'
 import { BoxProps } from '@chakra-ui/core/dist/Box'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import * as Typography from 'src/components/primitives/Typography'
 import { theme } from 'src/ui/theme'
@@ -29,7 +29,7 @@ const linkStyles = css`
   }
 `
 
-const Blockquote = styled(PseudoBox)`
+const Blockquote = styled(Box)`
   font-family: 'Georgia';
   & p:last-child {
     margin-bottom: 0;
@@ -39,7 +39,7 @@ const Blockquote = styled(PseudoBox)`
   }
 `
 
-const InlineCode: React.FC<PseudoBoxProps> = p => (
+const InlineCode: React.FC<BoxProps> = p => (
   <Code
     fontSize="0.85em"
     fontWeight="medium"
@@ -63,7 +63,7 @@ export const mdxComponents: any = {
   strong: (p: any) => <Text as="strong" fontWeight="semibold" {...p} />,
   i: (p: any) => <Text as="i" {...p} />,
 
-  blockquote: (p: PseudoBoxProps) => (
+  blockquote: (p: BoxProps) => (
     <Blockquote
       borderLeftWidth={4}
       borderLeftColor={useColor('gray.400', 'gray.600')}
@@ -131,8 +131,8 @@ export const mdxComponents: any = {
   ol: (p: any) => <List as="ol" styleType="decimal" spacing={1} {...p} />,
   li: (p: any) => <ListItem ml={4} {...p} />,
 
-  figure: (p: PseudoBoxProps) => <PseudoBox my={12} {...p} />,
-  figcaption: (p: PseudoBoxProps) => (
+  figure: (p: BoxProps) => <Box my={12} {...p} />,
+  figcaption: (p: BoxProps) => (
     <Text
       fontSize="sm"
       textAlign="center"

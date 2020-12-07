@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import PseudoBox, { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox'
+import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
 import { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
 import { NoSSR } from '@47ng/chakra-next'
 import { CustomTheme } from 'src/ui/theme'
@@ -15,7 +15,7 @@ export type GraphData = {
   }>
 }
 
-export interface GraphProps extends GraphData, PseudoBoxProps {}
+export interface GraphProps extends GraphData, BoxProps {}
 
 // --
 
@@ -41,7 +41,7 @@ const SvgGraph = () => {
 
 // --
 
-const Container = styled(PseudoBox)`
+const Container = styled(Box)`
   svg {
     overflow: visible !important;
   }
