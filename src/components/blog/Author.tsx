@@ -17,7 +17,7 @@ export const Author: React.FC<AuthorProps> = ({
 
   return (
     <Stack isInline alignItems="center" spacing={4} {...props}>
-      <Logo size={16} />
+      <Logo w={16} h={16} />
       <Box>
         <TitleHeading my={0}>
           <RouteLink to="/">François Best</RouteLink>

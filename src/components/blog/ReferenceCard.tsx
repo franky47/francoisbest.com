@@ -59,7 +59,8 @@ export const ReferenceCard: React.FC<ReferenceCardProps> = ({
     >
       <Box
         as={icon}
-        size={6}
+        w={6}
+        h={6}
         role="img"
         position="absolute"
         color={useColor('gray.400', 'gray.500')}

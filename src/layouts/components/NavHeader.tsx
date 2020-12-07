@@ -28,7 +28,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
       {...props}
     >
       <RouteLink to="/" rounded="full">
-        <Logo size={8} aria-label="François Best" />
+        <Logo w={8} h={8} aria-label="François Best" />
       </RouteLink>
       <NavLink to="/" {...navLinkProps} shouldBeActive={navLinkMatch.exact}>
         About
