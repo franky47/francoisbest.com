@@ -1,7 +1,5 @@
 import React from 'react'
-import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
-import Box from '@chakra-ui/core/dist/Box'
-import Text from '@chakra-ui/core/dist/Text'
+import { Box, Stack, StackProps, Text } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { useColor } from 'src/ui/colors'
 import { H3, H4, Paragraph } from './primitives/Typography'

@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@chakra-ui/core'
+import { Box, BoxProps } from '@chakra-ui/react'
 import { RouteLink, Card, CardProps, OutgoingLink } from '@47ng/chakra-next'
 import { IconType } from 'react-icons/lib/cjs'
 import { useColor } from 'src/ui/colors'

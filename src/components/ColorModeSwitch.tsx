@@ -1,6 +1,5 @@
 import React from 'react'
-import IconButton, { IconButtonProps } from '@chakra-ui/core/dist/IconButton'
-import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
+import { IconButton, IconButtonProps, useColorMode } from '@chakra-ui/react'
 import { FiSun, FiMoon } from 'react-icons/fi'
 
 export interface ColorModeSwitchProps

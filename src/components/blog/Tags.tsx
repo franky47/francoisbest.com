@@ -1,5 +1,5 @@
 import React from 'react'
-import Flex, { FlexProps } from '@chakra-ui/core/dist/Flex'
+import { Flex, FlexProps } from '@chakra-ui/react'
 import { RouteLink } from '@47ng/chakra-next'
 import { Badge, BadgeProps } from '../Badge'
 

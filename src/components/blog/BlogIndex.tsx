@@ -1,16 +1,16 @@
 import React from 'react'
 import { useQueryState } from 'next-usequerystate'
-import Stack from '@chakra-ui/core/dist/Stack'
-import Flex from '@chakra-ui/core/dist/Flex'
-import Text from '@chakra-ui/core/dist/Text'
-import Input from '@chakra-ui/core/dist/Input'
-import InputGroup from '@chakra-ui/core/dist/InputGroup'
 import {
+  Box,
+  CloseButton,
+  Stack,
+  Flex,
+  Text,
+  Input,
+  InputGroup,
   InputLeftElement,
   InputRightElement
-} from '@chakra-ui/core/dist/InputElement'
-import Box from '@chakra-ui/core/dist/Box'
-import CloseButton from '@chakra-ui/core/dist/CloseButton'
+} from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { PostPreview } from './PostPreview'
 import { Tag } from './Tags'

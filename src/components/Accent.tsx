@@ -1,17 +1,17 @@
 import React from 'react'
-import IconButton, { IconButtonProps } from '@chakra-ui/core/dist/IconButton'
-import { SvgBox, SvgBoxProps } from '@47ng/chakra-next'
+import { IconButton, IconButtonProps } from '@chakra-ui/react'
+import { Svg, SvgProps } from '@47ng/chakra-next'
 import { theme, ColorKeys } from 'src/ui/theme'
 import { useLinkColor, accentKeys } from 'src/ui/colors'
 import { useLocalSetting } from 'src/hooks/useLocalSetting'
-import { css, Global } from '@emotion/core'
+import { css, Global } from '@emotion/react'
 
-export const AccentPickerIcon: React.FC<SvgBoxProps> = ({ ...props }) => {
+export const AccentPickerIcon: React.FC<SvgProps> = ({ ...props }) => {
   const color = useLinkColor()
   return (
-    <SvgBox viewBox="0 0 24 24" width={4} height={4} fill={color} {...props}>
+    <Svg viewBox="0 0 24 24" width={4} height={4} fill={color} {...props}>
       <circle cx="12" cy="12" r="10" />
-    </SvgBox>
+    </Svg>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { Paragraph } from '../primitives/Typography'
 import { PostMetadata } from 'src/types'
-import { BoxProps } from '@chakra-ui/core/dist/Box'
+import { BoxProps } from '@chakra-ui/react'
 
 export interface PostLinksProps extends Omit<BoxProps, 'title'>, PostMetadata {}
 

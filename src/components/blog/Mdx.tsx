@@ -1,13 +1,16 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Text from '@chakra-ui/core/dist/Text'
-import Code from '@chakra-ui/core/dist/Code'
-import Image from '@chakra-ui/core/dist/Image'
-import Kbd from '@chakra-ui/core/dist/Kbd'
-import List, { ListItem } from '@chakra-ui/core/dist/List'
-import Divider from '@chakra-ui/core/dist/Divider'
-import { BoxProps } from '@chakra-ui/core/dist/Box'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
+import {
+  Text,
+  Code,
+  Image,
+  Kbd,
+  List,
+  ListItem,
+  Divider,
+  Box,
+  BoxProps
+} from '@chakra-ui/react'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import * as Typography from 'src/components/primitives/Typography'
 import { theme } from 'src/ui/theme'
@@ -18,7 +21,7 @@ import { Badge, BadgeProps } from '../Badge'
 import { PostReference } from './PostReference'
 import { RepoReference } from './RepoReference'
 import { WideContainer } from '../WideContainer'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 
 const linkStyles = css`
   & code {

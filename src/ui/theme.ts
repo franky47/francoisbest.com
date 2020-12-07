@@ -1,7 +1,6 @@
-import { defaultTheme, Theme } from '@47ng/chakra-next'
-import { ColorHues } from '@chakra-ui/core/dist/theme'
-// @ts-ignore
-import { generateAlphaColors } from '@chakra-ui/core/dist/theme/colors-utils'
+import { defaultTheme } from '@47ng/chakra-next'
+import { ColorHues, Theme } from '@chakra-ui/react'
+import { generateAlphaColors } from '@chakra-ui/theme-tools'
 import { colors, accentKeys } from './colors'
 
 export type ColorKeys = keyof CustomTheme['colors']

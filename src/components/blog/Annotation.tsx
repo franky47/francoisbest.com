@@ -1,9 +1,6 @@
 import React from 'react'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
-import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
-import { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
+import { Box, BoxProps, useColorMode, useTheme } from '@chakra-ui/react'
 import { CustomTheme } from 'src/ui/theme'
-import { ColorHues } from '@chakra-ui/core/dist/theme'
 import { RoughNotation, RoughNotationProps } from 'react-rough-notation'
 
 export interface AnnotationProps extends BoxProps {

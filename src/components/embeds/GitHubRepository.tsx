@@ -1,5 +1,12 @@
 import React from 'react'
-import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
+import {
+  Stack,
+  StackProps,
+  List,
+  ListItem,
+  ListIcon,
+  Tooltip
+} from '@chakra-ui/react'
 import { H3, Paragraph } from 'src/components/primitives/Typography'
 import {
   FiFileText,
@@ -8,8 +15,6 @@ import {
   FiAlertCircle,
   FiGitPullRequest
 } from 'react-icons/fi'
-import List, { ListItem, ListIcon } from '@chakra-ui/core/dist/List'
-import Tooltip from '@chakra-ui/core/dist/Tooltip'
 import { OutgoingLink } from '@47ng/chakra-next'
 
 export interface GitHubRepositoryData {

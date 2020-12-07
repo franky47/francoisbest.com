@@ -3,11 +3,12 @@ import {
   Alert,
   AlertProps,
   AlertDescription,
-  AlertTitle
-} from '@chakra-ui/core/dist/Alert'
-import Flex from '@chakra-ui/core/dist/Flex'
-import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
+  AlertTitle,
+  Flex,
+  Box,
+  BoxProps,
+  useColorMode
+} from '@chakra-ui/react'
 import {
   FiInfo,
   FiAlertCircle,

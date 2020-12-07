@@ -1,13 +1,14 @@
 import React from 'react'
-import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
 import {
+  Stack,
+  StackProps,
   Stat,
   StatLabel,
   StatNumber,
   StatGroup,
   Box,
   Text
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { Graph } from '../Graph'
 import dayjs from 'dayjs'
 import { H5 } from 'src/components/primitives/Typography'

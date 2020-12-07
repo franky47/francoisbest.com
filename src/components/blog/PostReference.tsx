@@ -1,6 +1,6 @@
 import { PostPreview, PostPreviewProps } from './PostPreview'
 import { useColor } from 'src/ui/colors'
-import { Box } from '@chakra-ui/core'
+import { Box } from '@chakra-ui/react'
 import { FiBookmark } from 'react-icons/fi'
 import { RouteLink } from '@47ng/chakra-next'
 

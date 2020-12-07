@@ -1,12 +1,18 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Stack, { StackProps } from '@chakra-ui/core/dist/Stack'
-import Avatar from '@chakra-ui/core/dist/Avatar'
-import Text from '@chakra-ui/core/dist/Text'
-import Image from '@chakra-ui/core/dist/Image'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
-import Flex, { FlexProps } from '@chakra-ui/core/dist/Flex'
-import Grid, { GridProps } from '@chakra-ui/core/dist/Grid'
+import {
+  Stack,
+  StackProps,
+  Avatar,
+  Text,
+  Image,
+  Box,
+  BoxProps,
+  Flex,
+  FlexProps,
+  Grid,
+  GridProps
+} from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { FiHeart, FiRepeat, FiTwitter } from 'react-icons/fi'
 import { H5 } from 'src/components/primitives/Typography'

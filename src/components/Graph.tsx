@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Box, { BoxProps } from '@chakra-ui/core/dist/Box'
-import { useTheme } from '@chakra-ui/core/dist/ThemeProvider'
+import { Box, BoxProps, useTheme, useColorMode } from '@chakra-ui/react'
 import { NoSSR } from '@47ng/chakra-next'
 import { CustomTheme } from 'src/ui/theme'
 // @ts-ignore
 import { Chart } from 'react-charts'
-import { useColorMode } from '@chakra-ui/core/dist/ColorModeProvider'
 
 export type GraphData = {
   data: Array<{

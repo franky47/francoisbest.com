@@ -1,5 +1,5 @@
 import React from 'react'
-import Stack from '@chakra-ui/core/dist/Stack'
+import { Stack } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import { ExtendedPostFrontMatter, PostMetadata } from 'src/types'
 import { PageLayout, PageLayoutProps } from './PageLayout'
