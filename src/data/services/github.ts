@@ -19,11 +19,11 @@ async function fetchRepository(
     return {
       slug,
       title: res.data.name,
-      description: res.data.description,
+      description: res.data.description ?? undefined,
       issues: Math.max(0, res.data.open_issues_count - numPrs),
       prs: numPrs,
       stars: res.data.stargazers_count,
-      license: res.data.license.name,
+      license: res.data.license?.name,
       version
     }
   } catch (error) {

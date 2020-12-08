@@ -3,7 +3,7 @@ import {
   TweetPhotoData,
   TweetVideoData
 } from 'src/components/embeds/Tweet'
-import TwitterClient from 'twitter-api-client'
+import { TwitterClient } from 'twitter-api-client'
 import twitterText from 'twitter-text'
 import twemoji from 'twemoji'
 
@@ -107,5 +107,5 @@ export async function fetch(urls: string[]): Promise<[string, TweetData][]> {
     include_ext_alt_text: true
   })
 
-  return tweets.map(tweet => [tweet.id_str, formatTweetData(tweet)])
+  return tweets.map((tweet: any) => [tweet.id_str, formatTweetData(tweet)])
 }
