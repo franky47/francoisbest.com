@@ -41,7 +41,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
       </NavLink>
       <Stack ml="auto" isInline spacing={0}>
         <OutgoingIconButtonLink
-          icon={FiTwitter}
+          icon={<FiTwitter />}
           aria-label="Follow me on Twitter"
           href="https://twitter.com/fortysevenfx"
           variant="ghost"
