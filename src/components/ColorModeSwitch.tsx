@@ -12,7 +12,7 @@ export const ColorModeSwitch: React.FC<ColorModeSwitchProps> = ({
   return (
     <IconButton
       aria-label={colorMode === 'dark' ? 'Dark Mode' : 'Light Mode'}
-      icon={colorMode === 'dark' ? FiMoon : FiSun}
+      icon={colorMode === 'dark' ? <FiMoon /> : <FiSun />}
       isRound
       onMouseDown={toggleColorMode}
       {...props}

@@ -29,7 +29,7 @@ export const AccentPicker: React.FC<IconButtonProps> = ({ ...props }) => {
 
   return (
     <IconButton
-      icon={AccentPickerIcon}
+      icon={<AccentPickerIcon />}
       isRound
       onMouseDown={update}
       {...props}

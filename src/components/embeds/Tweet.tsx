@@ -136,7 +136,7 @@ const TweetHeader: React.FC<TweetHeaderProps> = ({ author, url, ...props }) => (
     <OutgoingIconButtonLink
       href={url}
       aria-label="Open on Twitter"
-      icon={FiTwitter}
+      icon={<FiTwitter />}
       color="gray.600"
       rounded="full"
       variant="ghost"
@@ -190,7 +190,7 @@ const CompactTweetHeader: React.FC<CompactTweetHeaderProps> = ({
       <OutgoingIconButtonLink
         href={meta.url}
         aria-label="Open on Twitter"
-        icon={FiTwitter}
+        icon={<FiTwitter />}
         color="gray.600"
         rounded="full"
         variant="ghost"
