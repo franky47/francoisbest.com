@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, BoxProps, useColorMode, useTheme } from '@chakra-ui/react'
+import type { ColorHues } from '@chakra-ui/theme/dist/types/foundations/colors'
 import { CustomTheme } from 'src/ui/theme'
 import { RoughNotation, RoughNotationProps } from 'react-rough-notation'
 
