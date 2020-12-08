@@ -1,5 +1,5 @@
 import React from 'react'
-import { ContainerProps } from '@47ng/chakra-next'
+import { ContainerProps } from '@chakra-ui/react'
 import { PageFrontMatter } from 'src/types'
 import { NextSeo } from 'next-seo'
 

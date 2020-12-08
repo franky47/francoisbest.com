@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, ContainerProps } from '@47ng/chakra-next'
+import { Container, ContainerProps } from '@chakra-ui/react'
 import { NavHeader } from './components/NavHeader'
 import { Footer } from './components/Footer'
 import { PageFrontMatter } from 'src/types'
