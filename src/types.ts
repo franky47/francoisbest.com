@@ -1,6 +1,6 @@
 import { Object } from 'ts-toolbelt'
 import readingTime from 'reading-time'
-import type { ContainerProps } from '@47ng/chakra-next'
+import type { ContainerProps } from '@chakra-ui/react'
 
 /**
  * Basic frontmatter exposed by next-mdx-enhanced

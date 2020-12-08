@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, ContainerProps } from '@47ng/chakra-next'
+import { Container, ContainerProps } from '@chakra-ui/react'
 
 export interface WideContainerProps extends ContainerProps {}
 

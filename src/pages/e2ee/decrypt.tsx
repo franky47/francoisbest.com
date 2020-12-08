@@ -2,9 +2,10 @@ import React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import * as e2ee from '@47ng/simple-e2ee'
-import { ButtonRouteLink, StackContainer } from '@47ng/chakra-next'
+import { ButtonRouteLink } from '@47ng/chakra-next'
 import {
   Button,
+  Container,
   Input,
   Stack,
   Text,
@@ -30,7 +31,7 @@ const E2EE: NextPage<E2EEProps> = ({}) => {
   }, [router])
 
   return (
-    <StackContainer mt={8}>
+    <Stack as={Container} mt={8}>
       <Text>Share the URL anywhere you want </Text>
       <Stack isInline>
         <Input isReadOnly value={url} size="sm" />
@@ -44,7 +45,7 @@ const E2EE: NextPage<E2EEProps> = ({}) => {
       <ButtonRouteLink to="/e2ee/encrypt" mt={4}>
         Encrypt new message
       </ButtonRouteLink>
-    </StackContainer>
+    </Stack>
   )
 }
 
