@@ -15,7 +15,7 @@ export const theme = extendTheme({
   fonts: defaultTheme.fonts,
   shadows: defaultTheme.shadows,
   config: {
-    useSystemColorMode: false,
-    initialColorMode: 'light'
+    useSystemColorMode: true
+    // initialColorMode: 'light'
   }
 })
