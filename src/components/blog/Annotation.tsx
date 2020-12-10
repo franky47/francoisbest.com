@@ -1,8 +1,9 @@
 import React from 'react'
 import { Box, BoxProps, useColorMode, useTheme } from '@chakra-ui/react'
 import type { ColorHues } from '@chakra-ui/theme/dist/types/foundations/colors'
-import { CustomTheme } from 'src/ui/theme'
+// import { CustomTheme } from 'src/ui/theme'
 import { RoughNotation, RoughNotationProps } from 'react-rough-notation'
+import { ColorKeys } from 'src/ui/theme'
 
 export interface AnnotationProps extends BoxProps {
   type: RoughNotationProps['type']
@@ -37,12 +38,12 @@ const colors = {
   }
 } as const
 
-function resolveColor(color: string, theme: CustomTheme) {
+function resolveColor(color: string, theme: any) {
   if (color === 'currentColor') {
     return 'currentColor'
   }
   const [hue, level] = color.split('.')
-  return theme.colors[(hue as unknown) as keyof CustomTheme['colors']][
+  return theme.colors[(hue as unknown) as ColorKeys][
     (level as unknown) as keyof ColorHues
   ]
 }
@@ -54,7 +55,7 @@ export const Annotation: React.FC<AnnotationProps> = ({
   ...props
 }) => {
   const [hydrated, setHydrated] = React.useState(false)
-  const theme = useTheme() as CustomTheme
+  const theme = useTheme()
   const { colorMode } = useColorMode()
 
   React.useEffect(() => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Badge,
   Box,
   Stack,
   StackProps,
@@ -8,7 +9,6 @@ import {
 } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { H3, H4, Paragraph } from './primitives/Typography'
-import { Badge } from './Badge'
 import { Tags } from './blog/Tags'
 
 export interface ExperienceProps extends StackProps {
@@ -35,27 +35,31 @@ export const Experience: React.FC<ExperienceProps> = ({
     <Stack spacing={4} mb={12} {...props} as="section">
       <Stack isInline alignItems="center">
         <Box as={icon} w={8} h={8} role="img" aria-label={title} />
-        <OutgoingLink href={url}>
+        <OutgoingLink href={url} mr="auto">
           <H3 my={0} linkable={false}>
             {title}
           </H3>
         </OutgoingLink>
         {badge && (
-          <Badge ml="auto" textTransform="uppercase">
+          <Badge
+            colorScheme="accent"
+            bg={useColorModeValue(
+              'accent.200',
+              'var(--colors-accent-tag-bg-dark)'
+            )}
+          >
             {badge}
           </Badge>
         )}
         {years && (
-          <Text
-            fontSize="sm"
-            ml={badge ? 0 : 'auto'}
-            color={useColorModeValue('gray.600', 'gray.500')}
-          >
+          <Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.500')}>
             {years}
           </Text>
         )}
       </Stack>
-      <Paragraph as="div">{description}</Paragraph>
+      <Paragraph as="div" my={0}>
+        {description}
+      </Paragraph>
       <Tags
         tags={tags}
         interactive={false}
@@ -83,7 +87,9 @@ export const Client: React.FC<ExperienceProps> = ({
           </H4>
         </OutgoingLink>
       </Stack>
-      <Paragraph as="div">{description}</Paragraph>
+      <Paragraph as="div" my={0}>
+        {description}
+      </Paragraph>
       <Tags
         tags={tags}
         interactive={false}

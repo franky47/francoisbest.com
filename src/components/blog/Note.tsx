@@ -16,6 +16,7 @@ import {
   FiCheckCircle
 } from 'react-icons/fi'
 import type { IconType } from 'react-icons/lib/cjs'
+import { useAccentStyles } from '../Accent'
 
 export interface NoteProps extends Omit<AlertProps, 'status'> {
   status: AlertProps['status'] | 'note'
@@ -27,6 +28,7 @@ const styles = {
   note: {
     defaultIcon: null,
     accent: {
+      key: null,
       light: 'gray.500',
       dark: 'gray.300'
     },
@@ -42,6 +44,7 @@ const styles = {
   info: {
     defaultIcon: FiInfo,
     accent: {
+      key: 'blue',
       light: 'blue.500',
       dark: 'blue.300'
     },
@@ -57,6 +60,7 @@ const styles = {
   success: {
     defaultIcon: FiCheckCircle,
     accent: {
+      key: 'green',
       light: 'green.500',
       dark: 'green.300'
     },
@@ -72,6 +76,7 @@ const styles = {
   warning: {
     defaultIcon: FiAlertTriangle,
     accent: {
+      key: 'orange',
       light: 'orange.500',
       dark: 'orange.300'
     },
@@ -87,6 +92,7 @@ const styles = {
   error: {
     defaultIcon: FiAlertCircle,
     accent: {
+      key: 'red',
       light: 'red.500',
       dark: 'red.300'
     },
@@ -124,6 +130,12 @@ export const Note: React.FC<NoteProps> = ({
       flexWrap="wrap"
       flexDirection={!!title ? 'column' : 'row'}
       alignItems={!!title ? 'flex-start' : 'center'}
+      css={{
+        ...(accent.key ? useAccentStyles(accent.key) : {}),
+        '& p:last-child': {
+          marginBottom: 0
+        }
+      }}
       {...props}
     >
       {(Icon || !!title) && (

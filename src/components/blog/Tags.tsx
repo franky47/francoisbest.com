@@ -1,24 +1,55 @@
 import React from 'react'
-import { Flex, FlexProps } from '@chakra-ui/react'
+import {
+  Flex,
+  FlexProps,
+  Tag as ChakraTag,
+  TagProps as ChakraTagProps,
+  useColorModeValue,
+  useTheme
+} from '@chakra-ui/react'
 import { RouteLink } from '@47ng/chakra-next'
-import { Badge, BadgeProps } from '../Badge'
+import {
+  ColorKeys,
+  getTagBackgroundDark
+} from 'src/ui/theme/foundations/colors'
 
-export interface TagProps extends BadgeProps {
+export interface TagProps extends ChakraTagProps {
   name: string
   interactive?: boolean
+  colorScheme?: ColorKeys
 }
 
 export const Tag: React.FC<TagProps> = ({
+  colorScheme = 'accent',
   name,
   interactive = true,
   ...props
 }) => {
-  if (!interactive) {
-    return <Badge {...props}>{name}</Badge>
+  const theme = useTheme()
+  const propsOverride = {
+    size: 'sm',
+    verticalAlign: 'middle',
+    bg: useColorModeValue(
+      `${colorScheme}.100`,
+      colorScheme === 'accent'
+        ? 'var(--colors-accent-tag-bg-dark)'
+        : getTagBackgroundDark(colorScheme, theme)
+    ),
+    color: useColorModeValue(`${colorScheme}.800`, `${colorScheme}.200`)
   }
+  if (!interactive) {
+    return (
+      <ChakraTag {...props} {...propsOverride}>
+        {name}
+      </ChakraTag>
+    )
+  }
+
   return (
     <RouteLink to={`/posts?tag=${name}`}>
-      <Badge {...props}>{name}</Badge>
+      <ChakraTag {...props} {...propsOverride}>
+        {name}
+      </ChakraTag>
     </RouteLink>
   )
 }
@@ -26,7 +57,7 @@ export const Tag: React.FC<TagProps> = ({
 export interface TagsProps extends FlexProps {
   interactive?: boolean
   tags?: string[]
-  tagProps?: BadgeProps
+  tagProps?: ChakraTagProps
 }
 
 export const Tags: React.FC<TagsProps> = ({

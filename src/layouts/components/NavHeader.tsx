@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, StackProps } from '@chakra-ui/react'
+import { Flex, HStack, StackProps } from '@chakra-ui/react'
 import { Logo } from 'src/components/Logo'
 import { NavLink, RouteLink, navLinkMatch } from '@47ng/chakra-next'
 import { FiTwitter } from 'react-icons/fi'
@@ -18,28 +18,28 @@ const navLinkProps = {
 
 export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
   return (
-    <Stack
-      as="nav"
-      isInline
-      spacing={[4, 6]}
+    <Flex
+      as="header"
       alignItems="center"
       gridRowGap={1}
       flexWrap="wrap"
       {...props}
     >
-      <RouteLink to="/" rounded="full">
-        <Logo w={8} h={8} aria-label="François Best" />
-      </RouteLink>
-      <NavLink to="/" {...navLinkProps} shouldBeActive={navLinkMatch.exact}>
-        About
-      </NavLink>
-      <NavLink to="/open-source" {...navLinkProps}>
-        Open Source
-      </NavLink>
-      <NavLink to="/posts" {...navLinkProps}>
-        Blog
-      </NavLink>
-      <Stack ml="auto" isInline spacing={0}>
+      <HStack as="nav" spacing={[4, 6]} alignItems="center">
+        <RouteLink to="/" rounded="full">
+          <Logo w={8} h={8} aria-label="François Best" />
+        </RouteLink>
+        <NavLink to="/" {...navLinkProps} shouldBeActive={navLinkMatch.exact}>
+          About
+        </NavLink>
+        <NavLink to="/open-source" {...navLinkProps}>
+          Open Source
+        </NavLink>
+        <NavLink to="/posts" {...navLinkProps}>
+          Blog
+        </NavLink>
+      </HStack>
+      <HStack as="aside" ml="auto" spacing={0}>
         <OutgoingIconButtonLink
           icon={<FiTwitter />}
           aria-label="Follow me on Twitter"
@@ -53,7 +53,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
           zIndex={1} // Allow the outline to display over siblings
         />
         <ColorModeSwitch variant="ghost" />
-      </Stack>
-    </Stack>
+      </HStack>
+    </Flex>
   )
 }

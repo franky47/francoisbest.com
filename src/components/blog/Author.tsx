@@ -3,7 +3,7 @@ import { Box, Text, Stack, StackProps, HeadingProps } from '@chakra-ui/react'
 import { RouteLink, OutgoingLink } from '@47ng/chakra-next'
 import { H4 } from 'src/components/primitives/Typography'
 import { Logo } from 'src/components/Logo'
-import { useLinkColor } from 'src/ui/colors'
+import { useLinkColor } from 'src/ui/theme'
 
 export interface AuthorProps extends StackProps {
   TitleHeading?: React.FC<HeadingProps>

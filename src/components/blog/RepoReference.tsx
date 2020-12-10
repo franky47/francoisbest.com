@@ -12,7 +12,7 @@ export interface RepoReferenceProps
 export const RepoReference: React.FC<RepoReferenceProps> = ({ ...props }) => {
   const url = `https://github.com/${props.slug}`
   return (
-    <ReferenceCard href={url} icon={FiGithub} iconProps={{ top: -10 }}>
+    <ReferenceCard href={url} icon={FiGithub} iconProps={{ top: -2 }}>
       <GitHubRepository noMargin useFullSlug linkTitle={false} {...props} />
     </ReferenceCard>
   )

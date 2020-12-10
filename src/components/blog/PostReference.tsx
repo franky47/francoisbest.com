@@ -44,7 +44,7 @@ export const PostReference: React.FC<PostReferenceProps> = ({ ...props }) => {
         color={useColorModeValue('gray.400', 'gray.500')}
         fill={useColorModeValue('white', 'gray.900')}
         right={2}
-        top={-8}
+        top={-6}
       />
     </PostPreview>
   )

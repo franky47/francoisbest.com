@@ -76,7 +76,7 @@ export const Tweet: React.FC<TweetProps> = ({
 
   return (
     <Stack mb={8} maxW="600px" {...baseProps} {...props}>
-      <TweetHeader author={author} url={meta.url} />
+      <TweetHeader author={author} url={meta.url} mb={4} />
       <TweetBody body={body} largeText={largeText} />
       {media.length > 0 && <TweetMedia media={media} />}
       {!!quotedTweet && (
@@ -221,7 +221,7 @@ const TweetBody: React.FC<TweetContentProps> = ({
   ...props
 }) => (
   <StyledBody
-    my={4}
+    mb={6}
     fontSize={largeText ? 'lg' : 'md'}
     fontWeight={450}
     dangerouslySetInnerHTML={{ __html: body }}

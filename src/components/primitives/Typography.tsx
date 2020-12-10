@@ -7,7 +7,7 @@ import {
   HeadingProps as ChakraHeadingProps
 } from '@chakra-ui/react'
 import { RouteLink } from '@47ng/chakra-next'
-import { useLinkColor } from 'src/ui/colors'
+import { useLinkColor } from 'src/ui/theme'
 
 const headingColors = {
   light: 'gray.900',
@@ -39,6 +39,7 @@ const Heading: React.FC<HeadingProps> = ({
             }
           : {}
       }
+      textStyle={props.as as string}
       {...props}
     >
       {children}

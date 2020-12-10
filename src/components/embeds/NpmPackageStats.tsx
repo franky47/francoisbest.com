@@ -57,7 +57,7 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
           NPM Downloads
         </Text>
       </Stack>
-      <StatGroup textAlign="center" alignItems="flex-end" mb={4}>
+      <StatGroup textAlign="center" alignItems="flex-end">
         <Stat>
           <StatLabel fontSize="xs">Last Week</StatLabel>
           <StatNumber fontSize="xl">{formatNumber(lastWeek)}</StatNumber>

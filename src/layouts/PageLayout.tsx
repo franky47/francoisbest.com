@@ -19,9 +19,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   return (
     <>
       {showNavHeader && (
-        <Container as="header" maxW="3xl" w="100%" pt={[2, 12]} px={2}>
-          <NavHeader />
-        </Container>
+        <NavHeader mx="auto" maxW="3xl" w="100%" pt={[2, 12]} px={2} />
       )}
       <Container as="main" w="100%" maxW="2xl" px={4} py={8} {...props}>
         {children}

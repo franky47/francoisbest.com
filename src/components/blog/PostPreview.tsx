@@ -29,7 +29,6 @@ export const PostPreview: React.FC<PostPreviewProps> = ({
   const pathWithHash = hash ? `${path}#${hash}` : path
   return (
     <Stack as="article" spacing={4} {...props}>
-      {children}
       <Box as="header">
         <H3 mb={1}>
           {linkable ? (
@@ -66,6 +65,7 @@ export const PostPreview: React.FC<PostPreviewProps> = ({
       <Paragraph as="div" mb={0}>
         {description}
       </Paragraph>
+      {children}
     </Stack>
   )
 }

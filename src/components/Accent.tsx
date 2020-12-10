@@ -1,10 +1,11 @@
 import React from 'react'
 import { IconButton, IconButtonProps } from '@chakra-ui/react'
 import { Svg, SvgProps } from '@47ng/chakra-next'
-import { theme, ColorKeys } from 'src/ui/theme'
-import { useLinkColor, accentKeys } from 'src/ui/colors'
+import { theme, ColorKeys, useLinkColor, accentKeys } from 'src/ui/theme'
 import { useLocalSetting } from 'src/hooks/useLocalSetting'
 import { css, Global } from '@emotion/react'
+import { transparentize } from '@chakra-ui/theme-tools'
+import { getTagBackgroundDark } from 'src/ui/theme/foundations/colors'
 
 export const AccentPickerIcon: React.FC<SvgProps> = ({ ...props }) => {
   const color = useLinkColor()
@@ -37,6 +38,28 @@ export const AccentPicker: React.FC<IconButtonProps> = ({ ...props }) => {
   )
 }
 
+export function useAccentStyles(accentKey: ColorKeys, selector: string = '&') {
+  const accent = theme.colors[accentKey]
+  return React.useMemo(
+    () => ({
+      [selector]: {
+        '--colors-accent-50': accent[50],
+        '--colors-accent-100': accent[100],
+        '--colors-accent-200': accent[200],
+        '--colors-accent-300': accent[300],
+        '--colors-accent-400': accent[400],
+        '--colors-accent-500': accent[500],
+        '--colors-accent-600': accent[600],
+        '--colors-accent-700': accent[700],
+        '--colors-accent-800': accent[800],
+        '--colors-accent-900': accent[900],
+        '--colors-accent-tag-bg-dark': getTagBackgroundDark(accentKey, theme)
+      }
+    }),
+    [accentKey, selector]
+  )
+}
+
 export const AccentGlobal: React.FC = () => {
   const [accentKey] = useLocalSetting<ColorKeys>('accent', 'defaultAccent')
   const accent = theme.colors[accentKey]
@@ -53,7 +76,7 @@ export const AccentGlobal: React.FC = () => {
         --colors-accent-700: ${accent[700]};
         --colors-accent-800: ${accent[800]};
         --colors-accent-900: ${accent[900]};
-        --colors-badge-bg-dark: ${theme.badgeBgDark[accentKey]};
+        --colors-accent-tag-bg-dark: ${getTagBackgroundDark(accentKey, theme)};
       }
     `,
     [accentKey]

@@ -28,7 +28,7 @@ export const PostLayout: React.FC<PostLayoutProps> = ({
         <Stack as="footer" spacing={8} mt={8}>
           <mdxComponents.hr my={0} w="100%" />
           <Author />
-          <PostLinks {...postMetadata} mx="auto" />
+          <PostLinks {...postMetadata} alignSelf="center" />
         </Stack>
       </PageLayout>
     </>
