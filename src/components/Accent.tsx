@@ -4,7 +4,6 @@ import { Svg, SvgProps } from '@47ng/chakra-next'
 import { theme, ColorKeys, useLinkColor, accentKeys } from 'src/ui/theme'
 import { useLocalSetting } from 'src/hooks/useLocalSetting'
 import { css, Global } from '@emotion/react'
-import { transparentize } from '@chakra-ui/theme-tools'
 import { getTagBackgroundDark } from 'src/ui/theme/foundations/colors'
 
 export const AccentPickerIcon: React.FC<SvgProps> = ({ ...props }) => {
