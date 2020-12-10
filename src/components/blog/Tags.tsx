@@ -57,7 +57,7 @@ export const Tag: React.FC<TagProps> = ({
 export interface TagsProps extends FlexProps {
   interactive?: boolean
   tags?: string[]
-  tagProps?: ChakraTagProps
+  tagProps?: Partial<TagProps>
 }
 
 export const Tags: React.FC<TagsProps> = ({
