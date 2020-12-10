@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { ColorModeScript } from '@chakra-ui/react'
 import Favicons from 'src/components/head/Favicons'
 import { useURL } from 'src/hooks/useURL'
 
@@ -34,6 +35,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
+          <ColorModeScript initialColorMode="system" />
           <Main />
           <NextScript />
           {process.env.NODE_ENV === 'production' &&

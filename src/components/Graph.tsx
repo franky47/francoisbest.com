@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Box, BoxProps, useTheme, useColorMode } from '@chakra-ui/react'
-import { NoSSR } from '@47ng/chakra-next'
-import { CustomTheme } from 'src/ui/theme'
 // @ts-ignore
 import { Chart } from 'react-charts'
 
@@ -18,7 +16,7 @@ export interface GraphProps extends GraphData, BoxProps {}
 // --
 
 const SvgGraph = () => {
-  const theme = useTheme() as CustomTheme
+  const theme = useTheme()
   return (
     <defs>
       <linearGradient id="graph-gradient" x1="0" x2="0" y1="1" y2="0">
@@ -54,7 +52,7 @@ const Container = styled(Box)`
 // --
 
 export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
-  const theme = useTheme() as CustomTheme
+  const theme = useTheme()
   const { colorMode } = useColorMode()
   const graphData = React.useMemo(
     () => [
@@ -100,19 +98,15 @@ export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
     return null
   }
   return (
-    <NoSSR>
-      <>
-        <Container {...props}>
-          <Chart
-            data={graphData}
-            series={series}
-            axes={axes}
-            tooltip={tooltip}
-            getSeriesStyle={getSeriesStyle}
-            renderSVG={SvgGraph}
-          />
-        </Container>
-      </>
-    </NoSSR>
+    <Container {...props} style={{ marginLeft: '-16px' }}>
+      <Chart
+        data={graphData}
+        series={series}
+        axes={axes}
+        tooltip={tooltip}
+        getSeriesStyle={getSeriesStyle}
+        renderSVG={SvgGraph}
+      />
+    </Container>
   )
 }

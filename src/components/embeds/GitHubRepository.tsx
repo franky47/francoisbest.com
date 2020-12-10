@@ -52,8 +52,8 @@ export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
 }) => {
   const repoUrl = `https://github.com/${slug}`
   return (
-    <Stack spacing={4} {...props} mb={noMargin ? -8 : undefined}>
-      <H3 d="flex" alignItems="center" mt={noMargin ? 0 : undefined}>
+    <Stack spacing={4} {...props}>
+      <H3 d="flex" alignItems="center" mb={0}>
         {linkTitle ? (
           <OutgoingLink href={repoUrl}>
             {useFullSlug ? slug : title}
@@ -62,7 +62,9 @@ export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
           <>{useFullSlug ? slug : title}</>
         )}
       </H3>
-      <Paragraph as="div">{description}</Paragraph>
+      <Paragraph as="div" my={0}>
+        {description}
+      </Paragraph>
       <List
         as={p => <Stack isInline spacing={6} as="ul" {...p} />}
         fontSize="sm"
@@ -147,8 +149,9 @@ const MetaListItem: React.FC<MetaListItemProps> = ({
         <ListIcon
           role="img"
           aria-label={iconAlt}
-          icon={icon}
+          as={icon}
           display={['block', 'inline-block']}
+          verticalAlign="none"
           mr={[0, 2]}
           mt={-1}
           mb={[1, 0]}

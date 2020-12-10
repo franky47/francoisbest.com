@@ -16,7 +16,7 @@ export const PostLinks: React.SFC<PostLinksProps> = ({
   const twitterUrl = `https://twitter.com/search?q=${encodeURIComponent(url)}`
 
   return (
-    <Paragraph fontSize="sm" color="gray.600" {...props}>
+    <Paragraph fontSize="sm" color="gray.600" mb={0} {...props}>
       <OutgoingLink href={editUrl}>Edit this page on GitHub</OutgoingLink>
       {' • '}
       <OutgoingLink href={twitterUrl}>Discuss on Twitter</OutgoingLink>

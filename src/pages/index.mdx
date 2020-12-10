@@ -75,7 +75,7 @@ Here are some of the major personal projects I've worked on:
 <WideContainer>
   <Image
     src="/images/grenoble-640@2x.png"
-    srcset="/images/grenoble-640.png 1x, /images/grenoble-640@2x.png 2x"
+    srcSet="/images/grenoble-640.png 1x, /images/grenoble-640@2x.png 2x"
     alt="Grenoble, France, seen from the Bastille fort, looking south-west."
     rounded="md"
     borderColor={useColorModeValue('gray.300', 'gray.700')}
@@ -132,7 +132,7 @@ import { Badge } from '@chakra-ui/react'
   years="2018 - present"
   icon={Logo}
   description={
-    <>
+    <React.Fragment>
       <p>I've done freelance software development for various clients:</p>
       <ul>
         <Client
@@ -149,11 +149,11 @@ import { Badge } from '@chakra-ui/react'
           url="https://pulsar.audio"
           icon={PulsarLogo}
           description={
-            <>
+            <React.Fragment>
               Embedded UI for{' '}
               <a href="https://www.digigram.com/">Digigram's Iqoya Talk</a>, a
               mobile broadcast recording studio.
-            </>
+            </React.Fragment>
           }
           tags={['C++', 'Qt', 'QML', 'Embedded Linux', 'UI Design']}
         />
@@ -174,7 +174,7 @@ import { Badge } from '@chakra-ui/react'
         <a href="mailto:contact+freelance@francoisbest.com">Send me an email</a>
         , I'd love to discuss your needs and what solutions I can bring.
       </Note>
-    </>
+    </React.Fragment>
   }
 />
 
@@ -206,7 +206,7 @@ import { Badge } from '@chakra-ui/react'
   url="https://arturia.com"
   icon={ArturiaLogo}
   description={
-    <>
+    <React.Fragment>
       <p>
         I helped design the{' '}
         <a href="https://en.wikipedia.org/wiki/Arturia_MiniBrute">MiniBrute</a>{' '}
@@ -218,7 +218,7 @@ import { Badge } from '@chakra-ui/react'
         <a href="https://yusynth.net/index_en.php">Yves Usson</a>, from whom I
         had learned analog synthesis before joining Arturia.
       </p>
-    </>
+    </React.Fragment>
   }
   tags={['C++', 'Analog Electronics', 'Synthesizer Design', 'Hardware Design']}
 />

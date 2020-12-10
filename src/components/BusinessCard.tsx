@@ -7,7 +7,7 @@ import { Author } from './blog/Author'
 
 export interface BusinessCardProps extends CardProps {}
 
-const Heading = (p: HeadingProps) => <H4 as="h1" {...p} />
+const Heading = (p: HeadingProps) => <H4 as="h1" textStyle="h4" {...p} />
 
 export const BusinessCard: React.FC<BusinessCardProps> = ({ ...props }) => {
   return (

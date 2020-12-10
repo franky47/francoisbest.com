@@ -10,28 +10,29 @@ import {
   Divider,
   Box,
   BoxProps,
+  Badge,
+  BadgeProps,
   useColorModeValue
 } from '@chakra-ui/react'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import * as Typography from 'src/components/primitives/Typography'
 import { theme } from 'src/ui/theme'
-import { useLinkColor } from 'src/ui/colors'
+import { useLinkColor } from 'src/ui/theme'
 import { Note, NoteProps } from './Note'
 import { Annotation } from './Annotation'
-import { Badge, BadgeProps } from '../Badge'
+import { Tag, TagProps } from './Tags'
 import { PostReference } from './PostReference'
 import { RepoReference } from './RepoReference'
 import { WideContainer } from '../WideContainer'
-import { css } from '@emotion/react'
 
-const linkStyles = css`
-  & code {
-    color: currentColor;
+const linkStyles = {
+  '& code': {
+    color: 'currentColor'
+  },
+  '&:hover code': {
+    textDecoration: 'underline'
   }
-  &:hover code {
-    text-decoration: underline;
-  }
-`
+}
 
 const Blockquote = styled(Box)`
   font-family: 'Georgia';
@@ -126,9 +127,9 @@ export const mdxComponents: any = {
       (p.href.startsWith('/') && !p.href.startsWith('/images'))
     const color = useLinkColor()
     if (isInternal) {
-      return <RouteLink to={p.href} color={color} css={linkStyles} {...p} />
+      return <RouteLink to={p.href} color={color} sx={linkStyles} {...p} />
     }
-    return <OutgoingLink color={color} css={linkStyles} {...p} />
+    return <OutgoingLink color={color} sx={linkStyles} {...p} />
   },
 
   ul: (p: any) => <List styleType="disc" spacing={1} {...p} />,
@@ -175,17 +176,8 @@ export const mdxComponents: any = {
   img: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Image: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Badge: (p: BadgeProps) => <Badge {...p} />,
+  Tag: (p: TagProps) => <Tag {...p} />,
   Note: (p: NoteProps) => (
-    <Note
-      mb={8}
-      mx={[-4, 0]}
-      rounded={['none', 'sm']}
-      css={{
-        '& p:last-child': {
-          marginBottom: 0
-        }
-      }}
-      {...p}
-    />
+    <Note mb={8} mx={[-4, 0]} rounded={['none', 'sm']} {...p} />
   )
 }

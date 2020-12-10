@@ -18,6 +18,7 @@ import { Tag } from './Tags'
 import { FiRss, FiTag, FiSearch } from 'react-icons/fi'
 import { ExtendedPostFrontMatter } from 'src/types'
 import { H1, Paragraph } from 'src/components/primitives/Typography'
+import { useAccentStyles } from '../Accent'
 
 // --
 
@@ -40,7 +41,7 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
   const [tag, setTag] = useQueryState('tag')
   const [search, setSearch] = React.useState('')
   const filteredPosts = React.useMemo(() => {
-    let p = posts
+    let p = posts.filter(post => !!post.publicationDate)
     if (tag) {
       p = p.filter(post => post.tags?.includes(tag))
     }
@@ -82,7 +83,10 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
       </Paragraph>
       <InputGroup mb={2}>
         <InputLeftElement
-          children={<Box as={FiSearch} />}
+          pointerEvents="none"
+          fontSize="1.2em"
+          px={0}
+          children={<FiSearch />}
           color={
             search.length > 0
               ? useColorModeValue('gray.600', 'gray.400')
@@ -119,6 +123,7 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
           borderColor={useColorModeValue('blue.200', 'blue.800')}
           color={useColorModeValue('blue.900', 'blue.300')}
           fontSize="sm"
+          css={useAccentStyles('blue')}
         >
           <Box
             as={FiTag}
@@ -129,9 +134,8 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
             h={4}
           />
           <Text>Showing posts tagged</Text>
-          <Tag name={tag} mt="1px" interactive={false} />
+          <Tag name={tag} mt="1px" interactive={false} mr="auto" />
           <CloseButton
-            ml="auto"
             rounded="full"
             aria-label="Clear"
             size="sm"
