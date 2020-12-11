@@ -19,16 +19,9 @@ export interface TagProps extends ChakraTagProps {
   colorScheme?: ColorKeys
 }
 
-export const Tag: React.FC<TagProps> = ({
-  colorScheme = 'accent',
-  name,
-  interactive = true,
-  ...props
-}) => {
+export function useTagStyles(colorScheme: ColorKeys = 'accent') {
   const theme = useTheme()
-  const propsOverride = {
-    size: 'sm',
-    verticalAlign: 'middle',
+  return {
     bg: useColorModeValue(
       `${colorScheme}.100`,
       colorScheme === 'accent'
@@ -36,6 +29,19 @@ export const Tag: React.FC<TagProps> = ({
         : getTagBackgroundDark(colorScheme, theme)
     ),
     color: useColorModeValue(`${colorScheme}.800`, `${colorScheme}.200`)
+  }
+}
+
+export const Tag: React.FC<TagProps> = ({
+  colorScheme = 'accent',
+  name,
+  interactive = true,
+  ...props
+}) => {
+  const propsOverride = {
+    size: 'sm',
+    verticalAlign: 'middle',
+    ...useTagStyles(colorScheme)
   }
   if (!interactive) {
     return (
