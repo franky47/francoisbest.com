@@ -8,7 +8,8 @@ export const WideContainer: React.FC<WideContainerProps> = ({ ...props }) => {
     <Container
       mx={[0, null, -16]}
       p={0}
-      maxW={['100%', null, '100vw']}
+      w="100vw"
+      maxW={['100%', null, '3xl']}
       {...props}
     />
   )

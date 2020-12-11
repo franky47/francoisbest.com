@@ -20,7 +20,7 @@ import { theme } from 'src/ui/theme'
 import { useLinkColor } from 'src/ui/theme'
 import { Note, NoteProps } from './Note'
 import { Annotation } from './Annotation'
-import { Tag, TagProps } from './Tags'
+import { Tag, TagProps, useTagStyles } from './Tags'
 import { PostReference } from './PostReference'
 import { RepoReference } from './RepoReference'
 import { WideContainer } from '../WideContainer'
@@ -175,7 +175,7 @@ export const mdxComponents: any = {
   WideContainer,
   img: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Image: (p: any) => <Image mb={8} rounded="md" {...p} />,
-  Badge: (p: BadgeProps) => <Badge {...p} />,
+  Badge: (p: BadgeProps) => <Badge {...useTagStyles()} {...p} />,
   Tag: (p: TagProps) => <Tag {...p} />,
   Note: (p: NoteProps) => (
     <Note mb={8} mx={[-4, 0]} rounded={['none', 'sm']} {...p} />
