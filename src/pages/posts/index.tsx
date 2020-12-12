@@ -3,6 +3,7 @@ import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import { generateFeeds } from 'src/scripts/generateFeeds'
 import { generateSiteMap } from 'src/scripts/generateSiteMap'
+import { refreshPageViews } from 'src/scripts/refreshPageViews'
 import { BlogIndex } from 'src/components/blog/BlogIndex'
 import { PageLayout } from 'src/layouts/PageLayout'
 import { useURL } from 'src/hooks/useURL'
@@ -44,6 +45,7 @@ const PostsIndex: NextPage = () => {
 export async function getStaticProps() {
   await generateFeeds(posts)
   await generateSiteMap(posts)
+  await refreshPageViews(posts)
   return {
     props: {}
   }
