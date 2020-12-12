@@ -9,6 +9,7 @@ import { Author } from 'src/components/blog/Author'
 import { useURL } from 'src/hooks/useURL'
 import { mdxComponents } from 'src/components/blog/Mdx'
 import { useCountPageView } from 'src/hooks/usePageViews'
+import { formatSEOKeyValues } from 'src/ui/format'
 
 export interface PostLayoutProps extends Omit<PageLayoutProps, 'title'> {
   postMetadata: PostMetadata
@@ -61,7 +62,16 @@ export default function PostLayoutWithSEO({
                   content: tags.join(',')
                 }
               ]
-            : [])
+            : []),
+          ...formatSEOKeyValues({
+            Author: 'François Best',
+            ...(tags
+              ? {
+                  Tagged: tags?.join(', ')
+                }
+              : {}),
+            'Reading time': `${Math.round(frontMatter.readingTime.minutes)} min`
+          })
         ]}
         canonical={url}
         openGraph={{
