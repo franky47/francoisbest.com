@@ -3,10 +3,8 @@ import React from 'react'
 import countAPI from 'countapi-js'
 import { useRouter } from 'next/router'
 
-export function usePageParams(path?: string) {
-  const router = useRouter()
-  const pathname = path || router.pathname
-  const key = pathname.slice('/posts/20'.length, 64).replace(/\//g, '_')
+export function formatPageViewsParams(path: string) {
+  const key = path.slice('/posts/20'.length, 64).replace(/\//g, '_')
   const host =
     process.env.NEXT_PUBLIC_DEPLOYMENT_URL?.replace('https://', '') ??
     window.location.hostname
@@ -14,7 +12,13 @@ export function usePageParams(path?: string) {
   return { namespace, key }
 }
 
-interface CountAPIResult {
+export function usePageParams(path?: string) {
+  const router = useRouter()
+  const pathname = path || router.pathname
+  return formatPageViewsParams(pathname)
+}
+
+export interface CountAPIResult {
   value: number | null
 }
 
