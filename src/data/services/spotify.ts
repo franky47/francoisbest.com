@@ -8,6 +8,8 @@ import chunk from 'lodash/chunk'
 import { injectQuery } from '../utility'
 import type { SpotifyAlbumData } from 'src/components/embeds/SpotifyAlbum'
 
+export type DataType = SpotifyAlbumData
+
 // Auth --
 
 async function requestAuthorizationCode() {

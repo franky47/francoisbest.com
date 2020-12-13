@@ -1,6 +1,8 @@
 import axios from 'axios'
 import type { UnsplashImageData } from 'src/components/embeds/UnsplashImage'
 
+export type DataType = UnsplashImageData
+
 function formatPhotoData(data: any): UnsplashImageData {
   return {
     id: data.id,

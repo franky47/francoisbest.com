@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import axios from 'axios'
-import type { NpmPackageStatsData } from 'src/components/embeds/NpmPackageStats'
+import type { NpmPackageStatsData } from 'src/components/embeds/npm/NpmPackageStats'
+
+export type DataType = NpmPackageStatsData
 
 async function getStatPoint(
   pkg: string,
@@ -18,12 +20,18 @@ interface RangeResponse {
   }>
 }
 
-async function getLastNDays(pkg: string, n: number): Promise<number[]> {
+async function getLastNDays(
+  pkg: string,
+  n: number
+): Promise<{ downloads: number[]; date: string }> {
   const start = dayjs().subtract(n, 'day').format('YYYY-MM-DD')
   const end = dayjs().subtract(1, 'day').endOf('day').format('YYYY-MM-DD')
   const url = `https://api.npmjs.org/downloads/range/${start}:${end}/${pkg}`
   const res = await axios.get<RangeResponse>(url)
-  return res.data.downloads.map(d => d.downloads)
+  return {
+    downloads: res.data.downloads.map(d => d.downloads),
+    date: end
+  }
 }
 
 async function getAllTime(pkg: string): Promise<number> {
@@ -44,13 +52,15 @@ async function getAllTime(pkg: string): Promise<number> {
 }
 
 async function fetchPackage(pkg: string): Promise<NpmPackageStatsData> {
+  const { downloads: last30Days, date: lastDate } = await getLastNDays(pkg, 30)
   return {
     packageName: pkg,
-    last30Days: await getLastNDays(pkg, 30),
     lastWeek: await getStatPoint(pkg, 'last-week'),
     lastMonth: await getStatPoint(pkg, 'last-month'),
     lastYear: await getStatPoint(pkg, 'last-year'),
-    allTime: await getAllTime(pkg)
+    allTime: await getAllTime(pkg),
+    lastDate,
+    last30Days
   }
 }
 

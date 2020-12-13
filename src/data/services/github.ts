@@ -1,6 +1,10 @@
 import { Octokit } from '@octokit/rest'
 import type { GitHubRepositoryData } from 'src/components/embeds/GitHubRepository'
 
+export type DataType = GitHubRepositoryData
+
+// --
+
 async function fetchRepository(
   slug: string,
   gh: Octokit

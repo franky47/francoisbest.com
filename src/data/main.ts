@@ -1,6 +1,11 @@
 import dotenv from 'dotenv'
 import { services, Services } from './services'
-import { readServiceFetchlist, store } from './storage'
+import {
+  generateManifest,
+  generateServiceManifest,
+  readServiceFetchlist,
+  store
+} from './storage'
 
 dotenv.config()
 
@@ -18,6 +23,7 @@ async function processService(service: Services) {
   }
   const content = await services[service].fetch(contentIDs)
   content.forEach(([contentID, data]) => store(service, contentID, data))
+  generateServiceManifest(service, contentIDs)
   console.info(`${service.padEnd(padWidth)}  Loaded ${contentIDs.length} items`)
 }
 
@@ -37,6 +43,7 @@ async function main() {
       processService(service)
     )
   )
+  generateManifest()
 }
 
 main()

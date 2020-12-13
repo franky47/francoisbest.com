@@ -11,6 +11,7 @@ export type ServiceFetchFn<T> = (contentIDs: string[]) => Promise<[string, T][]>
 export type ServiceMap = {
   [key in Services]: {
     fetch: ServiceFetchFn<any>
+    safeContentID?: (rawContentID: string) => string
   }
 }
 

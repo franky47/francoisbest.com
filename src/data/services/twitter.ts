@@ -7,6 +7,11 @@ import { TwitterClient } from 'twitter-api-client'
 import twitterText from 'twitter-text'
 import twemoji from 'twemoji'
 
+export type DataType = TweetData
+
+export const safeContentID = (url: string) =>
+  url.slice(url.lastIndexOf('/') + 1)
+
 function formatTweetData(t: any): TweetData {
   // Inject line breaks before parsing
   const text = t.full_text.replace(/\n/g, '<br/>')
@@ -97,7 +102,7 @@ export async function fetch(urls: string[]): Promise<[string, TweetData][]> {
     accessTokenSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET
   })
 
-  const tweetIDs = urls.map(url => url.slice(url.lastIndexOf('/') + 1))
+  const tweetIDs = urls.map(url => safeContentID(url))
   const tweets = await twitterClient.tweets.statusesLookup({
     id: tweetIDs.join(','),
     include_entities: true,
