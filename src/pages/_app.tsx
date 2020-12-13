@@ -1,5 +1,4 @@
 import { DefaultSeo, SocialProfileJsonLd } from 'next-seo'
-// @ts-ignore
 import { MDXProvider } from '@mdx-js/react'
 import { mdxComponents } from 'src/components/blog/Mdx'
 import { theme } from 'src/ui/theme'

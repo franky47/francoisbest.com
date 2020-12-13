@@ -59,6 +59,7 @@
     "@next/bundle-analyzer": "^10.0.3",
     "@types/jest": "^26.0.16",
     "@types/lodash": "^4.14.165",
+    "@types/mdx-js__react": "^1.5.3",
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
     "@types/twemoji": "^12.1.1",
