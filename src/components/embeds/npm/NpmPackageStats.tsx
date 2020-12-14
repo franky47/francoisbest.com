@@ -9,11 +9,11 @@ import {
   Box,
   Text
 } from '@chakra-ui/react'
-import { Graph } from '../Graph'
-import dayjs from 'dayjs'
-import { H5 } from 'src/components/primitives/Typography'
-import { FiDownload, FiPackage } from 'react-icons/fi'
 import { OutgoingLink } from '@47ng/chakra-next'
+import { FiDownload, FiPackage } from 'react-icons/fi'
+import { H5 } from 'src/components/primitives/Typography'
+import { formatStatNumber } from 'src/ui/format'
+import { NpmDownloadsGraph } from './NpmDownloadsGraph'
 
 export interface NpmPackageStatsData {
   packageName: string
@@ -22,16 +22,10 @@ export interface NpmPackageStatsData {
   lastYear: number
   allTime: number
   last30Days: number[]
+  lastDate: string
 }
 
 export interface NpmPackageStatsProps extends StackProps, NpmPackageStatsData {}
-
-function formatNumber(number: number): string {
-  return number.toLocaleString('en-GB', {
-    notation: 'compact',
-    unitDisplay: 'short'
-  })
-}
 
 export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
   packageName,
@@ -40,9 +34,9 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
   lastYear,
   allTime,
   last30Days,
+  lastDate,
   ...props
 }) => {
-  const now = dayjs()
   return (
     <Stack spacing={4} pb="2px" overflow="hidden" {...props}>
       <Stack isInline alignItems="baseline" spacing={4}>
@@ -60,28 +54,22 @@ export const NpmPackageStats: React.FC<NpmPackageStatsProps> = ({
       <StatGroup textAlign="center" alignItems="flex-end">
         <Stat>
           <StatLabel fontSize="xs">Last Week</StatLabel>
-          <StatNumber fontSize="xl">{formatNumber(lastWeek)}</StatNumber>
+          <StatNumber fontSize="xl">{formatStatNumber(lastWeek)}</StatNumber>
         </Stat>
         <Stat>
           <StatLabel fontSize="xs">Last Month</StatLabel>
-          <StatNumber fontSize="xl">{formatNumber(lastMonth)}</StatNumber>
+          <StatNumber fontSize="xl">{formatStatNumber(lastMonth)}</StatNumber>
         </Stat>
         <Stat>
           <StatLabel fontSize="xs">Last Year</StatLabel>
-          <StatNumber fontSize="xl">{formatNumber(lastYear)}</StatNumber>
+          <StatNumber fontSize="xl">{formatStatNumber(lastYear)}</StatNumber>
         </Stat>
         <Stat>
           <StatLabel fontSize="xs">All Time</StatLabel>
-          <StatNumber fontSize="xl">{formatNumber(allTime)}</StatNumber>
+          <StatNumber fontSize="xl">{formatStatNumber(allTime)}</StatNumber>
         </Stat>
       </StatGroup>
-      <Graph
-        h="80px"
-        data={last30Days.map((value, i) => ({
-          date: now.subtract(30 - i, 'day').format('YYYY-MM-DD'),
-          value
-        }))}
-      />
+      <NpmDownloadsGraph h="80px" downloads={last30Days} lastDate={lastDate} />
     </Stack>
   )
 }

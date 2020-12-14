@@ -1,33 +1,51 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Box, BoxProps, useTheme, useColorMode } from '@chakra-ui/react'
+import dayjs from 'dayjs'
 // @ts-ignore
 import { Chart } from 'react-charts'
+import { ColorKeys } from 'src/ui/theme'
+import { formatDate } from 'src/ui/format'
 
-export type GraphData = {
-  data: Array<{
-    date: string
-    value: number
-  }>
+export interface NpmDownloadsGraphProps extends BoxProps {
+  downloads: number[]
+  lastDate: string
+  accentKey?: ColorKeys
 }
 
-export interface GraphProps extends GraphData, BoxProps {}
+type GraphData = Array<[string, number]>
 
 // --
 
-const SvgGraph = () => {
+function formatGraphData(downloads: number[], lastDate: string): GraphData {
+  const ref = dayjs(lastDate)
+  return downloads.map((value, i) => [
+    formatDate(ref.subtract(downloads.length - i, 'day').toDate()),
+    value
+  ])
+}
+
+// --
+
+const SvgGraph = (accentKey: ColorKeys = 'accent') => () => {
   const theme = useTheme()
   return (
     <defs>
-      <linearGradient id="graph-gradient" x1="0" x2="0" y1="1" y2="0">
+      <linearGradient
+        id={`graph-gradient-${accentKey}`}
+        x1="0"
+        x2="0"
+        y1="1"
+        y2="0"
+      >
         <stop
           offset="0%"
-          stopColor={theme.colors.accent[200]}
+          stopColor={theme.colors[accentKey][200]}
           stopOpacity={0}
         />
         <stop
           offset="100%"
-          stopColor={theme.colors.accent[500]}
+          stopColor={theme.colors[accentKey][500]}
           stopOpacity={0.2}
         />
       </linearGradient>
@@ -51,17 +69,22 @@ const Container = styled(Box)`
 
 // --
 
-export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
+export const NpmDownloadsGraph: React.FC<NpmDownloadsGraphProps> = ({
+  downloads,
+  lastDate,
+  accentKey = 'accent',
+  ...props
+}) => {
   const theme = useTheme()
   const { colorMode } = useColorMode()
   const graphData = React.useMemo(
     () => [
       {
         label: 'NPM Downloads',
-        data: data.map(({ date, value }) => [new Date(date), value])
+        data: formatGraphData(downloads, lastDate)
       }
     ],
-    [data]
+    [downloads]
   )
   const series = React.useCallback(
     () => ({
@@ -72,16 +95,16 @@ export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
   const getSeriesStyle = React.useCallback(
     () => ({
       line: {
-        fill: `url(#graph-gradient)`,
+        fill: `url(#graph-gradient-${accentKey})`,
         strokeWidth: '2px',
         stroke: theme.colors.accent[colorMode === 'light' ? 500 : 300]
       }
     }),
-    [colorMode]
+    [colorMode, accentKey]
   )
   const axes = React.useMemo(
     () => [
-      { primary: true, type: 'utc', position: 'bottom', show: false },
+      { primary: true, type: 'ordinal', position: 'bottom', show: false },
       { type: 'linear', position: 'left', show: false }
     ],
     []
@@ -98,14 +121,21 @@ export const Graph: React.FC<GraphProps> = ({ data, ...props }) => {
     return null
   }
   return (
-    <Container {...props} style={{ marginLeft: '-16px' }}>
+    <Container
+      {...props}
+      m={0}
+      mr={['-15px', '-22px']}
+      ml={['-28px', '-43px']}
+      overflowX="hidden"
+      overflowY="visible"
+    >
       <Chart
         data={graphData}
         series={series}
         axes={axes}
         tooltip={tooltip}
         getSeriesStyle={getSeriesStyle}
-        renderSVG={SvgGraph}
+        renderSVG={SvgGraph(accentKey)}
       />
     </Container>
   )

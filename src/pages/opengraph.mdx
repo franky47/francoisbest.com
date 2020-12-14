@@ -1,0 +1,63 @@
+---
+layout: PageLayout
+containerProps:
+  maxW: 100vw
+---
+
+import { NpmPackageOGImage } from 'src/components/embeds/npm/NpmPackageOGImage'
+import { Container, SimpleGrid } from '@chakra-ui/react'
+import { H1 } from 'src/components/primitives/Typography'
+
+<Container>
+  <H1>OpenGraph Images</H1>
+  Those are React components, that consume static metadata pulled from the GitHub
+  and NPM APIs, and rendered into OpenGraph images for social media.
+</Container>
+
+<SimpleGrid maxW="1232px" gap="32px" columns={2} mt={8} mx="auto">
+  <NpmPackageOGImage
+    accentKey="green"
+    github={require('github:47ng/chakra-next')}
+    npm={require('npm:@47ng/chakra-next')}
+  />
+  <NpmPackageOGImage
+    accentKey="indigo"
+    github={require('github:47ng/fastify-micro')}
+    npm={require('npm:fastify-micro')}
+  />
+  <NpmPackageOGImage
+    accentKey="orange"
+    github={require('github:47ng/fastify-cron')}
+    npm={require('npm:fastify-cron')}
+  />
+  <NpmPackageOGImage
+    accentKey="purple"
+    github={require('github:47ng/session-keystore')}
+    npm={require('npm:session-keystore')}
+  />
+  <NpmPackageOGImage
+    accentKey="yellow"
+    github={require('github:47ng/cloak')}
+    npm={require('npm:@47ng/cloak')}
+  />
+  <NpmPackageOGImage
+    accentKey="red"
+    github={require('github:47ng/redact-env')}
+    npm={require('npm:redact-env')}
+  />
+  <NpmPackageOGImage
+    accentKey="cyan"
+    github={require('github:47ng/env-alias')}
+    npm={require('npm:env-alias')}
+  />
+  <NpmPackageOGImage
+    accentKey="green"
+    github={require('github:47ng/check-env')}
+    npm={require('npm:@47ng/check-env')}
+  />
+  <NpmPackageOGImage
+    accentKey="twitter"
+    github={require('github:47ng/codec')}
+    npm={require('npm:@47ng/codec')}
+  />
+</SimpleGrid>

@@ -5,7 +5,8 @@ import {
   List,
   ListItem,
   ListIcon,
-  Tooltip
+  Tooltip,
+  forwardRef
 } from '@chakra-ui/react'
 import { H3, Paragraph } from 'src/components/primitives/Typography'
 import {
@@ -83,31 +84,15 @@ export const GitHubRepository: React.FC<GitHubRepositoryProps> = ({
           text={prs}
           iconAlt="Open Pull Requests"
         />
-        {/* {!!npm && (
-          <OutgoingLink href={`https://npmjs.com/package/${npm}`}>
-            <MetaListItem
-              icon={FiPackage}
-              text={npm}
-              iconAlt="NPM package"
-              tooltip="NPM package"
-            />
-          </OutgoingLink>
-        )} */}
         {!!version && (
           <MetaListItem
             icon={FiTag}
             text={`v${version}`}
             iconAlt="Last release"
-            tooltip="Last release"
           />
         )}
         {!!license && (
-          <MetaListItem
-            icon={FiFileText}
-            text={license}
-            iconAlt="License"
-            tooltip="License"
-          />
+          <MetaListItem icon={FiFileText} text={license} iconAlt="License" />
         )}
       </List>
     </Stack>
@@ -120,44 +105,40 @@ interface MetaListItemProps {
   icon: React.ComponentType
   iconAlt: string
   text?: string | number
-  tooltip?: string
 }
 
-const MetaListItem: React.FC<MetaListItemProps> = ({
-  icon,
-  iconAlt,
-  text = '--',
-  tooltip = '',
-  ...props
-}) => {
-  return (
-    <Tooltip
-      label={tooltip}
-      aria-label={tooltip}
-      isOpen={tooltip === '' ? false : undefined}
-      showDelay={750}
-      placement="top"
-      hasArrow
-    >
-      <ListItem
-        {...props}
-        display={['flex', 'block']}
-        flexDir="column"
-        alignItems="center"
-        aria-label={tooltip}
+const MetaListItem: React.FC<MetaListItemProps> = forwardRef(
+  ({ icon, iconAlt, text = '--', ...props }, ref) => {
+    return (
+      <Tooltip
+        label={iconAlt}
+        aria-label={iconAlt}
+        isOpen={iconAlt === '' ? false : undefined}
+        showDelay={750}
+        placement="top"
+        hasArrow
+        ref={ref}
       >
-        <ListIcon
-          role="img"
+        <ListItem
+          {...props}
+          display={['flex', 'block']}
+          flexDir="column"
+          alignItems="center"
           aria-label={iconAlt}
-          as={icon}
-          display={['block', 'inline-block']}
-          verticalAlign="none"
-          mr={[0, 2]}
-          mt={-1}
-          mb={[1, 0]}
-        />
-        {text}
-      </ListItem>
-    </Tooltip>
-  )
-}
+        >
+          <ListIcon
+            role="img"
+            aria-label={iconAlt}
+            as={icon}
+            display={['block', 'inline-block']}
+            verticalAlign="none"
+            mr={[0, 2]}
+            mt={-1}
+            mb={[1, 0]}
+          />
+          {text}
+        </ListItem>
+      </Tooltip>
+    )
+  }
+)
