@@ -10,6 +10,7 @@ import { useURL } from 'src/hooks/useURL'
 // @ts-ignore
 import { frontMatter as allPosts } from './**/*.mdx'
 import { ExtendedPostFrontMatter } from 'src/types'
+import { renderPackageOpenGraphImage } from 'src/scripts/renderPackageOpenGraphImage'
 
 const posts: ExtendedPostFrontMatter[] = allPosts.filter(
   (post: ExtendedPostFrontMatter) =>
@@ -46,6 +47,10 @@ export async function getStaticProps() {
   await generateFeeds(posts)
   await generateSiteMap(posts)
   await refreshPageViews(posts)
+  await renderPackageOpenGraphImage({
+    slug: '47ng/chakra-next',
+    packageName: '@47ng/chakra-next'
+  })
   return {
     props: {}
   }
