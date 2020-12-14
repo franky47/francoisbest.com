@@ -95,7 +95,9 @@ export const NpmPackageOGImage: React.FC<NpmPackageOGImageProps> = ({
             <DarkMode>
               <chakra.pre>
                 <code>
-                  <chakra.span verticalAlign="middle">📦</chakra.span>
+                  <chakra.span color="red.500" opacity={0.75}>
+                    $
+                  </chakra.span>
                   <chakra.span color="gray.600"> npm i </chakra.span>
                   <chakra.span
                     color={useColorModeValue('accent.700', 'accent.400')}
