@@ -11,7 +11,7 @@ import { useURL } from 'src/hooks/useURL'
 import { frontMatter as allPosts } from './**/*.mdx'
 import { ExtendedPostFrontMatter } from 'src/types'
 
-const posts = allPosts.filter(
+const posts: ExtendedPostFrontMatter[] = allPosts.filter(
   (post: ExtendedPostFrontMatter) =>
     process.env.NODE_ENV === 'development' || !!post.publicationDate
 )
