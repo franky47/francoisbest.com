@@ -109,8 +109,8 @@ export const SimplerGraph: React.FC<SimplerGraphProps> = ({
   ...props
 }) => {
   const [ref, { width, height }] = useMeasure()
-  const w = width ?? 600
-  const h = height ?? 80
+  const w = width || 600
+  const h = height || 120
   const graphPoints = React.useMemo(
     () => formatGraphData(downloads, { w, h, mt: 4, mb: 56 }),
     [downloads, w, h]

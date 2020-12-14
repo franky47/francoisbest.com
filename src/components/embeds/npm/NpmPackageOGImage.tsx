@@ -43,12 +43,10 @@ export const NpmPackageOGImage: React.FC<NpmPackageOGImageProps> = ({
       h="315px"
       overflow="hidden"
       sx={useAccentStyles(accentKey)}
-      borderWidth="1px"
-      rounded="md"
       {...props}
     >
       <Box pos="relative">
-        <Box pt={4} px={6} mb={-2}>
+        <Box px={6} mb={-2}>
           <Flex alignItems="center" justifyContent="space-between" mb={2}>
             <H1
               textStyle="h3"
