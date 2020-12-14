@@ -5,12 +5,13 @@ import { AppCore } from 'src/pages/_app'
 import { github, npm } from 'src/data/.storage/manifests'
 import fs from 'fs'
 import mkdirp from 'make-dir'
-import { makeTheme } from 'src/ui/theme'
+import { ColorKeys, makeTheme } from 'src/ui/theme'
 import htmlToImage from 'node-html-to-image'
 
 interface Args {
   slug: github.ContentIDs
   packageName: npm.ContentIDs
+  accentKey?: ColorKeys
 }
 
 const theme = makeTheme({
@@ -20,7 +21,11 @@ const theme = makeTheme({
   }
 })
 
-export async function renderPackageOpenGraphImage({ slug, packageName }: Args) {
+export async function renderPackageOpenGraphImage({
+  slug,
+  packageName,
+  accentKey = 'twitter'
+}: Args) {
   const outputDir = path.resolve(process.cwd(), 'public/images/repos', slug)
   const outputHtml = path.resolve(outputDir, 'og.html')
   const react = renderToString(
@@ -28,7 +33,7 @@ export async function renderPackageOpenGraphImage({ slug, packageName }: Args) {
       <NpmPackageOGImage
         github={github.manifest[slug]}
         npm={npm.manifest[packageName]}
-        accentKey="twitter"
+        accentKey={accentKey}
       />
     </AppCore>
   )
