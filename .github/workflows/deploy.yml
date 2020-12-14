@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - run: yarn install --ignore-scripts
+      - run: yarn install
         name: Install dependencies
       - run: yarn build:tools
         name: Build tools
