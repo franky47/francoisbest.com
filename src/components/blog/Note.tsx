@@ -130,6 +130,7 @@ export const Note: React.FC<NoteProps> = ({
       flexWrap="wrap"
       flexDirection={!!title ? 'column' : 'row'}
       alignItems={!!title ? 'flex-start' : 'center'}
+      w="auto"
       css={{
         ...(accent.key ? useAccentStyles(accent.key) : {}),
         '& p:last-child': {
