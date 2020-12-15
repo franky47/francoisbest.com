@@ -5,7 +5,8 @@ const LOCALE = 'en-GB'
  */
 export function formatDate(
   date?: Date | string | number,
-  defaultValue: string = ''
+  defaultValue: string = '',
+  options: Intl.DateTimeFormatOptions = {}
 ) {
   if (!date) {
     return defaultValue
@@ -14,7 +15,8 @@ export function formatDate(
   return new Date(date).toLocaleDateString(LOCALE, {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    ...options
   })
 }
 

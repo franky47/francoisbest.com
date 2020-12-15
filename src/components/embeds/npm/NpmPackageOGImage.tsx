@@ -7,19 +7,19 @@ import {
   Center,
   HStack,
   SimpleGrid,
+  Text,
   DarkMode,
   useColorModeValue
 } from '@chakra-ui/react'
 import { H1 } from '../../primitives/Typography'
 import { NpmPackageStatsData } from './NpmPackageStats'
 import { GitHubRepositoryData } from '../GitHubRepository'
-// import { NpmDownloadsGraph } from './NpmDownloadsGraph'
 import { FiStar, FiDownload, FiFileText, FiGithub, FiTag } from 'react-icons/fi'
 import { Logo } from '../../Logo'
 import { OutgoingLink } from '@47ng/chakra-next'
 import { accentKeys, ColorKeys, useLinkColor } from 'src/ui/theme'
 import { useAccentStyles } from '../../Accent'
-import { formatStatNumber } from 'src/ui/format'
+import { formatDate, formatStatNumber } from 'src/ui/format'
 import { SimplerGraph } from './SimplerGraph'
 
 export interface NpmPackageOGImageProps extends BoxProps {
@@ -118,16 +118,39 @@ export const NpmPackageOGImage: React.FC<NpmPackageOGImageProps> = ({
           lastDate={npm.lastDate}
           accentKey={accentKey}
         />
-        <HStack px={6} py={4} pos="absolute" bottom={0} h="30px">
+        <HStack
+          px={6}
+          py={4}
+          pos="absolute"
+          bottom={0}
+          left={0}
+          right={0}
+          h="30px"
+        >
           <HStack spacing={useColorModeValue(2, 3)}>
             <Logo />
             <Center fontWeight="medium">47ng</Center>
           </HStack>
           <Center color="gray.500">•</Center>
-          <OutgoingLink href="https://francoisbest.com" color={useLinkColor()}>
+          <OutgoingLink
+            href="https://francoisbest.com"
+            color={useLinkColor()}
+            mr="auto"
+            flexShrink={0}
+          >
             francoisbest.com
             <chakra.span color="gray.500">/open-source</chakra.span>
           </OutgoingLink>
+          <Text
+            fontSize="xs"
+            color={`${accentKey}.200`}
+            opacity={0.3}
+            textAlign="right"
+          >
+            Dynamic OpenGraph image
+            <br />
+            generated on {formatDate(new Date(), '', { month: 'short' })}
+          </Text>
         </HStack>
       </Box>
     </Center>
