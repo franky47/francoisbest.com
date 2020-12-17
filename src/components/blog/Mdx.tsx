@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import {
   Text,
   Code,
@@ -34,16 +33,6 @@ const linkStyles = {
   }
 }
 
-const Blockquote = styled(Box)`
-  font-family: 'Georgia';
-  & p:last-child {
-    margin-bottom: 0;
-  }
-  & p {
-    font-family: 'Georgia';
-  }
-`
-
 const InlineCode: React.FC<BoxProps> = p => (
   <Code
     fontSize="0.85em"
@@ -69,36 +58,33 @@ export const mdxComponents: any = {
   i: (p: any) => <Text as="i" {...p} />,
 
   blockquote: (p: BoxProps) => (
-    <Blockquote
+    <Box
+      as="blockquote"
+      position="relative"
+      mx={[-4, 0]}
+      pl={6}
+      pr={8}
+      py={2}
+      my={8}
+      fontSize="lg"
+      sx={{
+        '& p:last-child': {
+          mb: 0
+        }
+      }}
+      fontStyle="italic"
       borderLeftWidth={4}
       borderLeftColor={useColorModeValue('gray.400', 'gray.600')}
-      as="blockquote"
       rounded={['none', 'sm']}
-      color={useColorModeValue('gray.700', 'gray.400')}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-      fontStyle="italic"
-      mx={[-4, 0]}
-      p={6}
-      my={8}
-      position="relative"
-      fontWeight="medium"
-      textAlign="center"
-      fontSize="2xl"
       {...p}
-      _before={{
-        content: '"“"',
-        position: 'absolute',
-        color: useColorModeValue('gray.400', 'gray.600'),
-        fontSize: '4xl',
-        top: 0,
-        left: 2
-      }}
       _after={{
+        // opening: “
         content: '"”"',
+        fontFamily: 'serif',
         position: 'absolute',
         color: useColorModeValue('gray.400', 'gray.600'),
-        fontSize: '4xl',
-        bottom: -4,
+        fontSize: '5xl',
+        top: 0,
         right: 3
       }}
     />
@@ -107,17 +93,17 @@ export const mdxComponents: any = {
     <Text
       as="div"
       fontFamily={theme.fonts.body}
-      fontSize="sm"
+      fontSize="xs"
       fontWeight="normal"
       fontStyle="normal"
-      color="gray.600"
+      color="gray.500"
       mt={-2}
       _before={{
         content: '"-- "'
       }}
       {...p}
     >
-      -- {children}
+      {children}
     </Text>
   ),
 
