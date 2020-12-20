@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - next
-      - dynamic-og-images
 
 env:
   NEXT_PUBLIC_DEPLOYMENT_URL: https://preview.francoisbest.com
