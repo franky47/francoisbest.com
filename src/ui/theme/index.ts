@@ -15,11 +15,7 @@ export function makeTheme(overrides: ThemeOverride = {}) {
     styles,
     textStyles,
     fonts: defaultTheme.fonts,
-    shadows: defaultTheme.shadows,
-    config: {
-      useSystemColorMode: false,
-      initialColorMode: 'light'
-    }
+    shadows: defaultTheme.shadows
   })
   return mergeWith(theme, overrides)
 }

@@ -35,7 +35,6 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
-          <ColorModeScript initialColorMode="light" />
           <Main />
           <NextScript />
           {process.env.NODE_ENV === 'production' &&
