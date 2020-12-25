@@ -15,10 +15,11 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
-import { FiHeart, FiRepeat, FiTwitter } from 'react-icons/fi'
+import { FiHeart, FiRepeat, FiMessageSquare, FiTwitter } from 'react-icons/fi'
 import { H5 } from 'src/components/primitives/Typography'
 import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 import { formatDate, formatTime } from 'src/ui/format'
+import { safeContentID } from 'src/data/services/twitter'
 
 export interface TweetPhotoData {
   type: 'photo'
@@ -93,7 +94,7 @@ export const Tweet: React.FC<TweetProps> = ({
           />
         </Stack>
       )}
-      <TweetFooter {...meta} />
+      <TweetFooter {...meta} mb={-2} />
     </Stack>
   )
 }
@@ -221,7 +222,7 @@ const TweetBody: React.FC<TweetContentProps> = ({
   ...props
 }) => (
   <StyledBody
-    mb={6}
+    mb={4}
     fontSize={largeText ? 'lg' : 'md'}
     fontWeight={450}
     dangerouslySetInnerHTML={{ __html: body }}
@@ -237,29 +238,62 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
   likes,
   retweets,
   ...props
-}) => (
-  <Flex
-    as="footer"
-    justifyContent="space-between"
-    mt={2}
-    color="gray.600"
-    {...props}
-  >
-    <OutgoingLink href={url} fontSize="sm">
-      {formatTime(date)} • {formatDate(date)}
-    </OutgoingLink>
-    <Stack isInline justifyContent="space-evenly" fontSize="sm">
-      <Flex alignItems="center">
-        <Box as={FiRepeat} mr={2} />
-        <Text>{retweets}</Text>
-      </Flex>
-      <Flex alignItems="center">
-        <Box as={FiHeart} mr={2} />
-        <Text>{likes}</Text>
-      </Flex>
-    </Stack>
-  </Flex>
-)
+}) => {
+  const id = safeContentID(url)
+  return (
+    <Flex
+      as="footer"
+      justifyContent="space-between"
+      alignItems="center"
+      color="gray.600"
+      {...props}
+    >
+      <OutgoingLink href={url} fontSize={['xs', 'sm']}>
+        {formatTime(date)} • {formatDate(date)}
+      </OutgoingLink>
+      <Stack
+        isInline
+        justifyContent="space-evenly"
+        fontSize={['xs', 'sm']}
+        spacing={[1, 2]}
+      >
+        <Flex alignItems="center">
+          <OutgoingIconButtonLink
+            icon={<FiMessageSquare />}
+            href={`https://twitter.com/intent/tweet?in_reply_to=${id}`}
+            aria-label="Reply"
+            variant="ghost"
+            rounded="full"
+            fontSize={['sm', 'md']}
+          />
+          <Text>Reply</Text>
+        </Flex>
+        <Flex alignItems="center">
+          <OutgoingIconButtonLink
+            icon={<FiRepeat />}
+            href={`https://twitter.com/intent/retweet?tweet_id=${id}`}
+            aria-label="Retweet"
+            variant="ghost"
+            rounded="full"
+            fontSize={['sm', 'md']}
+          />
+          <Text>{retweets}</Text>
+        </Flex>
+        <Flex alignItems="center">
+          <OutgoingIconButtonLink
+            icon={<FiHeart />}
+            href={`https://twitter.com/intent/like?tweet_id=${id}`}
+            aria-label="Like"
+            variant="ghost"
+            rounded="full"
+            fontSize={['sm', 'md']}
+          />
+          <Text>{likes}</Text>
+        </Flex>
+      </Stack>
+    </Flex>
+  )
+}
 
 // --
 
@@ -275,7 +309,7 @@ const TweetMedia: React.FC<TweetMediaProps> = ({ media, ...props }) => (
     overflow="hidden"
     gridGap={1}
     maxH="350px"
-    my={4}
+    my={2}
     {...props}
   >
     {media.map((img, i) =>
