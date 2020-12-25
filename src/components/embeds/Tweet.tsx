@@ -260,6 +260,7 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
         <Flex alignItems="center">
           <OutgoingIconButtonLink
             icon={<FiMessageSquare />}
+            color="currentcolor"
             href={`https://twitter.com/intent/tweet?in_reply_to=${id}`}
             aria-label="Reply"
             variant="ghost"
@@ -271,6 +272,7 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
         <Flex alignItems="center">
           <OutgoingIconButtonLink
             icon={<FiRepeat />}
+            color="currentcolor"
             href={`https://twitter.com/intent/retweet?tweet_id=${id}`}
             aria-label="Retweet"
             variant="ghost"
@@ -282,6 +284,7 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
         <Flex alignItems="center">
           <OutgoingIconButtonLink
             icon={<FiHeart />}
+            color="currentcolor"
             href={`https://twitter.com/intent/like?tweet_id=${id}`}
             aria-label="Like"
             variant="ghost"
