@@ -125,12 +125,12 @@ const TweetHeader: React.FC<TweetHeaderProps> = ({ author, url, ...props }) => (
           src={author.avatarURL}
           backgroundColor="transparent"
         />
-        <Stack>
+        <Box>
           <AuthorName my={0}>{author.displayName}</AuthorName>
           <Text fontSize="sm" color="gray.600">
             @{author.handle}
           </Text>
-        </Stack>
+        </Box>
       </Stack>
     </OutgoingLink>
     <OutgoingIconButtonLink

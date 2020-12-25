@@ -7,20 +7,7 @@ tags:
   - tooling
 ---
 
-<!--
-  {
-    name: 'DEV.to',
-    url: 'https://dev.to/franky47/the-security-of-github-actions-ggj#comments'
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/fortysevenfx/status/1231943857283137537'
-  },
-  {
-    name: 'Hacker News',
-    url: 'https://news.ycombinator.com/item?id=22404046'
-  }
--->
+import { Tweet } from 'src/components/embeds/Tweet'
 
 [GitHub Actions](https://github.com/features/actions)
 are a great way to build powerful customised CI/CD workflows using the power of
@@ -205,6 +192,13 @@ will eventually become able to analyse the dependency tree of a workflow file,
 make sure with [CodeQL](https://securitylab.github.com/tools/codeql)
 that it is free of known vulnerabilities or malicious code, and suggest updates
 back to the workflow file, hopefully in the form of SHA-1 pinnings.
+
+<Note status="success" title="Update 2020-12-25">
+  Dependabot now supports SHA-1 pinning updates, when using the built-in version
+  built-in GitHub:
+</Note>
+
+<Tweet {...require('twitter:1342371205144309760')} mb={0} />
 
 ---
 
