@@ -23,18 +23,24 @@ import { FiZap, FiMail } from 'react-icons/fi'
 <Note
   status="success"
   icon={FiZap}
-  title={<mark animationDelay={3000}>Hire me!</mark>}
+  title={
+    <mark animationDelay={3000} fontSize={['lg', 'xl']}>
+      Hire me!
+    </mark>
+  }
 >
-  <p my={4}>
+  <p my={6}>
     I build <b>web apps</b> for startups, businesses and public institutions as
     a freelance web developer and designer. Let's <b>discuss your needs</b> and
     what solutions I can bring.
   </p>
   <ButtonRouteLink
+    size="lg"
     href="mailto:contact+freelance@francoisbest.com"
     to="mailto:contact+freelance@francoisbest.com"
     leftIcon={<FiMail />}
     colorScheme="accent"
+    display={['flex', 'inline-flex']}
   >
     Contact me
   </ButtonRouteLink>
