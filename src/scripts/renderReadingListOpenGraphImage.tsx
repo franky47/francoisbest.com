@@ -28,14 +28,7 @@ export async function renderReadingListOpenGraphImage({ stats }: Args) {
   const outputHtml = path.resolve(outputDir, 'og.html')
   const react = renderToString(
     <AppCore theme={theme}>
-      <Box
-        w="600px"
-        h="315px"
-        borderWidth="1px"
-        borderColor="red.500"
-        p={8}
-        pos="relative"
-      >
+      <Box w="600px" h="315px" p={8} pos="relative">
         <H2 textAlign="center" mb={12} mt={0}>
           Blog Articles I Read In 2021
         </H2>
