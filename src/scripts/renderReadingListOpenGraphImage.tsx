@@ -12,9 +12,7 @@ import { H2 } from 'src/components/primitives/Typography'
 import { Logo } from 'src/components/Logo'
 import { formatDate } from 'src/ui/format'
 
-interface Args {
-  stats: ReadingListPageProps['stats']
-}
+interface Args extends ReadingListPageProps {}
 
 const theme = makeTheme({
   config: {
@@ -23,16 +21,20 @@ const theme = makeTheme({
   }
 })
 
-export async function renderReadingListOpenGraphImage({ stats }: Args) {
+export async function renderReadingListOpenGraphImage({
+  stats,
+  readList,
+  cacheBustingID
+}: Args) {
   const outputDir = path.resolve(process.cwd(), 'public/images/reading-list')
-  const outputHtml = path.resolve(outputDir, 'og.html')
+  const outputHtml = path.resolve(outputDir, `og-${cacheBustingID}.html`)
   const react = renderToString(
     <AppCore theme={theme}>
       <Box w="600px" h="315px" p={8} pos="relative">
         <H2 textAlign="center" mb={12} mt={0}>
           Blog Articles I Read In 2021
         </H2>
-        <ReadingListStats stats={stats} />
+        <ReadingListStats stats={stats} readList={readList} />
         <Flex
           px={8}
           pb={12}
@@ -75,7 +77,7 @@ export async function renderReadingListOpenGraphImage({ stats }: Args) {
   fs.writeFileSync(outputHtml, html)
   await htmlToImage({
     html,
-    output: path.resolve(outputDir, 'og.jpg'),
+    output: path.resolve(outputDir, `og-${cacheBustingID}.jpg`),
     puppeteerArgs: {
       defaultViewport: {
         width: 600,

@@ -10,3 +10,5 @@ build/
 # Generated OG images
 public/**/og.jpg
 public/**/og.html
+public/**/og-*.jpg
+public/**/og-*.html

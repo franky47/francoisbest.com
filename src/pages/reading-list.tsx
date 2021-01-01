@@ -23,6 +23,8 @@ import { useURL } from 'src/hooks/useURL'
 import dayjs from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import { renderReadingListOpenGraphImage } from 'src/scripts/renderReadingListOpenGraphImage'
+import crypto from 'crypto'
+import { b64 } from '@47ng/codec'
 
 export interface Article {
   url: string
@@ -51,11 +53,13 @@ export interface ReadingListPageProps {
     lastMonthPct: number
   }
   readList: GroupedReadingList
+  cacheBustingID: string
 }
 
 const ReadingListPage: NextPage<ReadingListPageProps> = ({
   readList,
-  stats
+  stats,
+  cacheBustingID
 }) => {
   return (
     <PageLayoutWithSEO
@@ -64,7 +68,7 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
         description: "All the blog posts I've read in 2021",
         url: useURL('/reading-list'),
         ogImage: {
-          url: useURL('/images/reading-list/og.jpg'),
+          url: useURL(`/images/reading-list/og-${cacheBustingID}.jpg`),
           width: 1200,
           height: 630
         }
@@ -83,6 +87,7 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
       </Paragraph>
       <ReadingListStats
         stats={stats}
+        readList={readList}
         borderWidth="1px"
         p={4}
         rounded="md"
@@ -90,7 +95,7 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
       />
       {Object.keys(readList).map(date => (
         <React.Fragment key={date}>
-          <H2>{date}</H2>
+          <H2 mt={16}>{date}</H2>
           <List spacing={8}>
             {readList[date].map(article => (
               <ListItem key={article.timestamp}>
@@ -186,12 +191,19 @@ export async function getStaticProps() {
     lastWeekPct: (100 * (thisWeek - lastWeek)) / lastWeek,
     lastMonthPct: (100 * (thisMonth - lastMonth)) / lastMonth
   }
-  await renderReadingListOpenGraphImage({ stats })
-
+  const hash = crypto.createHash('sha256')
+  hash.update(JSON.stringify(stats))
+  const cacheBustingID = b64.urlSafe(hash.digest('base64')).replace(/=/g, '')
+  await renderReadingListOpenGraphImage({
+    stats,
+    readList,
+    cacheBustingID
+  })
   return {
     props: {
       stats,
-      readList
+      readList,
+      cacheBustingID
     }
   }
 }
@@ -202,15 +214,42 @@ export default ReadingListPage
 
 export interface ReadingListStatsProps extends BoxProps {
   stats: ReadingListPageProps['stats']
+  readList: GroupedReadingList
 }
 
 export const ReadingListStats: React.FC<ReadingListStatsProps> = ({
   stats,
+  // readList,
   ...props
 }) => {
+  // const calendarData = Object.keys(readList).map(day => {
+  //   return {
+  //     day: dayjs(day).format('YYYY-MM-DD'),
+  //     value: readList[day].length
+  //   }
+  // })
+  // const bgColor = useColorModeValue('white', theme.colors.gray[900])
+  // const calendarColors = useColorModeValue(
+  //   [
+  //     theme.colors.accent[100],
+  //     theme.colors.accent[200],
+  //     theme.colors.accent[300],
+  //     theme.colors.accent[400],
+  //     theme.colors.accent[500],
+  //     theme.colors.accent[600]
+  //   ],
+  //   [
+  //     // theme.colors.accent[900],
+  //     theme.colors.accent[800],
+  //     theme.colors.accent[700],
+  //     theme.colors.accent[600],
+  //     theme.colors.accent[500],
+  //     theme.colors.accent[400]
+  //   ]
+  // )
   return (
     <StatGroup {...props}>
-      <Stat flex={2}>
+      <Stat flex={2} ml={2}>
         <StatLabel>Articles Read</StatLabel>
         <StatNumber fontSize="4xl">{formatStatNumber(stats.total)}</StatNumber>
         <StatHelpText fontSize="xs">Since {stats.oldest}</StatHelpText>
@@ -219,9 +258,17 @@ export const ReadingListStats: React.FC<ReadingListStatsProps> = ({
         <StatLabel>This Week</StatLabel>
         <StatNumber>{stats.week}</StatNumber>
         {stats.lastWeekPct !== 0 && (
-          <StatHelpText>
+          <StatHelpText
+            fontSize="xs"
+            color={useColorModeValue(
+              stats.lastWeekPct > 0 ? 'green.500' : 'red.500',
+              stats.lastWeekPct > 0 ? 'green.400' : 'red.400'
+            )}
+          >
             <StatArrow type={stats.lastWeekPct > 0 ? 'increase' : 'decrease'} />
-            {formatStatNumber(stats.lastWeekPct, { signDisplay: 'exceptZero' })}
+            {formatStatNumber(stats.lastWeekPct, {
+              signDisplay: 'exceptZero'
+            })}
             %
           </StatHelpText>
         )}
@@ -230,7 +277,13 @@ export const ReadingListStats: React.FC<ReadingListStatsProps> = ({
         <StatLabel>This Month</StatLabel>
         <StatNumber>{stats.month}</StatNumber>
         {stats.lastMonthPct !== 0 && (
-          <StatHelpText>
+          <StatHelpText
+            fontSize="xs"
+            color={useColorModeValue(
+              stats.lastMonthPct > 0 ? 'green.600' : 'red.600',
+              stats.lastMonthPct > 0 ? 'green.400' : 'red.400'
+            )}
+          >
             <StatArrow
               type={stats.lastMonthPct > 0 ? 'increase' : 'decrease'}
             />
