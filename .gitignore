@@ -6,3 +6,7 @@ public/sitemap.xml
 .env
 build/
 .storage/
+
+# Generated OG images
+public/**/og.jpg
+public/**/og.html

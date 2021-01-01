@@ -39,7 +39,7 @@ export default function PageLayoutWithSEO({
     containerProps = {},
     ...frontMatter
   }
-}: React.PropsWithChildren<{ frontMatter: PageFrontMatter }>) {
+}: React.PropsWithChildren<{ frontMatter: Partial<PageFrontMatter> }>) {
   return (
     <>
       <NextSeo

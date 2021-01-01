@@ -53,6 +53,8 @@ jobs:
           GITHUB_TOKEN:                 ${{ secrets.GITHUB_TOKEN }}
       - run: yarn build:next
         name: Build Next.js
+        env:
+          READING_LIST_CSV_URL:         ${{ secrets.READING_LIST_CSV_URL }}
       - run: yarn export
         name: Export static HTML/CSS/JS
       - uses: dswistowski/surge-sh-action@341bcbd76a97da5e6b55ad92f53c0bf840e04c80

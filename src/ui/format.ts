@@ -41,9 +41,13 @@ export function formatSEOKeyValues(dict: Record<string, string>) {
   ])
 }
 
-export function formatStatNumber(number: number): string {
+export function formatStatNumber(
+  number: number,
+  options: Intl.NumberFormatOptions = {}
+): string {
   return number.toLocaleString(LOCALE, {
     notation: 'compact',
-    unitDisplay: 'short'
+    unitDisplay: 'short',
+    ...options
   })
 }
