@@ -94,7 +94,11 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
           <List spacing={8}>
             {readList[date].map(article => (
               <ListItem key={article.timestamp}>
-                <OutgoingLink href={article.url} color={useLinkColor()}>
+                <OutgoingLink
+                  href={article.url}
+                  color={useLinkColor()}
+                  fontWeight="semibold"
+                >
                   {article.title}
                 </OutgoingLink>
                 <HStack
