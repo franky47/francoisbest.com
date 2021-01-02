@@ -68,7 +68,7 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
         description: "All the blog posts I've read in 2021",
         url: useURL('/reading-list'),
         ogImage: {
-          url: useURL(`/images/reading-list/og-${cacheBustingID}.jpg`),
+          url: useURL(`/images/reading-list/og.jpg?${cacheBustingID}`),
           width: 1200,
           height: 630
         }

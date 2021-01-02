@@ -12,7 +12,7 @@ import { H2 } from 'src/components/primitives/Typography'
 import { Logo } from 'src/components/Logo'
 import { formatDate } from 'src/ui/format'
 
-interface Args extends ReadingListPageProps {}
+interface Args extends Pick<ReadingListPageProps, 'stats' | 'readList'> {}
 
 const theme = makeTheme({
   config: {
@@ -23,11 +23,10 @@ const theme = makeTheme({
 
 export async function renderReadingListOpenGraphImage({
   stats,
-  readList,
-  cacheBustingID
+  readList
 }: Args) {
   const outputDir = path.resolve(process.cwd(), 'public/images/reading-list')
-  const outputHtml = path.resolve(outputDir, `og-${cacheBustingID}.html`)
+  const outputHtml = path.resolve(outputDir, 'og.html')
   const react = renderToString(
     <AppCore theme={theme}>
       <Box w="600px" h="315px" p={8} pos="relative">
@@ -77,7 +76,7 @@ export async function renderReadingListOpenGraphImage({
   fs.writeFileSync(outputHtml, html)
   await htmlToImage({
     html,
-    output: path.resolve(outputDir, `og-${cacheBustingID}.jpg`),
+    output: path.resolve(outputDir, 'og.jpg'),
     puppeteerArgs: {
       defaultViewport: {
         width: 600,
