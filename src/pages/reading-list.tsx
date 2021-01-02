@@ -113,7 +113,13 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
                   mb={2}
                 >
                   {article.author && <Text>{article.author}</Text>}
-                  {article.twitter && <Text>@{article.twitter}</Text>}
+                  {article.twitter && (
+                    <OutgoingLink
+                      href={`https://twitter.com/${article.twitter}`}
+                    >
+                      @{article.twitter}
+                    </OutgoingLink>
+                  )}
                   {article.date && (
                     <Text>
                       {formatDate(article.date, '', { month: 'short' })}
