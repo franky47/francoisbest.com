@@ -1,0 +1,157 @@
+---
+layout: PageLayout
+title: Goals for 2021
+description: A public list of things I want to achieve in 2021.
+---
+
+import { FiCheckCircle, FiCircle } from 'react-icons/fi'
+import {
+  List,
+  ListItem,
+  ListIcon,
+  Progress,
+  Text,
+  useColorModeValue
+} from '@chakra-ui/react'
+import { TimelineItem } from 'src/components/Timeline'
+
+# Goals for 2021
+
+Here are the goals I strive to achieve in 2021. I make them public for
+accountability, and will update them as I go along.
+
+export const Goal = ({
+  done = false,
+  progress,
+  progressProps = {},
+  children,
+  ...props
+}) => (
+  <ListItem {...props} display="flex" alignItems="center">
+    <ListIcon
+      as={done ? FiCheckCircle : FiCircle}
+      color={useColorModeValue(
+        done ? 'accent.500' : 'gray.500',
+        done ? 'accent.400' : 'gray.400'
+      )}
+    />
+    <Text>{children}</Text>
+    {progress !== undefined && (
+      <React.Fragment>
+        <Text fontSize="xs" ml="auto" color="gray.600">
+          {progress} / {progressProps.max ?? 100}
+        </Text>
+        <Progress
+          value={progress}
+          w={16}
+          size="sm"
+          colorScheme="accent"
+          rounded="full"
+          ml={2}
+          {...progressProps}
+        />
+      </React.Fragment>
+    )}
+  </ListItem>
+)
+
+<br />
+
+## Writing & Sharing
+
+<List spacing={3}>
+  <Goal progress={0} progressProps={{ max: 47 }}>
+    Write one article a week{' '}
+    <Text as="em" fontSize="sm" color="gray.600">
+      (5 weeks off allowed)
+    </Text>
+  </Goal>
+  <Goal progress={0} progressProps={{ max: 4 }}>
+    Write four long-form articles covering a topic in depth
+  </Goal>
+  <Goal>Create a newsletter</Goal>
+  <Goal>
+    Speak at a virtual conference (
+    <a href="mailto:contact+conf@francoisbest.com">contact</a>)
+  </Goal>
+</List>
+
+<br />
+
+## Building In The Open
+
+<List spacing={3}>
+  <Goal done>Add a public list of goals</Goal>
+  <Goal>Add a portfolio page on this website</Goal>
+  <Goal>
+    Ship <a href="https://chiffre.io">Chiffre.io</a> in Q1 2020
+  </Goal>
+  <Goal progress={0} progressProps={{ max: 50 }}>
+    Make 50€ MRR with <a href="https://chiffre.io">Chiffre.io</a> to cover the
+    operating costs
+  </Goal>
+  <Goal>Create a digital good to sell online (most likely an e-book).</Goal>
+</List>
+
+<br />
+
+## Achievements
+
+### 2020
+
+import {
+  FiPackage,
+  FiHome,
+  FiEdit2,
+  FiUser,
+  FiUsers,
+  FiTwitter,
+  FiBarChart2
+} from 'react-icons/fi'
+
+<TimelineItem icon={FiUsers}>Became a dad ❤️</TimelineItem>
+<TimelineItem icon={FiEdit2}>
+  Wrote <a href="/posts">6 blog posts</a>
+</TimelineItem>
+<TimelineItem icon={FiPackage}>
+  Published <a href="/open-source">12 open-source packages</a>
+</TimelineItem>
+<TimelineItem icon={FiTwitter}>
+  Doubled my followers count on{' '}
+  <a href="https://twitter.com/fortysevenfx">Twitter</a>{' '}
+  <Text as="span" fontSize="xs" color="gray.600">
+    (600 -> 1200)
+  </Text>
+</TimelineItem>
+<TimelineItem icon={FiBarChart2}>
+  Shipped <a href="chiffre.io">Chiffre.io</a> to private beta users. Collected
+  116k page views for 10 users.
+</TimelineItem>
+<TimelineItem icon={FiHome} skipTrail>
+  Rebuilt this website with Next.js and ChakraUI,{' '}
+  <a href="https://github.com/franky47/francoisbest.com">source on GitHub</a>.
+</TimelineItem>
+
+### 2019
+
+<TimelineItem icon={FiBarChart2}>
+  Started work on my first SaaS: <a href="chiffre.io">Chiffre.io</a>, an
+  end-to-end encrypted analytics platform.
+</TimelineItem>
+<TimelineItem icon={FiUser} skipTrail>
+  Battled depression, anxiety, and burnout. Whoever reads this, take care of
+  yourself.
+</TimelineItem>
+
+### 2018
+
+import { FiFacebook } from 'react-icons/fi'
+import { Logo } from 'src/components/Logo'
+
+<TimelineItem icon={FiFacebook}>
+  Deleted Facebook. Because privacy matters.
+</TimelineItem>
+<TimelineItem icon={FiHome} skipTrail>
+  <a href="https://47ng.com">Founded my first company (47ng)</a> doing
+  consulting &amp; web development.
+</TimelineItem>
