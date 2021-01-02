@@ -177,7 +177,7 @@ export async function getStaticProps() {
     article =>
       article.timestamp >
         now.subtract(1, 'week').startOf('isoWeek').valueOf() &&
-      article.timestamp <= now.startOf('isoWeek').valueOf()
+      article.timestamp <= now.subtract(1, 'week').valueOf()
   ).length
 
   const thisMonth = articles.filter(
@@ -186,7 +186,7 @@ export async function getStaticProps() {
   const lastMonth = articles.filter(
     article =>
       article.timestamp > now.subtract(1, 'month').startOf('month').valueOf() &&
-      article.timestamp <= now.startOf('month').valueOf()
+      article.timestamp <= now.subtract(1, 'month').valueOf()
   ).length
 
   const stats: ReadingListPageProps['stats'] = {
@@ -194,16 +194,16 @@ export async function getStaticProps() {
     week: thisWeek,
     month: thisMonth,
     total: articles.length,
-    lastWeekPct: (100 * (thisWeek - lastWeek)) / lastWeek,
-    lastMonthPct: (100 * (thisMonth - lastMonth)) / lastMonth
+    lastWeekPct: lastWeek === 0 ? 0 : (100 * (thisWeek - lastWeek)) / lastWeek,
+    lastMonthPct:
+      lastMonth === 0 ? 0 : (100 * (thisMonth - lastMonth)) / lastMonth
   }
   const hash = crypto.createHash('sha256')
   hash.update(JSON.stringify(stats))
   const cacheBustingID = b64.urlSafe(hash.digest('base64')).replace(/=/g, '')
   await renderReadingListOpenGraphImage({
     stats,
-    readList,
-    cacheBustingID
+    readList
   })
   return {
     props: {
