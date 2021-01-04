@@ -167,6 +167,12 @@ export async function getStaticProps() {
     },
     {}
   )
+  // Debug: show the number of articles for the last 3 days
+  Object.keys(readList)
+    .slice(0, 3)
+    .forEach(date =>
+      console.log(`${date}: ${readList[date].length} article(s)`)
+    )
 
   const now = dayjs()
 
