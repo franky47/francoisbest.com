@@ -56,6 +56,22 @@ export interface ReadingListPageProps {
   cacheBustingID: string
 }
 
+function useDNT() {
+  if (typeof navigator === 'undefined') {
+    // SSG
+    return false
+  }
+  return navigator.doNotTrack === '1'
+}
+
+function useUTMLink(url: string) {
+  const urlObj = new URL(url)
+  if (!useDNT()) {
+    urlObj.searchParams.set('utm_source', useURL('/reading-list'))
+  }
+  return urlObj.toString()
+}
+
 const ReadingListPage: NextPage<ReadingListPageProps> = ({
   readList,
   stats,
@@ -95,12 +111,14 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
       />
       {Object.keys(readList).map(date => (
         <React.Fragment key={date}>
-          <H2 mt={16}>{date}</H2>
+          <H2 mt={16} linkable id={date.toLowerCase().replace(/ /g, '-')}>
+            {date}
+          </H2>
           <List spacing={8}>
             {readList[date].map(article => (
               <ListItem key={article.timestamp}>
                 <OutgoingLink
-                  href={article.url}
+                  href={useUTMLink(article.url)}
                   color={useLinkColor()}
                   fontWeight="semibold"
                 >
