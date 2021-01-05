@@ -24,6 +24,10 @@ export function getTagBackgroundDark(
 
 export const colors = {
   ...defaultTheme.colors,
+  gray: {
+    ...defaultTheme.colors.gray,
+    1000: '#121721'
+  },
   defaultAccent: {
     50: '#e3f2fc',
     100: '#ddf2ff',

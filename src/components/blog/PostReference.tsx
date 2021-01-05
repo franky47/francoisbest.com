@@ -26,7 +26,7 @@ export const PostReference: React.FC<PostReferenceProps> = ({ ...props }) => {
           marginTop: 0
         }
       }}
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorModeValue('white', 'gray.900')}
       borderWidth="1px"
       borderColor={useColorModeValue('gray.400', 'gray.700')}
       rounded="md"

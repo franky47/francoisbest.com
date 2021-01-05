@@ -22,7 +22,7 @@ export const styles: Styles = {
       '-moz-osx-font-smoothing': 'auto'
     },
     'html, body': {
-      bg: colorMode === 'light' ? 'white' : 'gray.900',
+      bg: colorMode === 'light' ? 'white' : 'gray.1000',
       color: colorMode === 'light' ? 'gray.800' : 'gray.400'
     },
     '*': {

@@ -38,7 +38,7 @@ const styles = {
     },
     bg: {
       light: 'gray.50',
-      dark: 'gray.800'
+      dark: '#1e2533'
     }
   },
   info: {
@@ -54,7 +54,7 @@ const styles = {
     },
     bg: {
       light: 'blue.50',
-      dark: '#243751'
+      dark: '#162435'
     }
   },
   success: {
@@ -66,7 +66,7 @@ const styles = {
     },
     bg: {
       light: 'green.50',
-      dark: '#224636'
+      dark: '#132c21'
     },
     color: {
       light: 'green.800',
@@ -82,7 +82,7 @@ const styles = {
     },
     bg: {
       light: 'orange.50',
-      dark: '#534325'
+      dark: '#302614'
     },
     color: {
       light: 'orange.800',
@@ -98,7 +98,7 @@ const styles = {
     },
     bg: {
       light: 'red.50',
-      dark: '#442929'
+      dark: '#311c1c'
     },
     color: {
       light: 'red.800',

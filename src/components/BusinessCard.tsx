@@ -15,7 +15,7 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ ...props }) => {
       my={8}
       maxW="sm"
       {...props}
-      borderColor={useColorModeValue('gray.200', 'gray.800')}
+      borderColor={useColorModeValue('gray.200', 'gray.900')}
       borderWidth="1px"
       bg={useColorModeValue('white', '#151922')}
       rounded="md"
