@@ -1,10 +1,20 @@
 import React from 'react'
-import { Stack, StackProps } from '@chakra-ui/react'
+import {
+  Box,
+  Text,
+  Stack,
+  StackProps,
+  useColorModeValue
+} from '@chakra-ui/react'
 import { FiTwitter, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { FaKeybase } from 'react-icons/fa'
 import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
+import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 
-export interface FooterProps extends StackProps {}
+export interface FooterProps extends StackProps {
+  showNav?: boolean
+  showText?: boolean
+}
 
 const iconProps = {
   variant: 'ghost',
@@ -12,46 +22,77 @@ const iconProps = {
   isRound: true
 } as const
 
-export const Footer: React.FC<FooterProps> = ({ ...props }) => {
+const GIT_SHA1 = (process.env.VERCEL_GIT_COMMIT_SHA ?? 'local').slice(0, 8)
+
+export const Footer: React.FC<FooterProps> = ({
+  showText = true,
+  showNav = true,
+  ...props
+}) => {
   return (
-    <Stack
-      as="footer"
-      isInline
-      spacing={[1, 2]}
-      p={4}
-      justifyContent="center"
-      {...props}
-    >
-      <OutgoingIconButtonLink
-        icon={<FiTwitter />}
-        aria-label="Twitter"
-        href="https://twitter.com/fortysevenfx"
-        {...iconProps}
-      />
-      <OutgoingIconButtonLink
-        icon={<FiGithub />}
-        aria-label="GitHub"
-        href="https://github.com/franky47"
-        {...iconProps}
-      />
-      <OutgoingIconButtonLink
-        icon={<FaKeybase />}
-        aria-label="Keybase"
-        href="https://keybase.io/franky47"
-        {...iconProps}
-      />
-      <OutgoingIconButtonLink
-        icon={<FiLinkedin />}
-        aria-label="LinkedIn"
-        href="https://www.linkedin.com/in/francoisbest"
-        {...iconProps}
-      />
-      <OutgoingIconButtonLink
-        icon={<FiMail />}
-        aria-label="Email"
-        href="mailto:contact+web@francoisbest.com"
-        {...iconProps}
-      />
-    </Stack>
+    <Box as="footer" pb={8}>
+      {showNav && (
+        <Stack
+          as="nav"
+          isInline
+          spacing={[1, 2]}
+          p={4}
+          justifyContent="center"
+          {...props}
+        >
+          <OutgoingIconButtonLink
+            icon={<FiTwitter />}
+            aria-label="Twitter"
+            href="https://twitter.com/fortysevenfx"
+            {...iconProps}
+          />
+          <OutgoingIconButtonLink
+            icon={<FiGithub />}
+            aria-label="GitHub"
+            href="https://github.com/franky47"
+            {...iconProps}
+          />
+          <OutgoingIconButtonLink
+            icon={<FaKeybase />}
+            aria-label="Keybase"
+            href="https://keybase.io/franky47"
+            {...iconProps}
+          />
+          <OutgoingIconButtonLink
+            icon={<FiLinkedin />}
+            aria-label="LinkedIn"
+            href="https://www.linkedin.com/in/francoisbest"
+            {...iconProps}
+          />
+          <OutgoingIconButtonLink
+            icon={<FiMail />}
+            aria-label="Email"
+            href="mailto:contact+web@francoisbest.com"
+            {...iconProps}
+          />
+        </Stack>
+      )}
+      {showText && (
+        <Text
+          fontSize="xs"
+          textAlign="center"
+          color={useColorModeValue('gray.500', 'gray.600')}
+        >
+          © 2019, François Best •{' '}
+          <OutgoingLink
+            href={`https://github.com/franky47/francoisbest.com/tree/${GIT_SHA1}`}
+            fontFamily="mono"
+          >
+            {GIT_SHA1}
+          </OutgoingLink>{' '}
+          • <RouteLink to="/sitemap">Site map</RouteLink>
+          <br />
+          Privacy-first analytics by{' '}
+          <Text as="b" fontWeight="semibold">
+            <OutgoingLink href="https://chiffre.io">Chiffre.io</OutgoingLink>
+          </Text>
+        </Text>
+      )}
+    </Box>
   )
 }

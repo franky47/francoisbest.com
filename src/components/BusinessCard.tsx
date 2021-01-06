@@ -32,7 +32,7 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ ...props }) => {
       >
         Build. Learn. Teach. Repeat.
       </Text>
-      <Footer py={0} />
+      <Footer py={0} showText={false} />
     </Card>
   )
 }
