@@ -67,7 +67,7 @@
     "@types/twemoji": "^12.1.1",
     "@types/twitter-text": "^3.1.0",
     "@types/webpack": "^4.41.25",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "fastify": "^3.9.1",
     "gitrows": "^0.8.0",
