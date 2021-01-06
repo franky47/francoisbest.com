@@ -14,7 +14,12 @@ import {
   StatNumber,
   StatHelpText,
   StatArrow,
-  BoxProps
+  BoxProps,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  InputRightElement,
+  CloseButton
 } from '@chakra-ui/react'
 import { useLinkColor } from 'src/ui/theme'
 import { formatDate, formatStatNumber } from 'src/ui/format'
@@ -25,6 +30,7 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import { renderReadingListOpenGraphImage } from 'src/scripts/renderReadingListOpenGraphImage'
 import crypto from 'crypto'
 import { b64 } from '@47ng/codec'
+import { FiSearch } from 'react-icons/fi'
 
 export interface Article {
   url: string
@@ -77,6 +83,24 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
   stats,
   cacheBustingID
 }) => {
+  const [search, setSearch] = React.useState('')
+  const filteredArticles = React.useMemo(() => {
+    return Object.fromEntries(
+      Object.entries(readList).map(([day, articles]) => {
+        return [
+          day,
+          articles.filter(
+            article =>
+              (article.description ?? '')
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              (article.title ?? '').toLowerCase().includes(search.toLowerCase())
+          )
+        ]
+      })
+    )
+  }, [search])
+
   return (
     <PageLayoutWithSEO
       frontMatter={{
@@ -109,13 +133,44 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({
         rounded="md"
         my={8}
       />
-      {Object.keys(readList).map(date => (
+      <InputGroup mb={search ? 16 : 0}>
+        <InputLeftElement
+          pointerEvents="none"
+          fontSize="1.2em"
+          px={0}
+          children={<FiSearch />}
+          color={
+            search.length > 0
+              ? useColorModeValue('gray.600', 'gray.400')
+              : useColorModeValue('gray.400', 'gray.600')
+          }
+        />
+        <Input
+          value={search}
+          onChange={(e: any) => setSearch(e.target.value)}
+          placeholder="Search articles"
+        />
+        {search.length > 1 && (
+          <InputRightElement
+            children={
+              <CloseButton
+                rounded="full"
+                size="sm"
+                onClick={() => setSearch('')}
+              />
+            }
+          />
+        )}
+      </InputGroup>
+      {Object.keys(filteredArticles).map(date => (
         <React.Fragment key={date}>
-          <H2 mt={16} linkable id={date.toLowerCase().replace(/ /g, '-')}>
-            {date}
-          </H2>
+          {!search && (
+            <H2 mt={16} linkable id={date.toLowerCase().replace(/ /g, '-')}>
+              {date}
+            </H2>
+          )}
           <List spacing={8}>
-            {readList[date].map(article => (
+            {filteredArticles[date].map(article => (
               <ListItem key={article.timestamp}>
                 <OutgoingLink
                   href={useUTMLink(article.url)}
