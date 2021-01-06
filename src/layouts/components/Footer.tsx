@@ -22,7 +22,7 @@ const iconProps = {
   isRound: true
 } as const
 
-const GIT_SHA1 = (process.env.VERCEL_GIT_COMMIT_SHA ?? 'local').slice(0, 8)
+const GIT_SHA1 = (process.env.GITHUB_SHA ?? 'local').slice(0, 8)
 
 export const Footer: React.FC<FooterProps> = ({
   showText = true,
