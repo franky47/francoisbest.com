@@ -10,6 +10,7 @@ import { FiTwitter, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { FaKeybase } from 'react-icons/fa'
 import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
+import { StaticContent } from 'src/components/primitives/StaticContent'
 
 export interface FooterProps extends StackProps {
   showNav?: boolean
@@ -79,12 +80,14 @@ export const Footer: React.FC<FooterProps> = ({
           color={useColorModeValue('gray.500', 'gray.600')}
         >
           © 2019, François Best •{' '}
-          <OutgoingLink
-            href={`https://github.com/franky47/francoisbest.com/tree/${GIT_SHA1}`}
-            fontFamily="mono"
-          >
-            {GIT_SHA1}
-          </OutgoingLink>{' '}
+          <StaticContent as="span">
+            <OutgoingLink
+              href={`https://github.com/franky47/francoisbest.com/tree/${GIT_SHA1}`}
+              fontFamily="mono"
+            >
+              {GIT_SHA1}
+            </OutgoingLink>
+          </StaticContent>{' '}
           • <RouteLink to="/sitemap">Site map</RouteLink>
           <br />
           Privacy-first analytics by{' '}
