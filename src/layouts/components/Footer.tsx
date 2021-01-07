@@ -23,7 +23,7 @@ const iconProps = {
   isRound: true
 } as const
 
-const GIT_SHA1 = (process.env.GITHUB_SHA ?? 'local').slice(0, 8)
+const GIT_SHA1 = process.env.GITHUB_SHA ?? 'local'
 
 export const Footer: React.FC<FooterProps> = ({
   showText = true,
@@ -85,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({
               href={`https://github.com/franky47/francoisbest.com/tree/${GIT_SHA1}`}
               fontFamily="mono"
             >
-              {GIT_SHA1}
+              {GIT_SHA1.slice(0, 8)}
             </OutgoingLink>
           </StaticContent>{' '}
           • <RouteLink to="/sitemap">Site map</RouteLink>
