@@ -16,7 +16,7 @@
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
-    "@47ng/chakra-next": "^3.0.0-beta.2",
+    "@47ng/chakra-next": "^3.0.0-beta.3",
     "@47ng/simple-e2ee": "^1.0.1",
     "@chakra-ui/react": "^1.0.2",
     "@emotion/react": "^11.1.2",
@@ -100,5 +100,9 @@
     "tabWidth": 2,
     "trailingComma": "none",
     "useTabs": false
+  },
+  "browser": {
+    "fs": false,
+    "crypto": false
   }
 }

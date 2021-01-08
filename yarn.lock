@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@47ng/chakra-next@^3.0.0-beta.2":
-  version "3.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@47ng/chakra-next/-/chakra-next-3.0.0-beta.2.tgz#b8bfed7314992e5b7ee139165f0c2c90a028d965"
-  integrity sha512-rWU70FazdWjoLKWEZ7TTsmof4UCz/uw3p3UgmnK/6LBdgZCn9Nt4Pf+mXLVA3ULCJoC6EbNddWoenAeOxzhROg==
+"@47ng/chakra-next@^3.0.0-beta.3":
+  version "3.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@47ng/chakra-next/-/chakra-next-3.0.0-beta.3.tgz#f9214424650dd3bb7b232743b9d169348e01e058"
+  integrity sha512-+hlXSwq3+5XXOXkFvKjcWcPadoCSfbLTq2XX3eLUa8/utGhgMG89OiUzfZlUD0ZZflVCPMR01u8Ffy32i/eF/Q==
 
 "@47ng/check-env@^2.0.1":
   version "2.0.1"

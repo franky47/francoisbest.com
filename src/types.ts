@@ -1,6 +1,7 @@
 import { Object } from 'ts-toolbelt'
 import readingTime from 'reading-time'
 import type { ContainerProps } from '@chakra-ui/react'
+import { GetStaticPropsResult } from 'next'
 
 /**
  * Basic frontmatter exposed by next-mdx-enhanced
@@ -44,3 +45,7 @@ export interface ExtendedPostFrontMatter extends PostFrontMatter {
 }
 
 export type PostMetadata = Object.Diff<ExtendedPostFrontMatter, MDXFrontMatter>
+
+// --
+
+export type GetStaticPropsReturn<T> = Promise<GetStaticPropsResult<T>>

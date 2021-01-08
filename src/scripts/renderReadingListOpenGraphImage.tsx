@@ -5,14 +5,19 @@ import fs from 'fs'
 import mkdirp from 'make-dir'
 import { makeTheme } from 'src/ui/theme'
 import htmlToImage from 'node-html-to-image'
-import { ReadingListPageProps, ReadingListStats } from 'src/pages/reading-list'
+import {
+  ReadingListStatsData,
+  ReadingListStats
+} from 'src/components/readingList/Stats'
 import React from 'react'
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { H2 } from 'src/components/primitives/Typography'
 import { Logo } from 'src/components/Logo'
 import { formatDate } from 'src/ui/format'
 
-interface Args extends Pick<ReadingListPageProps, 'stats' | 'readList'> {}
+interface Args {
+  stats: ReadingListStatsData
+}
 
 const theme = makeTheme({
   config: {
@@ -21,10 +26,7 @@ const theme = makeTheme({
   }
 })
 
-export async function renderReadingListOpenGraphImage({
-  stats,
-  readList
-}: Args) {
+export async function renderReadingListOpenGraphImage({ stats }: Args) {
   const outputDir = path.resolve(process.cwd(), 'public/images/reading-list')
   const outputHtml = path.resolve(outputDir, 'og.html')
   const react = renderToString(
@@ -33,7 +35,7 @@ export async function renderReadingListOpenGraphImage({
         <H2 textAlign="center" mb={12} mt={0}>
           Blog Articles I Read In 2021
         </H2>
-        <ReadingListStats stats={stats} readList={readList} />
+        <ReadingListStats {...stats} />
         <Flex
           px={8}
           pb={12}
