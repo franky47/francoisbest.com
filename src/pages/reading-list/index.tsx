@@ -73,10 +73,10 @@ export async function getStaticProps(): GetStaticPropsReturn<ReadingListPageProp
   const articles = filterArticles(
     allArticles,
     article =>
-      article.timestamp >
-      dayjs().utc().startOf('day').subtract(2, 'day').valueOf()
+      article.timestamp < dayjs().utc().startOf('day').valueOf() &&
+      article.timestamp >=
+        dayjs().utc().startOf('day').subtract(3, 'day').valueOf()
   )
-
   return {
     props: {
       articles
