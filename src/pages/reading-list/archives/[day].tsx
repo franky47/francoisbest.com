@@ -56,7 +56,12 @@ const ReadingListDayPage: NextPage<ReadingListDayPageProps> = ({
       }}
     >
       <H1>Reading List</H1>
-      <Flex alignItems="center" justifyContent="space-between" mb={16}>
+      <Flex
+        alignItems={['flex-start', 'center']}
+        justifyContent="space-between"
+        mb={16}
+        flexDirection={['column', 'row']}
+      >
         <Breadcrumb
           flexShrink={0}
           color={useColorModeValue('gray.500', 'gray.600')}
@@ -93,7 +98,13 @@ const ReadingListDayPage: NextPage<ReadingListDayPageProps> = ({
             </BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
-        <HStack spacing={4}>
+        <HStack
+          as="nav"
+          spacing={4}
+          mt={[4, 0]}
+          w={['100%', 'auto']}
+          justifyContent="space-between"
+        >
           {prevDay && (
             <ButtonRouteLink
               to={`/reading-list/archives/${prevDay}`}
