@@ -14,46 +14,12 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { TimelineItem } from 'src/components/Timeline'
+import { Goal } from 'src/components/Goal'
 
 # Goals for 2021
 
 Here are the goals I strive to achieve in 2021. I make them public for
 accountability, and will update them as I go along.
-
-export const Goal = ({
-  done = false,
-  progress,
-  progressProps = {},
-  children,
-  ...props
-}) => (
-  <ListItem {...props} display="flex" alignItems="center">
-    <ListIcon
-      as={done ? FiCheckCircle : FiCircle}
-      color={useColorModeValue(
-        done ? 'accent.500' : 'gray.500',
-        done ? 'accent.400' : 'gray.400'
-      )}
-    />
-    <Text>{children}</Text>
-    {progress !== undefined && (
-      <React.Fragment>
-        <Text fontSize="xs" ml="auto" color="gray.600">
-          {progress} / {progressProps.max ?? 100}
-        </Text>
-        <Progress
-          value={progress}
-          w={16}
-          size="sm"
-          colorScheme="accent"
-          rounded="full"
-          ml={2}
-          {...progressProps}
-        />
-      </React.Fragment>
-    )}
-  </ListItem>
-)
 
 <br />
 
@@ -69,7 +35,9 @@ export const Goal = ({
   <Goal progress={0} progressProps={{ max: 4 }}>
     Write four long-form articles covering a topic in depth
   </Goal>
-  <Goal>Create a newsletter</Goal>
+  <Goal>
+    Create a newsletter for my <a href="/reading-list">reading list</a>
+  </Goal>
   <Goal>
     Speak at a virtual conference (
     <a href="mailto:contact+conf@francoisbest.com">contact</a>)
@@ -81,7 +49,7 @@ export const Goal = ({
 ## Building In The Open
 
 <List spacing={3}>
-  <Goal done>Add a public list of goals</Goal>
+  <Goal status="done">Add a public list of goals</Goal>
   <Goal>Add a portfolio page on this website</Goal>
   <Goal>
     Ship <a href="https://chiffre.io">Chiffre.io</a> in Q1 2020
