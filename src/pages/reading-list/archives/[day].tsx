@@ -42,7 +42,7 @@ const ReadingListDayPage: NextPage<ReadingListDayPageProps> = ({
         title: `${humanDay} Reading List`,
         description: `My reading list for ${humanDay}: ${
           todaysArticles.length
-        } articles by ${todaysArticles
+        } article${todaysArticles.length > 1 ? 's' : ''} by ${todaysArticles
           .filter(article => !!article.author)
           .filter((_, i) => i < 5)
           .map(article => article.author)
