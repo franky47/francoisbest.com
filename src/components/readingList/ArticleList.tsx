@@ -13,6 +13,7 @@ import { formatDate } from 'src/ui/format'
 import { useUTMPathLink } from 'src/hooks/useUTMLink'
 import { Article, GroupedReadingList } from './defs'
 import dayjs from 'dayjs'
+import { useVisitedLinkColor } from 'src/ui/theme/foundations/colors'
 
 export interface ArticleListProps {
   showDayHeadings?: boolean
@@ -76,6 +77,9 @@ export const ArticleItem: React.FC<Article> = ({
         color={useLinkColor()}
         fontWeight="semibold"
         fontSize="xl"
+        _visited={{
+          color: useVisitedLinkColor()
+        }}
       >
         {title}
       </OutgoingLink>

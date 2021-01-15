@@ -4,11 +4,17 @@ import { defaultTheme } from '@47ng/chakra-next'
 
 export const linkColors = {
   light: 'accent.500',
-  dark: 'accent.300'
+  dark: 'accent.400',
+  visitedLight: 'accent.300',
+  visitedDark: 'accent.600'
 }
 
 export function useLinkColor() {
   return useColorModeValue(linkColors.light, linkColors.dark)
+}
+
+export function useVisitedLinkColor() {
+  return useColorModeValue(linkColors.visitedLight, linkColors.visitedDark)
 }
 
 // --
