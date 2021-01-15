@@ -128,9 +128,7 @@ export async function generateReadingListDailyFeed(
       title: '',
       id: pageURL,
       link: pageURL,
-      image: articles.filter(
-        article => !!article.image && article.image.startsWith('https://')
-      )[0].image,
+      image: useURL('/images/reading-list/og.jpg'),
       description,
       content: `${description}
 <a href="${pageURL}">Full list</a>.`,
