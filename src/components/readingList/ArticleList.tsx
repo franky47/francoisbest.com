@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { useLinkColor } from 'src/ui/theme'
 import { formatDate } from 'src/ui/format'
-import { useUTMLink } from 'src/hooks/useUTMLink'
+import { useUTMPathLink } from 'src/hooks/useUTMLink'
 import { Article, GroupedReadingList } from './defs'
 import dayjs from 'dayjs'
 
@@ -65,10 +65,14 @@ export const ArticleItem: React.FC<Article> = ({
   description,
   ...props
 }) => {
+  const [utmLink, setUTMLink] = React.useState(url)
+  React.useEffect(() => {
+    setUTMLink(useUTMPathLink(url))
+  }, [])
   return (
     <ListItem {...props}>
       <OutgoingLink
-        href={useUTMLink(url)}
+        href={utmLink}
         color={useLinkColor()}
         fontWeight="semibold"
         fontSize="xl"
