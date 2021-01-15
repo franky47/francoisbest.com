@@ -1,18 +1,20 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { GetStaticPropsReturn } from 'src/types'
-import { ReadingListPageProps } from 'src/components/readingList/defs'
-import { fetchArticles, filterArticles } from 'src/components/readingList/utils'
+import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
+import { Box } from '@chakra-ui/react'
+import { FiArchive } from 'react-icons/fi'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import { H1, Paragraph } from 'src/components/primitives/Typography'
 import { ArticleList } from 'src/components/readingList/ArticleList'
 import { useURL } from 'src/hooks/useURL'
 import PageLayoutWithSEO from 'src/layouts/PageLayout'
 import { useLinkColor } from 'src/ui/theme'
-import { FiArchive } from 'react-icons/fi'
-import { Box } from '@chakra-ui/react'
+import { GetStaticPropsReturn } from 'src/types'
+import { ReadingListPageProps } from 'src/components/readingList/defs'
+import { fetchArticles, filterArticles } from 'src/components/readingList/utils'
+import { ReadingListDailyRSSHeadLinks } from 'src/components/readingList/rss'
+import { generateReadingListDailyFeed } from 'src/scripts/generateFeeds'
 
 export const ArchivesRouteLink: React.FC = ({
   children = 'Show all',
@@ -46,6 +48,7 @@ const ReadingListPage: NextPage<ReadingListPageProps> = ({ articles }) => {
         }
       }}
     >
+      <ReadingListDailyRSSHeadLinks />
       <H1>Reading List</H1>
       <Paragraph>
         I{' '}
@@ -77,6 +80,7 @@ export async function getStaticProps(): GetStaticPropsReturn<ReadingListPageProp
       article.timestamp >=
         dayjs().utc().startOf('day').subtract(3, 'day').valueOf()
   )
+  await generateReadingListDailyFeed(allArticles)
   return {
     props: {
       articles

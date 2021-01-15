@@ -18,19 +18,19 @@ class MyDocument extends Document {
             rel="alternate"
             type="application/rss+xml"
             href={useURL('/posts/feed/rss.xml')}
-            title="Articles by François Best"
+            title="Articles by François Best (RSS)"
           />
           <link
             rel="alternate"
             type="application/atom+xml"
             href={useURL('/posts/feed/atom.xml')}
-            title="Articles by François Best"
+            title="Articles by François Best (Atom)"
           />
           <link
             rel="alternate"
             type="application/json"
             href={useURL('/posts/feed/articles.json')}
-            title="Articles by François Best"
+            title="Articles by François Best (JSON)"
           />
         </Head>
         <body>
