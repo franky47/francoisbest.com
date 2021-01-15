@@ -2,7 +2,11 @@ import React from 'react'
 import { GetStaticPathsResult, GetStaticPropsContext, NextPage } from 'next'
 import { GetStaticPropsReturn } from 'src/types'
 import { ReadingListPageProps } from 'src/components/readingList/defs'
-import { fetchArticles, filterArticles } from 'src/components/readingList/utils'
+import {
+  fetchArticles,
+  filterArticles,
+  renderReadingListDescription
+} from 'src/components/readingList/utils'
 import PageLayoutWithSEO from 'src/layouts/PageLayout'
 import { ButtonRouteLink, RouteLink } from '@47ng/chakra-next'
 import { H1 } from 'src/components/primitives/Typography'
@@ -40,13 +44,9 @@ const ReadingListDayPage: NextPage<ReadingListDayPageProps> = ({
     <PageLayoutWithSEO
       frontMatter={{
         title: `${humanDay} Reading List`,
-        description: `My reading list for ${humanDay}: ${
-          todaysArticles.length
-        } article${todaysArticles.length > 1 ? 's' : ''} by ${todaysArticles
-          .filter(article => !!article.author)
-          .filter((_, i) => i < 5)
-          .map(article => article.author)
-          .join(', ')}${todaysArticles.length > 5 ? ' and more.' : '.'}`,
+        description: `My reading list for ${humanDay}: ${renderReadingListDescription(
+          todaysArticles
+        )}`,
         url: useURL(`/reading-list/archives/${day}`),
         ogImage: {
           url: useURL(`/images/reading-list/og.jpg`),

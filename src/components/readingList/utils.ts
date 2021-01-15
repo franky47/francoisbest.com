@@ -101,3 +101,19 @@ export function getOpenGraphImageHash(stats: ReadingListStatsData) {
   hash.update(JSON.stringify(stats))
   return b64.urlSafe(hash.digest('base64')).replace(/=/g, '')
 }
+
+// --
+
+export function renderReadingListDescription(articles: Article[]) {
+  return `${articles.length} article${
+    articles.length > 1 ? 's' : ''
+  } by ${Array.from(
+    new Set(
+      articles
+        .filter(article => !!article.author)
+        .map(article => article.author)
+    )
+  )
+    .filter((_, i) => i < 5)
+    .join(', ')}${articles.length > 5 ? ' and more.' : '.'}`
+}

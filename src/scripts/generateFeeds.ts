@@ -6,7 +6,10 @@ import { PostFrontMatter } from 'src/types'
 import { useURL } from 'src/hooks/useURL'
 import { GroupedReadingList } from 'src/components/readingList/defs'
 import { useUTMLink } from 'src/hooks/useUTMLink'
-import { filterArticles } from 'src/components/readingList/utils'
+import {
+  filterArticles,
+  renderReadingListDescription
+} from 'src/components/readingList/utils'
 
 export async function generateBlogPostsFeeds(posts: PostFrontMatter[]) {
   const feed = new Feed({
@@ -117,13 +120,9 @@ export async function generateReadingListDailyFeed(
     const pageURL = useUTMLink(useURL(`/reading-list/archives/${isoDate}`), {
       source: 'rss'
     })
-    const description = `My reading list for ${day}: ${
-      articles.length
-    } article${articles.length > 1 ? 's' : ''} by ${articles
-      .filter(article => !!article.author)
-      .filter((_, i) => i < 5)
-      .map(article => article.author)
-      .join(', ')}${articles.length > 5 ? ' and more.' : '.'}`
+    const description = `My reading list for ${day}: ${renderReadingListDescription(
+      articles
+    )}`
 
     feed.addItem({
       title: '',
