@@ -56,7 +56,8 @@ module.exports = withPlugins(
             path,
             url: useURL(path),
             readingTime: readingTime(mdxContent),
-            ogImage: resolveOpenGraphImage(path, frontMatter)
+            ogImage: resolveOpenGraphImage(path, frontMatter),
+            ...frontMatter
           }
         }
       }
