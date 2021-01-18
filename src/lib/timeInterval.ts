@@ -1,16 +1,18 @@
 import React from 'react'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import duration, { Duration } from 'dayjs/plugin/duration'
+import isoWeek from 'dayjs/plugin/isoWeek'
 import { useQueryState } from 'next-usequerystate'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 dayjs.extend(duration)
+dayjs.extend(isoWeek)
 
 export { dayjs }
 
 export interface TimeQueryParts {
-  base: string
-  duration: string
+  base: Dayjs
+  duration: Duration
 }
 
 type DurationUnits =
@@ -34,7 +36,7 @@ const DURATION_UNITS: DurationUnits[] = [
 
 // --
 
-export function getDurationUnit(d: Duration, unit: DurationUnits) {
+export function _getDurationUnit(d: Duration, unit: DurationUnits) {
   const key = `${unit}s`
   // @ts-ignore
   const value: string | undefined = d.$d[key]
@@ -49,51 +51,25 @@ export function applyDuration(
   { base, duration }: TimeQueryParts,
   direction: DurationDirection = 'future'
 ) {
-  const b = dayjs(base)
-  const d = dayjs.duration(duration)
   const factor = direction === 'future' ? 1 : -1
   return DURATION_UNITS.reduce(
-    (date, unit) => date.add(factor * getDurationUnit(d, unit), unit),
-    b
+    (date, unit) => date.add(factor * _getDurationUnit(duration, unit), unit),
+    base
   )
 }
 
-// --
-
-export function getNextBase(
-  { base, duration }: TimeQueryParts,
-  direction: DurationDirection = 'future'
-) {
-  let date = applyDuration({ base, duration }, direction)
-  if (dayjs.duration(duration).asDays() > 1) {
-    // Round off to whole days when navigating over 1 day windows
-    date = date.startOf('day')
-  }
-  return date.format(findShortestFormat(date))
+export function stringifyDuration(duration: Duration) {
+  const weeks = _getDurationUnit(duration, 'week')
+  return weeks !== 0 ? `P${weeks}W` : duration.toISOString()
 }
 
 // --
 
 export function getTimestampRange({ base, duration }: TimeQueryParts) {
   return {
-    from: dayjs(base).valueOf(),
+    from: base.valueOf(),
     to: applyDuration({ base, duration }).valueOf()
   }
-}
-
-// --
-
-export function findShortestFormat(date: dayjs.Dayjs) {
-  if (date.get('second') > 0) {
-    return 'YYYY-MM-DDTHH:mm:ss'
-  }
-  if (date.get('minute') > 0) {
-    return 'YYYY-MM-DDTHH:mm'
-  }
-  if (date.get('hour') > 0) {
-    return 'YYYY-MM-DDTHH'
-  }
-  return 'YYYY-MM-DD'
 }
 
 // --
@@ -101,21 +77,31 @@ export function findShortestFormat(date: dayjs.Dayjs) {
 export function parseTimeQuery(query: string): TimeQueryParts {
   const [base, duration] = query.split('--')
   return {
-    base,
-    duration
+    base: dayjs(base),
+    duration: dayjs.duration(duration)
   }
 }
 
 export function stringifyTimeQuery({ base, duration }: TimeQueryParts) {
-  return `${base}--${duration}`
+  let format = 'YYYY-MM-DD'
+  if (base.get('hour') > 0) {
+    format = 'YYYY-MM-DDTHH'
+  }
+  if (base.get('minute') > 0) {
+    format = 'YYYY-MM-DDTHH:mm'
+  }
+  if (base.get('second') > 0) {
+    format = 'YYYY-MM-DDTHH:mm:ss'
+  }
+  return `${base.format(format)}--${stringifyDuration(duration)}`
 }
 
 // --
 
 export function getDefaultQuery(now = dayjs()): TimeQueryParts {
   return {
-    base: now.startOf('day').format('YYYY-MM-DD'),
-    duration: 'P1D'
+    base: now.startOf('day'),
+    duration: dayjs.duration('P1D')
   }
 }
 
@@ -123,15 +109,15 @@ export function getDefaultQuery(now = dayjs()): TimeQueryParts {
 
 export function createQueryUpdater(
   direction: DurationDirection,
-  shiftByDuration?: string
+  shiftByDuration?: Duration
 ) {
   return (currentQuery: TimeQueryParts | null) => {
     const { base: currentBase, duration: currentDuration } =
       currentQuery ?? getDefaultQuery()
-    const newBase = getNextBase(
+    const newBase = applyDuration(
       {
         base: currentBase,
-        duration: shiftByDuration || currentDuration
+        duration: shiftByDuration ?? currentDuration
       },
       direction
     )
@@ -144,27 +130,61 @@ export function createQueryUpdater(
 
 // --
 
-const DURATIONS = [
-  'P1Y',
-  'P6M',
-  'P3M',
-  'P1M',
-  'P2W',
-  'P1W',
-  'P1D',
-  'PT6H',
-  'PT1H'
-]
-
-export function zoomDuration(duration: string, zoomIn = true) {
-  const i = DURATIONS.indexOf(duration)
-  if (i === -1) {
-    return duration
+export function zoomOut({ base, duration }: TimeQueryParts): TimeQueryParts {
+  if (duration.asYears() >= 1) {
+    return { base, duration }
   }
-  const newIndex = zoomIn
-    ? Math.min(i + 1, DURATIONS.length - 1)
-    : Math.max(i - 1, 0)
-  return DURATIONS[newIndex]
+  if (duration.asMonths() >= 6) {
+    return {
+      base: base.startOf('year'),
+      duration: dayjs.duration(1, 'year')
+    }
+  }
+  if (duration.asMonths() >= 3) {
+    return {
+      base: base.startOf('month'),
+      duration: dayjs.duration(6, 'months')
+    }
+  }
+  if (duration.asMonths() >= 1) {
+    return {
+      base: base.startOf('month'),
+      duration: dayjs.duration(3, 'months')
+    }
+  }
+  if (duration.asDays() >= 14) {
+    return {
+      base: base.startOf('month'),
+      duration: dayjs.duration(1, 'month')
+    }
+  }
+  if (duration.asDays() >= 7) {
+    return {
+      base: base.startOf('isoWeek'),
+      duration: dayjs.duration('P2W')
+    }
+  }
+  if (duration.asDays() >= 1) {
+    return {
+      base: base.startOf('isoWeek'),
+      duration: dayjs.duration('P1W')
+    }
+  }
+  return {
+    base: base.startOf('day'),
+    duration: dayjs.duration(1, 'day')
+  }
+  // todo: Handle sub-day zoom levels
+}
+
+export function getFineDuration(duration: Duration): Duration {
+  if (duration.asMonths() >= 1) {
+    return dayjs.duration(1, 'week')
+  }
+  if (duration.asDays() > 1) {
+    return dayjs.duration(1, 'day')
+  }
+  return dayjs.duration(6, 'hours')
 }
 
 // React hook --
@@ -191,12 +211,11 @@ export function useTimeInterval(key = 'interval') {
   useHotkeys('left', previous, { keyup: false, keydown: true })
   useHotkeys('right', next, { keyup: false, keydown: true })
 
-  const coarse = zoomDuration(parts.duration, true)
-  const fine = zoomDuration(coarse, true)
+  const fine = getFineDuration(parts.duration)
 
   const useKeybinding = (
     binding: string,
-    shiftByDuration: string,
+    shiftByDuration: Duration,
     direction: DurationDirection
   ) => {
     useHotkeys(
@@ -209,35 +228,13 @@ export function useTimeInterval(key = 'interval') {
       [shiftByDuration]
     )
   }
-  useKeybinding('shift+left', coarse, 'past')
-  useKeybinding('shift+right', coarse, 'future')
-  useKeybinding('shift+alt+left', fine, 'past')
-  useKeybinding('shift+alt+right', fine, 'future')
-
-  useHotkeys(
-    'up',
-    () => {
-      setParts({
-        base: parts.base,
-        duration: zoomDuration(parts.duration, false)
-      })
-    },
-    [parts]
-  )
-  useHotkeys(
-    'down',
-    () => {
-      setParts({
-        base: parts.base,
-        duration: zoomDuration(parts.duration)
-      })
-    },
-    [parts]
-  )
+  useKeybinding('shift+left', fine, 'past')
+  useKeybinding('shift+right', fine, 'future')
+  useHotkeys('up', () => setParts(zoomOut(parts)), [parts])
 
   return {
+    duration: parts.duration,
     interval,
-    coarse,
     fine,
     next,
     previous
