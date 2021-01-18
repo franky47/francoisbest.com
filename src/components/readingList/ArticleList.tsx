@@ -68,7 +68,7 @@ export const ArticleItem: React.FC<Article> = ({
 }) => {
   const [utmLink, setUTMLink] = React.useState(url)
   React.useEffect(() => {
-    setUTMLink(useUTMPathLink(url))
+    setUTMLink(useUTMPathLink(url, '/reading-list'))
   }, [])
   return (
     <ListItem {...props}>
