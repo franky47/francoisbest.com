@@ -27,7 +27,11 @@ export interface SandboxProps extends BoxProps {}
 
 export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
   const { interval, fine, base, duration, set } = useTimeInterval()
-  const { coarse: coarseSlices, fine: fineSlices } = enumerateTimeSlices({
+  const {
+    coarse: coarseSlices,
+    fine: fineSlices,
+    lengthUnit
+  } = enumerateTimeSlices({
     base,
     duration
   })
@@ -59,7 +63,7 @@ export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
           key={slice.key}
           onClick={() => set(parseTimeQuery(slice.key))}
         >
-          {slice.label}
+          {slice.key} • {slice.label} • {slice.length} {lengthUnit}
         </Button>
       ))}
       <Text>Fine</Text>
@@ -70,7 +74,7 @@ export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
           key={slice.key}
           onClick={() => set(parseTimeQuery(slice.key))}
         >
-          {slice.label}
+          {slice.key} • {slice.label} • {slice.length} {lengthUnit}
         </Button>
       ))}
       {/* <Bargraph width={800} /> */}

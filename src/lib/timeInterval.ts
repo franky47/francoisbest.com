@@ -5,6 +5,7 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { useQueryState } from 'next-usequerystate'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { cursorTo } from 'readline'
 
 dayjs.extend(duration)
 dayjs.extend(isoWeek)
@@ -85,15 +86,16 @@ export function parseTimeQuery(query: string): TimeQueryParts {
 }
 
 export function stringifyTimeQuery({ base, duration }: TimeQueryParts) {
+  const isDST = base.utcOffset() > base.add(1, 'hour').utcOffset()
   let format = 'YYYY-MM-DD'
   if (base.get('hour') > 0) {
-    format = 'YYYY-MM-DDTHH'
+    format = isDST ? 'YYYY-MM-DDTHH:mmZ' : 'YYYY-MM-DDTHH'
   }
   if (base.get('minute') > 0) {
-    format = 'YYYY-MM-DDTHH:mm'
+    format = isDST ? 'YYYY-MM-DDTHH:mmZ' : 'YYYY-MM-DDTHH:mm'
   }
   if (base.get('second') > 0) {
-    format = 'YYYY-MM-DDTHH:mm:ss'
+    format = isDST ? 'YYYY-MM-DDTHH:mm:ssZ' : 'YYYY-MM-DDTHH:mm:ss'
   }
   return `${base.format(format)}--${stringifyDuration(duration)}`
 }
@@ -109,6 +111,32 @@ export function getDefaultQuery(now = dayjs()): TimeQueryParts {
 
 // --
 
+export function handleDaylightSaving(
+  { base, duration }: TimeQueryParts,
+  direction: DurationDirection
+): TimeQueryParts {
+  const hours = duration.asHours()
+  if (hours >= 24) {
+    // Only apply fix for sub-day shifts
+    return {
+      base,
+      duration
+    }
+  }
+  const next = applyDuration({ base, duration }, direction)
+  //                     base      next
+  // Winter, -> future: +02:00 to +01:00 => +1 (extra hour)
+  // Summer, -> future: +01:00 to +02:00 => -1 (skipped hour)
+  // Winter, <- past:   +01:00 to +02:00 => +1 (extra hour)
+  // Summer, <- past:   +02:00 to +01:00 => -1 (skipped hour)
+  const delta =
+    (next.utcOffset() - base.utcOffset()) / (direction === 'past' ? 60 : -60)
+  return {
+    base,
+    duration: duration.add(delta, 'hour')
+  }
+}
+
 export function createQueryUpdater(
   direction: DurationDirection,
   shiftByDuration?: Duration
@@ -116,13 +144,14 @@ export function createQueryUpdater(
   return (currentQuery: TimeQueryParts | null) => {
     const { base: currentBase, duration: currentDuration } =
       currentQuery ?? getDefaultQuery()
-    const newBase = applyDuration(
+    const withDST = handleDaylightSaving(
       {
         base: currentBase,
         duration: shiftByDuration ?? currentDuration
       },
       direction
     )
+    const newBase = applyDuration(withDST, direction)
     return {
       base: newBase,
       duration: currentDuration // Keep the same interval width
@@ -290,48 +319,93 @@ export function useTimeInterval(key = 'interval') {
 
 // --
 
-export function getSubdivisions(
-  duration: Duration
-): { coarse: Duration; fine: Duration } {
+export interface Subdivisions {
+  coarse: Duration
+  fine: Duration
+  lengthUnit: 'hour' | 'day'
+}
+
+export function getSubdivisions(duration: Duration): Subdivisions {
   if (duration.asMonths() >= 3) {
     return {
       coarse: dayjs.duration(1, 'month'),
-      fine: dayjs.duration('P1W')
+      fine: dayjs.duration('P1W'),
+      lengthUnit: 'day'
     }
   }
   if (duration.asDays() >= 14) {
     return {
       coarse: dayjs.duration('P1W'),
-      fine: dayjs.duration(1, 'day')
+      fine: dayjs.duration(1, 'day'),
+      lengthUnit: 'hour'
     }
   }
   if (duration.asDays() >= 3) {
     return {
       coarse: dayjs.duration(1, 'day'),
-      fine: dayjs.duration(6, 'hours')
+      fine: dayjs.duration(6, 'hours'),
+      lengthUnit: 'hour'
     }
   }
   return {
     coarse: dayjs.duration(6, 'hours'),
-    fine: dayjs.duration(1, 'hour')
+    fine: dayjs.duration(1, 'hour'),
+    lengthUnit: 'hour'
   }
 }
 
 // --
 
-export function enumerateTimeSlices({ base, duration }: TimeQueryParts) {
-  const { coarse, fine } = getSubdivisions(duration)
+export interface TimeSlice {
+  from: Dayjs | string
+  to: Dayjs | string
+  key: string
+  label: string
+  length: number
+}
+
+export function enumerateTimeSlices({
+  base,
+  duration
+}: TimeQueryParts): {
+  coarse: TimeSlice[]
+  fine: TimeSlice[]
+  lengthUnit: 'day' | 'hour'
+} {
+  const { coarse, fine, lengthUnit } = getSubdivisions(duration)
   const to = applyDuration({ base, duration })
+
   // todo: Handle daylight saving (both ways, 23 & 25 hour days)
   // todo: Handle leap years (relatively easy as months are variable)
   // DS days in 2020: 29 March (23h) & 25 October (25h)
   // todo: Screw leap seconds
-  const enumerate = (duration: Duration) => {
+  const enumerate = (baseDuration: Duration) => {
     let cursor = base
-    const out = []
+    const out: TimeSlice[] = []
     while (cursor.isBefore(to)) {
-      let next = applyDuration({ base: cursor, duration })
-      if (next.isSame(cursor)) {
+      // todo: Calculate actual duration, adjusted for daylight saving.
+      // if baseDuration is 6 hours, and the time slice includes UTC offset change
+      let duration = baseDuration
+      let next = applyDuration(
+        //handleDaylightSaving(
+        { base: cursor, duration }
+        //, 'future')
+      )
+      const utcA = cursor.utcOffset()
+      const utcB = next.utcOffset()
+      if (utcA !== utcB) {
+        console.dir({
+          utcA,
+          utcB,
+          diff: utcA - utcB,
+          baseDuration,
+          from: cursor.format('YYYY-MM-DDTHHZ'),
+          to: next.format('YYYY-MM-DDTHHZ')
+        })
+        duration = baseDuration.add((utcA - utcB) / 60, 'hours')
+        next = applyDuration({ base: cursor, duration })
+      }
+      if (duration.asHours() === 1 && next.isSame(cursor)) {
         // Daylight saving in autumn, repeating hour (25 hour day)
         next = next.add(1, 'hour')
       }
@@ -339,7 +413,8 @@ export function enumerateTimeSlices({ base, duration }: TimeQueryParts) {
         from: cursor.format('YYYY-MM-DDTHHZ'),
         to: next.format('YYYY-MM-DDTHHZ'),
         key: stringifyTimeQuery({ base: cursor, duration }),
-        label: formatInterval({ base: cursor, duration })
+        label: formatInterval({ base: cursor, duration }),
+        length: next.diff(cursor, lengthUnit)
       })
       cursor = next
     }
@@ -347,6 +422,7 @@ export function enumerateTimeSlices({ base, duration }: TimeQueryParts) {
   }
   return {
     coarse: enumerate(coarse),
-    fine: enumerate(fine)
+    fine: enumerate(fine),
+    lengthUnit
   }
 }
