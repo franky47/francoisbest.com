@@ -5,7 +5,6 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { useQueryState } from 'next-usequerystate'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { cursorTo } from 'readline'
 
 dayjs.extend(duration)
 dayjs.extend(isoWeek)
