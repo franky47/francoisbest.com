@@ -90,12 +90,12 @@ export function stringifyTimeQuery({ base, duration }: TimeQueryParts) {
   if (base.get('hour') > 0) {
     format = isDST ? 'YYYY-MM-DDTHH:mmZ' : 'YYYY-MM-DDTHH'
   }
-  if (base.get('minute') > 0) {
-    format = isDST ? 'YYYY-MM-DDTHH:mmZ' : 'YYYY-MM-DDTHH:mm'
-  }
-  if (base.get('second') > 0) {
-    format = isDST ? 'YYYY-MM-DDTHH:mm:ssZ' : 'YYYY-MM-DDTHH:mm:ss'
-  }
+  // if (base.get('minute') > 0) {
+  //   format = isDST ? 'YYYY-MM-DDTHH:mmZ' : 'YYYY-MM-DDTHH:mm'
+  // }
+  // if (base.get('second') > 0) {
+  //   format = isDST ? 'YYYY-MM-DDTHH:mm:ssZ' : 'YYYY-MM-DDTHH:mm:ss'
+  // }
   return `${base.format(format)}--${stringifyDuration(duration)}`
 }
 
@@ -135,6 +135,8 @@ export function handleDaylightSaving(
     duration: duration.add(delta, 'hour')
   }
 }
+
+// --
 
 export function createQueryUpdater(
   direction: DurationDirection,
@@ -318,50 +320,216 @@ export function useTimeInterval(key = 'interval') {
 
 // --
 
+export interface TimeSlice {
+  from: number
+  to: number
+  key: string | null
+  labels: {
+    long: string
+    short: string
+  }
+  length: number
+}
+
+type Subdivider = (parts: TimeQueryParts) => TimeSlice[]
+
 export interface Subdivisions {
-  coarse: Duration
-  fine: Duration
+  coarse: Subdivider
+  fine: Subdivider
   lengthUnit: 'hour' | 'day'
 }
 
 export function getSubdivisions(duration: Duration): Subdivisions {
+  const subdivideByWeek: Subdivider = ({ base, duration }) => {
+    const end = applyDuration({ base, duration })
+    const numWeeks = Math.ceil(end.diff(base, 'week', true))
+    return Array(numWeeks)
+      .fill(undefined)
+      .map((_, i) => {
+        const from = clip(base.startOf('isoWeek').add(i, 'week'), base, end)
+        const to = clip(from.endOf('isoWeek'), from, end)
+        const length = Math.round(to.diff(from, 'day', true))
+        return {
+          from: from.valueOf(),
+          to: to.valueOf(),
+          key: stringifyTimeQuery({
+            base: from,
+            duration: dayjs.duration('P1W')
+          }),
+          labels: {
+            long: formatInterval({
+              base: from,
+              duration: dayjs.duration(length, 'day')
+            }),
+            short: 'IM'
+          },
+          length
+        }
+      })
+  }
+  const subdivideByDay: Subdivider = ({ base, duration }) => {
+    const end = applyDuration({ base, duration })
+    const numDays = Math.ceil(end.diff(base, 'day', true))
+    return Array(numDays)
+      .fill(undefined)
+      .map((_, i) => {
+        const from = base.add(i, 'day')
+        const to = clip(from.endOf('day'), from, end)
+        return {
+          from: from.valueOf(),
+          to: to.valueOf(),
+          key: stringifyTimeQuery({
+            base: from,
+            duration: dayjs.duration(1, 'day')
+          }),
+          labels: {
+            long: from.format('ddd D MMM YYYY'),
+            short: from.format('dd D')
+          },
+          length: Math.round(to.diff(from, 'hour', true))
+        }
+      })
+  }
+  const subdivideByQuarterDay: Subdivider = ({ base, duration }) => {
+    const end = applyDuration({ base, duration })
+    const numDays = Math.ceil(end.diff(base, 'day', true))
+    return Array(numDays)
+      .fill(undefined)
+      .flatMap<TimeSlice>((_, i) => {
+        const day = base.startOf('day').add(i, 'day')
+        return [
+          {
+            from: day.valueOf(),
+            to: day.hour(5).endOf('hour').valueOf(),
+            key: day.format('YYYY-MM-DD[--PT6H]'),
+            // DST can happen here
+            length: Math.round(
+              day.hour(5).endOf('hour').diff(day, 'hour', true)
+            ),
+            labels: {
+              long: 'Night',
+              short: 'N'
+            }
+          },
+          {
+            from: day.hour(6).valueOf(),
+            to: day.hour(11).endOf('hour').valueOf(),
+            key: day.format('YYYY-MM-DD[T06--PT6H]'),
+            length: 6,
+            labels: {
+              long: 'Morning',
+              short: 'M'
+            }
+          },
+          {
+            from: day.hour(12).valueOf(),
+            to: day.hour(17).endOf('hour').valueOf(),
+            key: day.format('YYYY-MM-DD[T12--PT6H]'),
+            length: 6,
+            labels: {
+              long: 'Afternoon',
+              short: 'A'
+            }
+          },
+          {
+            from: day.hour(18).valueOf(),
+            to: day.hour(23).endOf('hour').valueOf(),
+            key: day.format('YYYY-MM-DD[T18--PT6H]'),
+            length: 6,
+            labels: {
+              long: 'Evening',
+              short: 'E'
+            }
+          }
+        ]
+      })
+  }
+
   if (duration.asMonths() >= 3) {
     return {
-      coarse: dayjs.duration(1, 'month'),
-      fine: dayjs.duration('P1W'),
+      coarse: ({ base, duration }) => {
+        const end = applyDuration({ base, duration })
+        const numMonths = Math.ceil(end.diff(base, 'month', true))
+        return Array(numMonths)
+          .fill(undefined)
+          .map((_, i) => {
+            const from = base.add(i, 'month')
+            const to = clip(from.endOf('month'), from, end)
+            return {
+              from: from.valueOf(),
+              to: to.valueOf(),
+              key: stringifyTimeQuery({
+                base: from,
+                duration: dayjs.duration(1, 'month')
+              }),
+              labels: {
+                long: from.format('MMMM'),
+                short: from.format('MMM')
+              },
+              length: from.daysInMonth()
+            }
+          })
+      },
+      fine: subdivideByWeek,
       lengthUnit: 'day'
     }
   }
   if (duration.asDays() >= 14) {
     return {
-      coarse: dayjs.duration('P1W'),
-      fine: dayjs.duration(1, 'day'),
+      coarse: subdivideByWeek,
+      fine: subdivideByDay,
       lengthUnit: 'hour'
     }
   }
   if (duration.asDays() >= 3) {
     return {
-      coarse: dayjs.duration(1, 'day'),
-      fine: dayjs.duration(6, 'hours'),
+      coarse: subdivideByDay,
+      fine: subdivideByQuarterDay,
       lengthUnit: 'hour'
     }
   }
   return {
-    coarse: dayjs.duration(6, 'hours'),
-    fine: dayjs.duration(1, 'hour'),
+    coarse: subdivideByQuarterDay,
+    fine: ({ base, duration }) => {
+      const end = applyDuration({ base, duration })
+      const numHours = Math.ceil(end.diff(base, 'hour', true))
+      return Array(numHours)
+        .fill(undefined)
+        .map((_, i) => {
+          const from = base.add(i, 'hour')
+          const to = from.endOf('hour')
+          return {
+            from: from.valueOf(),
+            to: to.valueOf(),
+            key: stringifyTimeQuery({
+              base: from,
+              duration: dayjs.duration(1, 'hour')
+            }),
+            labels: {
+              long: from.format('HH[:00]'),
+              short: from.format('HH')
+            },
+            length: 1
+          }
+        })
+    },
     lengthUnit: 'hour'
   }
 }
 
 // --
 
-export interface TimeSlice {
-  from: Dayjs | string
-  to: Dayjs | string
-  key: string
-  label: string
-  length: number
+export function clip(date: Dayjs, from: Dayjs, to: Dayjs) {
+  if (date.isBefore(from)) {
+    return from
+  }
+  if (date.isAfter(to)) {
+    return to
+  }
+  return date
 }
+
+// --
 
 export function enumerateTimeSlices({
   base,
@@ -372,56 +540,9 @@ export function enumerateTimeSlices({
   lengthUnit: 'day' | 'hour'
 } {
   const { coarse, fine, lengthUnit } = getSubdivisions(duration)
-  const to = applyDuration({ base, duration })
-
-  // todo: Handle daylight saving (both ways, 23 & 25 hour days)
-  // todo: Handle leap years (relatively easy as months are variable)
-  // DS days in 2020: 29 March (23h) & 25 October (25h)
-  // todo: Screw leap seconds
-  const enumerate = (baseDuration: Duration) => {
-    let cursor = base
-    const out: TimeSlice[] = []
-    while (cursor.isBefore(to)) {
-      // todo: Calculate actual duration, adjusted for daylight saving.
-      // if baseDuration is 6 hours, and the time slice includes UTC offset change
-      let duration = baseDuration
-      let next = applyDuration(
-        //handleDaylightSaving(
-        { base: cursor, duration }
-        //, 'future')
-      )
-      const utcA = cursor.utcOffset()
-      const utcB = next.utcOffset()
-      if (utcA !== utcB) {
-        console.dir({
-          utcA,
-          utcB,
-          diff: utcA - utcB,
-          baseDuration,
-          from: cursor.format('YYYY-MM-DDTHHZ'),
-          to: next.format('YYYY-MM-DDTHHZ')
-        })
-        duration = baseDuration.add((utcA - utcB) / 60, 'hours')
-        next = applyDuration({ base: cursor, duration })
-      }
-      if (duration.asHours() === 1 && next.isSame(cursor)) {
-        // Daylight saving in autumn, repeating hour (25 hour day)
-        next = next.add(1, 'hour')
-      }
-      out.push({
-        from: cursor.format('YYYY-MM-DDTHHZ'),
-        to: next.format('YYYY-MM-DDTHHZ'),
-        key: stringifyTimeQuery({ base: cursor, duration }),
-        label: formatInterval({ base: cursor, duration }),
-        length: next.diff(cursor, lengthUnit)
-      })
-      cursor = next
-    }
-    return out
-  }
   return {
-    coarse: enumerate(coarse),
-    fine: enumerate(fine),
+    coarse: coarse({ base, duration }),
+    fine: fine({ base, duration }),
     lengthUnit
   }
 }

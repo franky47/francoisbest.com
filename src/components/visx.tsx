@@ -40,6 +40,20 @@ export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
       <Flex justifyContent="flex-end">
         <TimeGraphNavigation />
       </Flex>
+      <Button
+        d="block"
+        size="xs"
+        onClick={() => set(parseTimeQuery('2020-10-25--P1D'))}
+      >
+        25th October (DST +1h)
+      </Button>
+      <Button
+        d="block"
+        size="xs"
+        onClick={() => set(parseTimeQuery('2020-03-29--P1D'))}
+      >
+        29th March (DST -1h)
+      </Button>
       <pre>
         <code>
           {'from:   '}
@@ -61,9 +75,10 @@ export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
           d="block"
           size="xs"
           key={slice.key}
-          onClick={() => set(parseTimeQuery(slice.key))}
+          isDisabled={!slice.key}
+          onClick={() => set(parseTimeQuery(slice.key ?? ''))}
         >
-          {slice.key} • {slice.label} • {slice.length} {lengthUnit}
+          {slice.key} • {slice.labels.long} • {slice.length} {lengthUnit}
         </Button>
       ))}
       <Text>Fine</Text>
@@ -72,9 +87,10 @@ export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
           d="block"
           size="xs"
           key={slice.key}
-          onClick={() => set(parseTimeQuery(slice.key))}
+          isDisabled={!slice.key}
+          onClick={() => set(parseTimeQuery(slice.key ?? ''))}
         >
-          {slice.key} • {slice.label} • {slice.length} {lengthUnit}
+          {slice.key} • {slice.labels.long} • {slice.length} {lengthUnit}
         </Button>
       ))}
       {/* <Bargraph width={800} /> */}
