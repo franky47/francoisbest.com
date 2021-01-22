@@ -367,7 +367,7 @@ export const sliceByMonth: Slicer = ({ base, duration }) => {
 
 export const sliceByWeek: Slicer = ({ base, duration }) => {
   const end = applyDuration({ base, duration })
-  const numWeeks = Math.ceil(end.diff(base, 'week', true))
+  const numWeeks = 1 + Math.ceil(end.diff(base, 'week', true))
   return Array(numWeeks)
     .fill(undefined)
     .map((_, i) => {
@@ -391,9 +391,13 @@ export const sliceByWeek: Slicer = ({ base, duration }) => {
         length
       }
     })
+    .filter(slice => slice.length > 0)
 }
 
-export const sliceByDay: Slicer = ({ base, duration }) => {
+export const sliceByDay = (unit: 'day' | 'hour'): Slicer => ({
+  base,
+  duration
+}) => {
   const end = applyDuration({ base, duration })
   const numDays = Math.ceil(end.diff(base, 'day', true))
   return Array(numDays)
@@ -412,7 +416,7 @@ export const sliceByDay: Slicer = ({ base, duration }) => {
           long: from.format('ddd D MMM YYYY'),
           short: from.format('dd D')
         },
-        length: Math.round(to.diff(from, 'hour', true))
+        length: Math.round(to.diff(from, unit, true))
       }
     })
 }
@@ -507,13 +511,13 @@ export function getSlicers(duration: Duration): Subdivisions {
   if (duration.asDays() >= 14) {
     return {
       coarse: sliceByWeek,
-      fine: sliceByDay,
-      lengthUnit: 'hour'
+      fine: sliceByDay('day'),
+      lengthUnit: 'day'
     }
   }
   if (duration.asDays() >= 3) {
     return {
-      coarse: sliceByDay,
+      coarse: sliceByDay('hour'),
       fine: sliceByQuarterDay,
       lengthUnit: 'hour'
     }
@@ -548,9 +552,22 @@ export function enumerateTimeSlices({
   lengthUnit: 'day' | 'hour'
 } {
   const { coarse, fine, lengthUnit } = getSlicers(duration)
-  return {
+  const out = {
     coarse: coarse({ base, duration }),
     fine: fine({ base, duration }),
     lengthUnit
   }
+  // const getLength = (array: TimeSlice[]) =>
+  //   array.reduce((sum, slice) => sum + slice.length, 0)
+  // const cl = getLength(out.coarse)
+  // const fl = getLength(out.fine)
+
+  // console.assert(
+  //   cl === fl,
+  //   `${stringifyTimeQuery({
+  //     base,
+  //     duration
+  //   })} - Coarse: ${cl} ${lengthUnit}, Fine: ${fl} ${lengthUnit}.`
+  // )
+  return out
 }
