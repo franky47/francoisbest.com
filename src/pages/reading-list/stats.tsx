@@ -9,6 +9,8 @@ import { Article } from 'src/components/readingList/defs'
 import { fetchArticles } from 'src/components/readingList/utils'
 import { TimeGraph } from 'src/components/timeGraph/TimeGraph'
 import { WideContainer } from 'src/components/WideContainer'
+import { NoSSR } from '@47ng/chakra-next'
+import { AspectRatio, Box, Center, Skeleton } from '@chakra-ui/react'
 
 export interface ReadingListStatsPageProps {
   articles: Article[]
@@ -32,10 +34,20 @@ const ReadingListStatsPage: NextPage<ReadingListStatsPageProps> = ({
     >
       <H1>Reading List Stats</H1>
       <WideContainer>
-        <TimeGraph
-          data={articles}
-          getTimestamp={article => article.timestamp}
-        />
+        <NoSSR
+          fallback={
+            <Skeleton>
+              <AspectRatio ratio={800 / 400}>
+                <Box />
+              </AspectRatio>
+            </Skeleton>
+          }
+        >
+          <TimeGraph
+            data={articles}
+            getTimestamp={article => article.timestamp}
+          />
+        </NoSSR>
       </WideContainer>
     </PageLayoutWithSEO>
   )
