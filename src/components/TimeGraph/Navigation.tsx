@@ -11,7 +11,7 @@ import {
   getDefaultQuery,
   dayjs,
   formatInterval
-} from 'src/lib/timeInterval'
+} from 'src/lib/timeGraph'
 
 export interface TimeGraphNavigationProps extends FlexProps {}
 

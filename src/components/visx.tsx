@@ -20,8 +20,8 @@ import {
   parseTimeQuery,
   stringifyDuration,
   useTimeInterval
-} from 'src/lib/timeInterval'
-import { TimeGraphNavigation } from './TimeGraph/Navigation'
+} from 'src/lib/timeGraph'
+import { TimeGraphNavigation } from './timeGraph/Navigation'
 
 export interface SandboxProps extends BoxProps {}
 
@@ -97,100 +97,3 @@ export const Sandbox: React.FC<SandboxProps> = ({ ...props }) => {
     </Box>
   )
 }
-
-// --
-
-// const data = letterFrequency
-// const verticalMargin = 120
-
-// // accessors
-// const getLetter = (d: LetterFrequency) => d.letter
-// const getLetterFrequency = (d: LetterFrequency) => Number(d.frequency) * 100
-
-// export type BarsProps = {
-//   width: number
-//   height?: number
-//   events?: boolean
-// }
-
-// const useColor = (token: string) => useToken('colors', token)
-
-// export default function Bargraph({
-//   width,
-//   height = width * 0.4,
-//   events = false
-// }: BarsProps) {
-//   // bounds
-//   const xMax = width
-//   const yMax = height // - verticalMargin
-
-//   // scales, memoize for performance
-//   const xScale = React.useMemo(
-//     () =>
-//       scaleBand<string>({
-//         range: [0, xMax],
-//         round: true,
-//         domain: data.map(getLetter),
-//         padding: 0.4
-//       }),
-//     [xMax]
-//   )
-//   const yScale = React.useMemo(
-//     () =>
-//       scaleLinear<number>({
-//         range: [yMax, 0],
-//         round: true,
-//         domain: [0, Math.max(...data.map(getLetterFrequency))]
-//       }),
-//     [yMax]
-//   )
-
-//   const maxBarHeight = data.reduce(
-//     (max, d) => Math.max(yScale(getLetterFrequency(d)) ?? 0, max),
-//     0
-//   )
-
-//   return width < 10 ? null : (
-//     <svg
-//       // don't specify the dimensions for responsive
-//       // width={width}
-//       // height={height}
-//       viewBox={`0 0 ${width} ${height}`}
-//       style={{ maxWidth: '100%' }}
-//     >
-//       <LinearGradient
-//         from={useColor('gray.900')}
-//         to={useColor('accent.900')}
-//         id="bg-gradient"
-//       />
-//       <rect width={width} height={height} fill="url(#bg-gradient)" />
-//       <Group
-//         top={
-//           height - maxBarHeight - 2 * xScale.paddingOuter() * xScale.bandwidth()
-//         }
-//       >
-//         {data.map(d => {
-//           const letter = getLetter(d)
-//           const barWidth = xScale.bandwidth()
-//           const barHeight = yMax - (yScale(getLetterFrequency(d)) ?? 0)
-//           const barX = xScale(letter)
-//           const barY = yMax - barHeight
-//           return (
-//             <Bar
-//               key={`bar-${letter}`}
-//               x={barX}
-//               y={barY}
-//               width={barWidth}
-//               height={barHeight}
-//               fill={useColor('accent.400')}
-//               onClick={() => {
-//                 if (events)
-//                   alert(`clicked: ${JSON.stringify(Object.values(d))}`)
-//               }}
-//             />
-//           )
-//         })}
-//       </Group>
-//     </svg>
-//   )
-// }
