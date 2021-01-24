@@ -10,7 +10,7 @@ import { fetchArticles } from 'src/components/readingList/utils'
 import { TimeGraph } from 'src/components/timeGraph/TimeGraph'
 import { WideContainer } from 'src/components/WideContainer'
 import { NoSSR } from '@47ng/chakra-next'
-import { AspectRatio, Box, Center, Skeleton } from '@chakra-ui/react'
+import { AspectRatio, Box, Skeleton } from '@chakra-ui/react'
 
 export interface ReadingListStatsPageProps {
   articles: Article[]
