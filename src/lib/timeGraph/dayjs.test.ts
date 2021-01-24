@@ -1,9 +1,5 @@
-import {
-  dayjs,
-  applyDuration,
-  parseTimeQuery,
-  _getDurationUnit
-} from './timeInterval'
+import { dayjs, applyDuration, _getDurationUnit } from './dayjs'
+import { parseTimeQuery } from './query'
 
 test('getDurationUnit', () => {
   const MUT = _getDurationUnit
