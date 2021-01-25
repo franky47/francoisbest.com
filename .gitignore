@@ -8,9 +8,13 @@ build/
 .storage/
 
 # Generated OG images
-public/**/og.jpg
-public/**/og.html
-public/**/og-*.jpg
-public/**/og-*.html
+public/images/repos/**/og.jpg
+public/images/repos/**/og.html
+public/images/repos/**/og-*.jpg
+public/images/repos/**/og-*.html
+public/images/reading-list/**/og.jpg
+public/images/reading-list/**/og.html
+public/images/reading-list/**/og-*.jpg
+public/images/reading-list/**/og-*.html
 
 public/feeds/reading-list/daily/
