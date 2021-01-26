@@ -160,15 +160,22 @@ export async function getStaticProps(
   const articles = filterArticles(allArticles, article =>
     pageDay.isSame(dayjs(article.timestamp), 'day')
   )
-  const prevDay = pageDay.subtract(1, 'day').format('YYYY-MM-DD')
-  const nextDay = pageDay.add(1, 'day').format('YYYY-MM-DD')
-  const hasPrevDay = Object.keys(allArticles).includes(formatDate(prevDay))
-  const hasNextDay = Object.keys(allArticles).includes(formatDate(nextDay))
+  const allDays = Object.keys(allArticles).map(day =>
+    dayjs(day).format('YYYY-MM-DD')
+  )
+  const prevDayIndex = allDays.indexOf(day) + 1 // Most recent first
+  const nextDayIndex = allDays.indexOf(day) - 1
+  const hasPrevDay = prevDayIndex >= 0 && prevDayIndex < allDays.length
+  const hasNextDay = nextDayIndex >= 0 && nextDayIndex < allDays.length
   return {
     props: {
       day,
-      ...(hasPrevDay ? { prevDay } : {}),
-      ...(hasNextDay ? { nextDay } : {}),
+      ...(hasPrevDay
+        ? { prevDay: dayjs(allDays[prevDayIndex]).format('YYYY-MM-DD') }
+        : {}),
+      ...(hasNextDay
+        ? { nextDay: dayjs(allDays[nextDayIndex]).format('YYYY-MM-DD') }
+        : {}),
       articles
     }
   }

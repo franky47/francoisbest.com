@@ -73,12 +73,9 @@ export default ReadingListPage
 export async function getStaticProps(): GetStaticPropsReturn<ReadingListPageProps> {
   dayjs.extend(utc)
   const allArticles = await fetchArticles()
-  const articles = filterArticles(
-    allArticles,
-    article =>
-      article.timestamp < dayjs().utc().startOf('day').valueOf() &&
-      article.timestamp >=
-        dayjs().utc().startOf('day').subtract(3, 'day').valueOf()
+  const last3Days = Object.keys(allArticles).slice(0, 3).map(dayjs)
+  const articles = filterArticles(allArticles, article =>
+    last3Days.some(day => day.isSame(dayjs(article.timestamp), 'day'))
   )
   await generateReadingListDailyFeed(allArticles)
   return {
