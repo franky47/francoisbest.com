@@ -13,10 +13,12 @@ export async function generateSiteMap(posts: ExtendedPostFrontMatter[]) {
       `${pagesDir}/**/*{.tsx,.mdx}`,
       `!${pagesDir}/posts/**/*.mdx`,
       `!${pagesDir}/_*.tsx`,
-      `!${pagesDir}/api`
+      `!${pagesDir}/api`,
+      `!${pagesDir}/reading-list/archives/[day].tsx`
     ])),
     // Inject posts separately (with drafts pre-filtered)
     ...posts.map(post => post.path)
+    // todo: Inject reading list archives
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
