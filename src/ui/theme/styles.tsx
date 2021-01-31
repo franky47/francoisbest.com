@@ -1,19 +1,31 @@
 import type { Styles } from '@chakra-ui/theme-tools'
+import { Global } from '@emotion/react'
+
+export const FontsGlobal = () => (
+  <Global
+    styles={`
+  @font-face {
+    font-family: 'Virgil';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/FG_Virgil.woff2') format('woff2'),
+        url('/fonts/FG_Virgil.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'Cascadia';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/Cascadia.woff2') format('woff2'),
+        url('/fonts/Cascadia.woff') format('woff');
+  }
+`}
+  />
+)
 
 export const styles: Styles = {
   global: ({ colorMode }) => ({
-    '@font-face': [
-      {
-        fontFamily: 'Virgil',
-        src: `url('/fonts/FG_Virgil.woff2') format('woff2'),
-            url('/fonts/FG_Virgil.woff') format('woff')`
-      },
-      {
-        fontFamily: 'Cascadia',
-        src: `url('/fonts/Cascadia.woff2') format('woff2'),
-          url('/fonts/Cascadia.woff') format('woff')`
-      }
-    ],
     html: {
       lineHeight: 1.5,
       minWidth: '320px',

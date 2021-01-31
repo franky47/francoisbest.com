@@ -6,8 +6,8 @@ import { useURL } from 'src/hooks/useURL'
 import defaultSeoConfig from 'src/next-seo.json'
 import { PrismGlobal } from 'src/ui/prism'
 import { AccentGlobal } from 'src/components/Accent'
+import { FontsGlobal } from 'src/ui/theme/styles'
 import { ChakraProvider, Theme } from '@chakra-ui/react'
-
 import { AppProps } from 'next/app'
 
 export const AppCore: React.FC<{ theme?: Theme }> = ({
@@ -23,6 +23,7 @@ export const AppCore: React.FC<{ theme?: Theme }> = ({
       sameAs={['https://twitter.com/fortysevenfx']}
     />
     <ChakraProvider resetCSS theme={theme}>
+      <FontsGlobal />
       <AccentGlobal />
       <PrismGlobal />
       <MDXProvider components={mdxComponents}>{children}</MDXProvider>
