@@ -1,9 +1,9 @@
 import React from 'react'
 import { Flex, HStack, StackProps } from '@chakra-ui/react'
+import { IconButtonOutgoingLink } from '@47ng/chakra-next'
 import { Logo } from 'src/components/Logo'
 import { NavLink, RouteLink, navLinkMatch } from '@47ng/chakra-next'
 import { FiTwitter } from 'react-icons/fi'
-import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 import { AccentPicker } from 'src/components/Accent'
 import { ColorModeSwitch } from 'src/components/ColorModeSwitch'
 
@@ -40,7 +40,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ ...props }) => {
         </NavLink>
       </HStack>
       <HStack as="aside" ml="auto" spacing={0}>
-        <OutgoingIconButtonLink
+        <IconButtonOutgoingLink
           icon={<FiTwitter />}
           aria-label="Follow me on Twitter"
           href="https://twitter.com/fortysevenfx"
