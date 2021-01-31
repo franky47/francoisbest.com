@@ -6,6 +6,9 @@ import { DurationDirection, TimeSlice, TimeSliceWithData } from './defs'
 import {
   createQueryUpdater,
   getFineDuration,
+  thisMonth,
+  thisWeek,
+  today,
   zoomOut as _zoomOut
 } from './navigation'
 import {
@@ -66,11 +69,15 @@ export function useTimeInterval() {
   }
 
   // Keyboard navigation
-  useHotkeys('left', previous, { keyup: false, keydown: true })
-  useHotkeys('right', next, { keyup: false, keydown: true })
+  const keyOpts = { keyup: false, keydown: true }
+  useHotkeys('left', previous, keyOpts)
+  useHotkeys('right', next, keyOpts)
   useKeybinding('shift+left', fine, 'past')
   useKeybinding('shift+right', fine, 'future')
   useHotkeys('up', zoomOut, [parts])
+  useHotkeys('d', () => setParts(today()), keyOpts)
+  useHotkeys('w', () => setParts(thisWeek()), keyOpts)
+  useHotkeys('m', () => setParts(thisMonth()), keyOpts)
 
   return {
     ...parts,

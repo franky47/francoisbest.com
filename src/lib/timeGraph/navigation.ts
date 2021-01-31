@@ -1,7 +1,7 @@
 import { Duration } from 'dayjs/plugin/duration'
 import { applyDuration, dayjs } from './dayjs'
 import { DurationDirection, TimeQuery } from './defs'
-import { getDefaultQuery } from './query'
+import { getDefaultQuery, parseTimeQuery } from './query'
 
 export function handleDaylightSaving(
   { base, duration }: TimeQuery,
@@ -109,3 +109,18 @@ export function getFineDuration(duration: Duration): Duration {
   }
   return dayjs.duration(6, 'hours')
 }
+
+export const today = (): TimeQuery => ({
+  base: dayjs().startOf('day'),
+  duration: dayjs.duration(1, 'day')
+})
+
+export const thisWeek = (): TimeQuery => ({
+  base: dayjs().startOf('isoWeek'),
+  duration: dayjs.duration('P1W')
+})
+
+export const thisMonth = (): TimeQuery => ({
+  base: dayjs().startOf('month'),
+  duration: dayjs.duration(1, 'month')
+})
