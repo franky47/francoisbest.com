@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, BoxProps, Flex, useColorModeValue } from '@chakra-ui/react'
+import { Box, BoxProps, Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import { useTimeSlicedData } from 'src/lib/timeGraph'
 import { Graph } from './Graph'
 import { TimeGraphNavigation } from './Navigation'
@@ -29,18 +29,23 @@ export const TimeGraph = <T,>({
       {...props}
     >
       <Flex justifyContent="flex-end">
+        <Text mr="auto" ml={3} mt={2} fontWeight="bold" fontSize="xl">
+          {coarse.reduce((sum, events) => sum + events.data.length, 0)}
+        </Text>
         <TimeGraphNavigation />
       </Flex>
       <Box px={2} pb={2}>
         <Graph w={w} h={h} overflow="visible">
           <EventView
             w={w}
-            h={h * 0.125}
+            h={h * 0.25}
             data={data}
             getTimestamp={getTimestamp}
             from={coarse[0].from}
             to={coarse[coarse.length - 1].to}
             top={3 * bottomAxisH}
+            fillOpacity={0.25}
+            yResolution={32}
           />
           <CoarseBargraph
             w={w}

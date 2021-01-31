@@ -5,8 +5,6 @@ import { scaleLinear } from '@visx/scale'
 
 type GroupProps = Parameters<typeof Group>[0]
 
-const Y_RESOLUTION = 8
-
 export interface EventViewProps<T> extends GroupProps {
   w: number
   h: number
@@ -14,6 +12,7 @@ export interface EventViewProps<T> extends GroupProps {
   to: number
   fill?: string
   fillOpacity?: number
+  yResolution?: number
   data: T[]
   getTimestamp: (datum: T) => number
 }
@@ -28,6 +27,7 @@ export const EventView = <T,>({
   getTimestamp,
   fill = 'accent.500',
   fillOpacity = 1,
+  yResolution = 32,
   ...props
 }: EventViewProps<T>) => {
   const xScale = React.useMemo(
@@ -42,9 +42,9 @@ export const EventView = <T,>({
     () =>
       scaleLinear<number>({
         range: [0, h],
-        domain: [0, Y_RESOLUTION]
+        domain: [0, yResolution]
       }),
-    [h, data]
+    [h, data, yResolution]
   )
   return (
     <Group {...props}>
@@ -56,7 +56,7 @@ export const EventView = <T,>({
             fill={fill}
             fillOpacity={fillOpacity}
             cx={xScale(timestamp)}
-            cy={yScale(timestamp % Y_RESOLUTION)}
+            cy={yScale(timestamp % yResolution)}
             r={3}
             cursor="pointer"
           />

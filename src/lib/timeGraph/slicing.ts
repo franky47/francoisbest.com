@@ -46,11 +46,8 @@ export const sliceByWeek: Slicer = ({ base, duration }) => {
           duration: dayjs.duration('P1W')
         }),
         labels: {
-          long: formatInterval({
-            base: from,
-            duration: dayjs.duration(length, 'day')
-          }),
-          short: 'IM'
+          long: `Week ${from.isoWeek()}`,
+          short: `${from.isoWeek()}`
         },
         length
       }
@@ -78,7 +75,7 @@ export const sliceByDay = (unit: 'day' | 'hour'): Slicer => ({
         }),
         labels: {
           long: from.format('ddd D'),
-          short: from.format('dd D')
+          short: from.format('D')
         },
         length: Math.round(to.diff(from, unit, true))
       }

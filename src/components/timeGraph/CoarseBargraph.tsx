@@ -84,8 +84,31 @@ export const CoarseBargraph = <T,>({
                 opacity: 1
               }}
             />
+            {slice.data.length > 0 && (
+              <Text
+                x={slice.x + margin}
+                y={h - barH + 2 * margin}
+                width={slice.w}
+                scaleToFit={true}
+                fontSize="1em"
+                fontWeight="bold"
+                textAnchor="start"
+                verticalAnchor="start"
+                fill={useColorModeValue('gray.700', 'accent.200')}
+                fillOpacity={useColorModeValue(1, 0.8)}
+                opacity={0.7}
+                cursor="pointer"
+                sx={{
+                  'rect:hover + * &, &:hover': {
+                    opacity: 1
+                  }
+                }}
+              >
+                {slice.data.length}
+              </Text>
+            )}
             <Text
-              x={slice.x + 2 * margin}
+              x={slice.x + margin}
               y={2 * margin}
               width={slice.w}
               scaleToFit={true}
@@ -104,29 +127,6 @@ export const CoarseBargraph = <T,>({
             >
               {slice.labels.long}
             </Text>
-            {slice.data.length > 0 && (
-              <Text
-                x={slice.x + slice.w - 2 * margin}
-                y={2 * margin}
-                width={slice.w}
-                scaleToFit={true}
-                fontSize="1em"
-                fontWeight="bold"
-                textAnchor="end"
-                verticalAnchor="start"
-                fill={useColorModeValue('gray.700', 'accent.200')}
-                fillOpacity={useColorModeValue(1, 0.8)}
-                opacity={0.7}
-                cursor="pointer"
-                sx={{
-                  'rect:hover + * &, &:hover': {
-                    opacity: 1
-                  }
-                }}
-              >
-                {slice.data.length}
-              </Text>
-            )}
           </React.Fragment>
         )
       })}
