@@ -23,7 +23,7 @@ export function getTagBackgroundDark(
   accentKey: ColorKeys,
   theme: ThemeOverride
 ) {
-  return transparentize(theme.colors?.[accentKey][200], 0.1)(theme)
+  return transparentize((theme.colors as any)[accentKey][200], 0.1)(theme)
 }
 
 // --
