@@ -1,7 +1,7 @@
 import { Duration } from 'dayjs/plugin/duration'
 import { applyDuration, dayjs } from './dayjs'
 import { DurationDirection, TimeQuery } from './defs'
-import { getDefaultQuery, parseTimeQuery } from './query'
+import { getDefaultQuery } from './query'
 
 export function handleDaylightSaving(
   { base, duration }: TimeQuery,

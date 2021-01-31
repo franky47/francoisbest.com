@@ -2,7 +2,6 @@ import { Dayjs } from 'dayjs'
 import { Duration } from 'dayjs/plugin/duration'
 import { applyDuration, dayjs } from './dayjs'
 import { Slicer, Subdivisions, TimeQuery, TimeSlice } from './defs'
-import { formatInterval } from './format'
 import { stringifyTimeQuery } from './query'
 
 export const sliceByMonth: Slicer = ({ base, duration }) => {
