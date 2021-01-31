@@ -14,10 +14,9 @@ import {
   GridProps,
   useColorModeValue
 } from '@chakra-ui/react'
-import { OutgoingLink } from '@47ng/chakra-next'
+import { OutgoingLink, IconButtonOutgoingLink } from '@47ng/chakra-next'
 import { FiHeart, FiRepeat, FiMessageSquare, FiTwitter } from 'react-icons/fi'
 import { H5 } from 'src/components/primitives/Typography'
-import { OutgoingIconButtonLink } from 'src/components/primitives/OutgoingIconButtonLink'
 import { formatDate, formatTime } from 'src/ui/format'
 import { safeContentID } from 'src/data/services/twitter'
 
@@ -134,7 +133,7 @@ const TweetHeader: React.FC<TweetHeaderProps> = ({ author, url, ...props }) => (
         </Box>
       </Stack>
     </OutgoingLink>
-    <OutgoingIconButtonLink
+    <IconButtonOutgoingLink
       href={url}
       aria-label="Open on Twitter"
       icon={<FiTwitter />}
@@ -188,7 +187,7 @@ const CompactTweetHeader: React.FC<CompactTweetHeaderProps> = ({
       {formatDate(meta.date)}
     </OutgoingLink>
     <Box ml="auto">
-      <OutgoingIconButtonLink
+      <IconButtonOutgoingLink
         href={meta.url}
         aria-label="Open on Twitter"
         icon={<FiTwitter />}
@@ -224,7 +223,7 @@ const TweetBody: React.FC<TweetContentProps> = ({
   <StyledBody
     mb={4}
     fontSize={largeText ? 'lg' : 'md'}
-    fontWeight={450}
+    fontWeight="medium"
     dangerouslySetInnerHTML={{ __html: body }}
     {...props}
   />
@@ -258,7 +257,7 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
         spacing={[1, 2]}
       >
         <Flex alignItems="center">
-          <OutgoingIconButtonLink
+          <IconButtonOutgoingLink
             icon={<FiMessageSquare />}
             color="currentcolor"
             href={`https://twitter.com/intent/tweet?in_reply_to=${id}`}
@@ -270,7 +269,7 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
           <Text>Reply</Text>
         </Flex>
         <Flex alignItems="center">
-          <OutgoingIconButtonLink
+          <IconButtonOutgoingLink
             icon={<FiRepeat />}
             color="currentcolor"
             href={`https://twitter.com/intent/retweet?tweet_id=${id}`}
@@ -282,7 +281,7 @@ const TweetFooter: React.FC<TweetData['meta'] & FlexProps> = ({
           <Text>{retweets}</Text>
         </Flex>
         <Flex alignItems="center">
-          <OutgoingIconButtonLink
+          <IconButtonOutgoingLink
             icon={<FiHeart />}
             color="currentcolor"
             href={`https://twitter.com/intent/like?tweet_id=${id}`}
