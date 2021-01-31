@@ -19,7 +19,7 @@ export const TimeGraph = <T,>({
 }: TimeGraphProps<T>) => {
   const { coarse, fine } = useTimeSlicedData(data, getTimestamp)
   const w = 800
-  const h = 320
+  const h = 400
   const bottomAxisH = 16
   return (
     <Box
