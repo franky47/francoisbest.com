@@ -3,9 +3,14 @@ import path from 'path'
 import globby from 'globby'
 import { ExtendedPostFrontMatter } from '../types'
 import { useURL } from 'src/hooks/useURL'
+import { getStaticPaths as getReadingListArchivesPaths } from 'src/pages/reading-list/archives/[day]'
 
 export async function generateSiteMap(posts: ExtendedPostFrontMatter[]) {
   const pagesDir = path.resolve(process.cwd(), 'src/pages')
+
+  const {
+    paths: readingListArchivesPaths
+  } = await getReadingListArchivesPaths()
 
   const pages = [
     // Ignore Next.js specific files (e.g., _app.tsx), API routes & posts
@@ -17,8 +22,12 @@ export async function generateSiteMap(posts: ExtendedPostFrontMatter[]) {
       `!${pagesDir}/reading-list/archives/[day].tsx`
     ])),
     // Inject posts separately (with drafts pre-filtered)
-    ...posts.map(post => post.path)
-    // todo: Inject reading list archives
+    ...posts.map(post => post.path),
+    ...readingListArchivesPaths.map(path =>
+      typeof path === 'string'
+        ? path
+        : `/reading-list/archives/${path.params.day}`
+    )
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
