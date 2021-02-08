@@ -36,7 +36,6 @@ const REPOS = [
   'franky47/slack-cleaner',
   'franky47/foggy',
   'franky47/post.francoisbest.com',
-  'franky47/how-far-along',
   '47ng/chakra-next',
   '47ng/next-usequerystate',
   '47ng/fastify-micro',
