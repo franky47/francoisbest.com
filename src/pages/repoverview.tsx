@@ -194,7 +194,7 @@ async function fetchRepoInfo(slug: string) {
 
 const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
   const info = useSWR(slug, fetchRepoInfo, {
-    refreshInterval: 10 * 1000,
+    refreshInterval: 10 * 60 * 1000,
     revalidateOnFocus: true
   })
   return (
