@@ -251,9 +251,13 @@ const ActionsView: React.FC<ActionsViewProps> = ({ runs, ...props }) => {
             boxSize: 4
           }}
           bg={
-            run.conclusion === 'success'
+            run.status === 'in_progress'
+              ? 'yellow.500'
+              : run.conclusion === 'success'
               ? useColorModeValue('green.300', 'green.800')
-              : 'red.500'
+              : run.conclusion === 'failure'
+              ? 'red.500'
+              : 'gray.500'
           }
           borderColor={useColorModeValue('white', 'gray.900')}
           borderWidth="1px"
