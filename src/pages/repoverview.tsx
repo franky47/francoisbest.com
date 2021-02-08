@@ -250,7 +250,7 @@ const ActionsView: React.FC<ActionsViewProps> = ({ runs, ...props }) => {
             boxSize: 4
           }}
           bg={
-            run.status === 'in_progress'
+            ['queued', 'in_progress'].includes(run.status)
               ? 'yellow.500'
               : run.conclusion === 'success'
               ? useColorModeValue('green.300', 'green.800')
