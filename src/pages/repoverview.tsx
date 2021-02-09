@@ -21,7 +21,8 @@ import {
   Spinner,
   Input,
   FormLabel,
-  Container
+  Container,
+  Avatar
 } from '@chakra-ui/react'
 import { scaleThreshold } from '@visx/scale'
 import { Octokit, RestEndpointMethodTypes } from '@octokit/rest'
@@ -199,6 +200,7 @@ async function fetchRepoInfo(slug: string) {
     per_page: 5
   })
   return {
+    avatar: repository.data.owner?.avatar_url,
     issues: repository.data.open_issues_count - openPRs.data.length,
     prs: {
       user: openPRs.data.filter(pr =>
@@ -220,10 +222,17 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
     refreshInterval: 10 * 60 * 1000,
     revalidateOnFocus: true
   })
+  const [owner, repo] = slug.split('/')
   return (
     <Tr position="relative" {...props}>
       <Td>
-        <OutgoingLink href={`https://github.com/${slug}`}>{slug}</OutgoingLink>
+        <Avatar size="2xs" src={info.data?.avatar} mr={2} />
+        <OutgoingLink href={`https://github.com/${slug}`}>
+          <Text as="span" color={useColorModeValue('gray.500', 'gray.700')}>
+            {owner} /{' '}
+          </Text>
+          <Text as="span">{repo}</Text>
+        </OutgoingLink>
       </Td>
       <Td isNumeric>
         <OutgoingLink href={`https://github.com/${slug}/issues`}>
