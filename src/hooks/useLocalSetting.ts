@@ -62,3 +62,16 @@ export function useLocalSetting<T>(
   )
   return [value, setValue] as const
 }
+
+export function readLocalSetting<T>(storageKey: string) {
+  const json =
+    localCache.get(storageKey) || window.localStorage.getItem(storageKey)
+  if (!json) {
+    return
+  }
+  try {
+    return JSON.parse(json) as T
+  } catch {
+    return undefined
+  }
+}

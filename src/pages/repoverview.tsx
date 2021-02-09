@@ -32,6 +32,7 @@ import {
   FiStar,
   FiUser
 } from 'react-icons/fi'
+import { readLocalSetting, useLocalSetting } from 'src/hooks/useLocalSetting'
 
 const REPOS = [
   'franky47/francoisbest.com',
@@ -69,6 +70,7 @@ const REPOS = [
 ]
 
 const ReadingListStatsPage: NextPage = () => {
+  const [githubToken, setGitHubToken] = useLocalSetting('githubToken', '')
   return (
     <PageLayoutWithSEO
       frontMatter={{
@@ -154,7 +156,14 @@ const ReadingListStatsPage: NextPage = () => {
             ))}
           </Tbody>
         </Table>
-      </Box>
+      <Container as="section" mt={12}>
+        <FormLabel>GitHub Personal Token</FormLabel>
+        <Input
+          fontFamily="mono"
+          value={githubToken}
+          onChange={e => setGitHubToken(e.target.value)}
+        />
+      </Container>
     </PageLayoutWithSEO>
   )
 }
@@ -168,13 +177,9 @@ export interface RepoRowProps extends TableRowProps {
 }
 
 async function fetchRepoInfo(slug: string) {
+  const auth = readLocalSetting<string>('githubToken')
   const [owner, repo] = slug.split('/')
-  const octokit = new Octokit({
-    auth:
-      (typeof window !== 'undefined' &&
-        window.localStorage.getItem('githubToken')) ??
-      undefined
-  })
+  const octokit = new Octokit({ auth })
   const repository = await octokit.repos.get({
     owner,
     repo
