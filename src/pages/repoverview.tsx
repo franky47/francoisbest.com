@@ -302,6 +302,18 @@ export interface ActionsViewProps extends BoxProps {
 const ActionsView: React.FC<ActionsViewProps> = ({ runs, ...props }) => {
   return (
     <HStack size="sm" spacing={-1} {...props} opacity={0.75}>
+      {Array(5 - runs.length)
+        .fill(undefined)
+        .map((_, i) => (
+          <Box
+            key={i}
+            rounded="full"
+            boxSize={3}
+            bg={useColorModeValue('gray.300', 'gray.800')}
+            borderColor={useColorModeValue('white', 'gray.1000')}
+            borderWidth="1.5px"
+          />
+        ))}
       {runs.map(run => (
         <OutgoingLink
           href={run.html_url}
@@ -320,8 +332,8 @@ const ActionsView: React.FC<ActionsViewProps> = ({ runs, ...props }) => {
               ? 'red.500'
               : 'gray.500'
           }
-          borderColor={useColorModeValue('white', 'gray.900')}
-          borderWidth="1px"
+          borderColor={useColorModeValue('white', 'gray.1000')}
+          borderWidth="1.5px"
         />
       ))}
     </HStack>
