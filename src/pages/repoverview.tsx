@@ -29,7 +29,7 @@ import { Octokit, RestEndpointMethodTypes } from '@octokit/rest'
 import useSWR from 'swr'
 import {
   FiAlertCircle,
-  FiCheckSquare,
+  FiPlayCircle,
   FiEye,
   FiGitBranch,
   FiGithub,
@@ -127,7 +127,7 @@ const ReadingListStatsPage: NextPage = () => {
             </Th>
             <Th isNumeric>
               <Box
-                as={FiCheckSquare}
+                as={FiPlayCircle}
                 d="inline-block"
                 mr={1}
                 mt={-1}
@@ -136,12 +136,12 @@ const ReadingListStatsPage: NextPage = () => {
               Actions
             </Th>
             <Th isNumeric display={showOnDesktop}>
-              <Box as={FiStar} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
-              Stars
-            </Th>
-            <Th isNumeric display={showOnDesktop}>
               <Box as={FiEye} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
               Watchers
+            </Th>
+            <Th isNumeric display={showOnDesktop}>
+              <Box as={FiStar} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
+              Stars
             </Th>
             <Th isNumeric display={showOnDesktop}>
               <Box
@@ -261,13 +261,13 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
         <ActionsView runs={info.data?.actions ?? []} float="right" />
       </Td>
       <Td isNumeric display={showOnDesktop}>
-        <OutgoingLink href={`https://github.com/${slug}/stargazers`}>
-          {info.data?.stars ?? '--'}
+        <OutgoingLink href={`https://github.com/${slug}/watchers`}>
+          {info.data?.watchers ?? '--'}
         </OutgoingLink>
       </Td>
       <Td isNumeric display={showOnDesktop}>
-        <OutgoingLink href={`https://github.com/${slug}/watchers`}>
-          {info.data?.watchers ?? '--'}
+        <OutgoingLink href={`https://github.com/${slug}/stargazers`}>
+          {info.data?.stars ?? '--'}
         </OutgoingLink>
       </Td>
       <Td isNumeric display={showOnDesktop}>
