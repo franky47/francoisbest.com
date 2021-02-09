@@ -29,6 +29,7 @@ import useSWR from 'swr'
 import {
   FiAlertCircle,
   FiCheckSquare,
+  FiEye,
   FiGitBranch,
   FiGithub,
   FiGitPullRequest,
@@ -72,6 +73,8 @@ const REPOS = [
   'chiffre-io/template-library',
   'chiffre-io/nextjs-chiffre'
 ]
+
+const showOnDesktop = ['none', null, null, 'table-cell']
 
 const ReadingListStatsPage: NextPage = () => {
   const [githubToken, setGitHubToken] = useLocalSetting('githubToken', '')
@@ -131,11 +134,15 @@ const ReadingListStatsPage: NextPage = () => {
               />{' '}
               Actions
             </Th>
-            <Th isNumeric>
+            <Th isNumeric display={showOnDesktop}>
               <Box as={FiStar} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
               Stars
             </Th>
-            <Th isNumeric>
+            <Th isNumeric display={showOnDesktop}>
+              <Box as={FiEye} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
+              Watchers
+            </Th>
+            <Th isNumeric display={showOnDesktop}>
               <Box
                 as={FiGitBranch}
                 d="inline-block"
@@ -203,6 +210,7 @@ async function fetchRepoInfo(slug: string) {
     },
     stars: repository.data.stargazers_count,
     forks: repository.data.forks_count,
+    watchers: repository.data.subscribers_count - 1,
     actions: actions.data.workflow_runs.reverse()
   }
 }
@@ -243,12 +251,17 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
       <Td isNumeric position="relative">
         <ActionsView runs={info.data?.actions ?? []} float="right" />
       </Td>
-      <Td isNumeric>
+      <Td isNumeric display={showOnDesktop}>
         <OutgoingLink href={`https://github.com/${slug}/stargazers`}>
           {info.data?.stars ?? '--'}
         </OutgoingLink>
       </Td>
-      <Td isNumeric>
+      <Td isNumeric display={showOnDesktop}>
+        <OutgoingLink href={`https://github.com/${slug}/watchers`}>
+          {info.data?.watchers ?? '--'}
+        </OutgoingLink>
+      </Td>
+      <Td isNumeric display={showOnDesktop}>
         <OutgoingLink href={`https://github.com/${slug}/network/members`}>
           {info.data?.forks ?? '--'}
         </OutgoingLink>
