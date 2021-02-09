@@ -28,7 +28,9 @@ import {
   FiGitBranch,
   FiGithub,
   FiGitPullRequest,
-  FiStar
+  FiPackage,
+  FiStar,
+  FiUser
 } from 'react-icons/fi'
 
 const REPOS = [
@@ -110,7 +112,7 @@ const ReadingListStatsPage: NextPage = () => {
                 />
                 Issues
               </Th>
-              <Th isNumeric>
+              <Th isNumeric colSpan={2}>
                 <Box
                   as={FiGitPullRequest}
                   d="inline-block"
@@ -189,7 +191,14 @@ async function fetchRepoInfo(slug: string) {
   })
   return {
     issues: repository.data.open_issues_count - openPRs.data.length,
-    prs: openPRs.data.length,
+    prs: {
+      user: openPRs.data.filter(pr =>
+        pr.labels.every(label => label.name !== 'dependencies')
+      ).length,
+      deps: openPRs.data.filter(pr =>
+        pr.labels.some(label => label.name === 'dependencies')
+      ).length
+    },
     stars: repository.data.stargazers_count,
     forks: repository.data.forks_count,
     actions: actions.data.workflow_runs.reverse()
@@ -211,9 +220,22 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
           <NumericView value={info.data?.issues} />
         </OutgoingLink>
       </Td>
-      <Td isNumeric>
-        <OutgoingLink href={`https://github.com/${slug}/pulls`}>
-          <NumericView value={info.data?.prs} thresholds={[1, 3, 7]} />
+      <Td isNumeric pr={0}>
+        <OutgoingLink
+          href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
+        >
+          <NumericView value={info.data?.prs.user} thresholds={[1, 3, 7]}>
+            <Box as={FiUser} boxSize={4} d="inline-block" ml={2} mt={-1} />
+          </NumericView>
+        </OutgoingLink>
+      </Td>
+      <Td isNumeric pl={0}>
+        <OutgoingLink
+          href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Adependencies`}
+        >
+          <NumericView value={info.data?.prs.deps} thresholds={[1, 3, 7]}>
+            <Box as={FiPackage} boxSize={4} d="inline-block" ml={2} mt={-1} />
+          </NumericView>
         </OutgoingLink>
       </Td>
       <Td isNumeric position="relative">
@@ -273,7 +295,8 @@ export interface NumericViewProps {
 
 export const NumericView: React.FC<NumericViewProps> = ({
   value,
-  thresholds = [1, 5, 10]
+  thresholds = [1, 5, 10],
+  children
 }) => {
   const { colorScale, weightScale } = React.useMemo(() => {
     return {
@@ -300,6 +323,7 @@ export const NumericView: React.FC<NumericViewProps> = ({
       fontWeight={value !== undefined ? weightScale(value) : 'normal'}
     >
       {value ?? '--'}
+      {children}
     </Text>
   )
 }
