@@ -17,7 +17,11 @@ import {
   VisuallyHidden,
   TableRowProps,
   BoxProps,
-  HStack
+  HStack,
+  Spinner,
+  Input,
+  FormLabel,
+  Container
 } from '@chakra-ui/react'
 import { scaleThreshold } from '@visx/scale'
 import { Octokit, RestEndpointMethodTypes } from '@octokit/rest'
@@ -90,72 +94,65 @@ const ReadingListStatsPage: NextPage = () => {
       <VisuallyHidden>
         <H1>Repoverview</H1>
       </VisuallyHidden>
-      <Box mt={8}>
-        <Table variant="simple" size="sm" mt={8}>
-          <Thead>
-            <Tr>
-              <Th>
-                <Box
-                  as={FiGithub}
-                  d="inline-block"
-                  mr={2}
-                  mt={-1}
-                  boxSize={4}
-                />{' '}
-                Repo
-              </Th>
-              <Th isNumeric>
-                <Box
-                  as={FiAlertCircle}
-                  d="inline-block"
-                  mr={2}
-                  mt={-1}
-                  boxSize={4}
-                />
-                Issues
-              </Th>
-              <Th isNumeric colSpan={2}>
-                <Box
-                  as={FiGitPullRequest}
-                  d="inline-block"
-                  mr={1}
-                  mt={-1}
-                  boxSize={4}
-                />{' '}
-                PRs
-              </Th>
-              <Th isNumeric>
-                <Box
-                  as={FiCheckSquare}
-                  d="inline-block"
-                  mr={1}
-                  mt={-1}
-                  boxSize={4}
-                />{' '}
-                Actions
-              </Th>
-              <Th isNumeric>
-                <Box as={FiStar} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
-                Stars
-              </Th>
-              <Th isNumeric>
-                <Box
-                  as={FiGitBranch}
-                  d="inline-block"
-                  mr={1}
-                  mt={-1}
-                  boxSize={4}
-                />{' '}
-                Forks
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {REPOS.map(slug => (
-              <RepoRow key={slug} slug={slug} />
-            ))}
-          </Tbody>
-        </Table>
+      <Table variant="simple" size="sm" mt={8}>
+        <Thead>
+          <Tr>
+            <Th>
+              <Box as={FiGithub} d="inline-block" mr={2} mt={-1} boxSize={4} />{' '}
+              Repo
+            </Th>
+            <Th isNumeric>
+              <Box
+                as={FiAlertCircle}
+                d="inline-block"
+                mr={2}
+                mt={-1}
+                boxSize={4}
+              />
+              Issues
+            </Th>
+            <Th isNumeric colSpan={2}>
+              <Box
+                as={FiGitPullRequest}
+                d="inline-block"
+                mr={1}
+                mt={-1}
+                boxSize={4}
+              />{' '}
+              PRs
+            </Th>
+            <Th isNumeric>
+              <Box
+                as={FiCheckSquare}
+                d="inline-block"
+                mr={1}
+                mt={-1}
+                boxSize={4}
+              />{' '}
+              Actions
+            </Th>
+            <Th isNumeric>
+              <Box as={FiStar} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
+              Stars
+            </Th>
+            <Th isNumeric>
+              <Box
+                as={FiGitBranch}
+                d="inline-block"
+                mr={1}
+                mt={-1}
+                boxSize={4}
+              />{' '}
+              Forks
+            </Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {REPOS.map(slug => (
+            <RepoRow key={slug} slug={slug} />
+          ))}
+        </Tbody>
+      </Table>
       <Container as="section" mt={12}>
         <FormLabel>GitHub Personal Token</FormLabel>
         <Input
@@ -216,7 +213,7 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
     revalidateOnFocus: true
   })
   return (
-    <Tr {...props}>
+    <Tr position="relative" {...props}>
       <Td>
         <OutgoingLink href={`https://github.com/${slug}`}>{slug}</OutgoingLink>
       </Td>
@@ -256,6 +253,22 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
           {info.data?.forks ?? '--'}
         </OutgoingLink>
       </Td>
+      {info.isValidating && (
+        <Td
+          position="absolute"
+          left={-1}
+          top={0}
+          bottom={0}
+          pt={2}
+          px={0}
+          borderBottomWidth={0}
+        >
+          <Spinner
+            size="xs"
+            color={useColorModeValue('gray.400', 'gray.700')}
+          />
+        </Td>
+      )}
     </Tr>
   )
 }
