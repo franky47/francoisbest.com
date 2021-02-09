@@ -303,23 +303,24 @@ export const NumericView: React.FC<NumericViewProps> = ({
   thresholds = [1, 5, 10],
   children
 }) => {
+  const colors = [
+    useColorModeValue('gray.300', 'gray.800'),
+    useColorModeValue('gray.700', 'gray.400'),
+    useColorModeValue('orange.500', 'orange.300'),
+    useColorModeValue('red.500', 'red.400')
+  ]
   const { colorScale, weightScale } = React.useMemo(() => {
     return {
       colorScale: scaleThreshold({
         domain: thresholds,
-        range: [
-          useColorModeValue('gray.300', 'gray.800'),
-          useColorModeValue('gray.700', 'gray.400'),
-          useColorModeValue('orange.500', 'orange.300'),
-          useColorModeValue('red.500', 'red.400')
-        ]
+        range: colors
       }),
       weightScale: scaleThreshold({
         domain: thresholds,
         range: ['normal', 'normal', 'medium', 'bold']
       })
     }
-  }, [thresholds])
+  }, [thresholds, colors])
 
   return (
     <Text
