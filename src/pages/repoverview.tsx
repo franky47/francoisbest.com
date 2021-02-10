@@ -22,7 +22,11 @@ import {
   Input,
   FormLabel,
   Container,
-  Avatar
+  Avatar,
+  Icon,
+  SimpleGrid,
+  Badge,
+  Code
 } from '@chakra-ui/react'
 import { scaleThreshold } from '@visx/scale'
 import { Octokit, RestEndpointMethodTypes } from '@octokit/rest'
@@ -36,7 +40,11 @@ import {
   FiGitPullRequest,
   FiPackage,
   FiStar,
-  FiUser
+  FiUser,
+  FiActivity,
+  FiGitMerge,
+  FiGitCommit,
+  FiCornerLeftDown
 } from 'react-icons/fi'
 import { readLocalSetting, useLocalSetting } from 'src/hooks/useLocalSetting'
 
@@ -103,7 +111,7 @@ const ReadingListStatsPage: NextPage = () => {
           <Tr>
             <Th>
               <Box as={FiGithub} d="inline-block" mr={2} mt={-1} boxSize={4} />{' '}
-              Repo
+              Repository
             </Th>
             <Th isNumeric>
               <Box
@@ -135,15 +143,17 @@ const ReadingListStatsPage: NextPage = () => {
               />{' '}
               Actions
             </Th>
-            <Th isNumeric display={showOnDesktop}>
-              <Box as={FiEye} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
-              Watchers
+            <Th isNumeric>
+              <Box
+                as={FiGitMerge}
+                d="inline-block"
+                mr={1}
+                mt={-1}
+                boxSize={4}
+              />{' '}
+              Merge
             </Th>
-            <Th isNumeric display={showOnDesktop}>
-              <Box as={FiStar} d="inline-block" mr={1} mt={-1} boxSize={4} />{' '}
-              Stars
-            </Th>
-            <Th isNumeric display={showOnDesktop}>
+            <Th>
               <Box
                 as={FiGitBranch}
                 d="inline-block"
@@ -151,7 +161,18 @@ const ReadingListStatsPage: NextPage = () => {
                 mt={-1}
                 boxSize={4}
               />{' '}
-              Forks
+              Branch
+            </Th>
+
+            <Th isNumeric display={showOnDesktop}>
+              <Box
+                as={FiActivity}
+                d="inline-block"
+                mr={1}
+                mt={-1}
+                boxSize={4}
+              />{' '}
+              Stats
             </Th>
           </Tr>
         </Thead>
@@ -212,8 +233,14 @@ async function fetchRepoInfo(slug: string) {
     },
     stars: repository.data.stargazers_count,
     forks: repository.data.forks_count,
-    watchers: repository.data.subscribers_count - 1,
-    actions: actions.data.workflow_runs.reverse()
+    watchers: repository.data.subscribers_count,
+    actions: actions.data.workflow_runs.reverse(),
+    defaultBranch: repository.data.default_branch,
+    mergeOptions: {
+      merge: repository.data.allow_merge_commit,
+      squash: repository.data.allow_squash_merge,
+      rebase: repository.data.allow_rebase_merge
+    }
   }
 }
 
@@ -223,12 +250,13 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
     revalidateOnFocus: true
   })
   const [owner, repo] = slug.split('/')
+  const textDimmed = useColorModeValue('gray.500', 'gray.700')
   return (
     <Tr position="relative" {...props}>
       <Td>
         <Avatar size="2xs" src={info.data?.avatar} mr={2} />
         <OutgoingLink href={`https://github.com/${slug}`}>
-          <Text as="span" color={useColorModeValue('gray.500', 'gray.700')}>
+          <Text as="span" color={textDimmed}>
             {owner} /{' '}
           </Text>
           <Text as="span">{repo}</Text>
@@ -260,20 +288,51 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
       <Td isNumeric position="relative">
         <ActionsView runs={info.data?.actions ?? []} float="right" />
       </Td>
+
       <Td isNumeric display={showOnDesktop}>
-        <OutgoingLink href={`https://github.com/${slug}/watchers`}>
-          {info.data?.watchers ?? '--'}
+        <OutgoingLink
+          href={`https://github.com/${slug}/settings#merge-button-settings`}
+        >
+          {info.data?.mergeOptions.merge && (
+            <Icon as={FiGitMerge} aria-label="Merge" title="Merge" />
+          )}
+          {info.data?.mergeOptions.squash && (
+            <Icon
+              as={FiGitCommit}
+              transform="rotateZ(90deg)"
+              aria-label="Squash"
+              title="Squash"
+            />
+          )}
+          {info.data?.mergeOptions.rebase && (
+            <Icon as={FiCornerLeftDown} aria-label="Rebase" title="Rebase" />
+          )}
+        </OutgoingLink>
+      </Td>
+      <Td>
+        <OutgoingLink
+          href={`https://github.com/${slug}/tree/${info.data?.defaultBranch}`}
+        >
+          <Code fontSize="xs" colorScheme="accent">
+            {info.data?.defaultBranch ?? '--'}
+          </Code>
         </OutgoingLink>
       </Td>
       <Td isNumeric display={showOnDesktop}>
-        <OutgoingLink href={`https://github.com/${slug}/stargazers`}>
-          {info.data?.stars ?? '--'}
-        </OutgoingLink>
-      </Td>
-      <Td isNumeric display={showOnDesktop}>
-        <OutgoingLink href={`https://github.com/${slug}/network/members`}>
-          {info.data?.forks ?? '--'}
-        </OutgoingLink>
+        <SimpleGrid columns={3} fontSize="xs" color={textDimmed}>
+          <OutgoingLink href={`https://github.com/${slug}/watchers`}>
+            {info.data?.watchers ?? '--'}
+            <Icon as={FiEye} ml={1} mt={-1} />
+          </OutgoingLink>
+          <OutgoingLink href={`https://github.com/${slug}/stargazers`}>
+            {info.data?.stars ?? '--'}
+            <Icon as={FiStar} ml={1} mt={-1} />
+          </OutgoingLink>
+          <OutgoingLink href={`https://github.com/${slug}/network/members`}>
+            {info.data?.forks ?? '--'}
+            <Icon as={FiGitBranch} ml={1} mt={-1} />
+          </OutgoingLink>
+        </SimpleGrid>
       </Td>
       {info.isValidating && (
         <Td
@@ -327,7 +386,7 @@ const ActionsView: React.FC<ActionsViewProps> = ({ runs, ...props }) => {
             ['queued', 'in_progress'].includes(run.status)
               ? 'yellow.500'
               : run.conclusion === 'success'
-              ? useColorModeValue('green.300', 'green.800')
+              ? 'green.500'
               : run.conclusion === 'failure'
               ? 'red.500'
               : 'gray.500'
