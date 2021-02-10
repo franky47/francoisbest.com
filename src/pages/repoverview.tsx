@@ -25,7 +25,6 @@ import {
   Avatar,
   Icon,
   SimpleGrid,
-  Badge,
   Code
 } from '@chakra-ui/react'
 import { scaleThreshold } from '@visx/scale'
