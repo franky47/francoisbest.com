@@ -43,7 +43,8 @@ import {
   FiActivity,
   FiGitMerge,
   FiGitCommit,
-  FiCornerLeftDown
+  FiCornerLeftDown,
+  FiShieldOff
 } from 'react-icons/fi'
 import { readLocalSetting, useLocalSetting } from 'src/hooks/useLocalSetting'
 
@@ -122,7 +123,7 @@ const ReadingListStatsPage: NextPage = () => {
               />
               Issues
             </Th>
-            <Th isNumeric colSpan={2}>
+            <Th isNumeric>
               <Box
                 as={FiGitPullRequest}
                 d="inline-block"
@@ -223,6 +224,9 @@ async function fetchRepoInfo(slug: string) {
     avatar: repository.data.owner?.avatar_url,
     issues: repository.data.open_issues_count - openPRs.data.length,
     prs: {
+      security: openPRs.data.filter(pr =>
+        pr.labels.some(label => label.name === 'security')
+      ).length,
       user: openPRs.data.filter(pr =>
         pr.labels.every(label => label.name !== 'dependencies')
       ).length,
@@ -250,6 +254,8 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
   })
   const [owner, repo] = slug.split('/')
   const textDimmed = useColorModeValue('gray.500', 'gray.700')
+  const numSecurityPRs = info.data?.prs.security ?? 0
+
   return (
     <Tr position="relative" {...props}>
       <Td>
@@ -266,23 +272,43 @@ const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
           <NumericView value={info.data?.issues} />
         </OutgoingLink>
       </Td>
-      <Td isNumeric pr={0}>
-        <OutgoingLink
-          href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
-        >
-          <NumericView value={info.data?.prs.user} thresholds={[1, 3, 7]}>
-            <Box as={FiUser} boxSize={4} d="inline-block" ml={2} mt={-1} />
-          </NumericView>
-        </OutgoingLink>
-      </Td>
-      <Td isNumeric pl={0}>
-        <OutgoingLink
-          href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Adependencies`}
-        >
-          <NumericView value={info.data?.prs.deps} thresholds={[1, 3, 7]}>
-            <Box as={FiPackage} boxSize={4} d="inline-block" ml={2} mt={-1} />
-          </NumericView>
-        </OutgoingLink>
+      <Td isNumeric>
+        <SimpleGrid columns={3} color={textDimmed}>
+          <OutgoingLink
+            href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
+          >
+            <NumericView value={info.data?.prs.user} thresholds={[1, 3, 7]}>
+              <Box as={FiUser} boxSize={4} d="inline-block" ml={1} mt={-1} />
+            </NumericView>
+          </OutgoingLink>
+          <OutgoingLink
+            href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Asecurity`}
+          >
+            <NumericView value={info.data?.prs.security} thresholds={[1, 1, 1]}>
+              <Icon
+                as={FiShieldOff}
+                boxSize={4}
+                d="inline-block"
+                aria-label={
+                  numSecurityPRs === 0
+                    ? 'No vulnerability detected'
+                    : numSecurityPRs === 1
+                    ? 'This PR fixes a security vulnerability'
+                    : 'These PRs fix security vulnerabilities'
+                }
+                ml={1}
+                mt={-1}
+              />
+            </NumericView>
+          </OutgoingLink>
+          <OutgoingLink
+            href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Adependencies`}
+          >
+            <NumericView value={info.data?.prs.deps} thresholds={[1, 3, 7]}>
+              <Box as={FiPackage} boxSize={4} d="inline-block" ml={1} mt={-1} />
+            </NumericView>
+          </OutgoingLink>
+        </SimpleGrid>
       </Td>
       <Td isNumeric position="relative">
         <ActionsView runs={info.data?.actions ?? []} float="right" />
