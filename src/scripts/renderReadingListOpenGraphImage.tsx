@@ -76,15 +76,23 @@ export async function renderReadingListOpenGraphImage({ stats }: Args) {
 `
   mkdirp.sync(path.dirname(outputHtml))
   fs.writeFileSync(outputHtml, html)
-  await htmlToImage({
-    html,
-    output: path.resolve(outputDir, 'og.jpg'),
-    puppeteerArgs: {
-      defaultViewport: {
-        width: 600,
-        height: 315,
-        deviceScaleFactor: 2
+  const outputFile = path.resolve(outputDir, 'og.jpg')
+  try {
+    await htmlToImage({
+      html,
+      output: outputFile,
+      puppeteerArgs: {
+        defaultViewport: {
+          width: 600,
+          height: 315,
+          deviceScaleFactor: 2
+        }
       }
-    }
-  })
+    })
+  } catch (error) {
+    console.error(error)
+    // Fallback to a pre-rendered image
+    const fallbackPath = path.resolve(outputDir, 'fallback.jpg')
+    fs.copyFileSync(fallbackPath, outputFile)
+  }
 }
