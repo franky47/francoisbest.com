@@ -25,8 +25,10 @@ import {
   FiStar,
   FiUser
 } from 'react-icons/fi'
+import { BiBot } from 'react-icons/bi'
 import { readLocalSetting } from 'src/hooks/useLocalSetting'
 import useSWR from 'swr'
+import { categorisePRs } from '../engine/pulls'
 import { prStore } from '../stores/pulls'
 import { rateLimitStore } from '../stores/rateLimit'
 import { ActionsView } from './ActionsView'
@@ -67,19 +69,16 @@ async function fetchRepoInfo(slug: string) {
   }
   rateLimitStore.dispatch('reportRateLimit', rateLimit)
 
+  const prCategories = categorisePRs(openPRs.data)
+
   return {
     avatar: repository.data.owner?.avatar_url,
     issues: repository.data.open_issues_count - openPRs.data.length,
     prs: {
-      security: openPRs.data.filter(pr =>
-        pr.labels.some(label => label.name === 'security')
-      ).length,
-      user: openPRs.data.filter(pr =>
-        pr.labels.every(label => label.name !== 'dependencies')
-      ).length,
-      deps: openPRs.data.filter(pr =>
-        pr.labels.some(label => label.name === 'dependencies')
-      ).length
+      security: prCategories.security.length,
+      user: prCategories.user.length,
+      dependency: prCategories.dependency.length,
+      bot: prCategories.bot.length
     },
     stars: repository.data.stargazers_count,
     forks: repository.data.forks_count,
@@ -119,12 +118,19 @@ export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
         </OutgoingLink>
       </Td>
       <Td isNumeric>
-        <SimpleGrid columns={3} color={textDimmed}>
+        <SimpleGrid columns={4} color={textDimmed}>
           <OutgoingLink
             href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
           >
             <NumericView value={info.data?.prs.user} thresholds={[1, 3, 7]}>
               <Box as={FiUser} boxSize={4} d="inline-block" ml={1} mt={-1} />
+            </NumericView>
+          </OutgoingLink>
+          <OutgoingLink
+            href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
+          >
+            <NumericView value={info.data?.prs.bot} thresholds={[1, 3, 7]}>
+              <Box as={BiBot} boxSize={4} d="inline-block" ml={1} mt={-1} />
             </NumericView>
           </OutgoingLink>
           <OutgoingLink
@@ -150,7 +156,10 @@ export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
           <OutgoingLink
             href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Adependencies`}
           >
-            <NumericView value={info.data?.prs.deps} thresholds={[1, 3, 7]}>
+            <NumericView
+              value={info.data?.prs.dependency}
+              thresholds={[1, 3, 7]}
+            >
               <Box as={FiPackage} boxSize={4} d="inline-block" ml={1} mt={-1} />
             </NumericView>
           </OutgoingLink>
