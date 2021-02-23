@@ -53,7 +53,8 @@
     "swr": "^0.3.9",
     "twemoji": "^13.0.1",
     "twitter-api-client": "^1.2.1",
-    "twitter-text": "^3.1.0"
+    "twitter-text": "^3.1.0",
+    "vegemite": "^1.0.0"
   },
   "devDependencies": {
     "@47ng/check-env": "^2.0.1",

@@ -7903,6 +7903,11 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
+klona@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/klona/-/klona-1.1.2.tgz#a79e292518a5a5412ec8d097964bff1571a64db0"
+  integrity sha512-xf88rTeHiXk+XE2Vhi6yj8Wm3gMZrygGdKjJqN8HkV+PwF/t50/LdAKHoHpPcxFAlmQszTZ1CugrK25S7qDRLA==
+
 klona@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
@@ -12178,6 +12183,13 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vegemite@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vegemite/-/vegemite-1.0.0.tgz#90f8c90a1b78807e73313123fcd7ae3772ff4ced"
+  integrity sha512-DQSRYV9q6s06DZ6bJ1dsc7u4kjC8aKP00YUY9OmWxoJ0zAKszeAqIvZoZ26917YpHQTKgPBjkB9PYXwxjfSvCA==
+  dependencies:
+    klona "^1.1.1"
 
 verror@1.10.0:
   version "1.10.0"
