@@ -23,6 +23,7 @@
     "@emotion/styled": "^11.0.0",
     "@fec/remark-a11y-emoji": "^3.0.0",
     "@octokit/rest": "^18.0.12",
+    "@stablelib/tss": "^1.0.0",
     "@visx/visx": "^1.4.0",
     "babel-plugin-import-glob-array": "^0.2.0",
     "countapi-js": "^1.0.1",

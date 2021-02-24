@@ -1,0 +1,27 @@
+---
+layout: PageLayout
+title: Horcrux
+description: Split and recompose secrets using Shamir Secret Sharing
+---
+
+import { HorcruxSplit } from 'src/components/horcrux/split'
+import { HorcruxRecompose } from 'src/components/horcrux/recompose'
+import { Text } from '@chakra-ui/react'
+
+# Horcrux
+
+<Text mt={-6} mb={10}>
+  📓 💍 📿 👑 🏆 🐍 ⚡
+</Text>
+
+<Note status="info">
+  Split and recompose secrets using{' '}
+  <a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">
+    Shamir Secret Sharing
+  </a>
+  .
+</Note>
+
+<HorcruxSplit />
+
+<HorcruxRecompose />
