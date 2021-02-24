@@ -3,43 +3,19 @@ import {
   chakra,
   Text,
   FormControl,
-  FormHelperText,
   FormLabel,
   SimpleGrid,
   Box,
   BoxProps,
-  ChakraProps,
   Button,
   Heading,
-  NumberInput,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInputField,
-  NumberInputStepper,
-  RadioGroup,
-  Radio,
-  HStack,
-  Divider,
   Textarea,
-  useClipboard,
-  Icon,
-  IconButton,
-  CloseButton,
   Flex,
   useColorModeValue
 } from '@chakra-ui/react'
-import { OutgoingLink } from '@47ng/chakra-next'
 import { assembleSecret, cleanupShard } from './tss'
-import {
-  FiCheck,
-  FiCopy,
-  FiPlus,
-  FiPlusCircle,
-  FiTrash2,
-  FiX
-} from 'react-icons/fi'
-import { H2, Paragraph } from '../primitives/Typography'
-import { Encoding } from '@47ng/codec'
+import { FiPlusCircle, FiTrash2 } from 'react-icons/fi'
+import { H2 } from '../primitives/Typography'
 import { WideContainer } from '../WideContainer'
 import vegemite from 'vegemite'
 
