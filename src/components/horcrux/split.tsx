@@ -80,11 +80,11 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({ ...props }) => {
             min={2}
             max={8}
             value={numShards}
-            onChange={async e => {
-              const num = parseInt(e)
-              console.dir({ num, threshold, numShards })
-              setNumShards(num)
-              setThreshold(Math.min(threshold, num))
+            onChange={(_, num) => {
+              if (!Number.isNaN(num)) {
+                setNumShards(num)
+                setThreshold(Math.min(threshold, num))
+              }
             }}
           >
             <NumberInputField />
@@ -103,7 +103,11 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({ ...props }) => {
             min={2}
             max={numShards}
             value={threshold}
-            onChange={e => setThreshold(parseInt(e))}
+            onChange={(_, num) => {
+              if (!Number.isNaN(num)) {
+                setThreshold(Math.max(2, Math.min(numShards, num)))
+              }
+            }}
           >
             <NumberInputField />
             <NumberInputStepper>

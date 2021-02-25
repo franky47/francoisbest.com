@@ -133,7 +133,7 @@ export const HorcruxRecompose: React.FC<HorcruxRecomposeProps> = ({
         </Flex>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
           {shards.map((shard, i) => (
-            <FormControl>
+            <FormControl key={i}>
               <FormLabel fontSize="sm">Shard {i + 1}</FormLabel>
               <Textarea
                 value={shard}

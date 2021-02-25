@@ -31,7 +31,6 @@ export function splitSecret(
   threshold: number,
   outputEncoding: Encoding = 'base64'
 ) {
-  console.dir({ _: 'splitSecret', numShards, threshold })
   const encode = encoders[outputEncoding]
   const identifier = generateRandomBytes(16)
   const shards = split(utf8.encode(secret), threshold, numShards, identifier)
