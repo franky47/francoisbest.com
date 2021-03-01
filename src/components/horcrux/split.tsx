@@ -77,6 +77,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({ ...props }) => {
         <FormControl>
           <FormLabel>Number of shards</FormLabel>
           <NumberInput
+            id="numShards"
             min={2}
             max={8}
             value={numShards}
@@ -100,6 +101,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({ ...props }) => {
         <FormControl>
           <FormLabel>Number needed</FormLabel>
           <NumberInput
+            id="threshold"
             min={2}
             max={numShards}
             value={threshold}
