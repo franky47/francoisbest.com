@@ -6,7 +6,6 @@ import {
   useColorModeValue,
   Text,
   TableRowProps,
-  Spinner,
   Avatar,
   Icon,
   SimpleGrid,
@@ -33,6 +32,7 @@ import { prStore } from '../stores/pulls'
 import { rateLimitStore } from '../stores/rateLimit'
 import { ActionsView } from './ActionsView'
 import { NumericView } from './NumericView'
+import { loadingStore } from '../stores/loading'
 
 export const showOnDesktop = ['none', null, null, 'table-cell']
 
@@ -94,17 +94,21 @@ async function fetchRepoInfo(slug: string) {
 }
 
 export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
-  const info = useSWR(slug, fetchRepoInfo, {
+  const { data, isValidating } = useSWR(slug, fetchRepoInfo, {
     refreshInterval: 10 * 60 * 1000
   })
   const [owner, repo] = slug.split('/')
   const textDimmed = useColorModeValue('gray.500', 'gray.700')
-  const numSecurityPRs = info.data?.prs.security ?? 0
+  const numSecurityPRs = data?.prs.security ?? 0
+
+  React.useEffect(() => {
+    loadingStore.dispatch('loading:update', { slug, loading: isValidating })
+  }, [isValidating, slug])
 
   return (
     <Tr position="relative" {...props}>
       <Td>
-        <Avatar size="2xs" src={info.data?.avatar} mr={2} />
+        <Avatar size="2xs" src={data?.avatar} mr={2} />
         <OutgoingLink href={`https://github.com/${slug}`}>
           <Text as="span" color={textDimmed}>
             {owner} /{' '}
@@ -114,7 +118,7 @@ export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
       </Td>
       <Td isNumeric>
         <OutgoingLink href={`https://github.com/${slug}/issues`}>
-          <NumericView value={info.data?.issues} />
+          <NumericView value={data?.issues} />
         </OutgoingLink>
       </Td>
       <Td isNumeric>
@@ -122,21 +126,21 @@ export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
           <OutgoingLink
             href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
           >
-            <NumericView value={info.data?.prs.user} thresholds={[1, 3, 7]}>
+            <NumericView value={data?.prs.user} thresholds={[1, 3, 7]}>
               <Box as={FiUser} boxSize={4} d="inline-block" ml={1} mt={-1} />
             </NumericView>
           </OutgoingLink>
           <OutgoingLink
             href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+-label%3Adependencies`}
           >
-            <NumericView value={info.data?.prs.bot} thresholds={[1, 3, 7]}>
+            <NumericView value={data?.prs.bot} thresholds={[1, 3, 7]}>
               <Box as={BiBot} boxSize={4} d="inline-block" ml={1} mt={-1} />
             </NumericView>
           </OutgoingLink>
           <OutgoingLink
             href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Asecurity`}
           >
-            <NumericView value={info.data?.prs.security} thresholds={[1, 1, 1]}>
+            <NumericView value={data?.prs.security} thresholds={[1, 1, 1]}>
               <Icon
                 as={FiShieldOff}
                 boxSize={4}
@@ -156,27 +160,24 @@ export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
           <OutgoingLink
             href={`https://github.com/${slug}/pulls?q=is%3Apr+is%3Aopen+label%3Adependencies`}
           >
-            <NumericView
-              value={info.data?.prs.dependency}
-              thresholds={[1, 3, 7]}
-            >
+            <NumericView value={data?.prs.dependency} thresholds={[1, 3, 7]}>
               <Box as={FiPackage} boxSize={4} d="inline-block" ml={1} mt={-1} />
             </NumericView>
           </OutgoingLink>
         </SimpleGrid>
       </Td>
       <Td isNumeric position="relative">
-        <ActionsView runs={info.data?.actions ?? []} float="right" />
+        <ActionsView runs={data?.actions ?? []} float="right" />
       </Td>
 
       <Td isNumeric display={showOnDesktop}>
         <OutgoingLink
           href={`https://github.com/${slug}/settings#merge-button-settings`}
         >
-          {info.data?.mergeOptions.merge && (
+          {data?.mergeOptions.merge && (
             <Icon as={FiGitMerge} aria-label="Merge" title="Merge" />
           )}
-          {info.data?.mergeOptions.squash && (
+          {data?.mergeOptions.squash && (
             <Icon
               as={FiGitCommit}
               transform="rotateZ(90deg)"
@@ -184,52 +185,36 @@ export const RepoRow: React.FC<RepoRowProps> = ({ slug, ...props }) => {
               title="Squash"
             />
           )}
-          {info.data?.mergeOptions.rebase && (
+          {data?.mergeOptions.rebase && (
             <Icon as={FiCornerLeftDown} aria-label="Rebase" title="Rebase" />
           )}
         </OutgoingLink>
       </Td>
       <Td>
         <OutgoingLink
-          href={`https://github.com/${slug}/tree/${info.data?.defaultBranch}`}
+          href={`https://github.com/${slug}/tree/${data?.defaultBranch}`}
         >
           <Code fontSize="xs" colorScheme="accent">
-            {info.data?.defaultBranch ?? '--'}
+            {data?.defaultBranch ?? '--'}
           </Code>
         </OutgoingLink>
       </Td>
       <Td isNumeric display={showOnDesktop}>
         <SimpleGrid columns={3} fontSize="xs" color={textDimmed}>
           <OutgoingLink href={`https://github.com/${slug}/watchers`}>
-            {info.data?.watchers ?? '--'}
+            {data?.watchers ?? '--'}
             <Icon as={FiEye} ml={1} mt={-1} />
           </OutgoingLink>
           <OutgoingLink href={`https://github.com/${slug}/stargazers`}>
-            {info.data?.stars ?? '--'}
+            {data?.stars ?? '--'}
             <Icon as={FiStar} ml={1} mt={-1} />
           </OutgoingLink>
           <OutgoingLink href={`https://github.com/${slug}/network/members`}>
-            {info.data?.forks ?? '--'}
+            {data?.forks ?? '--'}
             <Icon as={FiGitBranch} ml={1} mt={-1} />
           </OutgoingLink>
         </SimpleGrid>
       </Td>
-      {info.isValidating && (
-        <Td
-          position="absolute"
-          left={-1}
-          top={0}
-          bottom={0}
-          pt={2}
-          px={0}
-          borderBottomWidth={0}
-        >
-          <Spinner
-            size="xs"
-            color={useColorModeValue('gray.400', 'gray.700')}
-          />
-        </Td>
-      )}
     </Tr>
   )
 }
