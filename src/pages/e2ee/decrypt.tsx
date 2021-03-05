@@ -14,6 +14,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Skeleton,
   Stack,
   Text,
   Textarea,
@@ -100,6 +101,7 @@ const NewSecretLink: React.FC<Omit<RouteLinkProps, 'to'>> = ({ ...props }) => (
 // --
 
 const E2EE: NextPage = ({}) => {
+  const [hydrated, setHydrated] = React.useState(false)
   const [payload] = useQueryState('payload')
   const [key, setKey] = useHashState()
   const [askForKey, setAskForKey] = React.useState(false)
@@ -114,6 +116,7 @@ const E2EE: NextPage = ({}) => {
 
   React.useLayoutEffect(() => {
     setAskForKey(!!payload && !key)
+    setHydrated(true)
   }, [])
 
   const focusRef = React.useRef<any>()
@@ -135,9 +138,11 @@ const E2EE: NextPage = ({}) => {
       <H1>Decrypt Shared Secret</H1>
       {error === 'Missing payload' ? (
         <Stack mt={12} spacing={8}>
-          <Text>
-            This page requires an encrypted payload in the URL to decrypt.
-          </Text>
+          <Skeleton isLoaded={hydrated}>
+            <Text>
+              This page requires an encrypted payload in the URL to decrypt.
+            </Text>
+          </Skeleton>
           <NewSecretLink />
         </Stack>
       ) : (

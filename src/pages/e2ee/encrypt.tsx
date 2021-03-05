@@ -197,8 +197,8 @@ const E2EE: NextPage<E2EEProps> = ({}) => {
       <RepoReference {...require('github:47ng/simple-e2ee')} />
       <Paragraph>
         Because a URL can only store so much data, your secret must be short
-        (max {MAX_INPUT_LENGTH} characters, as the ciphertext + key will be much
-        longer).
+        (max {MAX_INPUT_LENGTH} characters, as the ciphertext + key will be
+        quite longer).
       </Paragraph>
       <Paragraph>
         If you liked this little encryption toy, check out{' '}
