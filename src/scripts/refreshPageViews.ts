@@ -1,7 +1,7 @@
-import { ExtendedPostFrontMatter } from 'src/types'
-import { formatPageViewsParams } from 'src/hooks/usePageViews'
 // @ts-ignore
 import countAPI from 'countapi-js'
+import { formatPageViewsParams } from 'src/hooks/usePageViews'
+import { ExtendedPostFrontMatter } from 'src/types'
 
 interface CountAPIInfoResult {
   status: number
@@ -33,9 +33,9 @@ async function refreshPostViews(path: string) {
 }
 
 export async function refreshPageViews(posts: ExtendedPostFrontMatter[]) {
-  return Promise.all(
+  await Promise.all(
     posts
       .filter(post => post.publicationDate)
       .map(post => refreshPostViews(post.path))
-  )
+  ).catch(console.error)
 }
