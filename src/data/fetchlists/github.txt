@@ -8,5 +8,6 @@
 47ng/fastify-micro
 47ng/redact-env
 47ng/session-keystore
+47ng/simple-e2ee
 FortySevenEffects/arduino_midi_library
 franky47/francoisbest.com
