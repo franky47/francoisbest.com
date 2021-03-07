@@ -1,4 +1,9 @@
-import { NoSSR, RouteLink, RouteLinkProps } from '@47ng/chakra-next'
+import {
+  NoSSR,
+  OutgoingLink,
+  RouteLink,
+  RouteLinkProps
+} from '@47ng/chakra-next'
 import * as e2ee from '@47ng/simple-e2ee'
 import {
   Button,
@@ -25,6 +30,7 @@ import { useQueryState } from 'next-usequerystate'
 import React from 'react'
 import { FiCheck, FiCopy } from 'react-icons/fi'
 import { IoKeyOutline } from 'react-icons/io5'
+import { Note } from 'src/components/blog/Note'
 import { H1, Paragraph } from 'src/components/primitives/Typography'
 import { useURL } from 'src/hooks/useURL'
 import PageLayoutWithSEO from 'src/layouts/PageLayout'
@@ -176,7 +182,22 @@ const E2EE: NextPage = ({}) => {
               placeholder="Hello darkness my old friend (your secret is an empty string)."
             />
           </FormControl>
-          <NewSecretLink />
+          <NewSecretLink mb={12} />
+          <Note
+            status="info"
+            title="Report Inappropriate Content"
+            fontSize="sm"
+          >
+            I cannot see what you received, but if you think it's inappropriate,
+            I'm sorry, please{' '}
+            <OutgoingLink
+              href="mailto:contact+report-e2ee@francoisbest.com?subject=Reporting%20inappropriate%20encrypted%20content"
+              textDecoration="underline"
+            >
+              report it
+            </OutgoingLink>
+            .
+          </Note>
         </Stack>
       )}
       <Modal

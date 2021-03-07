@@ -28,6 +28,7 @@ import { FiAlertTriangle, FiCheck, FiCopy } from 'react-icons/fi'
 // @ts-ignore
 import HowItWorks from 'src/../public/images/e2ee/encrypt/how-it-works.svg'
 import { mdxComponents } from 'src/components/blog/Mdx'
+import { Note } from 'src/components/blog/Note'
 import { RepoReference } from 'src/components/blog/RepoReference'
 import { H1, H3, H5, Paragraph } from 'src/components/primitives/Typography'
 import { useURL } from 'src/hooks/useURL'
@@ -216,6 +217,10 @@ const E2EE: NextPage<E2EEProps> = ({}) => {
         </OutgoingLink>
         .
       </Paragraph>
+      <Note status="info" title="Disclaimer" fontSize="sm">
+        I cannot be held responsible for the content you choose to encrypt and
+        share. Be kind, don't harrass people and use common sense.
+      </Note>
     </PageLayoutWithSEO>
   )
 }
