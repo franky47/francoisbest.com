@@ -1,19 +1,19 @@
-import React from 'react'
 import {
   Alert,
-  AlertProps,
   AlertDescription,
+  AlertProps,
   AlertTitle,
-  Flex,
   Box,
   BoxProps,
+  Flex,
   useColorMode
 } from '@chakra-ui/react'
+import React from 'react'
 import {
-  FiInfo,
   FiAlertCircle,
   FiAlertTriangle,
-  FiCheckCircle
+  FiCheckCircle,
+  FiInfo
 } from 'react-icons/fi'
 import type { IconType } from 'react-icons/lib/cjs'
 import { useAccentStyles } from '../Accent'
@@ -121,7 +121,7 @@ export const Note: React.FC<NoteProps> = ({
   const Icon = icon || defaultIcon
   return (
     <Alert
-      rounded="sm"
+      rounded={['none', 'sm']}
       variant="left-accent"
       p={4}
       bg={bg[colorMode]}
@@ -137,6 +137,7 @@ export const Note: React.FC<NoteProps> = ({
           marginBottom: 0
         }
       }}
+      mx={[-4, 0]}
       {...props}
     >
       {(Icon || !!title) && (

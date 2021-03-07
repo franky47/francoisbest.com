@@ -1,28 +1,27 @@
-import React from 'react'
+import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import {
-  Text,
+  Badge,
+  BadgeProps,
+  Box,
+  BoxProps,
   Code,
+  Divider,
   Image,
   Kbd,
   List,
   ListItem,
-  Divider,
-  Box,
-  BoxProps,
-  Badge,
-  BadgeProps,
+  Text,
   useColorModeValue
 } from '@chakra-ui/react'
-import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
+import React from 'react'
 import * as Typography from 'src/components/primitives/Typography'
-import { theme } from 'src/ui/theme'
-import { useLinkColor } from 'src/ui/theme'
-import { Note, NoteProps } from './Note'
+import { theme, useLinkColor } from 'src/ui/theme'
+import { WideContainer } from '../WideContainer'
 import { Annotation } from './Annotation'
-import { Tag, TagProps, useTagStyles } from './Tags'
+import { Note, NoteProps } from './Note'
 import { PostReference } from './PostReference'
 import { RepoReference } from './RepoReference'
-import { WideContainer } from '../WideContainer'
+import { Tag, TagProps, useTagStyles } from './Tags'
 
 const linkStyles = {
   '& code': {
@@ -163,7 +162,5 @@ export const mdxComponents: any = {
   Image: (p: any) => <Image mb={8} rounded="md" {...p} />,
   Badge: (p: BadgeProps) => <Badge {...useTagStyles()} {...p} />,
   Tag: (p: TagProps) => <Tag {...p} />,
-  Note: (p: NoteProps) => (
-    <Note mb={8} mx={[-4, 0]} rounded={['none', 'sm']} {...p} />
-  )
+  Note: (p: NoteProps) => <Note mb={8} {...p} />
 }
