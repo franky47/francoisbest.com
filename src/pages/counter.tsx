@@ -7,15 +7,20 @@ import {
 } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import { NextPage } from 'next'
+import { queryTypes, useQueryState } from 'next-usequerystate'
 import React from 'react'
 import { PageLayout } from 'src/layouts/PageLayout'
 import { formatNumber } from 'src/ui/format'
 
 export interface CounterProps {}
 
-const ref = dayjs('2020-11-21T12:51:00+0100')
+// const ref = dayjs()
 
 const Counter: NextPage<CounterProps> = ({}) => {
+  const [ref] = useQueryState('ref', {
+    ...queryTypes.isoDateTime,
+    defaultValue: new Date('2020-11-21T12:51:00+0100')
+  })
   const now = dayjs()
   const hours = now.diff(ref, 'hour')
   const minutes = now.diff(ref, 'minute')
