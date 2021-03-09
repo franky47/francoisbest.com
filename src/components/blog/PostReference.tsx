@@ -1,12 +1,14 @@
+import { RouteLink } from '@47ng/chakra-next'
 import { Box, useColorModeValue } from '@chakra-ui/react'
 import { FiBookmark } from 'react-icons/fi'
-import { RouteLink } from '@47ng/chakra-next'
 import { PostPreview, PostPreviewProps } from './PostPreview'
 
 export interface PostReferenceProps extends PostPreviewProps {}
 
 export const PostReference: React.FC<PostReferenceProps> = ({ ...props }) => {
-  const pathWithHash = props.hash ? `${props.path}#${props.hash}` : props.path
+  const pathWithHash = props.hash
+    ? `${props.frontMatter.path}#${props.hash}`
+    : props.frontMatter.path
   return (
     <PostPreview
       as={p => (

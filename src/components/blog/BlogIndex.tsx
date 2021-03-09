@@ -1,24 +1,24 @@
-import React from 'react'
-import { useQueryState } from 'next-usequerystate'
+import { OutgoingLink } from '@47ng/chakra-next'
 import {
   Box,
   CloseButton,
-  Stack,
   Flex,
-  Text,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Stack,
+  Text,
   useColorModeValue
 } from '@chakra-ui/react'
-import { OutgoingLink } from '@47ng/chakra-next'
+import { useQueryState } from 'next-usequerystate'
+import React from 'react'
+import { FiRss, FiSearch, FiTag } from 'react-icons/fi'
+import { H1, Paragraph } from 'src/components/primitives/Typography'
+import { ExtendedPostFrontMatter } from 'src/types'
+import { useAccentStyles } from '../Accent'
 import { PostPreview } from './PostPreview'
 import { Tag } from './Tags'
-import { FiRss, FiTag, FiSearch } from 'react-icons/fi'
-import { ExtendedPostFrontMatter } from 'src/types'
-import { H1, Paragraph } from 'src/components/primitives/Typography'
-import { useAccentStyles } from '../Accent'
 
 // --
 
@@ -144,7 +144,7 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
         </Stack>
       )}
       {filteredPosts.map(post => (
-        <PostPreview key={post.url} {...post} mb={8} />
+        <PostPreview key={post.url} frontMatter={post} mb={8} />
       ))}
       {filteredPosts.length === 0 && (
         <Paragraph

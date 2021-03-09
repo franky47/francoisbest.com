@@ -1,27 +1,22 @@
-import React from 'react'
-import { Box, Text, Flex, Stack, StackProps } from '@chakra-ui/react'
 import { RouteLink } from '@47ng/chakra-next'
+import { Box, Flex, Stack, StackProps, Text } from '@chakra-ui/react'
+import React from 'react'
 import { H3, Paragraph } from 'src/components/primitives/Typography'
-import { ExtendedPostFrontMatter } from 'src/types'
-import { Tags } from './Tags'
-import { formatDate, formatPageViews } from 'src/ui/format'
 import { usePageViews } from 'src/hooks/usePageViews'
+import { ExtendedPostFrontMatter } from 'src/types'
+import { formatDate, formatPageViews } from 'src/ui/format'
+import { Tags } from './Tags'
 
-export interface PostPreviewProps
-  extends Omit<StackProps, 'title'>,
-    ExtendedPostFrontMatter {
+export interface PostPreviewProps extends Omit<StackProps, 'title'> {
   hash?: string
   linkable?: boolean
+  frontMatter: ExtendedPostFrontMatter
 }
 
 export const PostPreview: React.FC<PostPreviewProps> = ({
-  title,
-  publicationDate,
-  description,
-  path,
   hash,
-  tags = [],
   linkable = true,
+  frontMatter: { title, publicationDate, description, path, tags = [] },
   children,
   ...props
 }) => {

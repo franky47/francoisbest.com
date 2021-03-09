@@ -1,16 +1,16 @@
-import React from 'react'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
+import React from 'react'
+import { BlogIndex } from 'src/components/blog/BlogIndex'
+import { useURL } from 'src/hooks/useURL'
+import { PageLayout } from 'src/layouts/PageLayout'
 import { generateBlogPostsFeeds } from 'src/scripts/generateFeeds'
 import { generateSiteMap } from 'src/scripts/generateSiteMap'
 import { refreshPageViews } from 'src/scripts/refreshPageViews'
-import { BlogIndex } from 'src/components/blog/BlogIndex'
-import { PageLayout } from 'src/layouts/PageLayout'
-import { useURL } from 'src/hooks/useURL'
+import { renderPackageOpenGraphImage } from 'src/scripts/renderPackageOpenGraphImage'
+import { ExtendedPostFrontMatter } from 'src/types'
 // @ts-ignore
 import { frontMatter as allPosts } from './**/*.mdx'
-import { ExtendedPostFrontMatter } from 'src/types'
-import { renderPackageOpenGraphImage } from 'src/scripts/renderPackageOpenGraphImage'
 
 const posts: ExtendedPostFrontMatter[] = allPosts.filter(
   (post: ExtendedPostFrontMatter) =>
