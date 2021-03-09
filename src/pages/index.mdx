@@ -9,6 +9,7 @@ import { frontMatter as featured3 } from './posts/2020/password-reset-for-e2ee-a
 import { Experience, Client } from 'src/components/Experience'
 import { Button, useColorModeValue } from '@chakra-ui/react'
 import { ButtonRouteLink } from '@47ng/chakra-next'
+import { BrowserWindowFrame } from 'src/components/BrowserWindowFrame'
 
 # Hi, I'm François Best
 
@@ -128,18 +129,21 @@ I also love cycling, both for transportation and tourism. With my friends,
 I've toured across 7 countries on my bike, along the French Atlantic
 coast, in the Alps and in the Balkans:
 
-<Image
-  src={useColorModeValue(
-    '/images/balkans-tour-2019-light.jpg',
-    '/images/balkans-tour-2019-dark.jpg'
-  )}
-  alt="We rode 1010km, 11697m of elevation, for 65+ hours, across Albania, Montenegro, Bosnia and Herzegovina, Croatia, Slovenia and Italy."
-  rounded="md"
-  borderColor={useColorModeValue('gray.300', 'gray.700')}
-  borderWidth="1px"
-  shadow="md"
-  mb={8}
-/>
+<BrowserWindowFrame url="stravels.io" mb={12}>
+  <Image
+    src={useColorModeValue(
+      '/images/balkans-tour-2019-light.jpg',
+      '/images/balkans-tour-2019-dark.jpg'
+    )}
+    alt="We rode 1010km, 11697m of elevation, for 65+ hours, across Albania, Montenegro, Bosnia and Herzegovina, Croatia, Slovenia and Italy."
+    rounded="none"
+    mb={0}
+    //borderColor={useColorModeValue('gray.300', 'gray.700')}
+    //borderWidth="1px"
+    //shadow="md"
+    //mb={8}
+  />
+</BrowserWindowFrame>
 
 This is a screenshot of a progressive web app I made for us to track our
 journeys, it's called [Stravels](https://stravels.io) and allowed us to stitch
