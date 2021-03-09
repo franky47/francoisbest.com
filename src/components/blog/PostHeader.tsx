@@ -1,10 +1,10 @@
-import React from 'react'
 import { RouteLink } from '@47ng/chakra-next'
-import { Box, BoxProps, Badge, Flex, Text, Stack } from '@chakra-ui/react'
+import { Badge, Box, BoxProps, Flex, Stack, Text } from '@chakra-ui/react'
+import React from 'react'
 import { H1 } from 'src/components/primitives/Typography'
 import { PostMetadata } from 'src/types'
+import { formatDate, formatNumber } from 'src/ui/format'
 import { Tags } from './Tags'
-import { formatDate, formatPageViews } from 'src/ui/format'
 
 export interface PostHeaderProps extends Omit<BoxProps, 'title'>, PostMetadata {
   views?: number
@@ -37,7 +37,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
             {views > 0 && (
               <>
                 &nbsp;•&nbsp;
-                {formatPageViews(views)} views
+                {formatNumber(views)} views
               </>
             )}
           </Text>

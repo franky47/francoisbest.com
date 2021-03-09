@@ -30,8 +30,8 @@ export function formatTime(date: Date | string | number) {
 
 const numberFormat = Intl.NumberFormat(LOCALE)
 
-export function formatPageViews(views: number) {
-  return numberFormat.format(views)
+export function formatNumber(value: number) {
+  return numberFormat.format(value)
 }
 
 export function formatSEOKeyValues(dict: Record<string, string>) {

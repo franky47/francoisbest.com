@@ -4,7 +4,7 @@ import React from 'react'
 import { H3, Paragraph } from 'src/components/primitives/Typography'
 import { usePageViews } from 'src/hooks/usePageViews'
 import { ExtendedPostFrontMatter } from 'src/types'
-import { formatDate, formatPageViews } from 'src/ui/format'
+import { formatDate, formatNumber } from 'src/ui/format'
 import { Tags } from './Tags'
 
 export interface PostPreviewProps extends Omit<StackProps, 'title'> {
@@ -45,7 +45,7 @@ export const PostPreview: React.FC<PostPreviewProps> = ({
             {views && views > 0 && (
               <>
                 &nbsp;•&nbsp;
-                {formatPageViews(views)} views
+                {formatNumber(views)} views
               </>
             )}
           </Text>
