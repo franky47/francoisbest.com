@@ -1,19 +1,20 @@
-import React from 'react'
-import { H2 } from 'src/components/primitives/Typography'
 import { OutgoingLink, RouteLink } from '@47ng/chakra-next'
 import {
-  Text,
+  Divider,
+  HStack,
   List,
   ListItem,
-  useColorModeValue,
-  HStack
+  Text,
+  useColorModeValue
 } from '@chakra-ui/react'
-import { useLinkColor } from 'src/ui/theme'
-import { formatDate } from 'src/ui/format'
-import { useUTMPathLink } from 'src/hooks/useUTMLink'
-import { Article, GroupedReadingList } from './defs'
 import dayjs from 'dayjs'
+import React from 'react'
+import { H2 } from 'src/components/primitives/Typography'
+import { useUTMPathLink } from 'src/hooks/useUTMLink'
+import { formatDate } from 'src/ui/format'
+import { useLinkColor } from 'src/ui/theme'
 import { useVisitedLinkColor } from 'src/ui/theme/foundations/colors'
+import { Article, GroupedReadingList } from './defs'
 
 export interface ArticleListProps {
   showDayHeadings?: boolean
@@ -33,13 +34,28 @@ export const ArticleList: React.FC<ArticleListProps> = ({
         return (
           <React.Fragment key={date}>
             {showDayHeadings && (
-              <H2 mt={16} id={isoDate}>
+              <H2
+                fontSize="xs"
+                fontWeight="normal"
+                color={useColorModeValue('gray.500', 'gray.600')}
+                mt={16}
+                id={isoDate}
+                display="flex"
+                alignItems="center"
+              >
+                <Divider />
                 {linkDayHeadings ? (
-                  <RouteLink to={`/reading-list/archives/${isoDate}`}>
+                  <RouteLink
+                    to={`/reading-list/archives/${isoDate}`}
+                    flexShrink={0}
+                    ml={4}
+                  >
                     {date}
                   </RouteLink>
                 ) : (
-                  date
+                  <Text as="span" flexShrink={0} ml={4}>
+                    {date}
+                  </Text>
                 )}
               </H2>
             )}
