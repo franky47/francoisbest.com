@@ -1,7 +1,7 @@
 import {
   Box,
+  SimpleGrid,
   Stat,
-  StatGroup,
   StatHelpText,
   StatNumber
 } from '@chakra-ui/react'
@@ -14,12 +14,10 @@ import { formatNumber } from 'src/ui/format'
 
 export interface CounterProps {}
 
-// const ref = dayjs()
-
 const Counter: NextPage<CounterProps> = ({}) => {
   const [ref] = useQueryState('ref', {
     ...queryTypes.isoDateTime,
-    defaultValue: new Date('2020-11-21T12:51:00+0100')
+    defaultValue: new Date('2020-11-21T11:51:00Z')
   })
   const now = dayjs()
   const hours = now.diff(ref, 'hour')
@@ -40,7 +38,7 @@ const Counter: NextPage<CounterProps> = ({}) => {
   return (
     <PageLayout maxW="6xl">
       <Box my={12}>
-        <StatGroup textAlign="center" my={8}>
+        <SimpleGrid columns={[1, 3]} rowGap={8} textAlign="center">
           <Stat>
             <StatNumber>{months}</StatNumber>
             <StatHelpText>months</StatHelpText>
@@ -53,8 +51,6 @@ const Counter: NextPage<CounterProps> = ({}) => {
             <StatNumber>{days}</StatNumber>
             <StatHelpText>days</StatHelpText>
           </Stat>
-        </StatGroup>
-        <StatGroup textAlign="center" my={8}>
           <Stat>
             <StatNumber>{formatNumber(hours)}</StatNumber>
             <StatHelpText>hours</StatHelpText>
@@ -69,7 +65,7 @@ const Counter: NextPage<CounterProps> = ({}) => {
             </StatNumber>
             <StatHelpText>seconds</StatHelpText>
           </Stat>
-        </StatGroup>
+        </SimpleGrid>
       </Box>
     </PageLayout>
   )

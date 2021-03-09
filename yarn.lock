@@ -8736,10 +8736,10 @@ next-transpile-modules@^6.0.0:
     enhanced-resolve "^5.3.2"
     pkg-dir "^5.0.0"
 
-next-usequerystate@^1.4.0-beta.1:
-  version "1.4.0-beta.1"
-  resolved "https://registry.yarnpkg.com/next-usequerystate/-/next-usequerystate-1.4.0-beta.1.tgz#8931e36a7b93a86715982381eaf58853dd65145f"
-  integrity sha512-MSvCQ4oVAGMPnLQc1nfvKtKCdQtdIFGTJFE8vJz8sxm6l6e5Yu2nQ9Bs/UmxrQYBzUNpLSbXEePZr56A8olPXA==
+next-usequerystate@^1.4.0-beta.2:
+  version "1.4.0-beta.2"
+  resolved "https://registry.yarnpkg.com/next-usequerystate/-/next-usequerystate-1.4.0-beta.2.tgz#97792a2527b49f540ae20ad7ef8f0f53950eb7fe"
+  integrity sha512-48/gUAUWfvcOsc0R4ex4lRAWOScpFrHmGOs6aub6+iweA/JHbWGRcEW1qi+EV53KceOvpnktPWNko3pXJFaZrw==
 
 next@^10.0.3:
   version "10.0.3"
