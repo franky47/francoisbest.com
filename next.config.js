@@ -38,8 +38,8 @@ module.exports = withPlugins(
       remarkPlugins: [
         require('remark-slug'),
         require('remark-footnotes'),
-        require('remark-code-titles')
-        //require('@fec/remark-a11y-emoji')
+        require('remark-code-titles'),
+        require('@fec/remark-a11y-emoji')
       ],
       rehypePlugins: [require('mdx-prism')],
       extendFrontMatter: {
