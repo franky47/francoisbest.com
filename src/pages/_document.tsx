@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 import Favicons from 'src/components/head/Favicons'
 import { useURL } from 'src/hooks/useURL'
 
@@ -32,6 +32,7 @@ class MyDocument extends Document {
             href={useURL('/posts/feed/articles.json')}
             title="Articles by François Best (JSON)"
           />
+          <meta name="twitter:dnt" content="on" />
         </Head>
         <body>
           <Main />
