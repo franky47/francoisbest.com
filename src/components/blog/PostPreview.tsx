@@ -42,7 +42,7 @@ export const PostPreview: React.FC<PostPreviewProps> = ({
             color={publicationDate ? 'gray.600' : 'orange.500'}
           >
             {formatDate(publicationDate, 'DRAFT')}
-            {views && views > 0 && (
+            {!!views && views > 0 && (
               <>
                 &nbsp;•&nbsp;
                 {formatNumber(views)} views
