@@ -4,7 +4,8 @@ import { queryTypes, useQueryState } from 'next-usequerystate'
 import React from 'react'
 import { PostReference } from 'src/components/blog/PostReference'
 import { SHA256Avatar, useHash, Variants } from 'src/components/SHA256Avatar'
-import { PageLayout } from 'src/layouts/PageLayout'
+import { useURL } from 'src/hooks/useURL'
+import PageLayoutWithSEO from 'src/layouts/PageLayout'
 // @ts-ignore
 import { frontMatter as hashvatarsPost } from './posts/2021/hashvatars.mdx'
 
@@ -30,7 +31,21 @@ const Hashvatar: NextPage<HashvatarProps> = ({}) => {
   }, [hash])
 
   return (
-    <PageLayout maxW="2xl">
+    <PageLayoutWithSEO
+      frontMatter={{
+        title: 'Hashvatar',
+        description: 'Generate your own SHA-256 based avatar',
+        url: useURL('/hashvatar'),
+        ogImage: {
+          url: useURL(`/images/hashvatar/og.jpg`),
+          width: 1280,
+          height: 720
+        },
+        containerProps: {
+          maxW: '2xl'
+        }
+      }}
+    >
       <SHA256Avatar
         w={64}
         h={64}
@@ -115,7 +130,7 @@ const Hashvatar: NextPage<HashvatarProps> = ({}) => {
       </Flex>
       <Text my={8}>Read about how they are made:</Text>
       <PostReference frontMatter={hashvatarsPost} />
-    </PageLayout>
+    </PageLayoutWithSEO>
   )
 }
 
