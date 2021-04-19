@@ -11,7 +11,6 @@ import {
   useColorModeValue,
   useToken
 } from '@chakra-ui/react'
-import { queryTypes, useQueryState } from 'next-usequerystate'
 import React from 'react'
 
 export async function sha256(message: string) {
@@ -311,14 +310,21 @@ export function useHash(
 export const InteractiveAvatar: React.FC<SHA256AvatarProps> = ({
   ...props
 }) => {
-  const [text, setText] = useQueryState('text', {
-    defaultValue: 'Hello, world!',
-    ...queryTypes.string
-  })
+  const [text, setText] = React.useState('Hello, world!')
+
   const hash = useHash(
     text,
     '315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3'
   )
+  React.useEffect(() => {
+    try {
+      const query = new URLSearchParams(location.search)
+      const demo = query.get('demo')
+      if (demo) {
+        setText(demo)
+      }
+    } catch {}
+  }, [])
 
   const hashText = React.useMemo(() => {
     return [hash.slice(0, hash.length / 2), hash.slice(hash.length / 2)].join(
