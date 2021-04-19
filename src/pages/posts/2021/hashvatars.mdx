@@ -11,8 +11,10 @@ import {
   AdjustableRadiusFactorSHA256Avatar
 } from 'src/components/SHA256Avatar'
 import { FiAlertTriangle } from 'react-icons/fi'
+import { ColorModeSwitch } from 'src/components/ColorModeSwitch'
 
-If you [follow me on Twitter](https://twitter.com/fortysevenfx), you may be aware of my weird [weekend projects](https://twitter.com/search?q=%40fortysevenfx%20%22weekend%20project%22).
+If you [follow me on Twitter](https://twitter.com/fortysevenfx), you may be aware
+of my weird [weekend projects](https://twitter.com/search?q=%40fortysevenfx%20%22weekend%20project%22).
 
 They are little challenges I give myself, usually without too many stakes
 involved, and with small enough a scope so that I can ship it in a day or two,
@@ -32,21 +34,34 @@ but that plays nice in a rounded avatar UI component.
 
 This is what I ended up with:<br/><small opacity={0.75}>Change the input below to see how the SHA-256 hash changes the render</small>
 
+<Flex
+  fontSize="sm"
+  justifyContent="flex-end"
+  alignItems="center"
+  mb={-6}
+  sx={{
+    '& em': {
+      color: 'gray.500'
+    }
+  }}
+>
+  <em>Toggle Dark Mode:</em> <ColorModeSwitch ml={2} />
+</Flex>
+
 <Box mb={8}>
   <InteractiveAvatar w={64} h={64} mx="auto" my={8} variant="stagger" />
 </Box>
 
-If you're interested to see how it's done, read on. Otherwise you can just
-play with a more detailed [interactive example here](/hashvatar).
+If you are allergic to maths and trigonometry, feel free to play with the more
+detailed [interactive example here](/hashvatar). Otherwise, let's dive into
+how it's done.
 
 ## Space Partitioning
 
-<Note title="Content warning" icon={FiAlertTriangle}>
-  Maths &amp; trigonometry.
-</Note>
-
-Cartesian (X-Y) approaches would lose information on the corners when rounded,
-so we're going to use polar (angle-radius) coordinates instead.
+Many of the existing solutions produce square images, yet avatars are often
+displayed as circles. They would lose information on the corners when rounded,
+so instead of a cartesian (x-y) approach, we're going to use polar (angle-radius)
+coordinates instead.
 
 A grid in cartesian space maps to concentric circles and pie-like cuts in
 polar space.
@@ -58,7 +73,7 @@ and would only leave 1 bit of "value" to represent in each section
 
 Instead, we're going to divide the circle into 32 sections:
 
-- 4 concentric circles
+- 4 concentric rings
 - 8 pie-like cuts
 
 The resulting SVG code for such a grid looks like this (in a React component):
@@ -95,7 +110,7 @@ export const SHA256Avatar = () => {
 }
 ```
 
-Doing this naively, with each concentric circle's radius being 1/4th of the
+Doing this naively, with each concentric ring's radius being 1/4th of the
 outermost/largest one gives us this:
 
 <SHA256Avatar
@@ -108,9 +123,9 @@ outermost/largest one gives us this:
   showSections={false}
 />
 
-There are some issues: the innermost circle sections are tiny compared to the outermost.
+There are some issues: the innermost ring sections are tiny compared to the outermost.
 
-If we try to calculate the radii so that each section has an equal area, we get
+If we calculate the radii so that each section has an equal area, we get
 the following result:
 
 <SHA256Avatar
@@ -122,6 +137,25 @@ the following result:
   showGrid
   showSections={false}
 />
+
+<Note title="Math Details" status="info">
+  Equal areas are calculated by solving a system of equations.
+  <ol my={2}>
+    <li>
+      Each section area is 1/32nd of the area of the whole circle. Assuming the
+      outer circle has a radius of 1, that's an area of <code>π/32</code>.
+    </li>
+    <li>
+      To compute the associated radius for a ring, we express the pie slice area
+      with the outer radius R and subtract the pie slice area with the inner
+      radius r: <code>Pi R^2 - Pi r^2</code>, then we iterate from the outside
+      in.
+    </li>
+  </ol>
+  <a href="https://www.desmos.com/calculator/cenpmgvqdy" fontSize="sm">
+    More details
+  </a>
+</Note>
 
 Not very pleasing either. How about a mix of both ?<br/><small>(Play with the slider to blend between equal radii and equal areas)</small>
 
@@ -149,18 +183,16 @@ As an example, let's take the following hash, the output of `sha256("Hello, worl
 315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3
 ```
 
-We can split it in 32 blocks of 8 bits (2 hexadecimal digits), and map them
-to the circle sections:
+We can split it in 32 blocks of 8 bits (2 hexadecimal digits), and organise them by
+4 blocks of 8 to map to the rings:
 
 ```
-31 5f 5b db 76 d0 78 c4  Outer circle
-3b 8a c0 06 4e 4a 01 64  Middle-outer circle
-61 2b 1f ce 77 c8 69 34  Middle-inner circle
-5b fc 94 c7 58 94 ed d3  Inner circle
 12 o'clock -> clockwise
+31 5f 5b db 76 d0 78 c4  Outer ring
+3b 8a c0 06 4e 4a 01 64  Middle-outer ring
+61 2b 1f ce 77 c8 69 34  Middle-inner ring
+5b fc 94 c7 58 94 ed d3  Inner ring
 ```
-
-This mapping looks like this:
 
 <SHA256Avatar
   w={64}
@@ -173,14 +205,14 @@ This mapping looks like this:
   hash="315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3"
 />
 
-In order to fill each section with a different color, we generate an SVG `<path>` polygon.
+In order to fill each section with a different colour, we generate an SVG `<path>` polygon.
 Each section resembles a pie/pizza slice, going from the center
 of the circle to a given radius, and covering 1/8th of the circle.
 
 Since SVG uses cartesian coordinates, we'll have to convert our polar logic
 into cartesian SVG path commands:
 
-```tsx
+```tsx{31,32,33,34,35,36}
 interface Point {
   x: number
   y: number
@@ -188,8 +220,8 @@ interface Point {
 
 function polarPoint(radius: number, angle: number): Point {
   // Angle is expressed as [0,1[
-  // -Pi/2 to start at noon and go clockwise
-  // Trigonometric rotation + inverted Y = clockwise rotation, nifty!
+  // Note: we subtract pi / 2 to start at noon and go clockwise
+  // Trigonometric rotation + inverted Y axis = clockwise rotation, nifty!
   return {
     x: radius * Math.cos(2 * Math.PI * angle - Math.PI / 2),
     y: radius * Math.sin(2 * Math.PI * angle - Math.PI / 2)
@@ -227,13 +259,13 @@ const Section = ({ index, radius }) => {
   be overlaid on top of the outer ones in z-index.
 </Note>
 
-## Color Mapping
+## Colour Mapping
 
 Now we can turn each section's byte value into a colour.
 
-For that, we have many options. 8 bits could map directly to 256 colors like the
+For that, we have many options. 8 bits could map directly to 256 colours like the
 old Windows systems, but that would require a lookup table. Instead, we can
-generate colours using the HSL CSS function.
+generate colours using the [`hsl()`](<https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl()>) CSS function.
 
 Hue is the component that has the most visual impact, while Saturation and
 Lightness can be used to add little variants to each section.
@@ -261,6 +293,20 @@ function mapValueToColor(value) {
 
 We can adjust the range for each component to get nice results:
 
+<Flex
+  fontSize="sm"
+  justifyContent="flex-end"
+  alignItems="center"
+  mb={-6}
+  sx={{
+    '& em': {
+      color: 'gray.500'
+    }
+  }}
+>
+  <em>Toggle Dark Mode:</em> <ColorModeSwitch ml={2} />
+</Flex>
+
 <SHA256Avatar
   w={64}
   h={64}
@@ -282,7 +328,7 @@ We can adjust the range for each component to get nice results:
 />
 
 <Note title="About accessibility" status="info">
-  The color mapping function could use a high-contrast version that focuses on
+  The colour mapping function could use a high-contrast version that focuses on
   the Luminosity channel rather than the Hue.
 </Note>
 
@@ -328,7 +374,7 @@ function useSouls(bytes: string[]) {
 // ringSoul 3:  -0.9529411764705882
 ```
 
-These values give us additional parameters to play with in the color calculation.
+These values give us additional parameters to play with in the colour calculation.
 
 Notably, we can _"seed"_ the Hue with the hash soul, and introduce hue varitions
 per-ring with each ring soul, and with the value itself.
@@ -350,6 +396,21 @@ export function mapValueToColor({ value, hashSoul, ringSoul }) {
 
 We can also introduce structural variations, by changing each ring's starting
 angle based on the ring soul:
+
+<Flex
+  fontSize="sm"
+  justifyContent="flex-end"
+  alignItems="center"
+  mt={-8}
+  mb={4}
+  sx={{
+    '& em': {
+      color: 'gray.500'
+    }
+  }}
+>
+  <em>Toggle Dark Mode:</em> <ColorModeSwitch ml={2} />
+</Flex>
 
 <Box mb={8}>
   <Flex justifyContent="space-around" mb={2}>
@@ -396,7 +457,7 @@ angle based on the ring soul:
 </Box>
 
 Not only does this help give a bit more uniqueness to the avatar, it also helps
-with accessibility for color-blind people
+with accessibility for colour-blind people
 
 ## A Bit Of Fun
 
@@ -448,7 +509,7 @@ play with each ring's starting angle, we can obtain interesting variations:
 
 ## Going Further
 
-With a bit of tweaking in the color mapping value, we can easily extend this
+With a bit of tweaking in the colour mapping value, we can easily extend this
 technique to arbitrary hash lengths (as long as said length is divisible by 32).
 
 It so happens that when I started this project, Centralized Coin was using SHA-256,
@@ -462,6 +523,8 @@ in action in the
 or play with the variants yourself [on the playground](/hashvatar).
 
 I will publish the code as an NPM package later, in the mean time the source
-[code for this article](https://github.com/franky47/francoisbest.com/blob/next/src/pages/posts/2021/hashvatars.mdx) is on GitHub, as well as the [component itself](https://github.com/franky47/francoisbest.com/blob/next/src/components/Sha256Avatar.tsx).
+[code for this article](https://github.com/franky47/francoisbest.com/blob/next/src/pages/posts/2021/hashvatars.mdx)
+is on GitHub, as well as the
+[component itself](https://github.com/franky47/francoisbest.com/blob/next/src/components/SHA256Avatar.tsx).
 
-[Follow me on Twitter](https://twitter.com/fortysevenfx) for updates.
+[Follow me on Twitter](https://twitter.com/fortysevenfx) for updates and more weekend projects.
