@@ -4239,7 +4239,7 @@ chalk@4.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0:
+chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.0.tgz#4e14870a618d9e2edd97dd8345fd9d9dc315646a"
   integrity sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
@@ -8746,10 +8746,10 @@ next-transpile-modules@^6.0.0:
     enhanced-resolve "^5.3.2"
     pkg-dir "^5.0.0"
 
-next-usequerystate@^1.4.0-beta.2:
-  version "1.4.0-beta.2"
-  resolved "https://registry.yarnpkg.com/next-usequerystate/-/next-usequerystate-1.4.0-beta.2.tgz#97792a2527b49f540ae20ad7ef8f0f53950eb7fe"
-  integrity sha512-48/gUAUWfvcOsc0R4ex4lRAWOScpFrHmGOs6aub6+iweA/JHbWGRcEW1qi+EV53KceOvpnktPWNko3pXJFaZrw==
+next-usequerystate@^1.4.0-beta.4:
+  version "1.4.0-beta.4"
+  resolved "https://registry.yarnpkg.com/next-usequerystate/-/next-usequerystate-1.4.0-beta.4.tgz#4a5ee38cdb328e628b373321d2933f25f976db1a"
+  integrity sha512-+skZKpB8iYF7+PjcFstEm7Ld49eCkl5QpzrQI38vSR/o4aHW1pOrkpZ/NguRNW1xGFCuGJaMAJJ83eoxEla13A==
 
 next@^10.0.3:
   version "10.0.3"
