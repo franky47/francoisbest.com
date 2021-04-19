@@ -209,6 +209,12 @@ In order to fill each section with a different colour, we generate an SVG `<path
 Each section resembles a pie/pizza slice, going from the center
 of the circle to a given radius, and covering 1/8th of the circle.
 
+<Note>
+  The reason we can get away with all sections going to the center is because of
+  our mapping order: by laying out from the outside in, the inner sections will
+  be overlaid on top of the outer ones in z-index.
+</Note>
+
 Since SVG uses cartesian coordinates, we'll have to convert our polar logic
 into cartesian SVG path commands:
 
@@ -253,12 +259,6 @@ const Section = ({ index, radius }) => {
 }
 ```
 
-<Note>
-  The reason we can get away with all sections going to the center is because of
-  our mapping order: by laying out from the outside in, the inner sections will
-  be overlaid on top of the outer ones in z-index.
-</Note>
-
 ## Colour Mapping
 
 Now we can turn each section's byte value into a colour.
@@ -286,7 +286,7 @@ function mapValueToColor(value) {
   const normalizedL = colorL / 4
   const h = 360 * normalizedH
   const s = 50 + 50 * normalizedS // Saturation between 50 and 100%
-  const l = 40 + 30 * normalizedL // Lightness between 50 and 80%
+  const l = 40 + 30 * normalizedL // Lightness between 40 and 70%
   return `hsl(${h}, ${s}%, ${l}%)`
 }
 ```
@@ -321,8 +321,8 @@ We can adjust the range for each component to get nice results:
     const normalizedS = colorS / 4
     const normalizedL = colorL / 4
     const h = 360 * normalizedH
-    const s = 50 + 50 * normalizedS // Saturation between 50 and 100%
-    const l = 40 + 30 * normalizedL // Lightness between 50 and 80%
+    const s = 50 + 50 * normalizedS
+    const l = 40 + 30 * normalizedL
     return `hsl(${h}, ${s}%, ${l}%)`
   }}
 />
@@ -379,7 +379,7 @@ These values give us additional parameters to play with in the colour calculatio
 Notably, we can _"seed"_ the Hue with the hash soul, and introduce hue varitions
 per-ring with each ring soul, and with the value itself.
 
-```ts
+```ts{8,9,10}
 export function mapValueToColor({ value, hashSoul, ringSoul }) {
   const colorH = value >> 4
   const colorS = (value >> 2) & 0x03
@@ -387,7 +387,9 @@ export function mapValueToColor({ value, hashSoul, ringSoul }) {
   const normalizedH = colorH / 16
   const normalizedS = colorS / 4
   const normalizedL = colorL / 4
-  const h = 360 * hashSoul + 120 * ringSoul + 30 * normalizedH
+  const h = 360 * hashSoul
+          + 120 * ringSoul
+          +  30 * normalizedH
   const s = 50 + 50 * normalizedS
   const l = 40 + 30 * normalizedL
   return `hsl(${h}, ${s}%, ${l}%)`
@@ -426,8 +428,8 @@ angle based on the ring soul:
         const normalizedS = colorS / 4
         const normalizedL = colorL / 4
         const h = 360 * normalizedH
-        const s = 50 + 50 * normalizedS // Saturation between 50 and 100%
-        const l = 50 + 20 * normalizedL // Lightness between 50 and 70%
+        const s = 50 + 50 * normalizedS
+        const l = 50 + 20 * normalizedL
         return `hsl(${h}, ${s}%, ${l}%)`
       }}
     />
