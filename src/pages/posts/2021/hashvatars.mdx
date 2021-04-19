@@ -347,12 +347,12 @@ A balance between order and chaos.
 
 In order to fix that, we compute the **soul** of the hash, using XOR operations.
 
-1. We XOR all the bytes of the hash together to compute the hash soul
-2. For each ring, we XOR the bytes that form this ring's section to compute the ring's soul. _[(horcruxes?)](/horcrux)_
+1. We XOR all the bytes of the hash together to compute the **hash soul**
+2. For each ring, we XOR the bytes that form this ring's section to compute the **ring's soul**. _[(horcruxes?)](/horcrux)_
 
 ```ts
 // Each soul is between -1 and 1
-function useSouls(bytes: string[]) {
+function computeSouls(bytes: string[]) {
   const ringLength = Math.round(bytes.length / 4)
   const rings = [
     bytes.slice(0, ringLength),
@@ -397,8 +397,8 @@ export function mapValueToColor({ value, hashSoul, ringSoul }) {
 }
 ```
 
-We can also introduce structural variations, by changing each ring's starting
-angle based on the ring soul:
+We can also introduce structural variations by changing each ring's starting
+angle based on the ring soul, to create a staggering effect:
 
 <Flex
   fontSize="sm"
