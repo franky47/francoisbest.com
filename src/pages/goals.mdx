@@ -24,22 +24,41 @@ accountability, and will update them as I go along.
 
 ## Writing & Sharing
 
-<List spacing={3}>
-  <Goal progress={1} progressProps={{ max: 47 }}>
-    Write one article a week{' '}
-    <Text as="em" fontSize="sm" color="gray.600">
-      (5 weeks off allowed)
+<List spacing={8}>
+  <ListItem>
+    <Goal as="div" status="done">
+      Speak at a virtual conference (
+      <a href="mailto:contact+conf@francoisbest.com">contact</a>)
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-04-29: Presenting <a href="https://chiffre.io">Chiffre.io</a> in a
+      Fission Tech Talk <em>(video link coming soon)</em>.
     </Text>
-  </Goal>
-  <Goal progress={0} progressProps={{ max: 4 }}>
-    Write four long-form articles covering a topic in depth
-  </Goal>
+  </ListItem>
+  <ListItem>
+    <Goal as="div" status="failed" progress={2} progressProps={{ max: 47 }}>
+      Write one article a week{' '}
+      <Text as="em" fontSize="sm" color="gray.600">
+        (5 weeks off allowed)
+      </Text>
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-04-19: Marking this one as failed, too ambitious.
+    </Text>
+  </ListItem>
+  <ListItem>
+    <Goal as="div" status="inProgress" progress={1} progressProps={{ max: 4 }}>
+      Write four long-form articles covering a topic in depth
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-04-19:{' '}
+      <a href="/posts/2021/hashvatars">
+        Representing SHA-256 Hashes as Avatars
+      </a>
+    </Text>
+  </ListItem>
   <Goal>
     Create a newsletter for my <a href="/reading-list">reading list</a>
-  </Goal>
-  <Goal>
-    Speak at a virtual conference (
-    <a href="mailto:contact+conf@francoisbest.com">contact</a>)
   </Goal>
 </List>
 
@@ -49,22 +68,20 @@ accountability, and will update them as I go along.
 
 <List spacing={3}>
   <Goal status="done">Add a public list of goals</Goal>
-  <Goal>Add a portfolio page on this website</Goal>
-  <Goal>
-    Ship <a href="https://chiffre.io">Chiffre.io</a> in Q1 2020
+  <Goal status="failed">
+    Ship <a href="https://chiffre.io">Chiffre.io</a> in Q1 2021
   </Goal>
   <Goal progress={0} progressProps={{ max: 50 }}>
     Make 50€ MRR with <a href="https://chiffre.io">Chiffre.io</a> to cover the
     operating costs
   </Goal>
+  <Goal>Add a portfolio page on this website</Goal>
   <Goal>Create a digital good to sell online (most likely an e-book).</Goal>
 </List>
 
 <br />
 
 ## Achievements
-
-### 2020
 
 import {
   FiPackage,
@@ -73,8 +90,34 @@ import {
   FiUser,
   FiUsers,
   FiTwitter,
-  FiBarChart2
+  FiFileText,
+  FiBarChart2,
+  FiVideo,
+  FiTool
 } from 'react-icons/fi'
+
+### 2021
+
+<TimelineItem icon={FiVideo}>Recorded my first tech talk online</TimelineItem>
+<TimelineItem icon={FiTool}>
+  Built and shipped <a href="https://usefoggy.vercel.app">Foggy</a> in 24h, a
+  micro-SaaS to get an OpenGraph image link from a Figma frame in one click.
+</TimelineItem>
+<TimelineItem icon={FiEdit2}>
+  Wrote <a href="/posts">3 blog posts</a>
+</TimelineItem>
+<TimelineItem icon={FiFileText}>
+  Read <a href="/reading-list/archives">630 blog posts</a>
+</TimelineItem>
+<TimelineItem icon={FiTwitter} skipTrail>
+  Increased my followers count on{' '}
+  <a href="https://twitter.com/fortysevenfx">Twitter</a>{' '}
+  <Text as="span" fontSize="xs" color="gray.600">
+    (1200 -> 1450)
+  </Text>
+</TimelineItem>
+
+### 2020
 
 <TimelineItem icon={FiUsers}>Became a dad ❤️</TimelineItem>
 <TimelineItem icon={FiEdit2}>
