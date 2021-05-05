@@ -1,9 +1,9 @@
-import React from 'react'
-import { Box, BoxProps, Image, useColorModeValue } from '@chakra-ui/react'
 import { OutgoingLink } from '@47ng/chakra-next'
-import Head from 'next/head'
-import { FiPlay } from 'react-icons/fi'
+import { Box, BoxProps, Image, useColorModeValue } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import Head from 'next/head'
+import React from 'react'
+import { FiPlay } from 'react-icons/fi'
 
 export interface SpotifyAlbumData {
   name: string
@@ -126,7 +126,15 @@ export const SpotifyAlbum: React.FC<SpotifyAlbumProps> = ({
               justifyContent="center"
               alignItems="center"
             >
-              <Box as={FiPlay} color="white" w="20%" h="20%" className="svg" />
+              <Box
+                as={FiPlay}
+                role="img"
+                aria-hidden
+                color="white"
+                w="20%"
+                h="20%"
+                className="svg"
+              />
             </Overlay>
           </AlbumCover>
         </OutgoingLink>

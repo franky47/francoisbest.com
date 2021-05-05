@@ -4,6 +4,8 @@ import {
   ChakraProps,
   CloseButton,
   Flex,
+  FormControl,
+  FormLabel,
   Input,
   InputGroup,
   InputLeftElement,
@@ -61,6 +63,8 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
       <Flex alignItems="baseline">
         <H1>Articles</H1>
         <Stack
+          as="nav"
+          aria-label="RSS/Atom feeds"
           isInline
           alignItems="center"
           fontSize="xs"
@@ -73,7 +77,7 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
             h={4}
             color="orange.500"
             role="img"
-            aria-label="RSS/Atom feeds"
+            aria-hidden
           />
           <OutgoingLink href="/posts/feed/rss.xml">RSS</OutgoingLink>
           <OutgoingLink href="/posts/feed/atom.xml">Atom</OutgoingLink>
@@ -83,39 +87,44 @@ export const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
       <Paragraph>
         I write about TypeScript, Node.js, React, security and privacy.
       </Paragraph>
-      <InputGroup mb={2}>
-        <InputLeftElement
-          pointerEvents="none"
-          fontSize="1.2em"
-          px={0}
-          children={<FiSearch />}
-          color={
-            search.length > 0
-              ? useColorModeValue('gray.600', 'gray.400')
-              : useColorModeValue('gray.400', 'gray.600')
-          }
-        />
-        <Input
-          value={search}
-          onChange={(e: any) => setSearch(e.target.value)}
-          placeholder="Search articles"
-        />
-        {search.length > 1 && (
-          <InputRightElement
-            children={
-              <CloseButton
-                rounded="full"
-                size="sm"
-                onClick={() => setSearch('')}
-              />
+      <FormControl>
+        <FormLabel>Search articles</FormLabel>
+        <InputGroup mb={2}>
+          <InputLeftElement
+            pointerEvents="none"
+            fontSize="1.2em"
+            px={0}
+            children={<FiSearch aria-hidden />}
+            color={
+              search.length > 0
+                ? useColorModeValue('gray.600', 'gray.400')
+                : useColorModeValue('gray.400', 'gray.600')
             }
           />
-        )}
-      </InputGroup>
+          <Input
+            value={search}
+            onChange={(e: any) => setSearch(e.target.value)}
+            placeholder="Search articles"
+          />
+          {search.length > 1 && (
+            <InputRightElement
+              children={
+                <CloseButton
+                  rounded="full"
+                  size="sm"
+                  onClick={() => setSearch('')}
+                />
+              }
+            />
+          )}
+        </InputGroup>
+      </FormControl>
       {tag && <TagInfoBox tag={tag} onClear={() => setTag(null)} />}
-      {filteredPosts.map(post => (
-        <PostPreview key={post.url} frontMatter={post} mb={8} />
-      ))}
+      <Stack as="section" role="feed">
+        {filteredPosts.map(post => (
+          <PostPreview key={post.url} frontMatter={post} mb={8} />
+        ))}
+      </Stack>
       {filteredPosts.length === 0 && <NoResults />}
     </>
   )

@@ -42,6 +42,7 @@ export const PostReference: React.FC<PostReferenceProps> = ({ ...props }) => {
         w={6}
         h={6}
         role="img"
+        aria-hidden
         position="absolute"
         color={useColorModeValue('gray.400', 'gray.500')}
         fill={useColorModeValue('white', 'gray.900')}

@@ -145,6 +145,8 @@ export const Note: React.FC<NoteProps> = ({
           {Icon && (
             <Box
               as={Icon}
+              role="img"
+              aria-hidden
               w={5}
               h={5}
               color={accent[colorMode]}
