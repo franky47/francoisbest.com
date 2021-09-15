@@ -7,7 +7,7 @@ import { frontMatter as featured1 } from './posts/2020/dark-mode-for-excalidraw.
 import { frontMatter as featured2 } from './posts/2020/the-security-of-github-actions.mdx'
 import { frontMatter as featured3 } from './posts/2020/password-reset-for-e2ee-apps.mdx'
 import { Experience, Client } from 'src/components/Experience'
-import { Button, useColorModeValue } from '@chakra-ui/react'
+import { Button, useColorModeValue, Icon } from '@chakra-ui/react'
 import { ButtonRouteLink } from '@47ng/chakra-next'
 import { BrowserWindowFrame } from 'src/components/BrowserWindowFrame'
 
@@ -18,8 +18,8 @@ I am a developer, an [open source](/open-source) lover and a writer from France.
 This is my digital garden, where I write about the things I'm working on and
 share what I've learned.
 
-<!--
 import { FiZap, FiMail } from 'react-icons/fi'
+
 <Note
   status="success"
   icon={FiZap}
@@ -45,7 +45,6 @@ import { FiZap, FiMail } from 'react-icons/fi'
     Contact me
   </ButtonRouteLink>
 </Note>
--->
 
 <Note>
   New year, new content:
@@ -202,14 +201,11 @@ import GaelLogo from 'src/../public/images/icons/gael.svg'
           tags={['Next.js', 'TypeScript', 'Jamstack', 'a11y']}
         />
       </ul>
-      {/* <Note status="success" title="Add your business">
-        <p my={4}>
-          I'm currently accepting new freelance contracts for web app
-          development.
-        </p>
+      <Note status="success" title="Add your business here">
+        <p my={4}>You have a project you want to take further ?</p>
         <a href="mailto:contact+freelance@francoisbest.com">Send me an email</a>
         , I'd love to discuss your needs and what solutions I can bring.
-      </Note> */}
+      </Note>
     </React.Fragment>
   }
 />
@@ -339,6 +335,6 @@ import { Box } from '@chakra-ui/react'
 import { FiMap } from 'react-icons/fi'
 
 <a href="/sitemap" display="block" textAlign="center" fontSize="sm" mt={8}>
-  <Box as={FiMap} mr={2} display="inline-block" mt={-1} />
+  <Icon as={FiMap} mr={2} display="inline-block" mt={-1} aria-hidden />
   Sitemap
 </a>
