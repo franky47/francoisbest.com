@@ -15,6 +15,7 @@ import _groupBy from 'lodash/groupBy'
 import { useLocalSetting } from 'src/hooks/useLocalSetting'
 import { prStore } from 'src/lib/repoverview/stores/pulls'
 import { OverviewTable } from 'src/lib/repoverview/views/OverviewTable'
+import { PRView } from 'src/lib/repoverview/views/PRView'
 
 const REPOS = [
   'franky47/francoisbest.com',
@@ -75,6 +76,7 @@ const RepoverviewPage: NextPage = () => {
         <H1>Repoverview</H1>
       </VisuallyHidden>
       <OverviewTable repos={REPOS} />
+      <PRView />
       <Container as="section" mt={12}>
         <FormLabel>GitHub Personal Token</FormLabel>
         <Input
