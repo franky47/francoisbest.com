@@ -78,13 +78,13 @@ export function useDovetailPath({
   ].join(' ')
 }
 
-export function useDovetailMeasurements({ a, b, c, c_, a_ }: DovetailData) {
+export function useDovetailMeasurements({ a, b, c, c_, b_ }: DovetailData) {
   return {
     dividersLength: a + b,
     pinNarrowWidth: c,
     pinWideWidth: c_,
     halfPinNarrowWidth: a,
-    distanceBetweenPins: a_
+    distanceBetweenPins: b_
   }
 }
 

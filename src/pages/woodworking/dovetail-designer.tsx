@@ -221,7 +221,7 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
           </FormControl>
         </SimpleGrid>
         <Note status="info" mt={8}>
-          To trace this layout, set your dividers to{' '}
+          To layout this joint, set your dividers to{' '}
           <b>{dividersLength.toFixed(1)}</b> mm.
         </Note>
         <H3>Measurements</H3>
@@ -237,13 +237,13 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
             <StatHelpText>At the widest point</StatHelpText>
           </Stat>
           <Stat>
-            <StatLabel>Distance between pins</StatLabel>
-            <StatNumber>{distanceBetweenPins.toFixed(1)}mm</StatNumber>
-          </Stat>
-          <Stat>
             <StatLabel>Half pin thickness</StatLabel>
             <StatNumber>{halfPinNarrowWidth.toFixed(1)}mm</StatNumber>
             <StatHelpText>At the narrowest point</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Distance between pins</StatLabel>
+            <StatNumber>{distanceBetweenPins.toFixed(1)}mm</StatNumber>
           </Stat>
         </SimpleGrid>
       </NoSSR>
