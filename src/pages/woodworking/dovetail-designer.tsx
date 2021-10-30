@@ -1,0 +1,244 @@
+import { NoSSR } from '@47ng/chakra-next'
+import {
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  InputGroup,
+  InputRightElement,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  SimpleGrid,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  Spinner,
+  Stat,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+  Text
+} from '@chakra-ui/react'
+import { NextPage } from 'next'
+import { queryTypes, useQueryState } from 'next-usequerystate'
+import React from 'react'
+import { Note } from 'src/components/blog/Note'
+import { H1, H3 } from 'src/components/primitives/Typography'
+import { WideContainer } from 'src/components/WideContainer'
+import {
+  DovetailSVG,
+  useDovetailData,
+  useDovetailMeasurements
+} from 'src/components/woodworking/DovetailSVG'
+import { useURL } from 'src/hooks/useURL'
+import PageLayoutWithSEO from 'src/layouts/PageLayout'
+
+export interface DovetailDesignerProps {}
+
+const useIntParameter = (key: string, defaultValue: number) => {
+  return useQueryState(key, {
+    defaultValue,
+    ...queryTypes.integer
+  })
+}
+
+const useFloatParameter = (key: string, defaultValue: number) =>
+  useQueryState(key, {
+    defaultValue,
+    ...queryTypes.float
+  })
+
+const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
+  const [numTails, setNumTails] = useIntParameter('numTails', 3)
+  const [angle, setAngle] = useIntParameter('angle', 12)
+  const [jointWidth, setJointWidth] = useIntParameter('jointWidth', 200)
+  const [pinsBoardThickness, setPinsBoardThickness] = useIntParameter(
+    'pinsBoardThickness',
+    18
+  )
+  const [pinToTailRatio, setPinToTailRatio] = useFloatParameter(
+    'pinToTailRatio',
+    0.2
+  )
+  const [halfPinRatio, setHalfPinRatio] = useFloatParameter('halfPinRatio', 0.7)
+
+  const dovetailData = useDovetailData({
+    jointWidth,
+    pinsBoardThickness,
+    angleDegrees: angle,
+    numTails,
+    pinToTailRatio,
+    halfPinRatio
+  })
+  const {
+    dividersLength,
+    halfPinNarrowWidth,
+    pinNarrowWidth,
+    pinWideWidth,
+    distanceBetweenPins
+  } = useDovetailMeasurements(dovetailData)
+
+  return (
+    <PageLayoutWithSEO
+      frontMatter={{
+        title: 'Dovetail Designer',
+        description: 'Design perfect-looking dovetail joints',
+        url: useURL('/woodworking/dovetail-designer'),
+        ogImage: {
+          url: useURL(`/images/woodworking/dovetail-designer/og.jpg`),
+          width: 1280,
+          height: 720
+        },
+        containerProps: {
+          maxW: '2xl'
+        }
+      }}
+    >
+      <H1 mb={0}>Dovetail Designer</H1>
+      <Text fontSize="sm" color="gray.600">
+        Design perfect-looking dovetail joints
+      </Text>
+      <NoSSR fallback={<Spinner />}>
+        <WideContainer>
+          <DovetailSVG my={12} data={dovetailData} />
+        </WideContainer>
+        <SimpleGrid columns={{ base: 1, sm: 2 }} columnGap={6} rowGap={4}>
+          <FormControl>
+            <FormLabel>Joint Width</FormLabel>
+            <NumberInput
+              value={jointWidth}
+              onChange={value => setJointWidth(parseInt(value))}
+            >
+              <InputGroup>
+                <NumberInputField />
+                <InputRightElement fontSize="sm" color="gray.600">
+                  mm
+                </InputRightElement>
+              </InputGroup>
+            </NumberInput>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Pins Board Thickness</FormLabel>
+            <NumberInput
+              value={pinsBoardThickness}
+              onChange={value => setPinsBoardThickness(parseInt(value))}
+            >
+              <InputGroup>
+                <NumberInputField />
+                <InputRightElement fontSize="sm" color="gray.600">
+                  mm
+                </InputRightElement>
+              </InputGroup>
+            </NumberInput>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Number of Tails</FormLabel>
+            <NumberInput
+              value={numTails}
+              onChange={value => setNumTails(parseInt(value))}
+              min={1}
+              max={10}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Angle</FormLabel>
+            <NumberInput
+              value={angle + '°'}
+              onChange={value => setAngle(parseInt(value.replace('°', '')))}
+              min={0}
+              max={30}
+            >
+              <NumberInputField />
+
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </FormControl>
+          <FormControl>
+            <Flex justifyContent="space-between" alignItems="baseline">
+              <FormLabel>Pin to Tail Ratio</FormLabel>
+              <Text fontSize="sm">{pinToTailRatio}</Text>
+            </Flex>
+            <Slider
+              aria-label="slider-pin-to-tail-ratio"
+              value={pinToTailRatio}
+              onChange={setPinToTailRatio}
+              min={0.01}
+              max={1}
+              step={0.01}
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb />
+            </Slider>
+            <FormHelperText d="flex" justifyContent="space-between">
+              <span>Larger tails</span>
+              <span>Larger pins</span>
+            </FormHelperText>
+          </FormControl>
+          <FormControl>
+            <Flex justifyContent="space-between" alignItems="baseline">
+              <FormLabel>Half Pin Ratio</FormLabel>
+              <Text fontSize="sm">{halfPinRatio}</Text>
+            </Flex>
+            <Slider
+              aria-label="slider-half-pin-ratio"
+              value={halfPinRatio}
+              onChange={setHalfPinRatio}
+              min={0.1}
+              max={2}
+              step={0.1}
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb />
+            </Slider>
+          </FormControl>
+        </SimpleGrid>
+        <Note status="info" mt={8}>
+          To trace this layout, set your dividers to{' '}
+          <b>{dividersLength.toFixed(1)}</b> mm.
+        </Note>
+        <H3>Measurements</H3>
+        <SimpleGrid columns={2} rowGap={8}>
+          <Stat>
+            <StatLabel>Pin thickness</StatLabel>
+            <StatNumber>{pinNarrowWidth.toFixed(1)}mm</StatNumber>
+            <StatHelpText>At the narrowest point</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Pin thickness</StatLabel>
+            <StatNumber>{pinWideWidth.toFixed(1)}mm</StatNumber>
+            <StatHelpText>At the widest point</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Distance between pins</StatLabel>
+            <StatNumber>{distanceBetweenPins.toFixed(1)}mm</StatNumber>
+          </Stat>
+          <Stat>
+            <StatLabel>Half pin thickness</StatLabel>
+            <StatNumber>{halfPinNarrowWidth.toFixed(1)}mm</StatNumber>
+            <StatHelpText>At the narrowest point</StatHelpText>
+          </Stat>
+        </SimpleGrid>
+      </NoSSR>
+    </PageLayoutWithSEO>
+  )
+}
+
+export default DovetailDesigner
