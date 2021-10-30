@@ -1,5 +1,6 @@
 import { NoSSR } from '@47ng/chakra-next'
 import {
+  Center,
   Flex,
   FormControl,
   FormHelperText,
@@ -54,7 +55,7 @@ const useFloatParameter = (key: string, defaultValue: number) =>
 
 const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
   const [numTails, setNumTails] = useIntParameter('numTails', 3)
-  const [angle, setAngle] = useIntParameter('angle', 12)
+  const [angle, setAngle] = useIntParameter('angle', 14)
   const [jointWidth, setJointWidth] = useIntParameter('jointWidth', 200)
   const [pinsBoardThickness, setPinsBoardThickness] = useIntParameter(
     'pinsBoardThickness',
@@ -62,9 +63,9 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
   )
   const [pinToTailRatio, setPinToTailRatio] = useFloatParameter(
     'pinToTailRatio',
-    0.2
+    0.14
   )
-  const [halfPinRatio, setHalfPinRatio] = useFloatParameter('halfPinRatio', 0.7)
+  const [halfPinRatio, setHalfPinRatio] = useFloatParameter('halfPinRatio', 1)
 
   const dovetailData = useDovetailData({
     jointWidth,
@@ -102,7 +103,16 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
       <Text fontSize="sm" color="gray.600">
         Design perfect-looking dovetail joints
       </Text>
-      <NoSSR fallback={<Spinner />}>
+      <NoSSR
+        fallback={
+          <Center h="md">
+            <Spinner />
+            <noscript style={{ textAlign: 'center' }}>
+              This tool requires JavaScript to run.
+            </noscript>
+          </Center>
+        }
+      >
         <WideContainer>
           <DovetailSVG my={12} data={dovetailData} />
         </WideContainer>
