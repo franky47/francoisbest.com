@@ -6,6 +6,7 @@ import {
   FormHelperText,
   FormLabel,
   InputGroup,
+  InputLeftElement,
   InputRightElement,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -55,7 +56,7 @@ const useFloatParameter = (key: string, defaultValue: number) =>
 
 const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
   const [numTails, setNumTails] = useIntParameter('numTails', 3)
-  const [angle, setAngle] = useIntParameter('angle', 14)
+  const [angleRatio, setAngleRatio] = useIntParameter('angleRatio', 5)
   const [jointWidth, setJointWidth] = useIntParameter('jointWidth', 200)
   const [pinsBoardThickness, setPinsBoardThickness] = useIntParameter(
     'pinsBoardThickness',
@@ -70,7 +71,7 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
   const dovetailData = useDovetailData({
     jointWidth,
     pinsBoardThickness,
-    angleDegrees: angle,
+    angleRatio,
     numTails,
     pinToTailRatio,
     halfPinRatio
@@ -162,15 +163,21 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
             </NumberInput>
           </FormControl>
           <FormControl>
-            <FormLabel>Angle</FormLabel>
+            <Flex justifyContent="space-between" alignItems="baseline">
+              <FormLabel>Angle</FormLabel>
+              <Text fontSize="sm">{dovetailData.angleDegrees.toFixed(1)}°</Text>
+            </Flex>
             <NumberInput
-              value={angle + '°'}
-              onChange={value => setAngle(parseInt(value.replace('°', '')))}
-              min={0}
-              max={30}
+              value={angleRatio}
+              onChange={value => setAngleRatio(parseInt(value))}
+              min={3}
+              max={10}
+              step={1}
             >
-              <NumberInputField />
-
+              <InputGroup>
+                <InputLeftElement>1:</InputLeftElement>
+                <NumberInputField pl="1.54rem" />
+              </InputGroup>
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
@@ -189,6 +196,7 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
               min={0.01}
               max={1}
               step={0.01}
+              colorScheme="accent"
             >
               <SliderTrack>
                 <SliderFilledTrack />
@@ -212,6 +220,7 @@ const DovetailDesigner: NextPage<DovetailDesignerProps> = ({}) => {
               min={0.1}
               max={2}
               step={0.1}
+              colorScheme="accent"
             >
               <SliderTrack>
                 <SliderFilledTrack />

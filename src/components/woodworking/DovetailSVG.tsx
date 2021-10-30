@@ -6,7 +6,7 @@ export interface DovetailParameters {
   jointWidth: number
   numTails: number
   pinsBoardThickness: number
-  angleDegrees: number
+  angleRatio: number
   pinToTailRatio: number
   halfPinRatio: number
 }
@@ -17,16 +17,15 @@ export function useDovetailData({
   pinsBoardThickness,
   jointWidth,
   halfPinRatio,
-  angleDegrees
+  angleRatio
 }: DovetailParameters) {
-  const angle = (Math.PI / 180) * angleDegrees
   const n = numTails
   const b =
     jointWidth /
     (2 * (pinToTailRatio * halfPinRatio) + n + (n - 1) * pinToTailRatio)
   const c = pinToTailRatio * b
   const a = halfPinRatio * c
-  const rake = pinsBoardThickness * Math.tan(angle)
+  const rake = pinsBoardThickness / angleRatio
   const a_ = a + rake
   const b_ = b - 2 * rake
   const c_ = c + 2 * rake
@@ -40,7 +39,8 @@ export function useDovetailData({
     c_,
     n,
     w: jointWidth,
-    tp: pinsBoardThickness
+    tp: pinsBoardThickness,
+    angleDegrees: 90 - (Math.atan(1 / angleRatio) * 180) / Math.PI
   }
 }
 
@@ -117,7 +117,7 @@ export const DovetailSVG: React.FC<DovetailSVGProps> = ({ data, ...props }) => {
           height={data.tp}
           fill="saddlebrown"
         />
-        <g clip-path="url(#tails)">
+        <g clipPath="url(#tails)">
           <rect
             // Summer rings
             x={0}
