@@ -15,72 +15,6 @@ import {
 import { TimelineItem } from 'src/components/Timeline'
 import { Goal } from 'src/components/Goal'
 
-# Goals for 2021
-
-Here are the goals I strive to achieve in 2021. I make them public for
-accountability, and will update them as I go along.
-
-<br />
-
-## Writing & Sharing
-
-<List spacing={8}>
-  <ListItem>
-    <Goal as="div" status="done">
-      Speak at a virtual conference (
-      <a href="mailto:contact+conf@francoisbest.com">contact</a>)
-    </Goal>
-    <Text color="gray.600" fontSize="sm" mt={2}>
-      2021-04-29: Presenting <a href="https://chiffre.io">Chiffre.io</a> in a
-      Fission Tech Talk. <a href="https://vimeo.com/545583149">Watch it here</a>.
-    </Text>
-  </ListItem>
-  <ListItem>
-    <Goal as="div" status="failed" progress={2} progressProps={{ max: 47 }}>
-      Write one article a week{' '}
-      <Text as="em" fontSize="sm" color="gray.600">
-        (5 weeks off allowed)
-      </Text>
-    </Goal>
-    <Text color="gray.600" fontSize="sm" mt={2}>
-      2021-04-19: Marking this one as failed, too ambitious.
-    </Text>
-  </ListItem>
-  <ListItem>
-    <Goal as="div" status="inProgress" progress={1} progressProps={{ max: 4 }}>
-      Write four long-form articles covering a topic in depth
-    </Goal>
-    <Text color="gray.600" fontSize="sm" mt={2}>
-      2021-04-19:{' '}
-      <a href="/posts/2021/hashvatars">
-        Representing SHA-256 Hashes as Avatars
-      </a>
-    </Text>
-  </ListItem>
-  <Goal>
-    Create a newsletter for my <a href="/reading-list">reading list</a>
-  </Goal>
-</List>
-
-<br />
-
-## Building In The Open
-
-<List spacing={3}>
-  <Goal status="done">Add a public list of goals</Goal>
-  <Goal status="failed">
-    Ship <a href="https://chiffre.io">Chiffre.io</a> in Q1 2021
-  </Goal>
-  <Goal progress={0} progressProps={{ max: 50 }}>
-    Make 50€ MRR with <a href="https://chiffre.io">Chiffre.io</a> to cover the
-    operating costs
-  </Goal>
-  <Goal>Add a portfolio page on this website</Goal>
-  <Goal>Create a digital good to sell online (most likely an e-book).</Goal>
-</List>
-
-<br />
-
 ## Achievements
 
 import {
@@ -93,11 +27,16 @@ import {
   FiFileText,
   FiBarChart2,
   FiVideo,
-  FiTool
+  FiTool,
+  FiMail
 } from 'react-icons/fi'
 
 ### 2021
 
+<TimelineItem icon={FiMail}>
+  Reached 89 subscribers for the{' '}
+  <a href="https://buttondown.email/chiffre.io">Chiffre.io newsletter</a>
+</TimelineItem>
 <TimelineItem icon={FiVideo}>
   Recorded my first <a href="https://vimeo.com/545583149">tech talk</a> online
 </TimelineItem>
@@ -109,13 +48,12 @@ import {
   Wrote <a href="/posts">3 blog posts</a>
 </TimelineItem>
 <TimelineItem icon={FiFileText}>
-  Read <a href="/reading-list/archives">630 blog posts</a>
+  Read <a href="/reading-list/archives">1040 blog posts</a>
 </TimelineItem>
 <TimelineItem icon={FiTwitter} skipTrail>
-  Increased my followers count on{' '}
-  <a href="https://twitter.com/fortysevenfx">Twitter</a>{' '}
+  Gained 500 followers on <a href="https://twitter.com/fortysevenfx">Twitter</a>{' '}
   <Text as="span" fontSize="xs" color="gray.600">
-    (1200 -> 1450)
+    (1200 -> 1700)
   </Text>
 </TimelineItem>
 
@@ -167,3 +105,93 @@ import { Logo } from 'src/components/Logo'
   <a href="https://47ng.com">Founded my first company (47ng)</a> doing
   consulting &amp; web development.
 </TimelineItem>
+
+<br />
+
+# Goals for 2022
+
+<List spacing={8}>
+  <ListItem>
+    <Goal as="div" status="done">
+      Don't list goals I don't actually care about.
+    </Goal>
+  </ListItem>
+</List>
+
+<br />
+
+# Goals for 2021
+
+Here are the goals I tried to achieve in 2021. I made them public for
+accountability, though the experiment was far from a success. #FailInPublic
+
+## Writing & Sharing
+
+<List spacing={8}>
+  <ListItem>
+    <Goal as="div" status="done">
+      Speak at a virtual conference (
+      <a href="mailto:contact+conf@francoisbest.com">contact</a>)
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-04-29: Presenting <a href="https://chiffre.io">Chiffre.io</a> in a
+      Fission Tech Talk. <a href="https://vimeo.com/545583149">Watch it here</a>
+      .
+    </Text>
+  </ListItem>
+  <ListItem>
+    <Goal as="div" status="failed" progress={2} progressProps={{ max: 47 }}>
+      Write one article a week{' '}
+      <Text as="em" fontSize="sm" color="gray.600">
+        (5 weeks off allowed)
+      </Text>
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-04-19: Marking this one as failed, too ambitious.
+    </Text>
+  </ListItem>
+  <ListItem>
+    <Goal as="div" status="inProgress" progress={1} progressProps={{ max: 4 }}>
+      Write four long-form articles covering a topic in depth
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-04-19:{' '}
+      <a href="/posts/2021/hashvatars">
+        Representing SHA-256 Hashes as Avatars
+      </a>
+    </Text>
+  </ListItem>
+  <ListItem>
+    <Goal status="failed">
+      Create a newsletter for my <a href="/reading-list">reading list</a>
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      No longer interested in marketing content.
+    </Text>
+  </ListItem>
+</List>
+
+<br />
+
+## Building In The Open
+
+<List spacing={3}>
+  <Goal status="done">Add a public list of goals</Goal>
+  <ListItem>
+    <Goal status="failed">
+      Ship <a href="https://chiffre.io">Chiffre.io</a> in Q1 2021
+    </Goal>
+    <Text color="gray.600" fontSize="sm" mt={2}>
+      2021-12: Rewriting the MVP as a monolith to save on operating costs and
+      ease deployments.
+    </Text>
+  </ListItem>
+  <Goal status="failed" progress={0} progressProps={{ max: 50 }}>
+    Make 50€ MRR with <a href="https://chiffre.io">Chiffre.io</a> to cover the
+    operating costs
+  </Goal>
+  <Goal status="failed">Add a portfolio page on this website</Goal>
+  <Goal status="failed">
+    Create a digital good to sell online (most likely an e-book).
+  </Goal>
+</List>
