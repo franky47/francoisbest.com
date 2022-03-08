@@ -72,7 +72,7 @@
     "@types/twemoji": "^12.1.1",
     "@types/twitter-text": "^3.1.0",
     "@types/webpack": "^4.41.25",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "fastify": "^3.9.1",
