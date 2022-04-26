@@ -11,7 +11,6 @@ env:
   NEXT_PUBLIC_DEPLOYMENT_URL: https://francoisbest.com
   NEXT_PUBLIC_CHIFFRE_PROJECT_ID: qlXAgUdLZmuW8vTm
   NEXT_PUBLIC_CHIFFRE_PUBLIC_KEY: pk.JkCGUvZxyfMTZ4NB1pxwq7mgHC1Ih0j5EzuXVgRG5B0
-  NEXT_PUBLIC_CHIFFRE_CDN_DOMAIN: https://embed.chiffre.io
 
 jobs:
   deploy:

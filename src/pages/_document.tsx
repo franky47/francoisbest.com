@@ -42,23 +42,19 @@ class MyDocument extends Document {
             !!process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID && (
               <>
                 <script
-                  id="chiffre:analytics-config"
-                  type="application/json"
-                  dangerouslySetInnerHTML={{
-                    __html: `{
-                "publicKey": "${process.env.NEXT_PUBLIC_CHIFFRE_PUBLIC_KEY}",
-                "pushURL": "https://push.chiffre.io/event/${process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID}"
-              }`
-                  }}
-                />
-                <script
-                  src={`${process.env.NEXT_PUBLIC_CHIFFRE_CDN_DOMAIN}/analytics.js`}
+                  src="https://chiffre.io/analytics.js"
+                  data-chiffre-project-id={
+                    process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID
+                  }
+                  data-chiffre-public-key={
+                    process.env.NEXT_PUBLIC_CHIFFRE_PUBLIC_KEY
+                  }
                   crossOrigin="anonymous"
                   async
                 ></script>
                 <noscript>
                   <img
-                    src={`https://push.chiffre.io/noscript/${process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID}`}
+                    src={`https://chiffre.io/noscript/${process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID}`}
                     alt="Chiffre.io anonymous visit counting for clients without JavaScript"
                     crossOrigin="anonymous"
                   />
