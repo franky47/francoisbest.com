@@ -3,11 +3,17 @@ title: 'François Best'
 titleAppendSiteName: false
 ---
 
-import { frontMatter as featured1 } from './posts/2020/dark-mode-for-excalidraw.mdx'
+import { frontMatter as featured1 } from './posts/2021/hashvatars.mdx'
 import { frontMatter as featured2 } from './posts/2020/the-security-of-github-actions.mdx'
 import { frontMatter as featured3 } from './posts/2020/password-reset-for-e2ee-apps.mdx'
 import { Experience, Client } from 'src/components/Experience'
-import { Button, useColorModeValue, Icon } from '@chakra-ui/react'
+import {
+  Button,
+  useColorModeValue,
+  Icon,
+  HStack,
+  Badge
+} from '@chakra-ui/react'
 import { ButtonRouteLink } from '@47ng/chakra-next'
 import { BrowserWindowFrame } from 'src/components/BrowserWindowFrame'
 
@@ -32,7 +38,7 @@ import { FiZap, FiMail } from 'react-icons/fi'
   <p my={6}>
     I build <b>web apps</b> for startups, businesses and public institutions as
     a freelance web developer and designer. Let's <b>discuss your needs</b> and
-    what solutions I can bring.
+    see how I can help.
   </p>
   <p my={6}>
     <em>
@@ -146,6 +152,7 @@ import ArturiaLogo from 'src/../public/images/icons/arturia.svg'
 import PulsarLogo from 'src/../public/images/icons/pulsar.svg'
 import AcquereurLogo from 'src/../public/images/icons/lacquereur.svg'
 import GaelLogo from 'src/../public/images/icons/gael.svg'
+import HeronLogo from 'src/../public/images/icons/heron.svg'
 
 <Experience
   mt={8}
@@ -156,8 +163,42 @@ import GaelLogo from 'src/../public/images/icons/gael.svg'
   icon={Logo}
   description={
     <React.Fragment>
-      <p>I've done freelance software development for various clients:</p>
+      <p>
+        I'm doing freelance software development for startups, businesses and
+        public institutions:
+      </p>
       <ul>
+        <Client
+          as="li"
+          title="Heron"
+          url="https://heron.app"
+          icon={HeronLogo}
+          description="Bootstrapping the MVP of a compensation market analysis app for a young international startup."
+          tags={[
+            'Next.js',
+            'GraphQL',
+            'Chakra-UI',
+            'Recharts',
+            'PlanetScale',
+            'Prisma',
+            'TypeScript',
+            'Full-Stack'
+          ]}
+        />
+        <Client
+          as="li"
+          title="myNUMEA"
+          url="https://www.mynumea.com/"
+          description="Reporting dashboard &amp; analytics for a micro-nutrition IoT device."
+          tags={[
+            'React',
+            'Express',
+            'Redux',
+            'Chakra-UI',
+            'VisX',
+            'Full-Stack'
+          ]}
+        />
         <Client
           as="li"
           title="L'Acquéreur"
@@ -192,7 +233,7 @@ import GaelLogo from 'src/../public/images/icons/gael.svg'
       <Note status="success" title="Add your business here">
         <p my={4}>You have a project you want to take further ?</p>
         <a href="mailto:contact+freelance@francoisbest.com">Send me an email</a>
-        , I'd love to discuss your needs and what solutions I can bring.
+        , I'd love to discuss your needs and see how I can help.
       </Note>
     </React.Fragment>
   }
@@ -247,11 +288,11 @@ import GaelLogo from 'src/../public/images/icons/gael.svg'
 
 import { SpotifyAlbum } from 'src/components/embeds/SpotifyAlbum'
 import { SimpleGrid } from '@chakra-ui/react'
-import { FiVolume2 } from 'react-icons/fi'
+import { SiSpotify } from 'react-icons/si'
 
 ## Music
 
-<Note status="success" icon={FiVolume2}>
+<Note status="success" icon={SiSpotify}>
   Check out my{' '}
   <OutgoingLink
     href="https://open.spotify.com/playlist/09JVRjAbg8ETlHWznfVOQf?si=F9Vksg9aQp2D7q5MbecMqw"
@@ -283,9 +324,6 @@ My favourite albums of the moment:
     <SpotifyAlbum
       {...require('spotify:album:1PhYHO7Pva9e1YQY5GQ8zx')} // Vector - Haken
     />
-    {/* <SpotifyAlbum
-      {...require("spotify:album:1i6DTKXsonvhHZYdLhIbk1")} // Virus - Haken
-    /> */}
     <SpotifyAlbum
       {...require('spotify:album:6nj966rHe5ui3JKwqh8a32')} // Kid Velo - Rival Consoles
     />
