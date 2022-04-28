@@ -42,6 +42,7 @@ class MyDocument extends Document {
             !!process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID && (
               <>
                 <script
+                  id="chiffre:analytics"
                   src="https://chiffre.io/analytics.js"
                   data-chiffre-project-id={
                     process.env.NEXT_PUBLIC_CHIFFRE_PROJECT_ID
