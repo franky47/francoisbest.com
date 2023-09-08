@@ -1,4 +1,6 @@
 import { Octokit } from '@octokit/rest'
+import { cache } from 'react'
+import 'server-only'
 
 export type GitHubRepositoryData = {
   url: string
@@ -15,7 +17,7 @@ const gh = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 })
 
-export async function fetchRepository(
+export const fetchRepository = cache(async function fetchRepository(
   slug: string
 ): Promise<GitHubRepositoryData> {
   try {
@@ -41,9 +43,4 @@ export async function fetchRepository(
   } catch (error) {
     throw new Error(`Failed to retrieve repo data for ${slug}: ${error}`)
   }
-}
-
-function slugify(url: string) {
-  const [repo, owner] = url.split('/').reverse().slice(0, 2)
-  return [owner, repo].join('/')
-}
+})

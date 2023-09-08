@@ -1,3 +1,4 @@
+import 'server-only'
 import { createPngDataUri } from 'unlazy/blurhash'
 import { z } from 'zod'
 
@@ -56,7 +57,13 @@ export async function fetchTootData(tootUrl: string) {
   }
   const tootId = match[1]
   url.pathname = `/api/v1/statuses/${tootId}`
-  const response = await (await fetch(url)).json()
+  const response = await (
+    await fetch(url, {
+      next: {
+        revalidate: 86_400,
+      },
+    })
+  ).json()
   const data = await tootDataSchema.parseAsync(response)
   if (!data.account.display_name) {
     data.account.display_name = data.account.username

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import 'server-only'
 
 export type NpmPackageStatsData = {
   packageName: string
@@ -76,27 +77,11 @@ export async function fetchNpmPackage(
   }
 }
 
-// export async function fetch(urls: string[]): Promise<DataRecord<DataType>> {
-//   const data = await Promise.all(
-//     urls.map(url => fetchPackage(getPackageName(url)))
-//   )
-//   console.dir(data, { depth: null })
-//   return urls.reduce((record, url) => {
-//     const packageName = getPackageName(url)
-//     const packageData = data.find(pkg => pkg.packageName === packageName)
-//     console.dir({ url, packageName, packageData })
-//     return {
-//       ...record,
-//       [url]: safetifyData(packageData),
-//     }
-//   }, {})
-// }
-
-// function getPackageName(url: string) {
-//   return url.replace('https://npmjs.com/package/', '')
-// }
-
 async function get<T = any>(url: string) {
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    next: {
+      revalidate: 86_400,
+    },
+  })
   return (await res.json()) as T
 }

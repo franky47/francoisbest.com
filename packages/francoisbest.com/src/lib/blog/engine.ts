@@ -2,6 +2,7 @@ import { globby } from 'globby'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import readingTime from 'reading-time'
+import 'server-only'
 import { filePathToUrlPath, nextJsAppDir, postsDir } from '../paths'
 import { PostMetadata, postMetadataSchema } from './defs'
 
