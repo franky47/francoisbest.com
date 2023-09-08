@@ -20,7 +20,7 @@ export const NavHeader: React.FC = () => {
         </NavLink>
       </nav>
       <nav aria-label="Settings" className="flex ml-auto space-x-2">
-        <a href="https://mamot.fr/@Franky47" rel="me">
+        <a href="https://mamot.fr/@Franky47" rel="me" tabIndex={-1}>
           <IconButton
             icon={<BsMastodon />}
             aria-label="Mastodon"
