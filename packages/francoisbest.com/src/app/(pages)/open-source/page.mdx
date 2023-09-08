@@ -1,0 +1,115 @@
+export const metadata = {
+  title: 'Open-Source',
+  description:
+    'Some of the OSS packages and projects I published and contribute to.',
+}
+
+import { GitHubRepo } from 'ui/embeds/github-repo'
+import { NpmPackage } from 'ui/embeds/npm-package'
+import { BlogPostEmbed } from 'ui/embeds/blog-post-embed'
+import { resolve } from 'lib/paths'
+
+# Open Source
+
+This page lists some of the open source packages and repositories I have published or contribute to.
+
+Most of them are published under my company [47ng](https://github.com/47ng).
+
+## Frontend
+
+My tech stack of choice for server-rendered React apps is [Next.js](https://nextjs.org/)
+and [TailwindCSS](https://tailwindcss.com/).
+
+For client-heavy apps, I like to use [Chakra-UI](https://chakra-ui.com/) to
+quickly build beautiful and accessible interfaces.
+
+Because of its CSS-in-JS approach, it's a bit awkward to use with the
+new Next.js app router and server components, so I'm now letting Tailwind deal
+with styling. Chat-GPT makes a perfect companion for refactoring one into the other
+anyway. 😄
+
+## Backend
+
+I like to use [Fastify](https://fastify.io) to build backend services in Node.js.
+
+What I like about it:
+
+- More opinionated and structured than Express.js
+- Damn fast
+- Easy to write plugins
+- Good defaults out of the box
+
+<NpmPackage
+  pkg="fastify-micro"
+  repo="47ng/fastify-micro"
+  accent="text-amber-500"
+/>
+
+<NpmPackage
+  pkg="fastify-cron"
+  repo="47ng/fastify-cron"
+  accent="text-green-500"
+/>
+
+<GitHubRepo slug="47ng/actions-clever-cloud" />
+
+## Security & Encryption
+
+<NpmPackage pkg="session-keystore" repo="47ng/session-keystore" />
+
+I wrote an article about how I came to build `session-keystore`:
+
+<BlogPostEmbed
+  filePath={resolve(
+    import.meta.url,
+    '../posts/(content)/2019/how-to-store-e2ee-keys-in-the-browser/page.mdx'
+  )}
+/>
+
+<NpmPackage pkg="@47ng/cloak" repo="47ng/cloak" />
+
+<GitHubRepo slug="SocialGouv/e2esdk" />
+
+## Environment Variables
+
+The [Twelve Factor App](https://12factor.net/config) model uses environment
+variables extensively for configuration and passing runtime data to a web app.
+
+However, there are things to look out for when working with environment
+variables, so I built a few packages to make their management easier and more
+secure:
+
+<NpmPackage pkg="redact-env" repo="47ng/redact-env" />
+
+<NpmPackage pkg="env-alias" repo="47ng/env-alias" />
+
+<NpmPackage pkg="@47ng/check-env" repo="47ng/check-env" />
+
+## Miscellaneous
+
+<NpmPackage pkg="@47ng/codec" repo="47ng/codec" />
+
+<GitHubRepo
+  slug="FortySevenEffects/arduino_midi_library"
+  description={
+    <>
+      <p>My longest-running open-source project: MIDI for Arduino.</p>
+      <p mb={0}>
+        I learned programming in C++ in 2008 with this project and discovered my
+        passion for open-source software.
+      </p>
+    </>
+  }
+/>
+
+<GitHubRepo
+  slug="franky47/francoisbest.com"
+  description={
+    <p mb={0}>
+      The source code for this website! Made with{' '}
+      <a href="https://nextjs.org">Next.js</a>,{' '}
+      <a href="https://tailwindcss.com">TailwindCSS</a> and{' '}
+      <a href="https://mdxjs.com/">MDX</a>.
+    </p>
+  }
+/>

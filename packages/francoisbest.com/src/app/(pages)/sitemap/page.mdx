@@ -1,0 +1,34 @@
+export const metadata = {
+  title: 'Site map',
+  description:
+    "Welcome to the Dungeon. It's dangerous to go alone. Here be dragons.",
+}
+
+# Site map
+
+{/* prettier-ignore */}
+<Note status="warning" title="Here be dragons.">
+  Links might break. If they do, let me know by <a href={gitHubUrl(resolve(import.meta.url, 'page.mdx'))}>editing this page on GitHub</a>.
+</Note>
+
+Also available in [XML](/sitemap.xml), if that's your thing.
+
+## Main Content
+
+- [Home](/)
+- [Articles](/posts)
+- [Open Source](/open-source)
+
+Here are a few other pages not worthy of featuring on the main index page:
+
+- [`/uses`](/uses)
+- [Music I enjoy listening too](/music)
+
+## Demos & Tests
+
+import { resolve, gitHubUrl } from 'lib/paths'
+
+- [Horcrux](/horcrux), a playground for Shamir Secret Sharing
+- End-to-end encryption demo (for [`47ng/simple-e2ee`](https://github.com/47ng/simple-e2ee))
+  - [Encrypt](/e2ee/encrypt)
+  - [Decrypt](/e2ee/decrypt)

@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Excalidraw fonts */
+  @font-face {
+    font-family: 'Virgil';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/FG_Virgil.woff2') format('woff2'),
+      url('/fonts/FG_Virgil.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'Cascadia';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/Cascadia.woff2') format('woff2'),
+      url('/fonts/Cascadia.woff') format('woff');
+  }
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img + figcaption,
+svg + figcaption {
+  text-align: center;
+}
+
+aside[role='note'] a,
+aside[role='note'] strong {
+  color: currentColor;
+}
+
+@layer components {
+  .toot-content a {
+    @apply font-medium text-gray-600 dark:text-gray-400;
+  }
+  .toot-content p {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Header links */
+
+h2,
+h3,
+h4 {
+  /* Give headings a little bit of breathing room when scrolled to */
+  scroll-margin-top: 2rem;
+}
+
+h2 > a > .icon.icon-link::after,
+h3 > a > .icon.icon-link::after,
+h4 > a > .icon.icon-link::after {
+  content: '#';
+  margin-left: 0.5rem;
+  opacity: 0;
+  @apply transition-opacity ease-out;
+}
+
+h2:hover > a > .icon.icon-link::after,
+h3:hover > a > .icon.icon-link::after,
+h4:hover > a > .icon.icon-link::after {
+  opacity: 0.25;
+}
+
+h2 > a:hover > .icon.icon-link::after,
+h3 > a:hover > .icon.icon-link::after,
+h4 > a:hover > .icon.icon-link::after {
+  opacity: 1;
+}
+
+/* Code highlighting with rehype-pretty-code / shiki */
+
+pre {
+  @apply !px-0 rounded-lg;
+}
+
+pre > code {
+  @apply grid;
+  counter-reset: line;
+}
+
+[data-line] {
+  @apply border-l-2 border-l-transparent px-6;
+}
+
+[data-highlighted-line] {
+  background: rgba(200, 200, 255, 0.1);
+  @apply border-l-blue-400;
+}
+
+[data-highlighted-chars] {
+  @apply bg-zinc-600/50 rounded;
+  box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
+}
+
+span[data-rehype-pretty-code-fragment] > code {
+  @apply py-1 rounded-md;
+}
+
+/* Dark mode ---------------------------------------------------------------- */
+
+@layer base {
+  .dark {
+    @apply bg-gray-950 text-gray-200;
+  }
+
+  .dark input,
+  .dark textarea {
+    @apply border-gray-700;
+  }
+}
+
+/* Dark mode end ------------------------------------------------------------ */
+
+@layer components {
+  /* Slider Thumb ----------------------------------------------------------- */
+
+  input[type='range']::-webkit-slider-thumb {
+    height: 1rem;
+    width: 1rem;
+    background: #3b71ca;
+    border-radius: 9999px;
+    border: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .dark input[type='range']::-webkit-slider-thumb {
+    background: #8faee0;
+  }
+  input[type='range']:disabled::-webkit-slider-thumb,
+  input[type='range']:disabled:focus::-webkit-slider-thumb {
+    background: #a3a3a3;
+  }
+  input[type='range']:disabled:active::-webkit-slider-thumb {
+    background: #a3a3a3;
+  }
+  .dark input[type='range']:disabled::-webkit-slider-thumb,
+  .dark input[type='range']:disabled:focus::-webkit-slider-thumb {
+    background: #737373;
+  }
+  .dark input[type='range']:disabled:active::-webkit-slider-thumb {
+    background: #737373;
+  }
+  input[type='range']::-moz-range-thumb {
+    background: #3b71ca;
+    border-radius: 9999px;
+    border: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .dark input[type='range']::-moz-range-thumb {
+    background: #8faee0;
+  }
+  input[type='range']:disabled::-moz-range-thumb {
+    background: #a3a3a3;
+  }
+  .dark input[type='range']:disabled::-moz-range-thumb {
+    background: #737373;
+  }
+
+  input[type='range']:focus::-webkit-slider-thumb {
+    background: #3061af;
+  }
+  input[type='range']:active::-webkit-slider-thumb {
+    background: #285192;
+  }
+  .dark input[type='range']:focus::-webkit-slider-thumb {
+    background: #6590d5;
+  }
+  .dark input[type='range']:active::-webkit-slider-thumb {
+    background: #3061af;
+  }
+
+  /* Slider Track ----------------------------------------------------------- */
+
+  input[type='range']::-moz-range-progress {
+    background: #3061af;
+  }
+  input[type='range']::-ms-fill-lower {
+    background: #3061af;
+  }
+  .dark input[type='range']::-moz-range-progress {
+    background: #6590d5;
+  }
+  .dark input[type='range']::-ms-fill-lower {
+    background: #6590d5;
+  }
+
+  input[type='range']:focus {
+    outline: none;
+  }
+}

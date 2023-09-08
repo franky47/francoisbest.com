@@ -1,0 +1,128 @@
+'use client'
+
+import React from 'react'
+import { FiPlusCircle, FiTrash2 } from 'react-icons/fi'
+import { Button } from 'ui/components/buttons/button'
+import { Textarea } from 'ui/components/forms/inputs'
+import vegemite from 'vegemite'
+import { assembleSecret, cleanupShard } from './tss'
+
+type ShardStateMap = {
+  set: { index: number; shard: string }
+  add: null
+  remove: null
+}
+
+type ShardState = {
+  shards: string[]
+}
+
+const store = vegemite<ShardStateMap, ShardState>({ shards: Array(2).fill('') })
+
+store.on('add', state => {
+  state.shards.push('')
+})
+
+store.on('remove', state => {
+  state.shards.length = Math.max(state.shards.length - 1, 2)
+})
+
+store.on('set', (state, { index, shard }) => {
+  state.shards[index] = cleanupShard(shard)
+})
+
+function useShards() {
+  const [state, setState] = React.useState(store.state)
+  React.useEffect(() => store.listen(setState), [])
+  return state.shards
+}
+
+function useSecret(shards: string[]) {
+  const [secret, setSecret] = React.useState('')
+  const [error, setError] = React.useState<Error | undefined>()
+  React.useEffect(() => {
+    try {
+      const validShards = shards.filter(Boolean)
+      if (validShards.length < 2) {
+        // Not enough data, no need to display an error
+        setError(new Error('Not enough data to recompose the secret.'))
+        return
+      }
+      const secret = assembleSecret(validShards)
+      setSecret(secret)
+      setError(undefined)
+    } catch (error) {
+      setError(error as any)
+    }
+  }, [shards])
+  return { secret, error }
+}
+
+export const HorcruxRecompose: React.FC = () => {
+  const shards = useShards()
+  const { secret, error } = useSecret(shards)
+  return (
+    <section className="mt-24">
+      <h2 id="recompose" className="text-3xl font-bold my-4">
+        Recompose
+        <a href="#recompose" aria-hidden tabIndex={-1}>
+          <span className="icon icon-link font-medium" />
+        </a>
+      </h2>
+      {!error && (
+        <>
+          <h3 className="text-md font-semibold mb-2 my-4">Your secret:</h3>
+          <code
+            className="block text-sm break-all px-4 py-4 my-4 relative bg-gray-50/30 dark:bg-gray-900 border dark:border-gray-800 rounded dark:shadow-inner"
+            style={{ overflowWrap: 'anywhere' }}
+          >
+            {secret}
+          </code>
+        </>
+      )}
+      {error && (
+        <p className="text-sm text-red-600 dark:text-red-300 mt-2">
+          {error.message}
+        </p>
+      )}
+      <div className="container mx-auto">
+        <div className="flex justify-end mb-2">
+          <Button
+            size="xs"
+            variant="ghost"
+            color="green"
+            leftIcon={<FiPlusCircle />}
+            onClick={() => store.dispatch('add', null)}
+            disabled={shards.length >= 8}
+          >
+            Add Shard
+          </Button>
+          <Button
+            size="xs"
+            variant="ghost"
+            color="red"
+            leftIcon={<FiTrash2 />}
+            onClick={() => store.dispatch('remove', null)}
+            disabled={shards.length <= 2}
+          >
+            Remove
+          </Button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {shards.map((shard, i) => (
+            <div key={i}>
+              <label className="text-sm">Shard {i + 1}</label>
+              <Textarea
+                value={shard}
+                className="min-h-[6rem] text-sm font-mono"
+                onChange={e =>
+                  store.dispatch('set', { index: i, shard: e.target.value })
+                }
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

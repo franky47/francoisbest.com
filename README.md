@@ -3,7 +3,7 @@ This is the source code for my personal website and blog, hosted at <https://fra
 Built with:
 
 - [Next.js](https://nextjs.org/)
-- [Chakra UI](https://chakra-ui.com)
+- [TailwindCSS](https://tailwindcss.com)
 - [TypeScript](https://www.typescriptlang.org/)
 - [MDX](https://mdxjs.com)
 
@@ -14,9 +14,11 @@ Built with:
 - [Max Stoiber](https://github.com/mxstbr/mxstbr.com)
 - [Guillermo Rauch](https://rauchg.com)
 
+And many others!
+
 ## [License](./LICENSE.txt)
 
 - Inspiration is welcome
 - No plagiarism
 
-Made with ❤️ by [François Best](https://francoisbest.com) - [Donations welcome](https://paypal.me/francoisbest?locale.x=fr_FR) 🙏
+Made with ❤️ by [François Best](https://francoisbest.com) - [Sponsor my work](https://github.com/sponsors/franky47)

@@ -1,0 +1,142 @@
+export const metadata = {
+  title: 'How To Store End-to-End Encryption Keys In The Browser',
+  description:
+    "End-to-end encrypted applications use cryptographic keys that don't leave the client, so how do we store them securely in the browser ?",
+  publicationDate: '2019-12-13',
+  tags: ['e2ee', 'security'],
+}
+
+**End-to-end encrypted** apps _(E2EE)_ use cryptographic keys that are generated in
+the client, and never sent to the server in clear-text. This is what makes the
+strength of this architecture: **the server never has the key**.
+
+Keys are usually generated from credentials provided by the user, such as
+a username and a password, which are derived into a strong cryptographic key using
+key-derivation functions:
+
+<figure>
+  <img
+    alt="Key derivation from master password using PBKDF2"
+    src="https://raw.githubusercontent.com/47ng/session-keystore/master/img/key-derivation.png"
+    srcSet="
+    https://raw.githubusercontent.com/47ng/session-keystore/master/img/key-derivation.png 1x,
+    https://raw.githubusercontent.com/47ng/session-keystore/master/img/key-derivation%402x.png 2x
+    "
+  />
+  <figcaption>
+    Key derivation from master password using
+    [PBKDF2](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#PBKDF2)
+  </figcaption>
+</figure>
+
+Since the key never leaves the client, it needs to be stored there.
+
+We can't reasonably ask the user to enter their credentials every time we need the
+key to encrypt/decrypt something, it would be a terrible UX and it would lead to
+users picking weaker passwords.
+
+Let's have a look at what some E2EE apps do, by analyzing the
+[ProtonMail](https://protonmail.com/) approach.
+
+## Key Lifetime
+
+The first thing to define is the lifetime of the key.
+For browser-based applications, keys usually last as long as the session.
+
+This rules out `localStorage`, `Indexed DB` and cookies, but we could use
+`sessionStorage`, or simply keep it in memory only.
+
+## Persistence & Page Reloads
+
+Keeping the key in memory has a serious downside: if your user ever reloads
+the page, the key is gone, and you would have to show a login screen again.
+Some E2EE apps like [Bitwarden](https://bitwarden.com) do this for extra security.
+
+If we want our key to survive page reloads, we need to use some form of storage.
+
+One thing to know however, is that most browsers will
+[write](https://security.stackexchange.com/questions/89937/is-html5-sessionstorage-secure-for-temporarily-storing-a-cryptographic-key)
+the contents of `sessionStorage` to disk when reloading the page.
+
+This is an issue as we don't want the key to leak, and any write to the
+filesystem places it outside of our control.
+
+## Divide to Conquer
+
+The approach taken by ProtonMail is to split the key into two parts,
+store each part using different techniques, and recompose the key on page load.
+
+To split the key, it is XORed with a buffer of random bytes.
+A copy of the original random data is going to be the other part,
+so that both of them individually are random, but by XORing them together,
+the randomness cancels out and reveals the key:
+
+```txt
+# Split
+    a = key ^ random
+    b = random
+
+# Recompose
+    a ^ b
+ => (key ^ random) ^ random
+ => key ^ (random ^ random)
+ => key ^ 0
+ => key
+```
+
+One part is sent to `sessionStorage`, and the other uses a trick discovered by
+[Thomas Frank](https://www.thomasfrank.se) named
+[SessionVars](https://www.thomasfrank.se/sessionvars.html).
+
+## `window.name`
+
+There is a `name` property on the global `window` object in the browser.
+Its value persists across page reloads, but is not written to disk.
+
+It has been used for [cross-domain communications](https://developer.mozilla.org/en-US/docs/Web/API/Window/name#Notes),
+and because other domains can see its value, we can't send anything there in clear text.
+
+Fortunately, other domains can't access our domain's `sessionStorage`,
+so all they would see in `window.name` is random data.
+
+## The Right Amount of Persistence
+
+The key does not need to be saved in those locations at all times however.
+
+Because `window.name` is writable by everyone, it would be easy for attackers
+to erase the key if it was stored there as a single source of truth.
+
+Instead, we can keep the key in memory, and only persist the key to those
+shared locations when the memory will be destroyed: on page unloads.
+
+If the user reloaded the page, both parts of the key will be preserved
+and reassembled on page load. If they closed the tab or the window,
+both parts will be erased by the browser (end of the session).
+
+## Cleaning up
+
+Now our key has been recomposed, both storage locations can be cleared
+as we don't want our [horcruxes](https://harrypotter.fandom.com/wiki/Horcrux)
+to be left around.
+
+The original implementation of this system is available in ProtonMail's
+[shared library](https://github.com/ProtonMail/proton-shared/blob/master/lib/helpers/secureSessionStorage.js#L7).
+
+## Introducing [`session-keystore`](https://github.com/47ng/session-keystore)
+
+import { NpmPackage } from 'ui/embeds/npm-package'
+
+<NpmPackage
+  pkg="session-keystore"
+  repo="47ng/session-keystore"
+  accent="text-indigo-500"
+  className="my-8"
+/>
+
+For all to use this key storage technique without depending on ProtonMail's
+internal library, I built [`session-keystore`](https://github.com/47ng/session-keystore),
+a TypeScript implementation with a few extra features:
+
+- Key expiration dates
+- Multiple stores
+- Key access/modification/expiration callbacks for monitoring

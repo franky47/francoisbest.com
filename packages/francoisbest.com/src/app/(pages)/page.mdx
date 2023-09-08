@@ -1,0 +1,63 @@
+import { HireMe } from './_landing-sections/hire-me'
+import { FavouriteAlbums, FavouriteArtists } from './_landing-sections/music'
+import { FeaturedPosts } from './_landing-sections/featured-posts'
+import AboutMe from './_landing-sections/about-me.mdx'
+import { Career } from './_landing-sections/career/career.tsx'
+
+# Hi, I'm François Best
+
+I am a developer, an [open source](/open-source) lover
+and a hand-tool woodworker from France.
+
+This is my digital garden, where I write about the things I'm working on
+and share what I've learned.
+
+<HireMe available />
+
+## Featured posts
+
+<FeaturedPosts />
+
+## About Me
+
+<AboutMe />
+
+## Career
+
+<Career />
+
+## Music
+
+I like listening to progressive metal, fusion jazz and synthwave when working:<wbr/>
+syncopated beats, meter changes and arpeggios do wonders for web development. 🤘
+
+My favourite artists and albums of the moment:
+
+<FavouriteArtists />
+
+<br />
+
+<FavouriteAlbums />
+
+<p className="text-center">[More albums](/music)</p>
+
+---
+
+This website is [open-source](https://github.com/franky47/francoisbest.com),
+and was made with [Next.js](https://nextjs.org), [TailwindCSS](https://tailwindcss.com)
+and [MDX](https://mdxjs.com/).
+
+<Note status="info">
+  I used to style my apps and websites with CSS-in-JS (using
+  [Chakra-UI](https://chakra-ui.com/)), but the introduction of React Server
+  Components in Next.js 13+ helped me switch to a leaner HTML + CSS static
+  render, only shipping client components where interaction is needed, while
+  keeping external content (Spotify albums, GitHub repo stats etc..).
+</Note>
+
+import { FiMap } from 'react-icons/fi'
+
+<p className="text-center text-sm !mt-12">
+  <FiMap className="inline-block mr-1.5 -mt-0.5" />
+  <a href="/sitemap">Site map</a>
+</p>

@@ -1,20 +1,37 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
 node_modules/
-out/
+
+# testing
+coverage/
+
+# next.js
 .next/
-public/posts/feed
-public/sitemap.xml
-.env
+out/
+
+# production
 build/
-.storage/
+dist/
 
-# Generated OG images
-public/images/repos/**/og.jpg
-public/images/repos/**/og.html
-public/images/repos/**/og-*.jpg
-public/images/repos/**/og-*.html
-public/images/reading-list/**/og.jpg
-public/images/reading-list/**/og.html
-public/images/reading-list/**/og-*.jpg
-public/images/reading-list/**/og-*.html
+# misc
+.DS_Store
+*.pem
 
-public/feeds/reading-list/daily/
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# turborepo
+.turbo/
+
+

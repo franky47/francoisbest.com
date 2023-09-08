@@ -1,0 +1,151 @@
+export const metadata = {
+  title: 'Mobile Device Frames For Excalidraw',
+  description:
+    'Building mobile UI mockups in Excalidraw is a lot of fun, but eye-balling screen ratios is not great. Here are some free resources to help you get started, and a guide on how to make your own frames.',
+  publicationDate: '2020-06-11',
+  tags: ['excalidraw', 'ui-design'],
+}
+
+import { FiFileText, FiBook } from 'react-icons/fi'
+import MobileMockup from './mobile-mockup.svg'
+
+I love using [Excalidraw](https://excalidraw.com) to build UI mockups. As I was
+working with a client on a responsive version of their webapp, I realised that
+I was always eye-balling the screen dimensions, and I wanted a way to make the
+screen ratio closer to the final deal.
+
+<figure className="mb-8">
+  <MobileMockup
+    role="img"
+    className="dark:invert dark:hue-rotate-180"
+    aria-label="A UI mockup for a product landing page on an iPhone 8"
+  />
+  <figcaption>
+    Mobile UI mockup made with
+    [Excalidraw](https://excalidraw.com/#json=4882401423523840,3Hd00VsFV2umVwol0mbwdw)
+  </figcaption>
+</figure>
+
+Figma has frame size presets for various devices, which is a great feature when paired
+with responsive layouts and other design tools. None of that is needed for
+mockups. It would bring unnecessary complexity to a tool that needs to remain simple,
+but at least having the option to set a rectangle to the dimensions of a given
+device would be cool.
+
+So I set out to build my own library of device frames, which are simply rectangles
+with the right aspect ratio for each device.
+
+## TL;DR
+
+<Note status="success" icon={FiBook} title="Library files now available">
+  Those files are now part of the official{' '}
+  <a href="https://libraries.excalidraw.com/">Excalidraw Libraries</a>{' '}
+  repository.
+</Note>
+
+Here are the links to the editable Excalidraw sketches:
+
+import { DiApple, DiAndroid } from 'react-icons/di'
+
+<a
+  href="https://excalidraw.com/#json=5632680284651520,5Gocwea8NCsAOk6uVupJ6w"
+  rel="noopener noreferrer"
+>
+  <DiApple className="inline-block mr-1 -mt-1" /> Apple Device Frames
+</a>
+
+<p mb={2}>Mirrors:</p>
+
+- [Apple Device Frames (sketch)](/img/posts/2020/mobile-device-frames-for-excalidraw/apple-device-frames.excalidraw)
+- [Apple Device Frames (library)](/img/posts/2020/mobile-device-frames-for-excalidraw/apple-device-frames.excalidrawlib)
+
+<Note title="License" icon={FiFileText}>
+  These resources are released under the {/* prettier-ignore */}
+  <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a>{' '}
+  (CC BY 4.0) license. You can use them for any purpose, but I'd appreciate you keep
+  the attribution if you redistribute them.
+</Note>
+
+<Note status="info" title="Updates">
+  <ul>
+    <li>2020-12-29: Added iPhone 11 Pro Max</li>
+    <li>
+      Libraries are featured in the official{' '}
+      <a href="https://libraries.excalidraw.com/">Excalidraw Libraries</a>{' '}
+      repository
+    </li>
+  </ul>
+</Note>
+
+## Making Your Own Frames
+
+We are going to use the following tools:
+
+- [Figma](https://figma.com) _<small>(free)</small>_
+- [CleanShot X](https://cleanshot.com/) _<small>(paid, but worth every penny)</small>_
+
+From Figma, we create a frame for a given device, say an iPhone 8, with a vivid
+background colour:
+
+![iPhone 8 frame in Figma with red background](./figma-frame-iphone8.jpg)
+
+Copy the frame as a PNG image:
+
+```txt
+Right click > Copy/Paste > Copy as PNG
+```
+
+Then we're going to import the frame image to CleanShot:
+
+![CleanShot > Open from Clipboard](./cleanshot-import.jpg)
+
+Now we can use the overlay feature by pinning the frame image to the screen:
+
+![Click the 'Pin to the screen' icon in the lower left corner](./cleanshot-pin.jpg)
+
+import { GoLightBulb } from 'react-icons/go'
+
+<Note title="CleanShot Feature Request" icon={GoLightBulb}>
+  If anyone from CleanShot reads this post, a feature to use the clipboard image
+  as a source for the "Pin to the Screen" menu action would save an extra step
+  here.
+</Note>
+
+In Excalidraw, we can now position our overlay frame image and draw a rectangle
+that follows the same ratio:
+
+<video
+  autoPlay
+  loop
+  muted
+  playsInline
+  style={{ marginBottom: '4rem', borderRadius: '4px' }}
+>
+  <source
+    src="/img/posts/2020/mobile-device-frames-for-excalidraw/make-frame.webm"
+    type="video/webm; codecs=vp9,vorbis"
+  />
+  <source
+    src="/img/posts/2020/mobile-device-frames-for-excalidraw/make-frame.mp4"
+    type="video/mp4"
+  />
+  <div>
+    <em>
+      Damn, there was supposed to be a video here, but your browser doesn't
+      support it, so here's what it shows:
+    </em>
+    <ul>
+      <li>Change the overlay opacity to 50%</li>
+      <li>Move it over the Excalidraw canvas</li>
+      <li>
+        Select the Rectangle tool in Excalidraw and draw a rectangle around the
+        frame overlay
+      </li>
+      <li>Position the overlay so that it fits a corner of the rectangle</li>
+      <li>Adjust the other corner of the rectangle to match the ratio</li>
+      <li>Voilà!</li>
+    </ul>
+  </div>
+</video>
+
+Follow me on [Mastodon](https://mamot.fr/@Franky47) for more UI design tips and Excalidraw goodies!

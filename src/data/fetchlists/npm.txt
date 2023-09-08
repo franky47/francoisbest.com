@@ -1,9 +1,0 @@
-@47ng/chakra-next
-@47ng/check-env
-@47ng/cloak
-@47ng/codec
-env-alias
-fastify-cron
-fastify-micro
-redact-env
-session-keystore

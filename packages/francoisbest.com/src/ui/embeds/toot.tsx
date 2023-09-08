@@ -1,0 +1,128 @@
+import { TootMediaAttachment, fetchTootData } from 'lib/services/mastodon'
+import Image from 'next/image'
+import { BsMastodon } from 'react-icons/bs'
+import { twMerge } from 'tailwind-merge'
+import { formatDate, formatTime } from 'ui/format'
+import { EmbedFrame } from './embed-frame'
+
+type TootProps = React.ComponentProps<'section'> & {
+  url: string
+}
+
+export const Toot: React.FC<TootProps> = async ({ url, className }) => {
+  try {
+    const data = await fetchTootData(url)
+    return (
+      <EmbedFrame
+        Icon={BsMastodon}
+        iconFill
+        className={twMerge('max-w-xl mx-auto', className)}
+      >
+        <article className="not-prose space-y-3">
+          <header className="flex gap-3 items-center pt-1">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={data.account.avatar}
+              alt={data.account.username}
+              width={48}
+              height={48}
+              className="rounded w-12 h-12"
+            />
+            <div className="leading-tight">
+              <a
+                href={data.account.url}
+                className="font-medium"
+                dangerouslySetInnerHTML={{
+                  __html: data.account.display_name,
+                }}
+              />
+              <div className="text-sm text-gray-500">
+                {data.account.username}
+              </div>
+            </div>
+          </header>
+          <section
+            dangerouslySetInnerHTML={{ __html: data.content }}
+            className="leading-normal toot-content"
+          />
+          <MediaSection attachments={data.media_attachments} />
+          <nav className="text-sm text-gray-500">
+            <a href={url}>
+              {formatDate(data.created_at)}, {formatTime(data.created_at)}
+            </a>
+          </nav>
+        </article>
+      </EmbedFrame>
+    )
+  } catch (error) {
+    return (
+      <EmbedFrame
+        Icon={BsMastodon}
+        iconFill
+        className={twMerge('max-w-xl mx-auto', className)}
+        isError
+      >
+        <div className="not-prose">
+          <p className="font-medium">Error displaying toot</p>
+          <code className="text-sm text-red-500">{String(error)}</code>
+          <p className="text-sm mt-2 underline">
+            <a href={url}>Open on Mastodon</a>
+          </p>
+        </div>
+      </EmbedFrame>
+    )
+  }
+}
+
+// --
+
+type MediaSectionProps = {
+  attachments: TootMediaAttachment[]
+}
+
+const MediaSection: React.FC<MediaSectionProps> = ({ attachments }) => {
+  const images = attachments.filter(({ type }) => type === 'image')
+  if (images.length === 0) {
+    return null
+  }
+  if (images.length === 1) {
+    const img = images[0]
+    return (
+      <Image
+        src={img.url}
+        alt={img.description ?? 'No description provided'}
+        title={img.description ?? undefined}
+        width={img.meta.small.width}
+        height={img.meta.small.height}
+        unoptimized
+        className="w-full rounded object-cover"
+      />
+    )
+  }
+  let containerClass =
+    images.length === 2
+      ? 'grid grid-cols-2 gap-2'
+      : 'grid grid-cols-2 grid-rows-2 gap-2'
+  let imgClasses = Array(images.length).fill(null)
+  if (images.length === 3) {
+    imgClasses[0] = 'row-span-2'
+  }
+  return (
+    <section className={twMerge('h-80', containerClass)}>
+      {images.map((img, i) => (
+        <div key={img.url} className={twMerge('relative', imgClasses[i])}>
+          <Image
+            src={img.url}
+            alt={img.description ?? 'No description provided'}
+            title={img.description ?? undefined}
+            placeholder="blur"
+            blurDataURL={img.blurhash}
+            fill
+            unoptimized
+            className="rounded object-cover"
+          />
+        </div>
+      ))}
+    </section>
+  )
+}

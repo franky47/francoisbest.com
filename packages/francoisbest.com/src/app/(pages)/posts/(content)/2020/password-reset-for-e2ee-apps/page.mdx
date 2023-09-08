@@ -1,0 +1,173 @@
+export const metadata = {
+  title: 'Password Reset for End-to-End Encrypted Applications',
+  description:
+    "We forget passwords. Usually it's OK, because most websites implement a password reset feature. But how to do this in end-to-end encrypted applications that don't have access to the password in the first place ?",
+  publicationDate: '2020-02-15',
+  tags: ['e2ee', 'security', 'cryptography'],
+}
+
+We all forget our passwords. And that's OK, most of the time.
+
+Some people have built entire businesses around that fact: Password Managers
+such as
+[Bitwarden](https://bitwarden.com),
+[1Password](https://1password.com),
+[LastPass](https://lastpass.com),
+[Dashlane](https://dashlane.com),
+[KeePass](https://keepass.info) etc..
+
+They all offer you a similar promise:
+
+> You have only one password to rembember.
+
+Which brings us back to our opening statement: we, humans, forget passwords.
+
+And while most web services have a password reset feature to alleviate that,
+End-to-end encrypted (E2EE) apps such as password managers don't allow you to lose
+your main password (the one that unlocks your account).
+
+This is because those **password managers don't have access to your main password**.
+
+If they did, it would be a terrible security design flaw on their part, and you
+should probably look for a replacement [^1].
+
+[^1]:
+    It's not always easy to know what an app does when you can't read its source code.
+    I use [Bitwarden](https://bitwarden.com) to manage my passwords
+    especially because it is [open-source](https://github.com/bitwarden).
+
+Traditional password resets can vary a lot in security and complexity.
+[Troy Hunt](https://www.troyhunt.com) has an excellent article on
+[how to do this the right way](https://www.troyhunt.com/everything-you-ever-wanted-to-know/).
+The gist of it is:
+
+1. A user asks for a password reset
+2. An email is sent to them containing a link that bypasses the traditional authentication mechanism
+3. The user enters a new password
+4. The password entry is updated in the database
+
+The key here is that the password is sent in clear text to the server, which
+will ([hopefully](https://www.youtube.com/watch?v=8ZtInClXe1Q))
+salt it & hash it using a slow algorithm like Bcrypt/Scrypt/Argon2 before saving
+it in a database.
+
+Because there is no password storage of any kind in the backend of an E2EE app,
+there is nothing to update with this kind of system.
+
+Moreover, the issue is that some (if not all) of the data in the database is
+stored as received: encrypted with a key that the server does not have. If that
+key is lost, because it depends on the lost main password, there is no way to
+decrypt the existing data.
+
+The only thing those apps can do is to reset your account, wipe the slate clean
+by deleting all the existing unreadable data and let you use the same username
+or email address for a fresh start.
+
+This is not ideal. There is a way to allow a user to recover their data if they
+lose access to their main password though:
+
+Using [horcruxes](https://en.wikipedia.org/wiki/Magical_objects_in_Harry_Potter#Horcruxes).
+
+## Shamir Secret Sharing
+
+In 1979, [Adi Shamir](https://en.wikipedia.org/wiki/Adi_Shamir)
+wrote ["How to share a secret"](https://dl.acm.org/doi/10.1145/359168.359176),
+explaining a technique now named after him,
+[Shamir Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing).
+
+It allows splitting a secret into a number of parts, each individually useless
+to the owner. Even if someone were to gather all but one of the parts, the
+secret would still be safe. All the parts are required to reconstruct the secret.
+
+To apply this to a password reset system, the password can be split in two shards.
+One shard would be sent to the server, and the other presented to the user,
+asking them to save it somewhere safe.
+
+import { FiShield } from 'react-icons/fi'
+
+<Note title="Security Note" icon={FiShield}>
+  Because passwords usually have low entropy, it might be more secure to split a
+  key derived from the password instead.
+</Note>
+
+Here is an example output in TypeScript using [`@stablelib/tss`](https://npmjs.com/package/@stablelib/tss) :
+
+```ts
+import crypto from 'crypto'
+import { split, IDENTIFIER_LENGTH } from '@stablelib/tss'
+import { utf8, hex } from '@47ng/codec'
+
+const shards = split(
+  utf8.encode('supersecretpassword'),
+  2, // Require 2 shards to recompose the secret
+  2, // Generate 2 shards in total
+  crypto.randomBytes(IDENTIFIER_LENGTH) // Random identifier
+).map(shard => hex.encode(shard))
+
+// Server shard:
+// 7db2d515c461711e28a1a099aabc7cf5
+// 0202003401eceaeffaedecfafcedfaeb
+// effeecece8f0edfbc55ecd2967222724
+// 8d0a0ad74add54bce3d5ec9ffb201724
+// 2742f1bfd68d2532
+//
+// User shard:
+// 7db2d515c461711e28a1a099aabc7cf5
+// 02020034025650554057564046574051
+// 55445656524a57417fe47793dd989d9e
+// 37b0b06df067ee06596f5625419aad9e
+// 9df84b056c379f88
+```
+
+## Password Reset Flow
+
+Now that the user has saved their shard, and the server shard has been saved in
+the database, a password reset flow can be initiated.
+
+Everything happens on the client side in an E2EE app, so the app cannot ask
+the user to send their shard to the server, as it would give it access to the
+keys to unlock all the data.
+
+Instead, the server sends an email with a link containing a temporary token.
+The reason the server shard is not sent directly in the email link is to
+allow that link to expire.
+
+When the user visits that link, the token is used to retrieve the server shard,
+and the user is asked to enter their shard.
+
+Recomposition happens on the client side, to regenerate whatever secret is used
+to authenticate / decrypt the data:
+
+```ts
+import { combine } from '@stablelib/tss'
+import { utf8, hex } from '@47ng/codec'
+
+const shards = [
+  '7db2d515c461711e28a1a099aabc7cf50202003401eceaeffaedecfafcedfaebeffeecece8f0edfbc55ecd29672227248d0a0ad74add54bce3d5ec9ffb2017242742f1bfd68d2532',
+  '7db2d515c461711e28a1a099aabc7cf50202003402565055405756404657405155445656524a57417fe47793dd989d9e37b0b06df067ee06596f5625419aad9e9df84b056c379f88',
+].map(shard => hex.decode(shard))
+
+const secret = utf8.decode(combine(shards))
+
+// Secret:
+// supersecretpassword
+```
+
+## Caveats
+
+While this system can be convenient, it poses a security risk, even though it
+requires compromising both wherever the user stored their shard and their email
+account, it can happen.
+
+Brute-force attacks on this system should be dimensioned to be similar to
+attacking the encrypted data, 256 bits of entropy in the secret to split gives
+a good trade-off between shard size and computational complexity for an attack.
+
+If the user loses their shard, there is nothing that can be done to recover
+the account. So one could say it's the same problem as a password, but the size
+of the shard plays in favour of storing it somewhere safe, as it cannot be
+remembered.
+
+> ... for neither can live, while the other survives.
+>
+> <figcaption>JK Rowling, Harry Potter And The Order Of The Phoenix</figcaption>

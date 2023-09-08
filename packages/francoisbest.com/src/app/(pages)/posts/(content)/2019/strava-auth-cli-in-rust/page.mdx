@@ -1,0 +1,661 @@
+export const metadata = {
+  title: 'Building A Strava Authentication CLI In Rust',
+  description:
+    'A first look at how to implement an OAuth authentication / authorization exchange in Rust.',
+  publicationDate: '2019-01-15',
+  tags: ['rust', 'strava'],
+}
+
+I use the Strava API to develop a little web app called
+[Stravels](https://pwa.stravels.io).
+It requires authentication tokens, which are obtained in the classic OAuth
+flow way:
+
+1. Visit a login page on the provider's domain (Strava), passing the app ID.
+2. Log into the provider's system
+3. Arrive to the authorization page, where you can:
+   - Authorize the whole app for the permissions it requested
+   - Or a subset of permissions
+   - Or deny the access altogether
+4. The page then redirects you to a URL with a query parameter containing a code.
+5. You must then do a token exchange by sending this code to the Strava API
+   and they will give you a pair of tokens (refresh and access) in exchange.
+
+## Tools Against DRY
+
+In order to play with the Strava API, I found myself having to build the
+login page first in my prototypes, complete with handling the redirection.
+This is not ideal, as this code would likely be thrown away when implementing
+the actual authentication view, and it slows down the "idea to prototype" phase,
+so the situation called for a better tool to obtain tokens easily
+to do quick exploratory API calls.
+
+Services with OAuth APIs usually provide you with a test token in their web UI,
+but Strava's has a limited scope which made it hard to painlessly explore the
+full API.
+
+I recently started learning Rust, and was looking for something to build with
+it. This sounds like the perfect excuse.
+
+## Getting Started
+
+Here's what we want:
+
+1. A command-line utility (no need for a web app or even a fancy UI)
+2. That takes basic information as input
+3. That lets you login and authorize the app
+4. And gives you back the access and refresh tokens
+
+Point #1 gives us the development context, we need a Rust binary:
+
+```shell
+$ cargo init strava-auth --bin
+$ cd strava-auth
+```
+
+<Note title="Note">
+  I won't be focusing on how to install Rust, what it is or how to use Cargo,
+  there's plenty of documentation out there already.
+</Note>
+
+### Dependencies
+
+We are going to split the program into four parts, where we will need to:
+
+1. Parse command line arguments
+2. Open a URL into the default browser
+3. Start a web server on localhost to handle the redirection
+4. Make HTTP requests to the Strava API
+
+Fortunately, the [Rust ecosystem](https://crates.io) has everything we need:
+
+```shell
+$ cargo add structopt webbrowser rocket reqwest
+```
+
+import { FiPackage } from 'react-icons/fi'
+
+<Note icon={FiPackage} status="info">
+  To add dependencies this way, check out
+  [`cargo-edit`](https://github.com/killercup/cargo-edit).
+</Note>
+
+Here's a recap of our dependencies:
+
+- [`structopt`](https://crates.io/crates/structopt) handles CLI arguments parsing and validation
+- [`webbrowser`](https://crates.io/crates/webbrowser) opens URLs in the default browser
+- [`rocket`](https://crates.io/crates/rocket) is an awesome web server
+- [`reqwest`](https://crates.io/crates/reqwest) sends HTTP requests
+
+Before going further, we're going to need to use the nightly version of Rust,
+as required by Rocket (at the time of writing):
+
+```shell
+$ rustup override set nightly
+```
+
+## Strategy
+
+Before jumping into the code, here's what we're going to do:
+
+1. Get the info we need from the command line
+2. Build the authorization URL to open in the browser
+3. Start a web server that listens on localhost for the redirection
+
+According to the [Strava authentication documentation](https://developers.strava.com/docs/authentication/#request-access),
+we need the client ID and secret, which can be found for our Strava
+app [in the settings](https://www.strava.com/settings/api).
+
+We'll pass the client ID and secret to our CLI like this:
+
+```shell
+$ strava-auth --id 123456 --secret 0123456789abcdef
+```
+
+## Command Line Arguments
+
+Parsing command line arguments (and validating, and displaying help, and all
+the perks of user interaction) is made easier with
+[`structopt`](https://docs.rs/structopt/):
+
+```rust title="main.rs"
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+#[structopt(name = "strava-auth")]
+/// Authorize and authenticate a Strava API app.
+///
+/// Requires a GUI web browser to be available.
+struct Arguments {
+  #[structopt(short = "i")]
+  id: u32,
+
+  #[structopt(short = "s")]
+  secret: String,
+}
+
+fn main() {
+  let args = Arguments::from_args();
+  println!("{:#?}", args);
+}
+```
+
+Let's test it:
+
+```shell
+$ cargo run -- --id 123456 --secret 0123456789abcdef
+```
+
+<Note title="Did you know ?" status="info">
+  The `--` after `cargo run` is a Unix trick to pass the arguments to our
+  program and not to cargo itself.
+</Note>
+
+We should get the following output:
+
+```shell
+Arguments {
+    id: 123456,
+    secret: "0123456789abcdef"
+}
+```
+
+## Building The Authorization URL
+
+The specification for the url format is given by the
+[Strava authentication documentation](https://developers.strava.com/docs/authentication/#request-access).
+
+We'll use the web version: `https://www.strava.com/oauth/authorize`.
+
+By default we'll also request all the possible scopes, as we can manually
+authorize them individually in the authorization page. Strava sends us
+back the approved scopes in the redirection URL, so we'll display them as an
+output to the user in addition to the tokens.
+
+For the `redirect_uri`, we'll use `localhost` as it's where our listening
+server will be. Luckily, it's whitelisted by Strava for local development,
+so no need to mess with the OAuth redirection whitelist in the settings
+there.
+
+Here's what the code looks like:
+
+```rust title="main.rs"
+fn make_strava_auth_url(client_id: u32) -> String {
+  let scopes = [
+    // "read", // Shadowed by read_all
+    "read_all",
+    "profile:read_all",
+    "profile:write",
+    // "activity:read", // Shadowed by activity:read_all
+    "activity:read_all",
+    "activity:write",
+  ]
+  .join(",");
+
+  let params = [
+    format!("client_id={}", client_id),
+    String::from("redirect_uri=http://localhost:8000"),
+    String::from("response_type=code"),
+    String::from("approval_prompt=auto"),
+    format!("scope={}", scopes),
+  ]
+  .join("&");
+  format!("https://www.strava.com/oauth/authorize?{}", params)
+}
+```
+
+Now we can use this function and pass the generated URL to
+[`webbrowser`](https://github.com/amodm/webbrowser-rs) to open it in the
+default browser:
+
+```rust title="main.rs"
+use webbrowser;
+
+// ...
+
+fn main() {
+  let args = Arguments::from_args();
+
+  let auth_url = make_strava_auth_url(args.id);
+  if webbrowser::open(&auth_url).is_err() {
+    // Try manually
+    println!("Visit the following URL to authorize your app with Strava:");
+    println!("{}\n", auth_url);
+  }
+}
+```
+
+Here we can see an example of how good error handling is in Rust: rather than
+calling `.unwrap()` on the result of `webbrowser::open()` and crash if it
+failed to find a suitable browser to open the URL in, we provide a fallback
+by showing it to the user and letting them open it manually.
+
+This is ideal, because just showing them an error message they can't do much about
+provides zero value and a lot of frustration, whereas a manual action keeps the
+process going.
+
+Let's test what we've done so far.
+
+```shell
+$ cargo run -- --id <your-app-id> --secret <your-app-secret>
+```
+
+You should get something like this in your browser:
+
+<WideContainer>
+  <figure>
+    ![A webpage titled 'Authorize Stravels to connect to Strava', with a list of
+    authorization scopes and an Authorize/Cancel pair of action
+    buttons.](./strava-auth-page.png)
+    <figcaption>Strava's authorization page</figcaption>
+  </figure>
+</WideContainer>
+
+At this point, if you click either Authorize or Cancel, you'll get an `Unable to connect`
+error, as there is no server to handle the redirect.
+
+## Adding The Server
+
+Spinning a web server is made easy with [Rocket](https://rocket.rs). To keep
+things tidy, we'll implement the server in a separate file `server.rs`.
+
+We're going to define two routes, one for a successful redirection (which
+contains a code and a list of approved scopes), and one for redirection
+errors:
+
+```rust title="server.rs"
+use rocket::config::{Config, Environment, LoggingLevel};
+use rocket::http::RawStr;
+
+#[get("/?<code>&<scope>")]
+fn success(code: &RawStr, scope: &RawStr) -> &'static str {
+  println!("Code: {}", code);
+  println!("Scope: {}", scope);
+  "✅ You may close this browser tab and return to the terminal."
+}
+
+#[get("/?<error>", rank = 2)]
+fn error(error: &RawStr) -> String {
+  println!("{}", error);
+  format!("Error: {}, please return to the terminal.", error)
+}
+```
+
+Rocket lets us define routes based on the presence of query parameters, and
+will do the routing for us. However, as both paths are `/`, we need to tell
+Rocket to try the success route first, then the error one if either `code`
+or `scope` is missing. This is done with [ranking](https://rocket.rs/v0.4/guide/requests/#forwarding).
+
+If the redirect contains both query parameters of `code` and `scopes`, the
+first handler `success` will be called, otherwise an `error` query parameter
+should be there, and the second handler `error` will be called.
+
+If neither is present, then we'll get a 404 error (but we don't care since
+the problem would be on Strava's side).
+
+In both case, we print the parameters to the terminal, and return a string
+as a response that will be visible in the browser, instructing the user to
+return to the terminal.
+
+## Starting The Server
+
+Let's add a function to `server.rs` to start the Rocket server:
+
+```rust title="server.rs"
+pub fn start() {
+  let config = Config::build(Environment::Development)
+    .log_level(LoggingLevel::Off)
+    .finalize()
+    .unwrap();
+  rocket::custom(config)
+    .mount("/", routes![success, error])
+    .launch();
+}
+```
+
+Most of the complexity here is to create a custom configuration for Rocket
+that suppresses logging to the console, as we don't care much for its
+internals in this case.
+
+Let's move back to `main.rs`:
+
+```rust title="main.rs"
+// Required for Rocket code generation to work
+#![feature(proc_macro_hygiene, decl_macro)]
+
+#[macro_use]
+extern crate rocket;
+
+mod server; // Include our `server.rs` file
+
+// ...
+
+fn main() {
+  let args = Arguments::from_args();
+  let auth_url = make_strava_auth_url(args.id);
+  if webbrowser::open(&auth_url).is_err() {
+    // Try manually
+    println!("Visit the following URL to authorize your app with Strava:");
+    println!("{}\n", auth_url);
+  }
+
+  server::start();
+}
+```
+
+## A Case For Multithreading
+
+By default, Rocket's `launch()` method will block the thread it's running on
+to wait for requests, indefinitely, and never return.
+
+This is not ideal, as we're going to have to continue doing stuff once the
+redirection has succeeded (or failed), and moving that logic into the route
+handlers would not be recommended: it would duplicate some logic, make the
+whole program hard to reason about and the code even harder to read without
+knowing the data flow.
+
+Fortunately, Rust is great for multithreaded applications. So we're going to
+start the web server in a separate thread, and have it communicate with the
+main thread with an `mpsc` channel (there's many multithreading crates in the
+ecosystem, but the standard library will do just fine here).
+
+Since many things can happen that the server may want to report, we'll start
+by defining some data structures to exchange:
+
+```rust title="server.rs"
+#[derive(Debug)]
+pub struct AuthInfo {
+  pub code: String,
+  pub scopes: Vec<String>,
+}
+
+impl AuthInfo {
+  pub fn new(code: &RawStr, scopes: &RawStr) -> Self {
+    Self {
+      code: String::from(code.as_str()),
+      scopes: scopes.as_str().split(",").map(String::from).collect(),
+    }
+  }
+}
+```
+
+When everything goes well, the route handler will send an `AuthInfo` struct
+back to the main thread, that contains the authorization code and the
+approved scopes.
+
+Still, we need a single type to send through the channel, and as things can
+go wrong, let's use a classic Rust construct, `Result`:
+
+```rust
+pub type AuthResult = Result<AuthInfo, String>;
+```
+
+Our errors can be strings for now, as there's not much interest to strongly
+type them at this point.
+
+## Passing Data Across Threads
+
+Since we're going to start our web server in a different thread, we need a
+way to pass data between the route handler's thread and the main thread.
+
+Rust does that through [`mpsc` channels](https://doc.rust-lang.org/std/sync/mpsc/).
+We're going to create a transmitter (`tx`) and a receiver (`rx`), keep the
+`rx` in the main thread and pass the transmitter to the server thread.
+
+This is what it would look like:
+
+<Note status="error" title="Hic sunt dracones">
+  This code won't compile yet.
+</Note>
+
+```rust title="main.rs"
+use std::sync::mpsc;
+
+fn main() {
+  // ...
+
+  let (tx, rx) = mpsc::channel();
+  std::thread::spawn(move || {
+    server::start(tx);
+  });
+
+  // recv() is blocking, so the main thread will patiently
+  // wait for data to be sent through the channel.
+  // This way the server thread stays alive for as long as
+  // it's needed.
+  match rx.recv().unwrap() {
+    Ok(auth_info) => {
+      // Do something with the result
+    }
+    Err(error) => eprintln!("{}", error),
+  }
+}
+```
+
+```rust title="server.rs"
+use std::sync::mpsc;
+
+// ...
+
+pub type Transmitter = mpsc::Sender<AuthResult>;
+
+pub fn start(tx: Transmitter) {
+  // How do we pass tx to the route handlers ?
+}
+```
+
+## Data-Race Freedom
+
+You know how everyone says Rust is data-race free ? We're about to witness an
+example.
+
+Rocket uses multiple threads to parallelise request handling. Even though we
+are only going to handle a single request, Rust is here to let us know that
+things could go wrong when passing data from the route handler back to the
+main thread.
+
+As we don't have a way to clone our `tx` when Rocket spawns its worker
+threads, we're going to use a Mutex instead (performance is not a critical
+feature here).
+
+We're also going to reduce the number of worker threads to 1, even if it does
+not magically bring back thread safety, it will at least avoid unnecessary
+thread creation.
+
+To pass the Mutex, we'll use Rocket's managed state facility. Here's what
+our updated `server.rs` looks like:
+
+```rust title="server.rs"
+use rocket::State;
+use std::sync::Mutex;
+
+// ...
+
+pub type TxMutex<'req> = State<'req, Mutex<Transmitter>>;
+
+// --
+
+#[get("/?<code>&<scope>")]
+fn success(code: &RawStr, scope: &RawStr, tx_mutex: TxMutex) -> &'static str {
+  let tx = tx_mutex.lock().unwrap();
+  tx.send(Ok(AuthInfo::new(code, scope))).unwrap();
+  "✅ You may close this browser tab and return to the terminal."
+}
+
+#[get("/?<error>", rank = 2)]
+fn error(error: &RawStr, tx_mutex: TxMutex) -> String {
+  let tx = tx_mutex.lock().unwrap();
+  tx.send(Err(String::from(error.as_str()))).unwrap();
+  format!("Error: {}, please return to the terminal.", error)
+}
+
+// --
+
+pub fn start(tx: Transmitter) {
+  let config = Config::build(Environment::Development)
+    .log_level(LoggingLevel::Off)
+    .workers(1) // No need for multithreading here
+    .finalize()
+    .unwrap();
+
+  rocket::custom(config)
+    .mount("/", routes![success, error])
+    .manage(Mutex::new(tx))
+    .launch();
+}
+```
+
+## Authenticating With The Strava API
+
+If everything goes right, we should now have access to an authorization
+code, yay ! Let's now turn it into a token.
+
+The [Strava documentation](https://developers.strava.com/docs/authentication/#token-exchange)
+tells us what to do:
+
+```rust title="strava.rs"
+use std::collections::HashMap;
+
+pub fn exchange_token(code: &str, id: u32, secret: &str) {
+  let client = reqwest::Client::new();
+  let mut body = HashMap::new();
+  body.insert("client_id", format!("{}", id));
+  body.insert("client_secret", String::from(secret));
+  body.insert("code", String::from(code));
+  body.insert("grant_type", String::from("authorization_code"));
+  let res = client
+    .post("https://www.strava.com/oauth/token")
+    .json(&body)
+    .send()
+    .unwrap()
+    .error_for_status()
+    .unwrap();
+  println!("{:#?}", res);
+}
+```
+
+```rust title="main.rs"
+
+mod strava;
+
+fn main() {
+  // ...
+
+  match rx.recv().unwrap() {
+    Ok(auth_info) => {
+      strava::exchange_token(&auth_info.code,
+                             args.id,
+                             &args.secret);
+    }
+    // ...
+  }
+}
+```
+
+## Parsing And Displaying The Result
+
+The result we get is that of the response given back by the Strava API. What
+we need is actually in the body, which is a piece of JSON.
+
+We can tell Rust to validate that response against a format and make it into
+a native object using `serde` (and its friends `serde_json` and
+`serde_derive`).
+
+```shell
+$ cargo add serde serde_json serde_derive
+```
+
+```rust title="main.rs"
+#[macro_use]
+extern crate serde_derive;
+```
+
+```rust title="strava.rs"
+#[derive(Debug, Deserialize)]
+pub struct Login {
+  pub access_token: String,
+  pub refresh_token: String,
+}
+
+pub type LoginResult = Result<Login, reqwest::Error>;
+
+pub fn exchange_token(code: &str, id: u32, secret: &str) -> LoginResult {
+  let mut body = HashMap::new();
+  body.insert("client_id", format!("{}", id));
+  body.insert("client_secret", String::from(secret));
+  body.insert("code", String::from(code));
+  body.insert("grant_type", String::from("authorization_code"));
+  let mut res = reqwest::Client::new()
+    .post("https://www.strava.com/oauth/token")
+    .json(&body)
+    .send()?
+    .error_for_status()?;
+  Ok(res.json()?)
+}
+```
+
+We can now finish the program and display the login data in `main.rs`:
+
+```rust title="main.rs"
+// ...
+
+fn main() {
+  // ...
+
+  match rx.recv().unwrap() {
+    Ok(auth_info) => {
+      match strava::exchange_token(&auth_info.code,
+                                   args.id,
+                                   &args.secret) {
+        Ok(login) => {
+          println!("{:#?}", login);
+          println!("Scopes {:#?}", auth_info.scopes);
+        }
+        Err(error) => eprintln!("Error: {:#?}", error),
+      }
+    }
+    Err(error) => eprintln!("{}", error),
+  }
+}
+```
+
+## Lifetime Issues
+
+In the case where something wrong happens, we have a problem: the main thread
+exits too quickly, and along with it goes the server thread, which does not
+have enough time to send its response to the browser. So instead of our nice
+error message, we see a "Connection reset" error.. :/
+
+We don't have this issue on the happy path, as the request to the Strava API
+likely adds a little delay before the program exits, and lets the server send
+the response.
+
+It would be nice if we could let the server respond properly, then kill the
+program. We can do so by adding a small delay in the main thread if an error
+occurs:
+
+```rust
+match rx.recv().unwrap() {
+  Ok(auth_info) => {
+    // ...
+  }
+  Err(error) => {
+    eprintln!("{}", error);
+    // Let the async server send its response
+    // before the main thread exits.
+    std::thread::sleep(std::time::Duration::from_secs(1));
+  }
+}
+```
+
+## Closing Notes
+
+While this project is not an example of Rust's best practices (in term of error
+handling, thread synchronization, logging etc..), it shows how straightforward
+it can be to build a quick prototyping tool to solve a pain point in Rust, by
+leveraging the safety of the language and the diversity of the ecosystem.
+
+## Resources
+
+The [source code for this project](https://github.com/47ng/strava-auth-cli)
+is available on GitHub.
