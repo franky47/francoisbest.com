@@ -47,8 +47,12 @@ However, the correct URL is also needed in a couple of places where this solutio
 
 ## Solution
 
-Tell Vercel to rebuild for each push by setting the "Ignored Build Step"
-behavior to "Custom" with a value of `exit 1`.
+Set the `VERCEL_FORCE_NO_BUILD_CACHE` environment variable to 1 for production deployments.
+
+## Other attempts
+
+I first tried to tell Vercel to rebuild for each push by setting the "Ignored Build Step"
+behavior to "Custom" with a value of `exit 1`, but it did not work:
 
 <figure>
   ![When a commit is pushed to the Git repository that is connected with your
