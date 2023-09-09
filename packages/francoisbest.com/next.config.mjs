@@ -32,16 +32,16 @@ const nextConfig = {
       },
     ],
   },
-  // async rewrites() {
-  //   return [
-  //     // https://notebook.lachlanjc.com/2022-11-18_link_your_domain_to_mastodon_with_nextjs
-  //     {
-  //       source: '/.well-known/webfinger',
-  //       destination:
-  //         'https://mamot.fr/.well-known/webfinger?resource=acct:Franky47@mamot.fr',
-  //     },
-  //   ]
-  // },
+  async rewrites() {
+    return [
+      // https://notebook.lachlanjc.com/2022-11-18_link_your_domain_to_mastodon_with_nextjs
+      {
+        source: '/.well-known/webfinger',
+        destination:
+          'https://mamot.fr/.well-known/webfinger?resource=acct:Franky47@mamot.fr',
+      },
+    ]
+  },
 
   webpack(config) {
     // Configures webpack to handle SVG files with SVGR. SVGR optimizes and transforms SVG files
