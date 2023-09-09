@@ -65,9 +65,6 @@ However, the correct URL is also needed in a couple of places where this solutio
   work.
 </Note>
 
-Setting the [`VERCEL_FORCE_NO_BUILD_CACHE`](https://vercel.com/docs/deployments/troubleshoot-a-build#managing-build-cache)
-environment variable to `1` for deployments does not seem to have an effect.
-
 I first tried to tell Vercel to rebuild for each push by setting the "Ignored Build Step"
 behavior to "Custom" with a value of `exit 1`, but it did not work:
 
@@ -91,3 +88,10 @@ However, it's a double negative situation here: saying "no" to an "Ignore build"
 It's a bit confusing.
 
 </Note>
+
+On top of that, I tried setting the [`VERCEL_FORCE_NO_BUILD_CACHE`](https://vercel.com/docs/deployments/troubleshoot-a-build#managing-build-cache)
+environment variable to `1` for deployments.
+
+While it does show in the logs that the build cache step is skipped, this repository uses Turborepo and the build logs show that Turbo gets a cache hit.
+
+Last attempt was to set the `TURBO_FORCE` environment variable to `true` to opt-out of Turbo caching.
