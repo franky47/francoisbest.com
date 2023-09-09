@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { Input } from 'ui/components/forms/inputs'
 import { useHash } from 'ui/components/hashvatar.client'
 import { SHA256Avatar, Variants } from 'ui/components/hashvatar.server'
 
@@ -30,12 +31,10 @@ export default function HashvatarDemoPage() {
         className="font-mono text-sm text-gray-500 text-center"
         dangerouslySetInnerHTML={{ __html: hashText }}
       />
-      <input
-        type="text"
-        dir="auto"
+      <Input
         value={text}
         onChange={e => setText(e.target.value)}
-        className="block mx-auto px-3 py-1 border rounded mt-4 dark:bg-gray-900"
+        className="mx-auto max-w-xs mt-4"
       />
       <nav className="max-w-xl mx-auto flex justify-between flex-wrap my-12">
         <VariantButton variant="normal" hash={hash} onClick={setVariant} />

@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import { Input } from './forms/inputs'
+import { Slider } from './forms/slider'
 import { SHA256Avatar, SHA256AvatarProps, sha256 } from './hashvatar.server'
 
 export function useHash(
@@ -27,17 +29,16 @@ export const AdjustableRadiusFactorSHA256Avatar: React.FC<
         <p>Equal Radii</p>
         <p>Equal Areas</p>
       </div>
-      <input
-        type="range"
+      <Slider
         aria-label="slider-ex-1"
         value={radiusFactor}
-        onChange={e => setRadiusFactor(e.target.valueAsNumber)}
-        className="w-full"
+        onChange={setRadiusFactor}
+        //className="my-1"
         min={0}
         max={1}
         step={0.01}
       />
-      <p className="text-center text-xs tabular-nums">
+      <p className="text-center text-xs tabular-nums !mt-2">
         Blend factor: {radiusFactor.toFixed(2)}
       </p>
     </>
@@ -75,12 +76,10 @@ export const InteractiveAvatar: React.FC<
         className="font-mono text-sm text-gray-500 text-center"
         dangerouslySetInnerHTML={{ __html: hashText }}
       />
-      <input
-        type="text"
-        dir="auto"
+      <Input
         value={text}
         onChange={e => setText(e.target.value)}
-        className="block mx-auto px-3 py-1 border rounded mt-4 dark:bg-gray-900"
+        className="max-w-xs mx-auto"
       />
     </section>
   )

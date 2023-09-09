@@ -11,6 +11,7 @@ export const Input: React.FC<InputProps> = ({ className, ...props }) => {
       id={name}
       name={name}
       type="text"
+      dir="auto"
       className={twMerge(
         `appearance-none block w-full px-4 h-10 rounded border relative bg-white dark:bg-gray-950`,
         className
