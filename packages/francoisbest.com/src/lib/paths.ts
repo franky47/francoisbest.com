@@ -49,3 +49,8 @@ export function gitHubUrl(
     `https://github.com/franky47/francoisbest.com/blob/${branch}`
   )
 }
+
+export function hnDiscussionUrl(filePath: string) {
+  const pageUrl = url(filePathToUrlPath(filePath))
+  return `https://hn.algolia.com/?q=${encodeURIComponent(pageUrl)}`
+}

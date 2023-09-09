@@ -6,7 +6,7 @@ export const metadata = {
   publicationDate: '2023-09-09',
 }
 
-import { url, resolve, filePathToUrlPath } from 'lib/paths'
+import { url, resolve, filePathToUrlPath, hnDiscussionUrl } from 'lib/paths'
 
 ## The issue
 
@@ -20,8 +20,9 @@ If yes, then everything works fine. If no, read on.
 
 </Note>
 
-At the bottom of this page, I have a "Discuss on Hacker News" link. It points
-to the Hacker News search engine with the URL of the current page.
+At the bottom of this page, I have a <a href={hnDiscussionUrl(resolve(import.meta.url))}>"Discuss on Hacker News"</a>
+link. It points to the Hacker News search engine with the URL of the current
+page.
 
 I was having issues on Vercel when deploying first on a preview branch, then
 merging my `main` production branch onto it: production links would show the preview URL.

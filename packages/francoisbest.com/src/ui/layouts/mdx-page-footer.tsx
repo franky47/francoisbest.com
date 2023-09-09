@@ -1,4 +1,4 @@
-import { filePathToUrlPath, gitHubUrl, isBlogPost, url } from 'lib/paths'
+import { gitHubUrl, hnDiscussionUrl, isBlogPost } from 'lib/paths'
 import Link from 'next/link'
 import { Logo } from 'ui/components/logo'
 import { fileURLToPath } from 'url'
@@ -15,9 +15,8 @@ export const MdxPageFooter: React.FC<MdxPageFooterProps> = ({ file }) => {
     return null
   }
   const filePath = fileURLToPath(file)
-  const articleUrl = url(filePathToUrlPath(filePath))
   const editUrl = gitHubUrl(filePath)
-  const hnUrl = `https://hn.algolia.com/?q=${encodeURIComponent(articleUrl)}`
+  const hnUrl = hnDiscussionUrl(filePath)
   return (
     <>
       {isBlogPost(filePath) && (
