@@ -35,9 +35,9 @@ export function filePathToUrlPath(filePath: string) {
 export function url(routePath: string) {
   const base = process.env.DEPLOYMENT_URL ?? process.env.VERCEL_URL
   if (base) {
-    return 'https://' + base + routePath
+    return `https://${base}${routePath}`
   }
-  return 'http://localhost:3000' + routePath
+  return `http://localhost:${process.env.PORT ?? 3000}` + routePath
 }
 
 export function gitHubUrl(
