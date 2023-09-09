@@ -33,6 +33,9 @@ const nextConfig = {
     ],
   },
   async rewrites() {
+    if (process.env.VERCEL_ENV !== 'production') {
+      return []
+    }
     return [
       // https://notebook.lachlanjc.com/2022-11-18_link_your_domain_to_mastodon_with_nextjs
       {
