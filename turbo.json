@@ -4,9 +4,15 @@
     "dev": {
       "cache": false
     },
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    "francoisbest.com#build": {
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "DEPLOYMENT_URL",
+        "VERCEL_ENV",
+        "VERCEL_GIT_COMMIT_REF",
+        "VERCEL_GIT_COMMIT_SHA",
+        "VERCEL_URL"
+      ]
     },
     "lint": {}
   }
