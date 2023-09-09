@@ -4,7 +4,7 @@
     "dev": {
       "cache": false
     },
-    "francoisbest.com#build": {
+    "build": {
       "outputs": [".next/**", "!.next/cache/**"],
       "env": [
         "DEPLOYMENT_URL",
