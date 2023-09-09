@@ -6,7 +6,19 @@ export const metadata = {
   publicationDate: '2023-09-09',
 }
 
+import { url, resolve, filePathToUrlPath } from 'lib/paths'
+
 ## The issue
+
+<Note status="info" title="Are we there yet?">
+
+Is this the current URL to this post?
+
+<pre>{url(filePathToUrlPath(resolve(import.meta.url)))}</pre>
+
+If yes, then everything works fine. If no, read on.
+
+</Note>
 
 At the bottom of this page, I have a "Discuss on Hacker News" link. It points
 to the Hacker News search engine with the URL of the current page.
@@ -45,12 +57,15 @@ However, the correct URL is also needed in a couple of places where this solutio
 - [RSS feed URLs](/posts/feed/rss.xml)
 - [Metadata](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) base URLs
 
-## Solution
+## Solution attempts
 
-Set the [`VERCEL_FORCE_NO_BUILD_CACHE`](https://vercel.com/docs/deployments/troubleshoot-a-build#managing-build-cache)
-environment variable to `1` for deployments.
+<Note status="warning">
+  The issue is ongoing, the solution presented below does <strong>not</strong>{' '}
+  work.
+</Note>
 
-## Other attempts
+Setting the [`VERCEL_FORCE_NO_BUILD_CACHE`](https://vercel.com/docs/deployments/troubleshoot-a-build#managing-build-cache)
+environment variable to `1` for deployments does not seem to have an effect.
 
 I first tried to tell Vercel to rebuild for each push by setting the "Ignored Build Step"
 behavior to "Custom" with a value of `exit 1`, but it did not work:
