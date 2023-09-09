@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import { resolve } from 'lib/paths'
+import { BlogPostEmbed } from 'ui/embeds/blog-post-embed'
 import HashvatarDemoPage from './demo'
 
 export const metadata = {
@@ -10,11 +11,12 @@ export default async function HashvatarPage() {
   return (
     <>
       <HashvatarDemoPage />
-      <p className="text-center">
-        <Link href="/posts/2021/hashvatars" className="underline">
-          Learn more
-        </Link>
-      </p>
+      <BlogPostEmbed
+        filePath={resolve(
+          import.meta.url,
+          '../../(pages)/posts/(content)/2021/hashvatars/page.mdx'
+        )}
+      />
     </>
   )
 }
