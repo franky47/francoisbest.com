@@ -17,7 +17,7 @@ export const MdxPageHeader: React.FC<MdxPageHeaderProps> = async ({ file }) => {
   const { title, publicationDate, tags } = post.meta
   return (
     <figure role="header" className="not-prose">
-      <h1 className="text-gray-950 dark:text-gray-50 text-5xl font-bold mt-8 mb-4 leading-[1]">
+      <h1 className="text-gray-950 dark:text-gray-50 text-5xl font-bold mt-8 mb-4 leading-[1.15]">
         {title}
       </h1>
       <figcaption className="flex flex-wrap gap-2 text-gray-500 text-sm">
