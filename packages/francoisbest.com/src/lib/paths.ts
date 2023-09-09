@@ -33,7 +33,7 @@ export function filePathToUrlPath(filePath: string) {
 }
 
 export function url(routePath: string) {
-  const base = process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL
+  const base = process.env.DEPLOYMENT_URL ?? process.env.VERCEL_URL
   if (base) {
     return 'https://' + base + routePath
   }
@@ -42,7 +42,7 @@ export function url(routePath: string) {
 
 export function gitHubUrl(
   filePath: string,
-  branch = process.env.VERCEL_GIT_COMMIT_REF
+  branch = process.env.VERCEL_GIT_COMMIT_REF ?? 'next'
 ) {
   return filePath.replace(
     repoRoot,

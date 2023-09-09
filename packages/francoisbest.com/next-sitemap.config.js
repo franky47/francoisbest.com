@@ -4,7 +4,7 @@ const isPreviewDeployement = process.env.VERCEL_ENV !== 'production'
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: `https://${process.env.VERCEL_URL}`,
+  siteUrl: `https://${process.env.DEPLOYMENT_URL ?? process.env.VERCEL_URL}`,
   generateIndexSitemap: false,
   autoLastmod: true,
   output: nextConfig.output,
