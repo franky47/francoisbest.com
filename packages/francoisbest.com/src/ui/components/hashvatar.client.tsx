@@ -22,7 +22,7 @@ export const AdjustableRadiusFactorSHA256Avatar: React.FC<
   const [radiusFactor, setRadiusFactor] = React.useState(1)
   return (
     <>
-      <SHA256Avatar {...props} radiusFactor={radiusFactor} />
+      <SHA256Avatar {...props} radiusFactor={radiusFactor} transition={false} />
       <div className="flex justify-between text-sm">
         <p>Equal Radii</p>
         <p>Equal Areas</p>

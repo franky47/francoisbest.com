@@ -1,4 +1,5 @@
 import React from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export async function sha256(message: string) {
   // encode as UTF-8
@@ -29,6 +30,7 @@ export type SHA256AvatarProps = {
   showSections?: boolean
   mapColor?: ColorMapper
   variant?: Variants
+  transition?: boolean
 }
 
 interface Point {
@@ -157,6 +159,7 @@ export const SHA256Avatar: React.FC<
   mapColor = mapValueToColor,
   width = '16rem',
   height = '16rem',
+  transition = true,
   ...props
 }) => {
   const mix = (a: number, b: number) =>
@@ -211,13 +214,15 @@ export const SHA256Avatar: React.FC<
             key={i}
             d={section.path}
             fill={showSections ? section.color : 'none'}
-            className={
-              showGrid ? 'stroke-sky-500' : 'stroke-white dark:stroke-black'
-            }
+            className={twMerge(
+              showGrid ? 'stroke-sky-500' : 'stroke-white dark:stroke-black',
+              transition
+                ? 'transition-transform duration-150 ease-out'
+                : undefined
+            )}
             strokeWidth={0.02}
             strokeLinejoin="round"
             style={{
-              transition: '.15s ease-out',
               transform: section.transform,
             }}
           />
