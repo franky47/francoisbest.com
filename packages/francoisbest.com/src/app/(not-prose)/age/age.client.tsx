@@ -1,7 +1,7 @@
 'use client'
 
 import dayjs from 'dayjs'
-import { queryTypes, useQueryState } from 'next-usequerystate/app'
+import { parseAsIsoDateTime, useQueryState } from 'next-usequerystate'
 import React from 'react'
 import { Input } from 'ui/components/forms/inputs'
 import { FormControl, FormLabel } from 'ui/components/forms/structure'
@@ -11,10 +11,12 @@ import { useHydration } from 'ui/hooks/useHydration'
 
 export const AgeClient: React.FC = ({}) => {
   const hydrated = useHydration()
-  const [ref, setRef] = useQueryState('ref', {
-    ...queryTypes.isoDateTime,
-    defaultValue: new Date('2020-11-21T11:51:00Z'),
-  })
+  const [ref, setRef] = useQueryState(
+    'ref',
+    parseAsIsoDateTime
+      .withOptions({ scroll: false })
+      .withDefault(new Date('2020-11-21T11:51:00Z'))
+  )
   const now = dayjs()
   const seconds = now.diff(ref, 'second')
   const hours = now.diff(ref, 'hour')

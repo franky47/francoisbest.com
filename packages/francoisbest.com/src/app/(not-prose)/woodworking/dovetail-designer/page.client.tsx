@@ -1,6 +1,6 @@
 'use client'
 
-import { queryTypes, useQueryState } from 'next-usequerystate/app'
+import { parseAsFloat, parseAsInteger, useQueryState } from 'next-usequerystate'
 import { ChangeEvent } from 'react'
 import { NumberInput } from 'ui/components/forms/inputs'
 import { Slider } from 'ui/components/forms/slider'
@@ -29,17 +29,17 @@ const safeParseInt =
   }
 
 const useIntParameter = (key: string, defaultValue: number) => {
-  return useQueryState(key, {
-    defaultValue,
-    ...queryTypes.integer,
-  })
+  return useQueryState(
+    key,
+    parseAsInteger.withOptions({ scroll: false }).withDefault(defaultValue)
+  )
 }
 
 const useFloatParameter = (key: string, defaultValue: number) =>
-  useQueryState(key, {
-    defaultValue,
-    ...queryTypes.float,
-  })
+  useQueryState(
+    key,
+    parseAsFloat.withOptions({ scroll: false }).withDefault(defaultValue)
+  )
 
 export const DovetailDesigner: React.FC = () => {
   const hydrated = useHydration()
