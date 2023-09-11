@@ -243,7 +243,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
                         textAnchor="end"
                       >
                         {dayjs(lastDate)
-                          .subtract(i - (data.length - 1), 'day')
+                          .subtract(data.length - 1 - i, 'day')
                           .format('YYYY-MM-DD')}
                       </text>
                     </>
