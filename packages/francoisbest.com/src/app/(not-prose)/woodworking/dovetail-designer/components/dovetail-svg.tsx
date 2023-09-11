@@ -9,7 +9,10 @@ export const DovetailSVG: React.FC<DovetailSVGProps> = ({ data, ...props }) => {
   const path = getDovetailPath(data)
   return (
     <figure {...props}>
-      <svg viewBox={`0 0 ${data.w} ${3 * data.tp}`}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`0 0 ${data.w} ${3 * data.tp}`}
+      >
         <defs>
           <clipPath id="tails">
             <path

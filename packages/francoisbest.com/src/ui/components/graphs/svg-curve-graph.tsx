@@ -129,6 +129,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
   const mx = 0.0001 * w
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${w} ${h}`}
       overflow="visible"
       className={className}

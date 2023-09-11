@@ -21,6 +21,7 @@ export const Logo: React.FC<LogoProps> = ({
   const wh = sizes[size]
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       aria-label="Logo"
       viewBox="0 0 148 144"
       width={size * 4 + 'px'}
