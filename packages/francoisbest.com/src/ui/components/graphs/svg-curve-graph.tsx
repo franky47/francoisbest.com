@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import React from 'react'
-import { twMerge } from 'tailwind-merge'
+import { twJoin, twMerge } from 'tailwind-merge'
 import { formatNumber } from 'ui/format'
 
 // Source:
@@ -12,8 +12,7 @@ export type SvgCurveGraphProps = React.ComponentProps<'svg'> & {
   height?: number
   mt?: number
   mb?: number
-  showValues?: boolean
-  lastDate?: Date
+  lastDate: Date
 }
 
 type Point = [number, number]
@@ -111,19 +110,16 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
   height: h = 120,
   mt = 4,
   mb = 56,
-  showValues = true,
   lastDate,
   className,
   ...props
 }) => {
   const gradientId = React.useId()
-  const graphPoints = React.useMemo(
-    () => formatGraphData(data, { w, h, mt, mb }),
-    [data, w, h, mt, mb]
-  )
+  const graphPoints = formatGraphData(data, { w, h, mt, mb })
   if (graphPoints.length === 0) {
     return null
   }
+  const sum = data.reduce((sum, x) => sum + x)
   // Floating point errors can cause subpixel gaps between "bars"
   // and cause hover state to be dropped. Adding this margin closes this gap.
   const mx = 0.0001 * w
@@ -132,7 +128,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${w} ${h}`}
       overflow="visible"
-      className={className}
+      className={twMerge(className)}
       {...props}
     >
       <defs>
@@ -142,118 +138,114 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
         </linearGradient>
       </defs>
       <g className="group/all">
-        <path
-          // Background gradient
-          d={`${svgPath(graphPoints, bezierCommand)} ${lineCommand([
-            w,
-            h,
-          ])} ${lineCommand([0, h])}`}
-          fill={`url(#${gradientId})`}
-          strokeWidth={0}
-        />
-        <path
-          // Curve
-          d={svgPath(graphPoints, bezierCommand)}
-          strokeWidth="2px"
-          // className="group-hover/all:opacity-50 transition-opacity"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {showValues && (
-          <g className="opacity-0 group-hover/all:opacity-100 transition-opacity ease-out">
-            {graphPoints.map(([x, y], i) => (
-              <React.Fragment key={i}>
-                <g className="group/bar">
-                  <rect
-                    // This sets the size of the <g> group above
-                    // so we can catch hover states on it.
-                    x={x - (0.5 * w) / (graphPoints.length - 1) - mx}
-                    y={0}
-                    width={w / (graphPoints.length - 1) + 2 * mx}
-                    height={h}
-                    fill="transparent"
-                  />
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={3}
-                    fill="currentColor"
-                    className="opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out"
-                  />
-                  {!lastDate && (
-                    <text
-                      className={twMerge(
-                        'text-xs font-medium select-none',
-                        // Fade in and out when the whole graph is hovered, but
-                        // don't fade between bars
-                        'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out',
-                        // Apply current accent color, !important seems to fix an old Firefox bug:
-                        // https://bugzilla.mozilla.org/show_bug.cgi?id=501183
-                        '!fill-current'
-                      )}
-                      strokeWidth={2.5}
-                      strokeLinejoin="round"
-                      x={x}
-                      y={y}
-                      dy={-8}
-                      textAnchor="middle"
-                    >
-                      {data[i]}
-                    </text>
-                  )}
-                  {lastDate && (
-                    <>
-                      <text
-                        className={twMerge(
-                          'text-sm font-semibold select-none tabular-nums',
-                          // Fade in and out when the whole graph is hovered, but
-                          // don't fade between bars
-                          'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out',
-                          // Apply current accent color, !important seems to fix an old Firefox bug:
-                          // https://bugzilla.mozilla.org/show_bug.cgi?id=501183
-                          'fill-current'
-                        )}
-                        strokeWidth={2.5}
-                        strokeLinejoin="round"
-                        x={w}
-                        y={h}
-                        dx={-8}
-                        dy={-20}
-                        textAnchor="end"
-                      >
-                        {formatNumber(data[i])}
-                      </text>
-                      <text
-                        className={twMerge(
-                          'text-xs select-none fill-gray-500 tabular-nums',
-                          // Fade in and out when the whole graph is hovered, but
-                          // don't fade between bars
-                          'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out'
-                          // Apply current accent color, !important seems to fix an old Firefox bug:
-                          // https://bugzilla.mozilla.org/show_bug.cgi?id=501183
-                          // '!fill-current'
-                        )}
-                        strokeWidth={2.5}
-                        strokeLinejoin="round"
-                        x={w}
-                        y={h}
-                        dy={-4}
-                        dx={-8}
-                        textAnchor="end"
-                      >
-                        {dayjs(lastDate)
-                          .subtract(data.length - 1 - i, 'day')
-                          .format('DD MMM')}
-                      </text>
-                    </>
-                  )}
-                </g>
-              </React.Fragment>
-            ))}
-          </g>
-        )}
+        <g>
+          <path
+            // Background gradient
+            d={`${svgPath(graphPoints, bezierCommand)} ${lineCommand([
+              w,
+              h,
+            ])} ${lineCommand([0, h])}`}
+            fill={`url(#${gradientId})`}
+            strokeWidth={0}
+          />
+          <path
+            // Curve
+            d={svgPath(graphPoints, bezierCommand)}
+            strokeWidth="2px"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+        <g className="opacity-0 group-hover/all:opacity-100">
+          {graphPoints.map(([x, y], i) => (
+            <g className="group/bar" key={i}>
+              <rect
+                // This sets the size of the <g> group above
+                // so we can catch hover states on it.
+                x={x - (0.5 * w) / (graphPoints.length - 1) - mx}
+                y={mt}
+                width={w / (graphPoints.length - 1) + 2 * mx}
+                height={h}
+                fill="transparent"
+              />
+              <circle
+                cx={x}
+                cy={y}
+                r={3}
+                strokeWidth={2}
+                className={twJoin(
+                  'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out',
+                  'stroke-current',
+                  'fill-white dark:fill-gray-900'
+                )}
+              />
+              <text
+                className={twJoin(
+                  'text-sm font-semibold fill-current select-none tabular-nums',
+                  // Fade in and out when the whole graph is hovered, but
+                  // don't fade between bars
+                  'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out'
+                )}
+                strokeWidth={2.5}
+                strokeLinejoin="round"
+                x={w}
+                y={h}
+                dx={-8}
+                dy={-20}
+                textAnchor="end"
+              >
+                {formatNumber(data[i])}
+              </text>
+              <text
+                className={twJoin(
+                  'text-xs select-none fill-gray-500 tabular-nums',
+                  // Fade in and out when the whole graph is hovered, but
+                  // don't fade between bars
+                  'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out'
+                )}
+                strokeWidth={2.5}
+                strokeLinejoin="round"
+                x={w}
+                y={h}
+                dy={-4}
+                dx={-8}
+                textAnchor="end"
+              >
+                {dayjs(lastDate)
+                  .subtract(data.length - 1 - i, 'day')
+                  .format('DD MMM')}
+              </text>
+            </g>
+          ))}
+        </g>
+        <g className="pointer-events-none select-none opacity-100 group-hover/all:opacity-0">
+          <text
+            className="text-sm font-semibold fill-current tabular-nums"
+            strokeWidth={2.5}
+            strokeLinejoin="round"
+            x={w}
+            y={h}
+            dx={-8}
+            dy={-20}
+            textAnchor="end"
+          >
+            {formatNumber(sum)}
+          </text>
+          <text
+            className="text-xs fill-gray-500 tabular-nums"
+            strokeWidth={2.5}
+            strokeLinejoin="round"
+            x={w}
+            y={h}
+            dy={-4}
+            dx={-8}
+            textAnchor="end"
+          >
+            Last {data.length} days
+          </text>
+        </g>
       </g>
     </svg>
   )

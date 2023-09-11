@@ -103,12 +103,12 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
           <SvgCurveGraph
             data={npm.last30Days ?? []}
             className={accent}
-            height={100}
+            height={120}
             lastDate={npm.lastDate}
           />
           <footer
             role="presentation"
-            className="absolute flex items-center gap-2 left-3 right-3 bottom-2 h-8 text-sm"
+            className="absolute flex items-center gap-2 left-3 bottom-3 h-6 text-sm"
           >
             <Logo size={6} background={false} />
             <span className="font-semibold text-md">47ng</span>
