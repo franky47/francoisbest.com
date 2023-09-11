@@ -133,6 +133,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
         </linearGradient>
       </defs>
       <path
+        // Background gradient
         d={`${svgPath(graphPoints, bezierCommand)} ${lineCommand([
           w,
           h,
@@ -141,10 +142,13 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
         strokeWidth={0}
       />
       <path
+        // Curve
         d={svgPath(graphPoints, bezierCommand)}
         strokeWidth="2px"
         fill="none"
         stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       {showValues && (
         <g>
