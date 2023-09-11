@@ -9,7 +9,7 @@ export type NpmPackageStatsData = {
   lastYear: number
   allTime: number
   last30Days: number[]
-  lastDate: string
+  lastDate: Date
 }
 
 // const regexp = /https:\/\/npmjs\.com\/package\/([\w.-]+|@[\w.-]+\/[\w.-]+)/gm
@@ -72,7 +72,7 @@ export async function fetchNpmPackage(
     lastMonth: await getStatPoint(pkg, 'last-month'),
     lastYear: await getStatPoint(pkg, 'last-year'),
     allTime: await getAllTime(pkg),
-    lastDate,
+    lastDate: new Date(lastDate),
     last30Days,
   }
 }

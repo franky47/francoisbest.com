@@ -1,4 +1,7 @@
+import dayjs from 'dayjs'
 import React from 'react'
+import { twMerge } from 'tailwind-merge'
+import { formatNumber } from 'ui/format'
 
 // Source:
 // https://medium.com/@francoisromain/smooth-a-svg-path-with-cubic-bezier-curves-e37b49d46c74
@@ -10,6 +13,7 @@ export type SvgCurveGraphProps = React.ComponentProps<'svg'> & {
   mt?: number
   mb?: number
   showValues?: boolean
+  lastDate?: Date
 }
 
 type Point = [number, number]
@@ -108,6 +112,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
   mt = 4,
   mb = 56,
   showValues = true,
+  lastDate,
   className,
   ...props
 }) => {
@@ -119,6 +124,9 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
   if (graphPoints.length === 0) {
     return null
   }
+  // Floating point errors can cause subpixel gaps between "bars"
+  // and cause hover state to be dropped. Adding this margin closes this gap.
+  const mx = 0.0001 * w
   return (
     <svg
       viewBox={`0 0 ${w} ${h}`}
@@ -132,64 +140,120 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
           <stop offset="100%" stopColor="currentColor" stopOpacity={0.2} />
         </linearGradient>
       </defs>
-      <path
-        // Background gradient
-        d={`${svgPath(graphPoints, bezierCommand)} ${lineCommand([
-          w,
-          h,
-        ])} ${lineCommand([0, h])}`}
-        fill={`url(#${gradientId})`}
-        strokeWidth={0}
-      />
-      <path
-        // Curve
-        d={svgPath(graphPoints, bezierCommand)}
-        strokeWidth="2px"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {showValues && (
-        <g>
-          {graphPoints.map(([x, y], i) => (
-            <React.Fragment key={i}>
-              <g className="group/bar">
-                <rect
-                  // This sets the size of the <g> group above
-                  x={x - (0.5 * w) / (graphPoints.length - 1)}
-                  y={0}
-                  width={w / (graphPoints.length - 1)}
-                  height={h}
-                  fill="transparent"
-                />
-                <text
-                  className="text-xs font-medium opacity-0 group-hover/bar:opacity-100 text-current select-none stroke-white dark:stroke-gray-900"
-                  style={{
-                    paintOrder: 'stroke',
-                  }}
-                  fill="currentColor"
-                  strokeWidth={2.5}
-                  strokeLinejoin="round"
-                  x={x}
-                  y={y}
-                  dy={-8}
-                  textAnchor="middle"
-                >
-                  {data[i]}
-                </text>
-                <circle
-                  cx={x}
-                  cy={y}
-                  r={3}
-                  fill="currentColor"
-                  className="opacity-0 group-hover/bar:opacity-100"
-                />
-              </g>
-            </React.Fragment>
-          ))}
-        </g>
-      )}
+      <g className="group/all">
+        <path
+          // Background gradient
+          d={`${svgPath(graphPoints, bezierCommand)} ${lineCommand([
+            w,
+            h,
+          ])} ${lineCommand([0, h])}`}
+          fill={`url(#${gradientId})`}
+          strokeWidth={0}
+        />
+        <path
+          // Curve
+          d={svgPath(graphPoints, bezierCommand)}
+          strokeWidth="2px"
+          // className="group-hover/all:opacity-50 transition-opacity"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {showValues && (
+          <g className="opacity-0 group-hover/all:opacity-100 transition-opacity ease-out">
+            {graphPoints.map(([x, y], i) => (
+              <React.Fragment key={i}>
+                <g className="group/bar">
+                  <rect
+                    // This sets the size of the <g> group above
+                    // so we can catch hover states on it.
+                    x={x - (0.5 * w) / (graphPoints.length - 1) - mx}
+                    y={0}
+                    width={w / (graphPoints.length - 1) + 2 * mx}
+                    height={h}
+                    fill="transparent"
+                  />
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r={3}
+                    fill="currentColor"
+                    className="opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out"
+                  />
+                  {!lastDate && (
+                    <text
+                      className={twMerge(
+                        'text-xs font-medium select-none',
+                        // Fade in and out when the whole graph is hovered, but
+                        // don't fade between bars
+                        'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out',
+                        // Apply current accent color, !important seems to fix an old Firefox bug:
+                        // https://bugzilla.mozilla.org/show_bug.cgi?id=501183
+                        '!fill-current'
+                      )}
+                      strokeWidth={2.5}
+                      strokeLinejoin="round"
+                      x={x}
+                      y={y}
+                      dy={-8}
+                      textAnchor="middle"
+                    >
+                      {data[i]}
+                    </text>
+                  )}
+                  {lastDate && (
+                    <>
+                      <text
+                        className={twMerge(
+                          'text-sm font-semibold select-none tabular-nums',
+                          // Fade in and out when the whole graph is hovered, but
+                          // don't fade between bars
+                          'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out',
+                          // Apply current accent color, !important seems to fix an old Firefox bug:
+                          // https://bugzilla.mozilla.org/show_bug.cgi?id=501183
+                          'fill-current'
+                        )}
+                        strokeWidth={2.5}
+                        strokeLinejoin="round"
+                        x={w}
+                        y={h}
+                        dx={-4}
+                        dy={-24}
+                        textAnchor="end"
+                      >
+                        {formatNumber(data[i])}
+                      </text>
+                      <text
+                        className={twMerge(
+                          'text-xs select-none fill-gray-500 tabular-nums',
+                          // Fade in and out when the whole graph is hovered, but
+                          // don't fade between bars
+                          'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out'
+                          // Apply current accent color, !important seems to fix an old Firefox bug:
+                          // https://bugzilla.mozilla.org/show_bug.cgi?id=501183
+                          // '!fill-current'
+                        )}
+                        strokeWidth={2.5}
+                        strokeLinejoin="round"
+                        x={w}
+                        y={h}
+                        dy={-8}
+                        dx={-4}
+                        textAnchor="end"
+                      >
+                        {dayjs(lastDate)
+                          .subtract(i - (data.length - 1), 'day')
+                          .format('YYYY-MM-DD')}
+                      </text>
+                    </>
+                  )}
+                </g>
+              </React.Fragment>
+            ))}
+          </g>
+        )}
+      </g>
     </svg>
   )
 }

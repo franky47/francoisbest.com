@@ -104,6 +104,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             data={npm.last30Days ?? []}
             className={accent}
             height={100}
+            lastDate={npm.lastDate}
           />
           <footer
             role="presentation"
