@@ -219,8 +219,8 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
                         strokeLinejoin="round"
                         x={w}
                         y={h}
-                        dx={-4}
-                        dy={-24}
+                        dx={-8}
+                        dy={-20}
                         textAnchor="end"
                       >
                         {formatNumber(data[i])}
@@ -239,13 +239,13 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
                         strokeLinejoin="round"
                         x={w}
                         y={h}
-                        dy={-8}
-                        dx={-4}
+                        dy={-4}
+                        dx={-8}
                         textAnchor="end"
                       >
                         {dayjs(lastDate)
                           .subtract(data.length - 1 - i, 'day')
-                          .format('YYYY-MM-DD')}
+                          .format('DD MMM')}
                       </text>
                     </>
                   )}
