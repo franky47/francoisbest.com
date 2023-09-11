@@ -1,5 +1,6 @@
 import { gitHubUrl, hnDiscussionUrl, isBlogPost } from 'lib/paths'
 import Link from 'next/link'
+import { HireMe } from 'ui/components/hire-me'
 import { Logo } from 'ui/components/logo'
 import { fileURLToPath } from 'url'
 
@@ -43,6 +44,7 @@ export const MdxPageFooter: React.FC<MdxPageFooterProps> = ({ file }) => {
           </div>
         </>
       )}
+      <HireMe outerClass="mt-12" />
       <nav
         role="list"
         className="text-center text-sm !mt-12 flex flex-col gap-4 sm:block items-center"

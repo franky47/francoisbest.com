@@ -1,11 +1,11 @@
 import { FiMail } from 'react-icons/fi'
 import { Note, NoteProps } from 'ui/components/note'
 
-type HireMeProps = Omit<NoteProps, 'status' | 'title'> & {
-  available: string | true
-}
+const AVAILABLE = true
 
-export const HireMe: React.FC<HireMeProps> = ({ available, ...props }) => {
+type HireMeProps = Omit<NoteProps, 'status' | 'title' | 'children'>
+
+export const HireMe: React.FC<HireMeProps> = ({ ...props }) => {
   return (
     <Note
       status="success"
@@ -20,12 +20,12 @@ export const HireMe: React.FC<HireMeProps> = ({ available, ...props }) => {
         institutions as a <strong>freelance</strong> web developer and designer.
         Let&apos;s <strong>discuss your needs</strong> and see how I can help.
       </p>
-      {typeof available === 'string' && (
+      {typeof AVAILABLE === 'string' && (
         <p>
           <em>
             <strong className="text-current">Note:</strong> my earliest
             availability is{' '}
-            <strong className="text-current">{available}</strong>.
+            <strong className="text-current">{AVAILABLE}</strong>.
           </em>
         </p>
       )}

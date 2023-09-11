@@ -52,14 +52,6 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <div className="h-8 flex justify-center items-center bg-green-400 dark:bg-emerald-500/50">
-          <a
-            href="mailto:freelance@francoisbest.com"
-            className="font-semibold underline"
-          >
-            Hire me!
-          </a>
-        </div>
         {children}
         {enableChiffreAnalytics && (
           <>
