@@ -20,6 +20,7 @@ export type NpmPackageProps = Omit<EmbedFrameProps, 'Icon' | 'children'> & {
   pkg: string
   repo: string
   accent?: string
+  children?: React.ReactNode
 }
 
 export const NpmPackage: React.FC<NpmPackageProps> = async ({
@@ -27,6 +28,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
   repo,
   accent = 'text-blue-500',
   className = 'my-8',
+  children,
   ...props
 }) => {
   try {
@@ -77,6 +79,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
               </div>
             </header>
             <p className="my-4">{github.description}</p>
+            {children}
             <pre className="text-sm bg-gray-50/50 dark:bg-gray-950 border dark:border-gray-800 dark:shadow-inner rounded !p-2 my-4">
               <span className="text-red-500/75">$</span>
               <span className="text-gray-500"> pnpm add </span>
@@ -111,9 +114,6 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
         <div className="not-prose">
           <p className="font-medium">Error displaying package</p>
           <code className="text-sm text-red-500">{String(error)}</code>
-          {/* <p className="text-sm mt-2 underline">
-            <a href={url}>Open on Mastodon</a>
-          </p> */}
         </div>
       </EmbedFrame>
     )

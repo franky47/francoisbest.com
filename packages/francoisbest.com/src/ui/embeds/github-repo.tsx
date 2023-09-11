@@ -17,6 +17,7 @@ type GitHubRepoProps = React.ComponentProps<'section'> & {
 export const GitHubRepo: React.FC<GitHubRepoProps> = async ({
   slug,
   className = 'my-8',
+  children,
   ...props
 }) => {
   const { url, description, stars, issues, prs, version, license } =
@@ -31,6 +32,7 @@ export const GitHubRepo: React.FC<GitHubRepoProps> = async ({
         <a href={url}>{slug}</a>
       </h3>
       <p>{description}</p>
+      {children}
       <ul className="flex space-x-6 text-sm text-gray-500">
         {stars > 0 && (
           <MetaListItem Icon={FiStar} text={stars} iconAlt="Stars" />
