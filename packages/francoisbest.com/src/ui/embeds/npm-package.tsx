@@ -81,11 +81,23 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             <p className="my-4">{github.description}</p>
             {children}
             <pre className="text-sm bg-gray-50/50 dark:bg-gray-950 border dark:border-gray-800 dark:shadow-inner rounded !p-2 my-4">
-              <span className="text-red-500/75">$</span>
-              <span className="text-gray-500"> pnpm add </span>
-              <a href={npm.url} className={accent}>
-                {npm.packageName}
-              </a>
+              <details className="text-gray-500">
+                <summary>
+                  <span className="text-red-500/75 select-none">$ </span>pnpm
+                  add{' '}
+                  <a href={npm.url} className={accent}>
+                    {npm.packageName}
+                  </a>
+                </summary>
+                <div>
+                  <span className="text-red-500/75 select-none ml-1"> $ </span>
+                  yarn add {npm.packageName}
+                </div>
+                <div>
+                  <span className="text-red-500/75 select-none ml-1"> $ </span>
+                  npm install {npm.packageName}
+                </div>
+              </details>
             </pre>
           </div>
           <SvgCurveGraph
