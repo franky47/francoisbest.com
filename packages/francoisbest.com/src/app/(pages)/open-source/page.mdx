@@ -8,7 +8,6 @@ export const revalidate = 86400
 
 import { GitHubRepo } from 'ui/embeds/github-repo'
 import { NpmPackage } from 'ui/embeds/npm-package'
-import { resolve } from 'lib/paths'
 
 # Open Source
 
@@ -58,7 +57,17 @@ What I like about it:
 
 <NpmPackage pkg="session-keystore" repo="47ng/session-keystore" />
 
-I wrote an [article](/posts/2019/how-to-store-e2ee-keys-in-the-browser) about how I came to build `session-keystore`:
+I wrote an article about how I came to build `session-keystore`:
+
+import { BlogPostEmbed } from 'ui/embeds/blog-post-embed'
+import { resolve } from 'lib/paths'
+
+<BlogPostEmbed
+  filePath={resolve(
+    import.meta.url,
+    '../posts/(content)/2019/how-to-store-e2ee-keys-in-the-browser/page.mdx'
+  )}
+/>
 
 <NpmPackage pkg="@47ng/cloak" repo="47ng/cloak" />
 
