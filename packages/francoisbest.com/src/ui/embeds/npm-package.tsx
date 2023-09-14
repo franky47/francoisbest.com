@@ -32,8 +32,10 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
   ...props
 }) => {
   try {
-    const npm = await fetchNpmPackage(pkg)
-    const github = await fetchRepository(repo)
+    const [npm, github] = await Promise.all([
+      fetchNpmPackage(pkg),
+      fetchRepository(repo),
+    ])
     return (
       <EmbedFrame
         Icon={FiPackage}

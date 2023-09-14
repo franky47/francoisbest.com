@@ -4,9 +4,9 @@ import 'server-only'
 export type NpmPackageStatsData = {
   packageName: string
   url: string
-  lastWeek: number
-  lastMonth: number
-  lastYear: number
+  // lastWeek: number
+  // lastMonth: number
+  // lastYear: number
   allTime: number
   last30Days: number[]
   lastDate: Date
@@ -64,14 +64,26 @@ async function getAllTime(pkg: string): Promise<number> {
 export async function fetchNpmPackage(
   pkg: string
 ): Promise<NpmPackageStatsData> {
-  const { downloads: last30Days, date: lastDate } = await getLastNDays(pkg, 30)
+  const [
+    // lastWeek,
+    // lastMonth,
+    // lastYear,
+    allTime,
+    { downloads: last30Days, date: lastDate },
+  ] = await Promise.all([
+    // getStatPoint(pkg, 'last-week'),
+    // getStatPoint(pkg, 'last-month'),
+    // getStatPoint(pkg, 'last-year'),
+    getAllTime(pkg),
+    getLastNDays(pkg, 30),
+  ])
   return {
     packageName: pkg,
     url: `https://npmjs.com/package/${pkg}`,
-    lastWeek: await getStatPoint(pkg, 'last-week'),
-    lastMonth: await getStatPoint(pkg, 'last-month'),
-    lastYear: await getStatPoint(pkg, 'last-year'),
-    allTime: await getAllTime(pkg),
+    // lastWeek,
+    // lastMonth,
+    // lastYear,
+    allTime,
     lastDate: new Date(lastDate),
     last30Days,
   }
