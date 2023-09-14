@@ -13,7 +13,7 @@ export const Input: React.FC<InputProps> = ({ className, ...props }) => {
       type="text"
       dir="auto"
       className={twMerge(
-        `appearance-none block w-full px-4 h-10 rounded border relative bg-white dark:bg-gray-950`,
+        `appearance-none block w-full px-4 h-10 rounded border relative bg-bgLight dark:bg-bgDark`,
         className
       )}
       {...props}
@@ -52,7 +52,7 @@ export const Textarea: React.FC<TextareaProps> = ({ className, ...props }) => {
       id={name}
       name={name}
       className={twMerge(
-        `appearance-none block w-full px-2 py-1 rounded border relative bg-white dark:bg-gray-950`,
+        `appearance-none block w-full px-2 py-1 rounded border relative bg-bgLight dark:bg-bgDark`,
         className
       )}
       {...props}

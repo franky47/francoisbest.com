@@ -107,8 +107,12 @@ span[data-rehype-pretty-code-fragment] > code {
 /* Dark mode ---------------------------------------------------------------- */
 
 @layer base {
+  html {
+    @apply bg-bgLight;
+  }
+
   .dark {
-    @apply bg-gray-950 text-gray-200;
+    @apply bg-bgDark text-gray-200;
   }
 
   .dark input,
