@@ -32,7 +32,7 @@ export const TagsNav: React.FC<TagsNavProps> = ({ tags, className }) => {
   return (
     <nav aria-label="Tagged" className={twMerge('flex gap-2', className)}>
       {tags.map(tag => (
-        <LinkedTag key={tag} href={`/posts?tag=${tag}`}>
+        <LinkedTag key={tag} href={`/posts/tags/${tag}`}>
           {tag}
         </LinkedTag>
       ))}
