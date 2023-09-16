@@ -4,6 +4,7 @@ import 'server-only'
 
 export type GitHubRepositoryData = {
   url: string
+  avatarUrl: string
   title?: string
   description?: string
   version?: string
@@ -34,6 +35,7 @@ export const fetchRepository = cache(async function fetchRepository(
     const numPrs = prs.data.filter(pr => pr.state === 'open').length
     return {
       url: `https://github.com/${slug}`,
+      avatarUrl: repository.owner.avatar_url,
       title: repository.name,
       description: repository.description ?? undefined,
       issues: Math.max(0, repository.open_issues_count - numPrs),

@@ -21,7 +21,7 @@ export const EmbedFrame: React.FC<EmbedFrameProps> = ({
         'px-4 py-3 rounded border shadow-md relative',
         isError
           ? 'bg-red-50/50 dark:bg-red-950/50 border-red-400 dark:border-red-800'
-          : 'dark:bg-gray-900 dark:border-gray-800 dark:shadow-inner',
+          : 'bg-bgLight dark:bg-gray-900 dark:border-gray-800 dark:shadow-inner',
         className
       )}
       {...props}

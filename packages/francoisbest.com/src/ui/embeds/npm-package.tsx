@@ -4,12 +4,12 @@ import React from 'react'
 import {
   FiDownload,
   FiFileText,
-  FiGithub,
   FiPackage,
   FiStar,
   FiTag,
 } from 'react-icons/fi'
 
+import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
 import { SvgCurveGraph } from 'ui/components/graphs/svg-curve-graph'
 import { Logo } from 'ui/components/logo'
@@ -47,7 +47,13 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             <header className="flex justify-between items-baseline flex-wrap gap-2 mb-2">
               <a href={github.url}>
                 <h3 className="flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100 mt-0">
-                  <FiGithub className="inline-block mr-2 text-gray-500 flex-shrink-0" />
+                  <Image
+                    width={24}
+                    height={24}
+                    src={github.avatarUrl}
+                    alt={`Avatar for GitHub account ${repo.split('/')[0]}`}
+                    className="rounded-full mr-2"
+                  />
                   {repo}
                 </h3>
               </a>
