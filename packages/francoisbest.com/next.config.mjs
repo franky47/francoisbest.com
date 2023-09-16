@@ -2,6 +2,7 @@
 
 import configureMdx from '@next/mdx'
 import { fromHtml } from 'hast-util-from-html'
+import configureBundleAnalyzer from 'next-bundle-analyzer'
 import fs from 'node:fs'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
@@ -120,6 +121,11 @@ const codeHighlightingOptions = {
   },
 }
 
+const withAnalyzer = configureBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+  clientOnly: true,
+})
+
 const withMdx = configureMdx({
   extension: /\.mdx?$/,
   options: {
@@ -137,7 +143,7 @@ const withMdx = configureMdx({
   },
 })
 
-export default withMdx(nextConfig)
+export default withAnalyzer(withMdx(nextConfig))
 
 function injectPageHeaderAndFooter() {
   const mdxParser = unified().use(remarkParse).use(remarkMdx)
