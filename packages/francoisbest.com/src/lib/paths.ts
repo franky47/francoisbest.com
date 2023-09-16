@@ -2,7 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const nextJsRootDir = path.resolve(__dirname, '../../')
+export const nextJsRootDir = path.resolve(__dirname, '../../')
 
 export const repoRoot = path.resolve(nextJsRootDir, '../../')
 export const nextJsAppDir = path.resolve(nextJsRootDir, 'src', 'app')
