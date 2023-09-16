@@ -2,8 +2,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-export const nextJsRootDir = path.resolve(__dirname, '../../')
 
+export const nextJsRootDir = path.resolve(__dirname, '../../')
 export const repoRoot = path.resolve(nextJsRootDir, '../../')
 export const nextJsAppDir = path.resolve(nextJsRootDir, 'src', 'app')
 export const postsDir = path.resolve(
@@ -15,7 +15,10 @@ export const postsDir = path.resolve(
 
 export function resolve(importMetaUrl: string, ...paths: string[]) {
   const dirname = path.dirname(fileURLToPath(importMetaUrl))
-  return path.resolve(dirname, ...paths)
+  const absPath = path.resolve(dirname, ...paths)
+  // Required for ISR serverless functions to pick up the file path
+  // as a dependency to bundle.
+  return path.resolve(process.cwd(), absPath.replace(nextJsRootDir, '.'))
 }
 
 export function isBlogPost(filePath: string) {
