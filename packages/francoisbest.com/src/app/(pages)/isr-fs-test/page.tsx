@@ -8,6 +8,7 @@ export const revalidate = 60
 
 export default async function ISRFSTestPage() {
   const now = new Date().toISOString().slice(11, 16)
+  console.log(`[ISR-FS-TEST] process.cwd(): ${process.cwd()}`)
   console.log(`[ISR-FS-TEST] Now: ${now}`)
   const filePath = path.resolve(
     process.cwd(),
