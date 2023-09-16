@@ -19,6 +19,9 @@ type PageProps = {
 
 export default async function BlogIndex({ searchParams }: PageProps) {
   const posts = await getAllPosts(searchParams.tag)
+  console.log(
+    `[BLOG INDEX] tag: ${searchParams?.tag} matches ${posts.length} posts`
+  )
   return (
     <>
       <header className="flex items-baseline">
