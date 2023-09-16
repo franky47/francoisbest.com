@@ -18,10 +18,11 @@ type PageProps = {
 }
 
 export default async function BlogIndex({ searchParams }: PageProps) {
-  const posts = await getAllPosts(searchParams.tag)
-  console.log(
-    `[BLOG INDEX] tag: ${searchParams?.tag} matches ${posts.length} posts`
-  )
+  const posts = await getAllPosts()
+  const filtered = searchParams.tag
+    ? posts.filter(post => post.meta.tags?.includes(searchParams.tag!))
+    : posts
+  console.log(`[BLOG INDEX] all: ${posts.length}, filtered: ${filtered.length}`)
   return (
     <>
       <header className="flex items-baseline">
@@ -52,7 +53,7 @@ export default async function BlogIndex({ searchParams }: PageProps) {
         </nav>
       )}
       <section role="feed" aria-busy={false} className="space-y-12 mt-12">
-        {posts.map(post => (
+        {filtered.map(post => (
           <BlogPostPreview key={post.urlPath} {...post} />
         ))}
       </section>
