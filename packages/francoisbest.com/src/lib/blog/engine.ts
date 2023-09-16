@@ -14,11 +14,14 @@ export type Post = {
   readingTime: string
 }
 
-export async function getAllPosts() {
+export async function getAllPosts(tagged?: string) {
   const mdxFiles = await listAllMdxFiles()
   const allPosts = await Promise.all(mdxFiles.map(getPost))
+  const filtered = tagged
+    ? allPosts.filter(post => (post.meta.tags ?? []).includes(tagged))
+    : allPosts
   // Drafts first in lexicographic order, then newest on top
-  return allPosts.sort((a, b) => {
+  return filtered.sort((a, b) => {
     const aPub = a.meta.publicationDate?.valueOf() ?? Infinity
     const bPub = b.meta.publicationDate?.valueOf() ?? Infinity
     if (aPub === bPub) {

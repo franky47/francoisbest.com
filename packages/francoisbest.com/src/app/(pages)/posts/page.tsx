@@ -1,5 +1,8 @@
 import { getAllPosts } from 'lib/blog'
-import { FiRss } from 'react-icons/fi'
+import Link from 'next/link'
+import { FiRss, FiX } from 'react-icons/fi'
+import { Button } from 'ui/components/buttons/button'
+import { StaticTag } from 'ui/components/tag'
 import { BlogPostPreview } from './components/blog-post-preview'
 
 export const metadata = {
@@ -8,8 +11,14 @@ export const metadata = {
     'I write about TypeScript, Node.js, React, security and privacy.',
 }
 
-export default async function BlogIndex() {
-  const posts = await getAllPosts()
+type PageProps = {
+  searchParams: {
+    tag?: string
+  }
+}
+
+export default async function BlogIndex({ searchParams }: PageProps) {
+  const posts = await getAllPosts(searchParams.tag)
   return (
     <>
       <header className="flex items-baseline">
@@ -25,6 +34,20 @@ export default async function BlogIndex() {
         </nav>
       </header>
       <p>I usually write about stuff. Not regularly.</p>
+      {searchParams.tag && (
+        <nav className="flex text-sm items-center gap-2">
+          <Link href="/posts" replace>
+            <Button
+              size="sm"
+              className="rounded-full"
+              variant="outline"
+              leftIcon={<FiX />}
+            >
+              Clear filter &nbsp;<StaticTag>{searchParams.tag}</StaticTag>
+            </Button>
+          </Link>
+        </nav>
+      )}
       <section role="feed" aria-busy={false} className="space-y-12 mt-12">
         {posts.map(post => (
           <BlogPostPreview key={post.urlPath} {...post} />
