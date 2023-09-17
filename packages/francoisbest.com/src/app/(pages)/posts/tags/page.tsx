@@ -1,6 +1,6 @@
 import { getAllPosts } from 'lib/blog'
-import { FiRss } from 'react-icons/fi'
 import { LinkedTag } from 'ui/components/tag'
+import { BlogRollHeader } from '../components/blog-roll-header'
 
 export const metadata = {
   title: 'Tags',
@@ -26,23 +26,11 @@ export default async function TagsIndex() {
 
   return (
     <>
-      <header className="flex items-baseline">
-        <h1>{metadata.title}</h1>
-        <nav className="not-prose text-sm text-gray-500 space-x-2 ml-auto">
-          <FiRss
-            className="inline-block -mt-1 stroke-amber-500"
-            strokeWidth={3}
-          />
-          <a href="/posts/feed/rss.xml">RSS</a>
-          <a href="/posts/feed/atom.xml">Atom</a>
-          <a href="/posts/feed/articles.json">JSON</a>
-        </nav>
-      </header>
-      <p>{metadata.description}</p>
+      <BlogRollHeader title="Articles" description={metadata.description} />
       <nav className="mt-12 flex flex-wrap gap-4 not-prose">
         {Object.entries(sortedByFrequency).map(([tag, frequency]) => (
-          <LinkedTag key={tag} href={`/posts/tags/${encodeURIComponent(tag)}`}>
-            {decodeURIComponent(tag)} ({frequency})
+          <LinkedTag key={tag} href={`/posts/tags/${tag}`}>
+            {tag} ({frequency})
           </LinkedTag>
         ))}
       </nav>
