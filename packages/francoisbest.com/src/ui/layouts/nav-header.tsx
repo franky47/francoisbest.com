@@ -8,7 +8,7 @@ import { NavLink } from './nav-link'
 
 export const NavHeader: React.FC = () => {
   return (
-    <header className="flex items-center gap-1 flew-wrap max-w-3xl px-2 mx-auto pt-2 md:pt-12 pb-8">
+    <header className="flex items-center gap-1 flex-wrap max-w-3xl px-2 mx-auto pt-2 md:pt-12 pb-8">
       <nav className="flex items-center gap-6" aria-label="Navigation">
         <Link href="/" className="rounded-full">
           <Logo aria-label="François Best" />

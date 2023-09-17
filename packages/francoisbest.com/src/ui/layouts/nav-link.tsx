@@ -18,5 +18,11 @@ export const NavLink: React.FC<NavLinkProps> = ({
   const isActive = exactMatch
     ? pathname === String(href)
     : pathname.startsWith(String(href))
-  return <Link href={href} className={isActive ? 'underline' : ''} {...props} />
+  return (
+    <Link
+      href={href}
+      className={isActive ? 'flex-shrink-0 underline' : 'flex-shrink-0'}
+      {...props}
+    />
+  )
 }

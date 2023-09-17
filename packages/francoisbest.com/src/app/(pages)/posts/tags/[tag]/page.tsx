@@ -26,7 +26,7 @@ export default async function TagPage({ params }: PageProps) {
   return (
     <>
       <BlogRollHeader title="Articles" />
-      <nav className="flex justify-between">
+      <nav className="flex justify-between items-center">
         <Link href="/posts">
           <Button
             size="sm"
