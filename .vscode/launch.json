@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+  "configurations": [
+    {
+      "name": "Debug server",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "outputCapture": "std",
+      "internalConsoleOptions": "openOnSessionStart",
+      "console": "internalConsole",
+      "cwd": "${workspaceFolder}/packages/francoisbest.com"
+    }
+  ]
+}
