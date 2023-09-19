@@ -51,7 +51,7 @@ const noteConfigs: Record<NoteStatus, NoteConfig> = {
 
 export type NoteProps = React.ComponentProps<'aside'> & {
   status?: NoteStatus
-  title?: string
+  title?: React.ReactNode
   icon?: any
   children: React.ReactNode
   titleClass?: string
