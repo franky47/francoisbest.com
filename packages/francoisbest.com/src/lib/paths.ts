@@ -14,12 +14,12 @@ export const postsDir = path.resolve(
 )
 
 export function resolve(importMetaUrl: string, ...paths: string[]) {
-  return fileURLToPath(new URL(path.join(...paths), importMetaUrl).href)
-  // const dirname = path.dirname(fileURLToPath(importMetaUrl))
-  // const absPath = path.resolve(dirname, ...paths)
-  // // Required for ISR serverless functions to pick up the file path
-  // // as a dependency to bundle.
-  // return path.resolve(process.cwd(), absPath.replace(nextJsRootDir, '.'))
+  //return fileURLToPath(new URL(path.join(...paths), importMetaUrl).href)
+  const dirname = path.dirname(fileURLToPath(importMetaUrl))
+  const absPath = path.resolve(dirname, ...paths)
+  // Required for ISR serverless functions to pick up the file path
+  // as a dependency to bundle.
+  return path.resolve(process.cwd(), absPath.replace(nextJsRootDir, '.'))
 }
 
 export function isBlogPost(filePath: string) {

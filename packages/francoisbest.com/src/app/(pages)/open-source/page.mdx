@@ -4,7 +4,7 @@ export const metadata = {
     'Some of the OSS packages and projects I published and contribute to.',
 }
 
-export const revalidate = 86400
+export const revalidate = process.env.VERCEL_ENV === 'production' ? 86400 : 30
 
 import { GitHubRepo } from 'ui/embeds/github-repo'
 import { NpmPackage } from 'ui/embeds/npm-package'
