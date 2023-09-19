@@ -44,7 +44,10 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
       >
         <figure className="not-prose !my-0">
           <div className="px-4">
-            <header className="flex justify-between items-baseline flex-wrap gap-2 mb-2">
+            <header
+              className="flex justify-between flex-wrap gap-2 mb-2"
+              style={{ alignItems: 'last baseline' }}
+            >
               <a href={github.url}>
                 <h3 className="flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100 mt-0">
                   <Image
