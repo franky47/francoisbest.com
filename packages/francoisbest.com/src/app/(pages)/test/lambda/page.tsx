@@ -8,7 +8,7 @@ export default async function ISRTestPage() {
   const contents = await fs.readFile(filePath, 'utf-8')
   return (
     <section>
-      <p>Page generated at {new Date().toISOString().slice(11, 16)}</p>
+      <p>Page generated at {new Date().toISOString().slice(11, 19)}</p>
       <p>{contents}</p>
     </section>
   )
