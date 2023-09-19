@@ -52,19 +52,19 @@ But it payed off, as those changes also gave us:
 - Better DX for creating and configuring parsers
 - Finer control over options
 
-For more details on features, refer to the [documentation](https://github.com/47ng/next-usequerystate#readme).
+For more details, refer to the [documentation](https://github.com/47ng/next-usequerystate#readme).
 
 This post will focus on a couple of internal tricks on how to store React
 state in the URL with Next.js.
 
 ## Shallow routing
 
-The Next.js app router doesn't support shallow routing, as of version 13.4.
-
-<Note status="info">
+<Note status="info" title="Definition">
   Shallow routing is when the URL changes, but the page doesn't reload or fetch
   data.
 </Note>
+
+The Next.js app router doesn't support shallow routing, as of version 13.4.
 
 This has caused a lot of [frustration](https://github.com/vercel/next.js/discussions/48110)
 for developpers who want to update query string parameters _without_ triggering
