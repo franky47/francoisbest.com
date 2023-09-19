@@ -1,0 +1,230 @@
+export const metadata = {
+  title: 'Storing React state in the URL with Next.js',
+  description:
+    'A peek under the hood of the next-usequerystate 1.8.0 update with support for the app router.',
+  tags: ['next.js', 'react', 'typescript'],
+}
+
+import { NpmPackage } from 'ui/embeds/npm-package'
+import { FiPackage } from 'react-icons/fi'
+
+Rather than keeping React UI state internal to the application memory, where it is lost on unmount and page reloads,
+we can sync it with the [URL query string](https://en.wikipedia.org/wiki/Query_string).
+This opens up a lot of possibilities:
+
+- **Sharing** it with others
+- **Bookmarking** it to come back to it later
+- **Restoring** it after a page reload or browser crash
+- **Navigating** it with the back and forward buttons
+
+Take this example:
+
+import { Demo } from './demo'
+
+<Demo />
+
+A couple of years ago, I wrote a library to do this in Next.js. It's used
+by a fair amount of people, including Vercel on their dashboard.
+
+<NpmPackage
+  pkg="next-usequerystate"
+  repo="47ng/next-usequerystate"
+  accent="text-indigo-500 dark:text-indigo-400"
+/>
+
+<br />
+
+<Note status="success" title="Announcement" icon={FiPackage}>
+  Version
+  [**1.8.0**](https://github.com/47ng/next-usequerystate/releases/tag/v1.8.0) of
+  [`next-usequerystate`](https://47ng/next-usequerystate) now supports the app
+  router, in Next.js 13.4+.
+</Note>
+
+For it to support the app router, a lot of internal changes were required, due
+to some limitations in the Next.js router and the Web History API.
+
+But it payed off, as those changes also gave us:
+
+- Optimal performance (now identical to `React.useState`)
+- Batched updates
+- SSR in Server Components with correct query values _(no more hydration tricks or errors)_
+- Better DX for creating and configuring parsers
+- Finer control over options
+
+For more details on features, refer to the [documentation](https://github.com/47ng/next-usequerystate#readme).
+
+This post will focus on a couple of internal tricks on how to store React
+state in the URL with Next.js.
+
+## Shallow routing
+
+The Next.js app router doesn't support shallow routing, as of version 13.4.
+
+<Note status="info">
+  Shallow routing is when the URL changes, but the page doesn't reload or fetch
+  data.
+</Note>
+
+This has caused a lot of [frustration](https://github.com/vercel/next.js/discussions/48110)
+for developpers who want to update query string parameters _without_ triggering
+network calls to the server.
+
+It also slowed down initial efforts to port `next-usequerystate` to the app router,
+especially when binding a query state to high-frequency sources, like:
+
+{/* prettier-ignore */}
+```html
+<input type="text" />
+<input type="range" />
+```
+
+To solve these issues, a new direction has been taken: `next-usequerystate` uses
+a **shallow mode by default**, and does so by only using the Next.js router
+on non-shallow updates.
+
+This is done by tapping directly into the [Web History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API/Working_with_the_History_API)
+for shallow updates.
+
+## Batching & Throttling
+
+One issue when connecting `history.replaceState()` to a slider or a text input
+is that those APIs are **rate-limited** by the browser.
+
+To avoid hitting the limits, we can **batch** updates and **throttle** them under the
+rate limit.
+
+Empirically, a **50ms** throttle seems enough for Firefox, Chrome and Edge.
+
+<Note status="warning" title="Note for Safari users">
+
+Safari has incredibly low limits for this API: **100 calls per 30 seconds**.
+
+While it would be possible to throttle to every ~300ms, detecting Safari to do so
+seems like a mine field that I'd rather avoid. If someone is interested in tackling
+this issue, please [open a Pull Request](https://github.com/47ng/next-usequerystate/fork),
+and I'll happily look into it!
+
+</Note>
+
+Between updates of the URL with `history.{set,replace}State`, we're just **queueing**
+updates. Namely:
+
+- The key to update
+- The new value, or `null` to remove it from the URL
+- The options it requires
+
+import UpdateQueue from './update-queue.svg'
+
+<figure>
+  <UpdateQueue
+    className="w-full dark:invert dark:hue-rotate-180"
+    height={null}
+  />
+  <figcaption>
+    More recent values take precedence in the query resolution
+  </figcaption>
+</figure>
+
+Keeping track of options in the queue allows overriding the defaults:
+
+- If at least one item in the queue requires a non-shallow update, call the Next.js router.
+  Otherwise do a client-only history update.
+- If at least one item in the queue requires scrolling to the top, do that. Otherwise don't.
+- History is `replaceState` by default, but if one item in the queue requests a `pushState`,
+  then the whole update creates a new history entry.
+
+<Note status="warning">
+  This last one may cause inconsistencies with state navigation with the back
+  button, depending on what is queued alongside the `push` update.
+</Note>
+
+## Syncing state
+
+Now that the URL updates asynchronously, we need a way to return a state value
+that corresponds to what **will be** stored in the URL. It also needs to play
+well with standard Next.js navigation with `<Link>` and imperative routing calls.
+
+Internally, the hooks use an individual React state, which get synced by query key
+using an [event emitter](https://github.com/developit/mitt).
+
+This emitter is also used to transmit sync triggers from the history API, when
+external navigation occurs _(not query updates)_. This is done by [patching](https://github.com/47ng/next-usequerystate/blob/32c764403b86ced7a676470eb4bce4f5c6697945/src/lib/sync.ts#L28-L81)
+the History methods.
+
+To distinguish between internal and external navigation events, we use the
+unused `title` second parameter of `replaceState`.
+
+<Note status="info" title={<>A bit of history <small><em>(no pun intended)</em></small></>}>
+  This unused parameter was originally intended to change the page title in the
+  history stack, but never got good browser support, and was later on marked as
+  deprecated.
+
+The [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState#parameters) for `replaceState` states that this parameter should be
+set to an empty string for compatibility with older browsers.
+
+</Note>
+
+We use this to our advantage, and set it to a special marker value when we're
+updating the URL internally for query changes. The patched `replaceState` method
+can then detect when it's called from the outside _(when the `title` parameter
+is **not** equal to our internal marker)_, and trigger a sync.
+
+## Optimising for performance
+
+> Make it work, make it right, make it fast. In that order.
+>
+> <figcaption>Kent Beck</figcaption>
+
+One advantage of using individual React states per hook is the performance:
+updates are synchronously propagated to all hooks, keeping the UI snappy.
+
+There are a couple of tricks to make this work with **state updater functions** though.
+
+If two hooks are updated in the same event loop with SUFs, we want the second one
+to be based on the result of the first one, as we would expect the URL to
+**eventually** behave:
+
+{/* prettier-ignore */}
+```ts
+const [count, setCount] = useQueryState(
+  'count',
+  parseAsInteger.withDefault(0)
+)
+
+function onClick() {
+  setCount(x => x + 1)
+  setCount(x => x * 2)
+}
+
+// First click: counter = 0
+// batch update: counter = 1 (0 + 1)
+// batch update: counter = 2 (1 * 2)
+
+// Second click: counter = 2
+// batch update: counter = 3 (2 + 1)
+// batch update: counter = 6 (3 * 2)
+```
+
+In order to avoid recreating the state updater function for each state change,
+which **breaks referential equality** and de-optimises a lot of consuming code,
+we use a **ref** to store the **last known state** to be applied to the URL.
+
+This is known as the [latest ref pattern](https://epicreact.dev/the-latest-ref-pattern-in-react/).
+
+## Credits
+
+A lot of thanks to everyone who helped testing this update, and especially:
+
+- [Andrei Socaciu](https://github.com/andreisocaciu) for laying the
+  ground work, in [#328](https://github.com/47ng/next-usequerystate/pull/328).
+- [Pierre Spring](https://fosstodon.org/@caillou) for early performance testing.
+- [Drew Goodwin](https://github.com/tacomanator) for fishing out two race-conditions
+  on initial navigation, in [#343](https://github.com/47ng/next-usequerystate/discussions/343#discussioncomment-6975945).
+- [Ryan Walsh Forte](https://github.com/ryan-walsh-forte) for uncovering a race
+  condition in state updater functions, in [#345](https://github.com/47ng/next-usequerystate/issues/345).
+- [Rich](https://github.com/r1chm8) for the idea of making the parsers
+  server-side accessible to let server components hydrate and validate query values,
+  in [#348](https://github.com/47ng/next-usequerystate/discussions/348).
+- [Jamie Diprose](https://github.com/jdddog) for uncovering issues with module
+  resolution, in [#352](https://github.com/47ng/next-usequerystate/discussions/352).
