@@ -10,11 +10,12 @@ const featuredPosts = [
 
 export const FeaturedPosts: React.FC = () => {
   return (
-    <section className="space-y-4">
+    <section>
       {featuredPosts.map(relativePath => (
         <BlogPostEmbed
           key={relativePath}
           filePath={resolve(import.meta.url, relativePath)}
+          className="my-4"
         />
       ))}
       <p className="text-center">
