@@ -223,6 +223,21 @@ a **Map** instead, and only iterate over available keys on update.
   [`1.8.1`](https://github.com/47ng/next-usequerystate/releases/tag/v1.8.1).
 </Note>
 
+## Next.js specifics
+
+So far, we've described a system that would work for any React framework.
+What makes it specific to Next.js is that it handles server-side rendering
+with correct query values. Those values can also be
+[parsed server-side](https://github.com/47ng/next-usequerystate#using-parsers-in-server-components).
+
+The `shallow: false` option also allows notifying the server to query updates,
+to re-render server components, or run `getServerSideProps` in the pages router.
+
+<Note>
+  If someone wishes to adapt this code to other frameworks, go ahead and leave a
+  little note for attribution, and I'll be happy to link it here.
+</Note>
+
 ## Credits
 
 A lot of thanks to everyone who helped testing this update, and especially:
