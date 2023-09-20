@@ -1,3 +1,4 @@
+import { chiffreConfig } from 'lib/services/chiffre'
 import Link from 'next/link'
 import React from 'react'
 import { BsMastodon } from 'react-icons/bs'
@@ -60,11 +61,15 @@ export const Footer: React.FC = () => {
           {gitSha1.slice(0, 8)}
         </a>{' '}
         • <Link href="/sitemap">Site map</Link>
-        <br />
-        End-to-end encrypted analytics by{' '}
-        <a href="https://chiffre.io" className="font-semibold">
-          Chiffre.io
-        </a>
+        {chiffreConfig.enabled && (
+          <>
+            <br />
+            End-to-end encrypted analytics by{' '}
+            <a href="https://chiffre.io" className="font-semibold">
+              Chiffre.io
+            </a>
+          </>
+        )}
       </p>
     </footer>
   )

@@ -3,6 +3,7 @@ import { url } from 'lib/paths'
 import seo from 'lib/seo.json'
 import { Favicons } from 'ui/head/favicons'
 
+import { chiffreConfig } from 'lib/services/chiffre'
 import './global.css'
 
 export const metadata = {
@@ -15,10 +16,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const enableChiffreAnalytics =
-    Boolean(process.env.CHIFFRE_PUBLIC_KEY) &&
-    Boolean(process.env.CHIFFRE_PROJECT_ID)
-
   return (
     <html lang="en-GB" className="motion-safe:scroll-smooth">
       <head>
@@ -53,20 +50,20 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {enableChiffreAnalytics && (
+        {chiffreConfig.enabled && (
           <>
             <script
               id="chiffre:analytics"
               src="https://chiffre.io/analytics.js"
-              data-chiffre-project-id={process.env.CHIFFRE_PROJECT_ID}
-              data-chiffre-public-key={process.env.CHIFFRE_PUBLIC_KEY}
+              data-chiffre-project-id={chiffreConfig.projectId}
+              data-chiffre-public-key={chiffreConfig.publicKey}
               crossOrigin="anonymous"
               async
             />
             <noscript>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`https://chiffre.io/noscript/${process.env.CHIFFRE_PROJECT_ID}`}
+                src={`https://chiffre.io/noscript/${chiffreConfig.projectId}`}
                 alt="Chiffre.io anonymous visit counting for clients without JavaScript"
                 crossOrigin="anonymous"
               />
