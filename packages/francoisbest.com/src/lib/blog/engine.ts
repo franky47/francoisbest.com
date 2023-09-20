@@ -78,18 +78,27 @@ export async function getPost(filePath: string): Promise<Post> {
  * In order to correctly resolve the right URLs, we're replicating this here.
  */
 async function getOpenGraphImageUrlPath(pageFilePath: string) {
-  const ogPath = path.resolve(path.dirname(pageFilePath), 'opengraph-image.jpg')
-  try {
-    const stat = await fs.stat(ogPath)
-    if (!stat.isFile()) {
-      return undefined
+  const extensions = ['jpg', 'png']
+  for (const ext of extensions) {
+    const ogPath = path.resolve(
+      path.dirname(pageFilePath),
+      `opengraph-image.${ext}`
+    )
+    try {
+      const stat = await fs.stat(ogPath)
+      if (!stat.isFile()) {
+        continue
+      }
+      const segment = path.dirname(ogPath.replace(nextJsAppDir, ''))
+      const suffix = djb2Hash(segment)
+      return filePathToUrlPath(
+        ogPath.replace(new RegExp(`\\.${ext}$`), `-${suffix}.${ext}`)
+      )
+    } catch {
+      continue
     }
-    const segment = path.dirname(ogPath.replace(nextJsAppDir, ''))
-    const suffix = djb2Hash(segment)
-    return filePathToUrlPath(ogPath.replace(/\.jpg$/, `-${suffix}.jpg`))
-  } catch {
-    return undefined
   }
+  return undefined
 }
 
 // http://www.cse.yorku.ca/~oz/hash.html
