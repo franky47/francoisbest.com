@@ -20,6 +20,10 @@ const config = {
         disallow: isPreviewDeployement ? '/' : undefined,
       },
       {
+        userAgent: 'CCBot',
+        disallow: '/',
+      },
+      {
         userAgent: 'GPTBot',
         disallow: '/',
       },
