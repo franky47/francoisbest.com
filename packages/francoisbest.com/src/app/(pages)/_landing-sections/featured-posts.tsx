@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { BlogPostEmbed } from '../../../ui/embeds/blog-post-embed'
 
 const featuredPosts = [
+  '../posts/(content)/2023/storing-react-state-in-the-url-with-nextjs/page.mdx',
   '../posts/(content)/2021/hashvatars/page.mdx',
   '../posts/(content)/2020/password-reset-for-e2ee-apps/page.mdx',
-  '../posts/(content)/2020/the-security-of-github-actions/page.mdx',
 ]
 
 export const FeaturedPosts: React.FC = () => {
