@@ -1,7 +1,7 @@
 export const metadata = {
   title: 'Storing React state in the URL with Next.js',
   description:
-    'A peek under the hood of the next-usequerystate 1.8.0 update with support for the app router.',
+    'A peek under the hood of the next-usequerystate 1.8.x update with support for the app router.',
   tags: ['next.js', 'react', 'typescript'],
 }
 
@@ -211,6 +211,17 @@ which **breaks referential equality** and de-optimises a lot of consuming code,
 we use a **ref** to store the **last known state** to be applied to the URL.
 
 This is known as the [latest ref pattern](https://epicreact.dev/the-latest-ref-pattern-in-react/).
+
+### Update queue performance
+
+While writing this post, I realised using an array for the update queue was kind
+of dumb: since each item overrides previous ones with the same key, we can use
+a **Map** instead, and only iterate over available keys on update.
+
+<Note status="success">
+  This performance update was published in
+  [`1.8.1`](https://github.com/47ng/next-usequerystate/releases/tag/v1.8.1).
+</Note>
 
 ## Credits
 
