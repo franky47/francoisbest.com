@@ -1,0 +1,104 @@
+export const metadata = {
+  title: 'NPM download stats are down',
+  description: 'And people are drawing the funniest conclusions',
+}
+
+import { NpmPackage } from 'ui/embeds/npm-package'
+
+I noticed the problem on 2023-09-14, while I was working on my
+[NPM package embed](https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/ui/embeds/npm-package.tsx).
+
+It looks like this, showing NPM download stats for the last 30 days:
+
+<NpmPackage
+  pkg="react"
+  repo="facebook/react"
+  accent="text-cyan-500 dark:text-cyan-400"
+/>
+
+After seeing the latest download stats zero-out, I thought it was a bug in my code,
+but a quick call to the NPM registry API confirmed there's an issue across the whole registry:
+
+```shell {12,16,32,36,40}
+$ curl -s https://api.npmjs.org/downloads/range/2023-09-12:2023-09-20/ | jq .
+
+{
+    "start": "2023-09-12",
+    "end": "2023-09-20",
+    "downloads": [
+        {
+            "downloads": 10511123926,
+            "day": "2023-09-12"
+        },
+        {
+            "downloads": 0,
+            "day": "2023-09-13"
+        },
+        {
+            "downloads": 0,
+            "day": "2023-09-14"
+        },
+        {
+            "downloads": 8912767625,
+            "day": "2023-09-15"
+        },
+        {
+            "downloads": 2444583811,
+            "day": "2023-09-16"
+        },
+        {
+            "downloads": 2260617731,
+            "day": "2023-09-17"
+        },
+        {
+            "downloads": 0,
+            "day": "2023-09-18"
+        },
+        {
+            "downloads": 0,
+            "day": "2023-09-19"
+        },
+        {
+            "downloads": 0,
+            "day": "2023-09-20"
+        }
+    ]
+}
+```
+
+After a couple of days, it started to show on NPM's own website:
+
+![NPM download stats for the react package, with a visible drop towards the end of the line](./react-downloads.png)
+
+Reddit and Hacker News users were quick to react, with some hilarious comments:
+
+> Bun 1.0 is out, so everyone is switching to that.
+
+> You should use PNPM anyway.
+
+<Note status="info">
+  Bun and PNPM use the NPM registry by default, so using them also counts
+  towards the download stats.
+</Note>
+
+Some folks were prompt to draw ominous conclusions:
+
+> Well, that confirms it, javascript and front end development is dead. I'll start looking for a new job.
+
+> This proves React is dead, you should use Svelte now.
+>
+> <figcaption>
+>   Someone who didn't notice Svelte stats were also down.
+> </figcaption>
+
+## Official response from NPM
+
+I contacted the NPM support on 2023-09-15, but got not much of a useful response:
+
+> Yes, we also see the zero download count on different packages.
+>
+> This issue remains under investigation.
+>
+> We will let you know once we have an update.
+
+To be continued...
