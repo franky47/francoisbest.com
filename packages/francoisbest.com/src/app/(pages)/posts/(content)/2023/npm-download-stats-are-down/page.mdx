@@ -68,6 +68,20 @@ $ curl -s https://api.npmjs.org/downloads/range/2023-09-12:2023-09-20/ | jq .
 }
 ```
 
+And indeed, other popular packages show the same decline:
+
+<NpmPackage
+  pkg="vue"
+  repo="vuejs/core"
+  accent="text-green-500 dark:text-green-400"
+/>
+
+<NpmPackage
+  pkg="@angular/core"
+  repo="angular/angular"
+  accent="text-red-500 dark:text-red-400"
+/>
+
 After a couple of days, it started to show on NPM's own website:
 
 ![NPM download stats for the react package, with a visible drop towards the end of the line](./react-downloads.png)
@@ -90,7 +104,13 @@ Some folks were prompt to draw ominous conclusions:
 > This proves React is dead, you should use Svelte now.
 >
 > {/* prettier-ignore */}
-> <figcaption className="not-italic">Someone who didn't notice Svelte stats were also down.</figcaption>
+> <figcaption className="not-italic">Someone who didn't notice Svelte stats were also down:</figcaption>
+
+<NpmPackage
+  pkg="svelte"
+  repo="sveltejs/svelte"
+  accent="text-orange-500 dark:text-orange-400"
+/>
 
 ## Official response from NPM
 
