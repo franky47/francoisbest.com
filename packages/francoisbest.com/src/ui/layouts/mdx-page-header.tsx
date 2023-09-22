@@ -1,6 +1,5 @@
 import { getPost } from 'lib/blog'
-import { isBlogPost } from 'lib/paths'
-import { fileURLToPath } from 'node:url'
+import { isBlogPost, resolve } from 'lib/paths'
 import { formatDate } from 'ui/format'
 import { TagsNav } from '../components/tag'
 
@@ -9,7 +8,7 @@ type MdxPageHeaderProps = {
 }
 
 export const MdxPageHeader: React.FC<MdxPageHeaderProps> = async ({ file }) => {
-  const filePath = fileURLToPath(file)
+  const filePath = resolve(file)
   if (!isBlogPost(filePath)) {
     return null
   }

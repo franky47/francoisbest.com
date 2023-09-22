@@ -14,9 +14,15 @@ export const postsDir = path.resolve(
 )
 
 export function resolve(importMetaUrl: string, ...paths: string[]) {
-  //return fileURLToPath(new URL(path.join(...paths), importMetaUrl).href)
-  const dirname = path.dirname(fileURLToPath(importMetaUrl))
-  const absPath = path.resolve(dirname, ...paths)
+  const filePath = fileURLToPath(importMetaUrl)
+  const dirname = path.dirname(filePath)
+  const fileName = path.basename(filePath)
+  const absPath = path.resolve(
+    dirname,
+    // This makes sure that if only the import.meta.url is passed,
+    // we resolve to the same file. Otherwise, allow relative paths.
+    ...(paths.length === 0 ? [fileName] : paths)
+  )
   // Required for ISR serverless functions to pick up the file path
   // as a dependency to bundle.
   return path.resolve(process.cwd(), absPath.replace(nextJsRootDir, '.'))
@@ -33,7 +39,7 @@ export function filePathToUrlPath(filePath: string) {
   return filePath
     .replace(nextJsAppDir, '') // Drop fs references to app dir location
     .replace(/\/\([\w-]+\)\//g, '/') // Remove route groups
-    .replace(/\/page\.mdx$/, '') // Drop final page.mdx
+    .replace(/\/page\.(md|ts)x?$/, '') // Drop final page.mdx or tsx
 }
 
 export function url(routePath: string) {
