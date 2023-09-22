@@ -10,6 +10,7 @@ export type NpmPackageStatsData = {
   allTime: number
   last30Days: number[]
   lastDate: Date
+  updatedAt: Date
 }
 
 // const regexp = /https:\/\/npmjs\.com\/package\/([\w.-]+|@[\w.-]+\/[\w.-]+)/gm
@@ -86,6 +87,7 @@ export async function fetchNpmPackage(
     allTime,
     lastDate: new Date(lastDate),
     last30Days,
+    updatedAt: new Date(),
   }
 }
 
@@ -93,6 +95,7 @@ async function get<T = any>(url: string) {
   const res = await fetch(url, {
     next: {
       revalidate: 86_400,
+      tags: ['npm'],
     },
   })
   return (await res.json()) as T

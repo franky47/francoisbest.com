@@ -42,6 +42,9 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
         className={twMerge('relative px-0', className)}
         {...props}
       >
+        <span aria-hidden className="hidden">
+          Updated at: {npm.updatedAt.toISOString()}
+        </span>
         <figure className="not-prose !my-0">
           <div className="px-4">
             <header
