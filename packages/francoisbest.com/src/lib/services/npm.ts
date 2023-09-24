@@ -9,6 +9,7 @@ export type NpmPackageStatsData = {
   // lastYear: number
   allTime: number
   last30Days: number[]
+  versions: Record<string, number>
   lastDate: Date
   updatedAt: Date
 }
@@ -62,6 +63,19 @@ async function getAllTime(pkg: string): Promise<number> {
   return downloads
 }
 
+async function getVersions(pkg: string): Promise<Record<string, number>> {
+  type VersionsReponse = {
+    downloads: Record<string, number>
+  }
+  const url = `https://api.npmjs.org/versions/${encodeURIComponent(
+    pkg
+  )}/last-week`
+  const { downloads } = await get<VersionsReponse>(url)
+  return Object.fromEntries(
+    Object.entries(downloads).sort(([, a], [, b]) => (a < b ? 1 : -1))
+  )
+}
+
 export async function fetchNpmPackage(
   pkg: string
 ): Promise<NpmPackageStatsData> {
@@ -71,12 +85,14 @@ export async function fetchNpmPackage(
     // lastYear,
     allTime,
     { downloads: last30Days, date: lastDate },
+    versions,
   ] = await Promise.all([
     // getStatPoint(pkg, 'last-week'),
     // getStatPoint(pkg, 'last-month'),
     // getStatPoint(pkg, 'last-year'),
     getAllTime(pkg),
     getLastNDays(pkg, 30),
+    getVersions(pkg),
   ])
   return {
     packageName: pkg,
@@ -84,6 +100,7 @@ export async function fetchNpmPackage(
     // lastWeek,
     // lastMonth,
     // lastYear,
+    versions,
     allTime,
     lastDate: new Date(lastDate),
     last30Days,

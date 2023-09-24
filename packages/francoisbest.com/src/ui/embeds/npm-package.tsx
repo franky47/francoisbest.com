@@ -13,13 +13,14 @@ import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
 import { SvgCurveGraph } from 'ui/components/graphs/svg-curve-graph'
 import { Logo } from 'ui/components/logo'
-import { formatStatNumber } from 'ui/format'
+import { formatNumber, formatStatNumber } from 'ui/format'
 import { EmbedFrame, EmbedFrameProps } from './embed-frame'
 
 export type NpmPackageProps = Omit<EmbedFrameProps, 'Icon' | 'children'> & {
   pkg: string
   repo: string
   accent?: string
+  versionRollout?: number
   children?: React.ReactNode
 }
 
@@ -29,6 +30,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
   accent = 'text-blue-500',
   className = 'my-8',
   children,
+  versionRollout = 5,
   ...props
 }) => {
   try {
@@ -114,6 +116,14 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
               </details>
             </pre>
           </div>
+          {versionRollout && (
+            <VersionRollout
+              versions={npm.versions}
+              accent={accent}
+              limit={versionRollout}
+              latestVersion={github.version}
+            />
+          )}
           <SvgCurveGraph
             data={npm.last30Days ?? []}
             className={accent}
@@ -136,13 +146,74 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
       </EmbedFrame>
     )
   } catch (error) {
+    console.error(error)
     return (
       <EmbedFrame Icon={FiPackage} className={className} isError {...props}>
         <div className="not-prose">
-          <p className="font-medium">Error displaying package</p>
+          <p className="font-medium">Error displaying package {pkg}</p>
           <code className="text-sm text-red-500">{String(error)}</code>
         </div>
       </EmbedFrame>
     )
   }
+}
+
+// --
+
+type VersionRolloutProps = {
+  versions: Record<string, number>
+  accent: string
+  limit: number
+  latestVersion?: string
+}
+
+const VersionRollout: React.FC<VersionRolloutProps> = ({
+  versions,
+  accent,
+  latestVersion,
+  limit,
+}) => {
+  const data = Object.entries(versions).slice(0, limit)
+  const totalCount = Object.values(versions).reduce((sum, count) => sum + count)
+  return (
+    <>
+      <div className="text-xs px-4">
+        <p className="text-gray-500 mb-1 flex">
+          Version rollout
+          <span className="ml-auto">Last week</span>
+        </p>
+        {data.map(([version, count]) => (
+          <div key={version} className="flex relative">
+            <span
+              className={twMerge(
+                'relative font-mono z-10',
+                version === latestVersion ? accent : undefined,
+                version === latestVersion ? 'font-semibold' : undefined
+              )}
+            >
+              {version}
+            </span>
+            <div
+              aria-hidden
+              className={twMerge(
+                'appearance-none absolute left-0 right-24 top-0 bottom-0 bg-current opacity-10 my-0.5 rounded-sm',
+                accent
+              )}
+              style={{
+                maxWidth: `${(100 * count) / totalCount}%`,
+              }}
+            />
+            <div className="text-right ml-auto tabular-nums">
+              <span className={twMerge('font-semibold', accent)}>
+                {formatNumber(count)}
+              </span>{' '}
+              <span className="text-gray-500">
+                ({((100 * count) / totalCount).toFixed(0).padStart(2, '0')}%)
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  )
 }
