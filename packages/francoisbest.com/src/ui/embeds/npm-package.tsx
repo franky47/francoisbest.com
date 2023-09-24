@@ -13,7 +13,7 @@ import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
 import { SvgCurveGraph } from 'ui/components/graphs/svg-curve-graph'
 import { Logo } from 'ui/components/logo'
-import { formatNumber, formatStatNumber } from 'ui/format'
+import { formatStatNumber } from 'ui/format'
 import { EmbedFrame, EmbedFrameProps } from './embed-frame'
 
 export type NpmPackageProps = Omit<EmbedFrameProps, 'Icon' | 'children'> & {
@@ -177,7 +177,7 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
   const totalCount = Object.values(versions).reduce((sum, count) => sum + count)
   return (
     <>
-      <div className="text-xs px-4">
+      <div className="text-xs px-4 pb-2">
         <p className="text-gray-500 mb-1 flex">
           Version rollout
           <span className="ml-auto">Last week</span>
@@ -205,7 +205,7 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
             />
             <div className="text-right ml-auto tabular-nums">
               <span className={twMerge('font-semibold', accent)}>
-                {formatNumber(count)}
+                {formatStatNumber(count)}
               </span>{' '}
               <span className="text-gray-500">
                 ({((100 * count) / totalCount).toFixed(0).padStart(2, '0')}%)
