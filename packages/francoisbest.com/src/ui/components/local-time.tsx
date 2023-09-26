@@ -1,24 +1,43 @@
 'use client'
 
+import { Suspense } from 'react'
 import { formatDate, formatTime } from 'ui/format'
+import { useHydration } from 'ui/hooks/useHydration'
 
 type DateLike = Date | string | number
 
 export function LocalDate({ date }: { date: DateLike }) {
-  // useHydration()
-  return <time dateTime={new Date(date).toISOString()}>{formatDate(date)}</time>
+  const hydrated = useHydration()
+  return (
+    <Suspense key={hydrated ? 'local' : 'utc'}>
+      <time dateTime={new Date(date).toISOString()}>
+        {formatDate(date)}
+        {hydrated ? '' : ' (UTC)'}
+      </time>
+    </Suspense>
+  )
 }
 
 export function LocalTime({ date }: { date: DateLike }) {
-  // useHydration()
-  return <time dateTime={new Date(date).toISOString()}>{formatTime(date)}</time>
+  const hydrated = useHydration()
+  return (
+    <Suspense key={hydrated ? 'local' : 'utc'}>
+      <time dateTime={new Date(date).toISOString()}>
+        {formatDate(date)}
+        {hydrated ? '' : ' (UTC)'}
+      </time>
+    </Suspense>
+  )
 }
 
 export function LocalDateTime({ date }: { date: DateLike }) {
-  // useHydration()
+  const hydrated = useHydration()
   return (
-    <time dateTime={new Date(date).toISOString()}>
-      {formatDate(date)}, {formatTime(date)}
-    </time>
+    <Suspense key={hydrated ? 'local' : 'utc'}>
+      <time dateTime={new Date(date).toISOString()}>
+        {formatDate(date)}, {formatTime(date)}
+        {hydrated ? '' : ' (UTC)'}
+      </time>
+    </Suspense>
   )
 }
