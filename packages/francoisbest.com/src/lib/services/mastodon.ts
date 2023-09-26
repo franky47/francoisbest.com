@@ -1,6 +1,7 @@
 import 'server-only'
 import { createPngDataUri } from 'unlazy/blurhash'
 import { z } from 'zod'
+import { sanitizeHTML } from './html-sanitizer'
 
 const mediaAttachmentSchema = z
   .object({
@@ -35,7 +36,7 @@ type Emoji = z.infer<typeof emojiSchema>
 
 const tootDataSchema = z.object({
   created_at: z.string().datetime(),
-  content: z.string(),
+  content: z.string().transform(sanitizeHTML),
   account: z.object({
     username: z.string(),
     display_name: z.string(),

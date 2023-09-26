@@ -2,7 +2,7 @@ import { TootMediaAttachment, fetchTootData } from 'lib/services/mastodon'
 import Image from 'next/image'
 import { BsMastodon } from 'react-icons/bs'
 import { twMerge } from 'tailwind-merge'
-import { formatDate, formatTime } from 'ui/format'
+import { LocalDateTime } from 'ui/components/local-time'
 import { EmbedFrame } from './embed-frame'
 
 type TootProps = React.ComponentProps<'section'> & {
@@ -48,7 +48,7 @@ export const Toot: React.FC<TootProps> = async ({ url, className }) => {
           <MediaSection attachments={data.media_attachments} />
           <nav className="text-sm text-gray-500">
             <a href={url}>
-              {formatDate(data.created_at)}, {formatTime(data.created_at)}
+              <LocalDateTime date={data.created_at} />
             </a>
           </nav>
         </article>

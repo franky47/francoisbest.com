@@ -75,6 +75,19 @@ h4 > a:hover > .icon.icon-link::after {
   opacity: 1;
 }
 
+/* Hacker News embed */
+
+.prose blockquote.hacker-news p:first-of-type::before {
+  content: none;
+}
+.prose blockquote.hacker-news p:last-of-type::after {
+  content: none;
+}
+
+.prose blockquote.hacker-news {
+  @apply not-italic bg-gray-50/50 dark:bg-gray-800/50 py-2;
+}
+
 /* Code highlighting with rehype-pretty-code / shiki */
 
 pre {
