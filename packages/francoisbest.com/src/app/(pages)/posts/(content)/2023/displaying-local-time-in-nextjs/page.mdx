@@ -147,7 +147,7 @@ I believe the problem is that the `<Suspense>` component is rendered only when
 the component is first mounted, and not after the hydration pass.
 
 We can solve this problem and get our final implementation by adding a `key` prop to
-the `<Suspense>` component, connect it to the `hydrated` value:
+the `<Suspense>` component, and connecting it to the `hydrated` value:
 
 ```tsx title="local-time.tsx" /key={hydrated ? 'local' : 'utc'}/
 'use client'
