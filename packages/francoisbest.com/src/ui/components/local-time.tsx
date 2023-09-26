@@ -4,39 +4,54 @@ import { Suspense } from 'react'
 import { formatDate, formatTime } from 'ui/format'
 import { useHydration } from 'ui/hooks/useHydration'
 
-type DateLike = Date | string | number
+type Props = React.ComponentProps<'time'> & {
+  date: Date | string | number
+  hydratedSuffix?: React.ReactNode
+}
 
-export function LocalDate({ date }: { date: DateLike }) {
+export function LocalDate({ date, hydratedSuffix = null, ...props }: Props) {
+  const iso = new Date(date).toISOString()
   const hydrated = useHydration()
   return (
     <Suspense key={hydrated ? 'local' : 'utc'}>
-      <time dateTime={new Date(date).toISOString()}>
+      <time dateTime={iso} title={iso} {...props}>
         {formatDate(date)}
-        {hydrated ? '' : ' (UTC)'}
+        {hydrated ? hydratedSuffix : ' (UTC)'}
       </time>
     </Suspense>
   )
 }
 
-export function LocalTime({ date }: { date: DateLike }) {
+export function LocalTime({ date, hydratedSuffix = null, ...props }: Props) {
+  const iso = new Date(date).toISOString()
   const hydrated = useHydration()
   return (
     <Suspense key={hydrated ? 'local' : 'utc'}>
-      <time dateTime={new Date(date).toISOString()}>
+      <time dateTime={iso} title={iso} {...props}>
         {formatDate(date)}
-        {hydrated ? '' : ' (UTC)'}
+        {hydrated ? hydratedSuffix : ' (UTC)'}
       </time>
     </Suspense>
   )
 }
 
-export function LocalDateTime({ date }: { date: DateLike }) {
+export function LocalDateTime({
+  date,
+  separator = ', ',
+  hydratedSuffix = null,
+  ...props
+}: Props & {
+  separator?: string
+}) {
+  const iso = new Date(date).toISOString()
   const hydrated = useHydration()
   return (
     <Suspense key={hydrated ? 'local' : 'utc'}>
-      <time dateTime={new Date(date).toISOString()}>
-        {formatDate(date)}, {formatTime(date)}
-        {hydrated ? '' : ' (UTC)'}
+      <time dateTime={iso} title={iso} {...props}>
+        {formatDate(date)}
+        {separator}
+        {formatTime(date)}
+        {hydrated ? hydratedSuffix : ' (UTC)'}
       </time>
     </Suspense>
   )

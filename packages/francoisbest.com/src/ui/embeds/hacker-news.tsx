@@ -20,11 +20,7 @@ export async function HackerNewsComment({ url }: HackerNewsCommentProps) {
             {data.by}
           </a>
           &nbsp;|&nbsp;
-          <a
-            href={url}
-            className="text-current no-underline"
-            title={data.time.toISOString()}
-          >
+          <a href={url} className="text-current no-underline">
             <LocalDateTime date={data.time} />
           </a>
           <SiYcombinator

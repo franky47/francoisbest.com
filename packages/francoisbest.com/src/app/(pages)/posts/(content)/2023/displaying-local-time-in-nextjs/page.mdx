@@ -1,0 +1,179 @@
+export const metadata = {
+  title: 'Displaying Local Time in Next.js',
+  description:
+    'Making time accessible by dealing with React SSR hydration mismatches across timezones.',
+  tags: ['next.js', 'react', 'ssr', 'rsc'],
+  publicationDate: '2023-09-27T08:00:00Z',
+}
+
+> Time is an illusion. Lunchtime doubly so.
+>
+> <figcaption>Douglas Adams - H2G2</figcaption>
+
+You may be familiar with React hydration issues when using Next.js, or other
+server-side rendered frameworks:
+
+<Note status="error" title="Uncaught Error">
+
+Text content does not match server-rendered HTML. Server: "foo" Client: "bar"
+
+</Note>
+
+This happens when the server renders something, but the client re-renders it
+differently.
+
+Now imagine you want to display a **specific point in time** in your app. This could
+be the publication date/time of a comment for example. Your source of data
+will likely be a _timestamp_, or be a Date object rooted in _UTC_.
+
+import { LocalDateTime } from 'ui/components/local-time'
+
+Rendering it statically as-is will be impractical for most of your users.
+UTC is great for machines, but humans prefer to see times in their **local timezone**.
+
+For example, this post was published on:
+
+- <LocalDateTime
+    date={metadata.publicationDate}
+    separator=", at "
+    hydratedSuffix={
+      <>
+        {' '}
+        in <em>your</em> local time
+      </>
+    }
+  />
+- 27 September 2023, at 10:00 in _my_ local time _(Europe/Paris)_
+- <code>{metadata.publicationDate}</code> in UTC
+
+We're going to build a React component that deals with that, that works with
+Next.js 13.4+ and React 18, in a mix of server and client components.
+
+The local timezone will only be available when rendering on the client, so even if
+this is not technically _"interactive"_ content, we'll need to use the
+`use client` directive to allow re-rendering a component on the client.
+
+## useHydration
+
+A trick often used to avoid hydration issues is to render the same content on
+the server and on the hydration pass, but then trigger a re-render to
+update the content when the client has the information we need.
+
+```ts title="hooks/useHydration.ts"
+export function useHydration() {
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
+  return hydrated
+}
+```
+
+We can use this signal to render a default value on the server _(eg: the UTC time)_,
+and to re-render the component on the client when the local timezone is available.
+
+```tsx title="Initial approach (🚧 does not work yet 🚧)" /hydrated/
+'use client'
+
+import { useHydration } from 'hooks/useHydration'
+
+export function LocalTime({ date }: { date: Date | string | number }) {
+  const hydrated = useHydration()
+  return (
+    <time dateTime={new Date(date).toISOString()}>
+      {new Date(date).toLocaleTimeString()}
+      {hydrated ? '' : ' (UTC)'}
+    </time>
+  )
+}
+```
+
+<Note status="info" title="Accessibility note">
+  The `<time>` element is used here to give accessible information about a specific
+  point in time. Its `datetime` attribute can use a UTC-rooted ISO-8601
+  timestamp string, which won't change across re-renders.<br/><cite className="text-sm text-gray-600 dark:text-gray-400">Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time)</cite>
+</Note>
+
+## Suspense
+
+Simply re-rendering the component is not enough though. In Next.js and with React 18,
+this will still cause a hydration mismatch.
+
+We could silence it by slapping a [`suppressHydrationWarning`](https://nextjs.org/docs/messages/react-hydration-error#solution-3-using-suppresshydrationwarning)
+prop on the component containing our timestamp, but it's only hiding the problem,
+and the resulting rendered time would still be **stuck in UTC**.
+
+The hydration error message actually tells us what to do:
+
+<Note status="error" title="Uncaught Error">
+  There was an error while hydrating. Because the error happened **outside of a
+  Suspense boundary**, the entire root will switch to client rendering.
+</Note>
+
+Wrapping our component in `<Suspense>` will allow us to catch this error
+and re-render the component on the client.
+
+Here's what we've got so far:
+
+```tsx title="local-time.tsx" /Suspense/
+'use client'
+
+import { Suspense } from 'react'
+import { useHydration } from 'hooks/useHydration'
+
+export function LocalTime({ date }: { date: Date | string | number }) {
+  const hydrated = useHydration()
+  return (
+    <Suspense>
+      <time dateTime={new Date(date).toISOString()}>
+        {new Date(date).toLocaleTimeString()}
+        {hydrated ? '' : ' (UTC)'}
+      </time>
+    </Suspense>
+  )
+}
+```
+
+<Note>
+  We don't need to specify a `fallback` here since we're rendering children
+  synchronously.
+</Note>
+
+But.. it **still fails**.
+
+## The `key` to success
+
+I believe the problem is that the `<Suspense>` component is rendered only when
+the component is first mounted, and not after the hydration pass.
+
+We can solve this problem and get our final implementation by adding a `key` prop to
+the `<Suspense>` component, connect it to the `hydrated` value:
+
+```tsx title="local-time.tsx" /key={hydrated ? 'local' : 'utc'}/
+'use client'
+
+import { Suspense } from 'react'
+import { useHydration } from 'hooks/useHydration'
+
+export function LocalTime({ date }: { date: DateLike }) {
+  const hydrated = useHydration()
+  return (
+    <Suspense key={hydrated ? 'local' : 'utc'}>
+      <time dateTime={new Date(date).toISOString()}>
+        {new Date(date).toLocaleTimeString()}
+        {hydrated ? '' : ' (UTC)'}
+      </time>
+    </Suspense>
+  )
+}
+```
+
+<Note>
+  The values for `key` can be anything, as long as they are different when the
+  component needs to be re-rendered.
+</Note>
+
+import { gitHubUrl, resolve } from 'lib/paths'
+
+The final <a href={gitHubUrl(resolve(import.meta.url, '../../../../../../ui/components/local-time.tsx'))}> source code for this component</a>
+is available on GitHub. Go give the [repo](https://github.com/franky47/francoisbest.com) a star!
