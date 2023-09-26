@@ -87,7 +87,7 @@ pre > code {
 }
 
 [data-line] {
-  @apply border-l-2 border-l-transparent px-6;
+  @apply border-l-2 border-l-transparent px-4;
 }
 
 [data-highlighted-line] {
