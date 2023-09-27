@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Note } from 'ui/components/note'
 import { GitHubRepo } from 'ui/embeds/github-repo'
+import { HackerNewsComment } from 'ui/embeds/hacker-news'
 import { NpmPackage } from 'ui/embeds/npm-package'
 import { MdxPageFooter } from 'ui/layouts/mdx-page-footer'
 import { MdxPageHeader } from 'ui/layouts/mdx-page-header'
@@ -18,6 +19,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     NpmPackage,
     GitHubRepo,
     Image,
+    HackerNewsComment,
     // @ts-expect-error - Required for remark-mdx-images to work
     img: Image,
     // Smart link (internal routes vs outgoing links)
