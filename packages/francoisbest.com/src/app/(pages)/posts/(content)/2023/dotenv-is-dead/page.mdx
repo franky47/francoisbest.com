@@ -1,0 +1,140 @@
+export const metadata = {
+  title: 'Dotenv is dead',
+  description: 'Long live type-safe environment variable management in Node.js',
+  tags: ['til', 'nodejs', 'env'],
+  publicationDate: '2023-10-02',
+}
+
+Today I learned from [Liran Tal](https://lirantal.com/blog/environment-variables-configuration-anti-patterns-node-js-applications)
+that Node.js 20.6.0 brings support for loading environment variable files, just like the popular [`dotenv`](https://www.npmjs.com/package/dotenv) package does:
+
+```bash /--env-file=.env/
+node --env-file=.env main.mjs
+```
+
+This post could have ended here, but I'll take this opportunity to pass the
+overtly click-baity title and talk about how I manage environment
+variables in my Node.js projects.
+
+There are several issues with reading directly from `process.env`:
+
+1. It's not **type safe**
+2. It's not **validated**
+3. It's not **immutable**
+
+## Type safety & validation
+
+I like to use [Zod](https://zod.dev) to parse and validate outside data in my
+applications, and environment variables fall perfectly in that category.
+
+I define a schema for the expected configuration, and run in on `process.env`:
+
+<figure>
+```ts title="env.ts"
+import { z } from 'zod'
+
+const envSchema = z.object({
+// See https://cjihrig.com/node_env_considered_harmful
+NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
+
+// External resource URIs
+POSTGRESQL_URL: z.string().url(),
+REDIS_URL: z.string().url(),
+
+// Secrets
+API_KEY: z.string().regex(/^[\da-f]{64}$/i),
+
+// Booleans
+DEBUG: z
+.string()
+.transform(value =>
+['true', 'yes', '1', 'on'].includes(value.toLowerCase())
+)
+.default('false'),
+})
+
+export const env = envSchema.parse(process.env)
+```
+<figcaption className="text-center !-mt-4">
+  More examples
+  [here](https://github.com/SocialGouv/e2esdk/blob/575ae42390720907c3e0c13b9e4610f1eb7ba41b/packages/server/src/env.ts).
+</figcaption>
+</figure>
+
+We can now import this `env` object anywhere in our application.
+
+## Better error messages
+
+When some environemnt variables are missing or invalid, Zod will throw an error
+on parsing which may not look very good for humans:
+
+<Note status="error" title="ZodError">
+  [
+    \{
+      "expected": "'development' | 'production' | 'test'",
+      "received": "undefined",
+      "code": "invalid_type",
+      "path": [
+        "NODE_ENV"
+      ],
+      "message": "Required"
+    \}
+  ]
+</Note>
+
+We can easily fix this by obtaining the list of errors and formatting it nicely:
+
+```ts title="env.ts"
+// ...
+
+const parsed = envSchema.safeParse(process.env)
+
+if (!parsed.success) {
+  console.error(
+    `Missing or invalid environment variable${
+      parsed.error.errors.length > 1 ? 's' : ''
+    }:
+${parsed.error.errors
+  .map(error => `  ${error.path}: ${error.message}`)
+  .join('\n')}
+`
+  )
+  process.exit(1)
+}
+
+export const env = parsed.data
+```
+
+Now that's better:
+
+```text
+Missing or invalid environment variables:
+  NODE_ENV: Required
+```
+
+## Immutability
+
+One issue with `process.env` is that it's **mutable**, and so is the `env`
+object we just created. Let's fix this by **freezing** it: 🥶
+
+```ts title="env.ts"
+export const env = Object.freeze(parsed.data)
+```
+
+## Security
+
+If some of the environment variables are _secrets_, we can go further and **delete**
+them from the `process.env` global object, so they are only accessible from our
+parsed `env` object:
+
+```ts title="env.ts"
+const secretEnvs: Array<keyof typeof envSchema.shape> = [
+  'POSTGRESQL_URL',
+  'REDIS_URL',
+  'SIGNATURE_PRIVATE_KEY',
+]
+
+for (const secretEnv of secretEnvs) {
+  delete process.env[secretEnv]
+}
+```
