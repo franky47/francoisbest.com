@@ -39,6 +39,20 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/resume',
+        destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
+        permanent: false,
+      },
+      {
+        source: '/resume.pdf',
+        destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
+        permanent: false,
+      },
+    ]
+  },
 
   webpack(config) {
     // Configures webpack to handle SVG files with SVGR. SVGR optimizes and transforms SVG files
