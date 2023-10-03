@@ -30,31 +30,33 @@ applications, and environment variables fall perfectly in that category.
 I define a schema for the expected configuration, and run in on `process.env`:
 
 <figure>
+
 ```ts title="env.ts"
 import { z } from 'zod'
 
 const envSchema = z.object({
-// See https://cjihrig.com/node_env_considered_harmful
-NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
+  // See https://cjihrig.com/node_env_considered_harmful
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
 
-// External resource URIs
-POSTGRESQL_URL: z.string().url(),
-REDIS_URL: z.string().url(),
+  // External resource URIs
+  POSTGRESQL_URL: z.string().url(),
+  REDIS_URL: z.string().url(),
 
-// Secrets
-API_KEY: z.string().regex(/^[\da-f]{64}$/i),
+  // Secrets
+  API_KEY: z.string().regex(/^[\da-f]{64}$/i),
 
-// Booleans
-DEBUG: z
-.string()
-.transform(value =>
-['true', 'yes', '1', 'on'].includes(value.toLowerCase())
-)
-.default('false'),
+  // Booleans
+  DEBUG: z
+    .string()
+    .transform(value =>
+      ['true', 'yes', '1', 'on'].includes(value.toLowerCase())
+    )
+    .default('false'),
 })
 
 export const env = envSchema.parse(process.env)
 ```
+
 <figcaption className="text-center !-mt-4">
   More examples
   [here](https://github.com/SocialGouv/e2esdk/blob/575ae42390720907c3e0c13b9e4610f1eb7ba41b/packages/server/src/env.ts).
