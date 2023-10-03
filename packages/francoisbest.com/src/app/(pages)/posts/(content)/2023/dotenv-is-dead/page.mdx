@@ -12,6 +12,17 @@ that Node.js 20.6.0 brings support for loading environment variable files, just 
 node --env-file=.env main.mjs
 ```
 
+You can even load multiple files:
+
+```bash /--env-file=.env.local/
+node --env-file=.env --env-file=.env.local main.mjs
+```
+
+<Note status="warning">
+  It does not seem to support unescaped multi-line values though, which `dotenv`
+  v15 supports.
+</Note>
+
 This post could have ended here, but I'll take this opportunity to pass the
 overtly click-baity title and talk about how I manage environment
 variables in my Node.js projects.
