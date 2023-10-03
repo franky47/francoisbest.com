@@ -11,6 +11,7 @@ export type GitHubRepositoryData = {
   stars: number
   issues: number
   prs: number
+  updatedAt: Date
 }
 
 const gh = new Octokit({
@@ -64,6 +65,7 @@ export const fetchRepository = async function fetchRepository(
       stars: repository.stargazers_count,
       license: repository.license?.name,
       version,
+      updatedAt: new Date(),
     }
   } catch (error) {
     throw new Error(`Failed to retrieve repo data for ${slug}: ${error}`)
