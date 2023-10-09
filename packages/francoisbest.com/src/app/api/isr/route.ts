@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   }
   revalidateTag(tag)
   return NextResponse.json({
-    revalidated: tag,
     at: now.toISOString(),
+    revalidated: tag,
   })
 }
