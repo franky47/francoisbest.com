@@ -25,6 +25,11 @@ export default function BusinessCardPage({
   } catch (err) {
     console.error(err)
   }
+  const showLoadKey =
+    !key &&
+    Boolean(loadKey) &&
+    Boolean(process.env.ENCRYPTED_PHONE_NUMBER) &&
+    loadKey === process.env.ENCRYPTED_PHONE_NUMBER
   return (
     <>
       <QRCode text={vcard(phoneNumber)} className="mx-auto max-w-xs">
@@ -32,7 +37,7 @@ export default function BusinessCardPage({
           Add contact
         </a>
       </QRCode>
-      {!key && loadKey === process.env.ENCRYPTED_PHONE_NUMBER && <LoadKey />}
+      {showLoadKey && <LoadKey />}
     </>
   )
 }

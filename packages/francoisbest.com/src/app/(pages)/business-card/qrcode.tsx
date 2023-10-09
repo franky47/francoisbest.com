@@ -22,7 +22,10 @@ export const QRCode: React.FC<QRCodeProps> = async ({
       className={twMerge('m-8', className)}
       {...props}
     >
-      <picture dangerouslySetInnerHTML={{ __html: svg.trim() }} />
+      <picture
+        dangerouslySetInnerHTML={{ __html: svg.trim() }}
+        className="block rounded-lg bg-white p-4"
+      />
       <figcaption className="text-center">{children}</figcaption>
     </figure>
   )
