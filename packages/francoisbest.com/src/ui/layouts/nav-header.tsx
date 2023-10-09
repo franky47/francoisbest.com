@@ -1,14 +1,24 @@
 import Link from 'next/link'
 import React from 'react'
 import { BsMastodon } from 'react-icons/bs'
+import { twMerge } from 'tailwind-merge'
 import { IconButton } from 'ui/components/buttons/icon-button'
 import { Logo } from 'ui/components/logo'
 import { ThemeControls } from 'ui/components/theme-controls'
 import { NavLink } from './nav-link'
 
-export const NavHeader: React.FC = () => {
+export const NavHeader: React.FC<React.ComponentProps<'header'>> = ({
+  className,
+  ...props
+}) => {
   return (
-    <header className="flex items-center gap-1 flex-wrap max-w-3xl px-2 mx-auto pt-2 md:pt-12 pb-8">
+    <header
+      className={twMerge(
+        'flex items-center gap-1 flex-wrap max-w-3xl px-2 mx-auto pt-2 md:pt-12 pb-8',
+        className
+      )}
+      {...props}
+    >
       <nav className="flex items-center gap-6" aria-label="Navigation">
         <Link href="/" className="rounded-full">
           <Logo aria-label="François Best" />
