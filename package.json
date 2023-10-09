@@ -17,8 +17,8 @@
     "link:posts": "rm -f posts && ln -s ./packages/francoisbest.com/src/app/\\(pages\\)/posts/\\(content\\)/$(date +%Y) posts"
   },
   "devDependencies": {
-    "knip": "^2.19.6",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.5",
     "turbo": "^1.10.6"
   },
   "prettier": {
@@ -26,7 +26,10 @@
     "semi": false,
     "singleQuote": true,
     "tabWidth": 2,
-    "useTabs": false
+    "useTabs": false,
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   },
   "pnpm": {
     "overrides": {
