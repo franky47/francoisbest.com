@@ -1,5 +1,6 @@
 import DisabledPage from './pages/disabled'
-import CacheExplorerRouter, { CacheExplorerCatchAllPageProps } from './router'
+import type { CacheExplorerCatchAllPageProps } from './router'
+import CacheExplorerRouter from './router'
 
 type Options = {
   mountPath?: string

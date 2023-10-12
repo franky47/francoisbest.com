@@ -1,5 +1,6 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import React from 'react'
+import { Layout } from './layout'
 
 export type CacheExplorerCatchAllPageProps = {
   mountPath: string
@@ -48,23 +49,4 @@ export default async function CacheExplorerRouter({
     return <DisabledPage />
   }
   return notFound()
-}
-
-type LayoutProps = {
-  mountPath: string
-  children: React.ReactNode
-}
-
-function Layout({ children, mountPath }: LayoutProps) {
-  return (
-    <main className="p-4">
-      <h1 className="mb-4 text-2xl font-bold">
-        <Link href={mountPath}>Next.js Cache Explorer</Link>{' '}
-        <span className="font-mono text-xs font-normal text-gray-500">
-          v0.0.1
-        </span>
-      </h1>
-      {children}
-    </main>
-  )
 }

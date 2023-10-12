@@ -1,6 +1,7 @@
 import { base64toUTF8 } from '@47ng/codec'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { setTimeout } from 'node:timers/promises'
 import { z } from 'zod'
 import { fetchCacheDir, tagsManifestFilePath } from './paths'
 
@@ -18,6 +19,7 @@ const cacheEntrySchema = z.object({
 export type CacheEntry = z.infer<typeof cacheEntrySchema>
 
 export async function readCacheEntry(id: string) {
+  await setTimeout(1000)
   const filePath = path.resolve(fetchCacheDir, id)
   const contents = await fs.readFile(filePath, 'utf-8')
   return cacheEntrySchema.parse(JSON.parse(contents))

@@ -1,7 +1,10 @@
 import Link from 'next/link'
+import React from 'react'
 import { readTagsManifest } from '../cache'
 import { EntryListItem } from '../components/entry-list-item'
 import { Tag } from '../components/tag'
+import { H2 } from '../components/typography'
+import { colors, font, spacing } from '../theme'
 
 type IndexPageProps = {
   mountPath: string
@@ -10,11 +13,11 @@ type IndexPageProps = {
 export default async function IndexPage({ mountPath }: IndexPageProps) {
   const manifest = await readTagsManifest()
   if (!manifest.success) {
-    return <main className="p-4">Empty cache</main>
+    return <section style={{ padding: spacing[4] }}>Empty cache</section>
   }
   const { items } = manifest.data
   if (Object.keys(items).length === 0) {
-    return <main className="p-4">Empty cache</main>
+    return <section style={{ padding: spacing[4] }}>Empty cache</section>
   }
   const tags = Object.entries(items).filter(([key]) => !key.startsWith('/'))
   const pages = Object.entries(items).filter(([key]) => key.startsWith('/'))
@@ -23,39 +26,56 @@ export default async function IndexPage({ mountPath }: IndexPageProps) {
   )
 
   return (
-    <>
-      <h2 className="my-4 text-xl font-bold">Tags</h2>
+    <section>
+      <H2>Tags</H2>
       <ul>
         {tags.map(([key, { keys }]) => (
           <li key={key}>
             <Link href={`${mountPath}/tag/${encodeURIComponent(key)}`}>
-              <Tag className="text-xs">{key}</Tag>
+              <Tag style={{ fontSize: font.xs }}>{key}</Tag>
             </Link>{' '}
-            <span className="text-xs italic text-gray-500">
+            <span
+              style={{
+                fontSize: font.xs,
+                fontStyle: 'italic',
+                color: colors.gray[500],
+              }}
+            >
               ({keys.length} {keys.length > 1 ? 'entries' : 'entry'})
             </span>
           </li>
         ))}
       </ul>
-      <h2 className="my-4 text-xl font-bold">Pages</h2>
+      <H2>Pages</H2>
       <ul>
         {pages.map(([key, { keys }]) => (
           <li key={key}>
             <Link href={`${mountPath}/tag/${encodeURIComponent(key)}`}>
-              <code className="text-xs">{key}</code>
+              <code style={{ fontSize: font.xs }}>{key}</code>
             </Link>{' '}
-            <span className="text-xs italic text-gray-500">
+            <span
+              style={{
+                fontSize: font.xs,
+                fontStyle: 'italic',
+                color: colors.gray[500],
+              }}
+            >
               ({keys.length} {keys.length > 1 ? 'entries' : 'entry'})
             </span>
           </li>
         ))}
       </ul>
-      <h2 className="my-4 text-xl font-bold">All Entries</h2>
-      <ul className="overflow-auto">
+      <H2>All Entries</H2>
+      <ul style={{ overflowX: 'auto', paddingBlock: spacing[1] }}>
         {entries.map(id => (
-          <EntryListItem key={id} id={id} mountPath={mountPath} />
+          <EntryListItem
+            key={id}
+            id={id}
+            mountPath={mountPath}
+            style={{ marginBottom: spacing[1] }}
+          />
         ))}
       </ul>
-    </>
+    </section>
   )
 }

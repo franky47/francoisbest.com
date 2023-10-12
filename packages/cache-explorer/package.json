@@ -1,0 +1,53 @@
+{
+  "name": "next-cache-explorer",
+  "version": "0.0.0-internal-for-now",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "./dist"
+  ],
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "tsup": {
+    "format": [
+      "esm"
+    ],
+    "dts": true,
+    "entryPoints": [
+      "src/index.ts"
+    ],
+    "external": [
+      "./package.json"
+    ],
+    "splitting": true
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup --clean"
+  },
+  "peerDependencies": {
+    "next": "^13.4",
+    "react": "^18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "next": "^13.4",
+    "react": "^18",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@47ng/codec": "^1.1.0",
+    "pretty-bytes": "^6.1.1",
+    "pretty-ms": "^8.0.0",
+    "tailwind-merge": "^1.14.0",
+    "zod": "^3.22.2"
+  }
+}

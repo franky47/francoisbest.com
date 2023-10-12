@@ -1,4 +1,4 @@
-import { createCacheExplorerPage } from './_lib'
+import { createCacheExplorerPage } from 'next-cache-explorer'
 
 export const dynamic = 'force-dynamic'
 

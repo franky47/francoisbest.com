@@ -6,6 +6,7 @@
     },
     "build": {
       "outputs": [".next/**", "!.next/cache/**"],
+      "dependsOn": ["^build"],
       "env": [
         "DEPLOYMENT_URL",
         "VERCEL_ENV",
