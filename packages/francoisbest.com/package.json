@@ -34,7 +34,7 @@
     "jsdom": "^22.1.0",
     "mitt": "^3.0.1",
     "next": "13.4.12",
-    "next-cache-explorer": "workspace:*",
+    "next-cache-explorer": "1.0.0",
     "next-sitemap": "^4.2.2",
     "next-usequerystate": "^1.8.0",
     "pretty-bytes": "^6.1.1",
