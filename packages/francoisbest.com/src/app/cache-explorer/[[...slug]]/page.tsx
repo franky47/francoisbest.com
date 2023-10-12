@@ -1,5 +1,5 @@
-import { createCacheExplorerPage } from 'next-cache-explorer'
+import { mountCacheExplorer } from 'next-cache-explorer'
 
 export const dynamic = 'force-dynamic'
 
-export default createCacheExplorerPage()
+export default mountCacheExplorer()
