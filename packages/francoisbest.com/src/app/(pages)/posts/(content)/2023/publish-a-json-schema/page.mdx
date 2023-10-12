@@ -1,0 +1,115 @@
+export const metadata = {
+  title: 'Publish a JSON Schema',
+  description: 'Improving DX in editors is only half the story.',
+  tags: ['json-schema', 'nodejs'],
+  publicationDate: '2023-10-12',
+}
+
+If you've worked with files like `package.json` or `tsconfig.json` in TypeScript
+projects in VSCode, you know the benfits of having good autocompletion in your
+editor.
+
+This is powered by [JSON Schemas](https://json-schema.org/), which are JSON files
+that describe the shape of other JSON files.
+
+Using an existing schema to document a JSON file is done with the `$schema`
+property, pointing to a URL to the schema file:
+
+```json {2} title="tsconfig.json"
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+There is a project called [SchemaStore](https://www.schemastore.org/json/) that
+lists a bunch of schemas for popular JSON files, but there are many more that are not
+listed there, especially those handcrafted for specific projects, or for bleeding edge tools.
+
+You can publish your own JSON Schema to SchemaStore via their
+[GitHub repository](https://github.com/SchemaStore/schemastore/blob/master/CONTRIBUTING.md),
+but you can also publish it anywhere you like, and link from there.
+
+One example is publishing your schema on GitHub, and using the raw URL to
+refer to it:
+
+```json {2} title="sceau.json"
+{
+  "$schema": "https://raw.githubusercontent.com/47ng/sceau/main/src/schemas/v1.schema.json"
+  // ...
+}
+```
+
+<Note status="info">
+  This example is taken from [`sceau`](https://github.com/47ng/sceau), a code
+  signing tool for NPM packages I maintain.
+</Note>
+
+## Validation
+
+VSCode will automatically validate your JSON file against the schema, but
+you can perform verification manually using the `ajv` package.
+
+It's unfortunately not a one-liner command line trick, as AJV requires the
+schema file to exist on disk first,
+and [doesn't support reading from stdin](https://github.com/ajv-validator/ajv-cli/issues/32).
+
+You can use the following Node.js script to perform this task:
+
+```ts title="validate.mjs"
+import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
+import fs from 'node:fs/promises'
+
+const fileContents = await fs.readFile(process.argv[2], 'utf-8')
+const jsonToValidate = JSON.parse(fileContents)
+const schema = await fetch(jsonToValidate.$schema).then(res => res.json())
+const ajv = new Ajv()
+addFormats(ajv)
+const isValid = ajv.validate(schema, jsonToValidate)
+if (!isValid) {
+  console.error(validator.errors)
+  process.exit(1)
+}
+console.info(`File conforms to schema ${jsonToValidate.$schema}`)
+```
+
+```sh
+node validate.mjs file-to-test.json
+```
+
+## Versioning
+
+Another nice property of using a URL is that you can -- _and should_ -- **version**
+your schema files, and the `$schema` property will act as a versioning indicator
+of the JSON file that contains it.
+
+No longer need for the following:
+
+```json
+{
+  "version": 2 // What was that one about again?
+  // ...
+}
+```
+
+## Generating JSON Schemas
+
+Now if have a bunch of JSON files, and you want to generate a schema for them,
+you _could_ do it manually, but it's a bit tedious.
+
+You can ask an LLM to do that for you, they are surprisingly good at manipulating
+structured data, but you might need to check for hallucinations and tweak the
+output a bit.
+
+> Generate a JSON schema for an arbitrary JSON file provided as standard input.
+>
+> The schema should include descriptions for each field, and disallow additional properties.
+>
+> <figcaption>Possible GPT-n prompt</figcaption>
+
+Go ahead and publish a JSON Schema for your data!
