@@ -35,7 +35,7 @@ export const AgeClient: React.FC = ({}) => {
 
   return (
     <>
-      <FormControl name="date-of-birth" className="my-8 mx-auto max-w-xs">
+      <FormControl name="date-of-birth" className="mx-auto my-8 max-w-xs">
         <FormLabel>Date of birth</FormLabel>
         <Input
           type="datetime-local"
@@ -43,7 +43,7 @@ export const AgeClient: React.FC = ({}) => {
           onChange={e => setRef(e.target.valueAsDate)}
         />
       </FormControl>
-      <ul className="my-12 grid grid-cols-1 md:grid-cols-3 gap-y-8 text-center">
+      <ul className="my-12 grid grid-cols-1 gap-y-8 text-center md:grid-cols-3">
         <Stat className="mx-auto">
           <StatNumber>{formatNumber(months)}</StatNumber>
           <StatHelpText>months</StatHelpText>

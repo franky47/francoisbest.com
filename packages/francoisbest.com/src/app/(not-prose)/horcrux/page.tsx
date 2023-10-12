@@ -12,7 +12,7 @@ export default function HorcruxPage() {
   return (
     <>
       <hgroup className="prose dark:prose-invert md:prose-lg">
-        <h1 className="font-bold !mb-1">Horcrux</h1>
+        <h1 className="!mb-1 font-bold">Horcrux</h1>
         <figcaption>📓 💍 📿 👑 🏆 🐍 ⚡</figcaption>
       </hgroup>
       <Note status="info" title="About">

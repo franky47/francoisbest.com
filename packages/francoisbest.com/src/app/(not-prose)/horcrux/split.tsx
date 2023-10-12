@@ -36,7 +36,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
 
   return (
     <section>
-      <h2 id="split" className="text-3xl font-bold my-4">
+      <h2 id="split" className="my-4 text-3xl font-bold">
         Split
         <a href="#split" aria-hidden tabIndex={-1}>
           <span className="icon icon-link font-medium" />
@@ -57,7 +57,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
           .
         </FormHelperText>
       </FormControl>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4 md:gap-y-8 mt-8">
+      <div className="mt-8 grid grid-cols-1 gap-x-4 gap-y-4 md:grid-cols-2 md:gap-y-8">
         <FormControl name="number-of-shards">
           <FormLabel>Number of shards</FormLabel>
           <NumberInput
@@ -107,7 +107,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
         </FormControl>
       </div>
       <hr className="mt-8" />
-      <h2 className="mt-8 mb-2 text-2xl font-bold">Horcrux Shards</h2>
+      <h2 className="mb-2 mt-8 text-2xl font-bold">Horcrux Shards</h2>
       <p>
         <strong className="font-medium">Individually</strong>, these can be
         shared safely. Only <strong className="font-medium">united</strong> can
@@ -115,7 +115,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
       </p>
       {hydrated && (
         <WideContainer>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-8">
+          <div className="my-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
             {shards.map((shard, i) => (
               <ReadOnlyCodeBlock key={shard} text={shard} index={i + 1} />
             ))}
@@ -137,17 +137,17 @@ const ReadOnlyCodeBlock: React.FC<ReadOnlyCodeBlock> = ({ text, index }) => {
   const { onCopy, hasCopied } = useClipboard(text, 2000)
   return (
     <code
-      className="text-sm break-all pt-10 px-4 pb-4 my-0 relative bg-gray-50/30 dark:bg-gray-900 border dark:border-gray-800 rounded dark:shadow-inner"
+      className="relative my-0 break-all rounded border bg-gray-50/30 px-4 pb-4 pt-10 text-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-inner"
       style={{ overflowWrap: 'anywhere' }}
     >
-      <span className="absolute top-2 left-4 font-sans font-medium text-gray-500 select-none">
+      <span className="absolute left-4 top-2 select-none font-sans font-medium text-gray-500">
         Shard {index}
       </span>
       <IconButton
         aria-label="Copy"
         title={hasCopied ? 'Copied' : 'Copy'}
         icon={hasCopied ? <FiCheck className="text-green-500" /> : <FiCopy />}
-        className="absolute top-2 right-2"
+        className="absolute right-2 top-2"
         size="xs"
         variant="ghost"
         onClick={onCopy}

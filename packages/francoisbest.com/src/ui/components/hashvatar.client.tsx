@@ -38,7 +38,7 @@ export const AdjustableRadiusFactorSHA256Avatar: React.FC<
         max={1}
         step={0.01}
       />
-      <p className="text-center text-xs tabular-nums !mt-2">
+      <p className="!mt-2 text-center text-xs tabular-nums">
         Blend factor: {radiusFactor.toFixed(2)}
       </p>
     </>
@@ -73,13 +73,13 @@ export const InteractiveAvatar: React.FC<
     <section className="space-y-8">
       <SHA256Avatar {...props} hash={hash} />
       <p
-        className="font-mono text-sm text-gray-500 text-center"
+        className="text-center font-mono text-sm text-gray-500"
         dangerouslySetInnerHTML={{ __html: hashText }}
       />
       <Input
         value={text}
         onChange={e => setText(e.target.value)}
-        className="max-w-xs mx-auto"
+        className="mx-auto max-w-xs"
       />
     </section>
   )

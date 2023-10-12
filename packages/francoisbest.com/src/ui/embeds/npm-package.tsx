@@ -52,17 +52,17 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
         <figure className="not-prose !my-0">
           <div className="px-4">
             <header
-              className="flex justify-between flex-wrap gap-2 mb-2"
+              className="mb-2 flex flex-wrap justify-between gap-2"
               style={{ alignItems: 'last baseline' }}
             >
               <a href={github.url}>
-                <h3 className="flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100 mt-0">
+                <h3 className="mt-0 flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
                   <Image
                     width={24}
                     height={24}
                     src={github.avatarUrl}
                     alt={`Avatar for GitHub account ${repo.split('/')[0]}`}
-                    className="rounded-full mr-2"
+                    className="mr-2 rounded-full"
                   />
                   {repo}
                 </h3>
@@ -98,21 +98,21 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             </header>
             <p className="my-4">{github.description}</p>
             {children}
-            <pre className="text-sm bg-gray-50/50 dark:bg-gray-950 border dark:border-gray-800 dark:shadow-inner rounded !p-2 my-4">
+            <pre className="my-4 rounded border bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner">
               <details className="text-gray-500">
                 <summary>
-                  <span className="text-red-500/75 select-none">$ </span>pnpm
+                  <span className="select-none text-red-500/75">$ </span>pnpm
                   add{' '}
                   <a href={npm.url} className={accent}>
                     {npm.packageName}
                   </a>
                 </summary>
                 <div>
-                  <span className="text-red-500/75 select-none ml-1"> $ </span>
+                  <span className="ml-1 select-none text-red-500/75"> $ </span>
                   yarn add {npm.packageName}
                 </div>
                 <div>
-                  <span className="text-red-500/75 select-none ml-1"> $ </span>
+                  <span className="ml-1 select-none text-red-500/75"> $ </span>
                   npm install {npm.packageName}
                 </div>
               </details>
@@ -134,10 +134,10 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
           />
           <footer
             role="presentation"
-            className="absolute flex items-center gap-2 left-3 bottom-3 h-6 text-sm"
+            className="absolute bottom-3 left-3 flex h-6 items-center gap-2 text-sm"
           >
             <Logo size={6} background={false} />
-            <span className="font-semibold text-md">47ng</span>
+            <span className="text-md font-semibold">47ng</span>
             <span className="text-gray-500/80">•</span>
             <a href="https://francoisbest.com/open-source" className={accent}>
               francoisbest.com
@@ -179,16 +179,16 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
   const totalCount = Object.values(versions).reduce((sum, count) => sum + count)
   return (
     <>
-      <div className="text-xs px-4 pb-2">
-        <p className="text-gray-500 mb-1 flex">
+      <div className="px-4 pb-2 text-xs">
+        <p className="mb-1 flex text-gray-500">
           Version rollout
           <span className="ml-auto">Last week</span>
         </p>
         {data.map(([version, count]) => (
-          <div key={version} className="flex relative">
+          <div key={version} className="relative flex">
             <span
               className={twMerge(
-                'relative font-mono z-10',
+                'relative z-10 font-mono',
                 version === latestVersion ? accent : undefined,
                 version === latestVersion ? 'font-semibold' : undefined
               )}
@@ -198,14 +198,14 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
             <div
               aria-hidden
               className={twMerge(
-                'appearance-none absolute left-0 right-24 top-0 bottom-0 bg-current opacity-10 my-0.5 rounded-sm',
+                'absolute bottom-0 left-0 right-24 top-0 my-0.5 appearance-none rounded-sm bg-current opacity-10',
                 accent
               )}
               style={{
                 maxWidth: `${(100 * count) / totalCount}%`,
               }}
             />
-            <div className="text-right ml-auto tabular-nums">
+            <div className="ml-auto text-right tabular-nums">
               <span className={twMerge('font-semibold', accent)}>
                 {formatStatNumber(count)}
               </span>{' '}

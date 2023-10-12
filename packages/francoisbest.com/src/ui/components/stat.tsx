@@ -11,7 +11,7 @@ export const Stat: React.FC<React.ComponentProps<'dl'>> = ({
 export const StatLabel: React.FC<React.ComponentProps<'dt'>> = ({
   className,
   ...props
-}) => <dt className={twMerge('font-medium text-sm', className)} {...props} />
+}) => <dt className={twMerge('text-sm font-medium', className)} {...props} />
 
 export const StatNumber: React.FC<React.ComponentProps<'dd'>> = ({
   className,

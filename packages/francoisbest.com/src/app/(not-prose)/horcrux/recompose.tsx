@@ -63,7 +63,7 @@ export const HorcruxRecompose: React.FC = () => {
   const { secret, error } = useSecret(shards)
   return (
     <section className="mt-24">
-      <h2 id="recompose" className="text-3xl font-bold my-4">
+      <h2 id="recompose" className="my-4 text-3xl font-bold">
         Recompose
         <a href="#recompose" aria-hidden tabIndex={-1}>
           <span className="icon icon-link font-medium" />
@@ -71,9 +71,9 @@ export const HorcruxRecompose: React.FC = () => {
       </h2>
       {!error && (
         <>
-          <h3 className="text-md font-semibold mb-2 my-4">Your secret:</h3>
+          <h3 className="text-md my-4 mb-2 font-semibold">Your secret:</h3>
           <code
-            className="block text-sm break-all px-4 py-4 my-4 relative bg-gray-50/30 dark:bg-gray-900 border dark:border-gray-800 rounded dark:shadow-inner"
+            className="relative my-4 block break-all rounded border bg-gray-50/30 px-4 py-4 text-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-inner"
             style={{ overflowWrap: 'anywhere' }}
           >
             {secret}
@@ -81,12 +81,12 @@ export const HorcruxRecompose: React.FC = () => {
         </>
       )}
       {error && (
-        <p className="text-sm text-red-600 dark:text-red-300 mt-2">
+        <p className="mt-2 text-sm text-red-600 dark:text-red-300">
           {error.message}
         </p>
       )}
       <div className="container mx-auto">
-        <div className="flex justify-end mb-2">
+        <div className="mb-2 flex justify-end">
           <Button
             size="xs"
             variant="ghost"
@@ -108,13 +108,13 @@ export const HorcruxRecompose: React.FC = () => {
             Remove
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {shards.map((shard, i) => (
             <div key={i}>
               <label className="text-sm">Shard {i + 1}</label>
               <Textarea
                 value={shard}
-                className="min-h-[6rem] text-sm font-mono"
+                className="min-h-[6rem] font-mono text-sm"
                 onChange={e =>
                   store.dispatch('set', { index: i, shard: e.target.value })
                 }

@@ -16,15 +16,15 @@ export const MdxPageHeader: React.FC<MdxPageHeaderProps> = async ({ file }) => {
   const { title, publicationDate, tags } = post.meta
   return (
     <figure role="header" className="not-prose">
-      <h1 className="text-gray-950 dark:text-gray-50 text-5xl font-bold mt-8 mb-4 leading-[1.15]">
+      <h1 className="mb-4 mt-8 text-5xl font-bold leading-[1.15] text-gray-950 dark:text-gray-50">
         {title}
       </h1>
-      <figcaption className="flex flex-wrap gap-2 text-gray-500 text-sm">
+      <figcaption className="flex flex-wrap gap-2 text-sm text-gray-500">
         François Best&nbsp;•&nbsp;
         {publicationDate ? (
           formatDate(publicationDate)
         ) : (
-          <span className="text-amber-600 font-semibold italic">
+          <span className="font-semibold italic text-amber-600">
             Unpublished
           </span>
         )}

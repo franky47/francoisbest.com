@@ -50,7 +50,7 @@ export const Radio: React.FC<RadioProps> = ({
   const { value: currentValue, onChange: onCheck } =
     React.useContext(RadioStateContext)
   return (
-    <div className={twMerge('flex gap-2 items-center', className)}>
+    <div className={twMerge('flex items-center gap-2', className)}>
       <input
         type="radio"
         id={thisValue}

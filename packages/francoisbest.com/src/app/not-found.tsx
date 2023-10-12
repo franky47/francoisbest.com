@@ -4,11 +4,11 @@ import PageLayout from './(not-prose)/layout'
 export default function NotFound() {
   return (
     <PageLayout>
-      <section className="my-24 md:my-32 text-center">
+      <section className="my-24 text-center md:my-32">
         <p
           role="presentation"
           aria-hidden
-          className="text-8xl text-gray-200 dark:text-gray-800 font-bold select-none"
+          className="select-none text-8xl font-bold text-gray-200 dark:text-gray-800"
         >
           404
         </p>
@@ -18,7 +18,7 @@ export default function NotFound() {
         <p className="text-sm text-gray-500">Sorry, there's nothing here.</p>
         <Link
           href="/"
-          className="inline-block mt-8 underline font-medium text-sm"
+          className="mt-8 inline-block text-sm font-medium underline"
         >
           Return Home
         </Link>

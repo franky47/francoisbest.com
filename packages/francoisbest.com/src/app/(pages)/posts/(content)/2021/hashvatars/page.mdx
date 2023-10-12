@@ -48,7 +48,7 @@ Change the input below to see how the SHA-256 hash changes the render</small>
 
 import { ThemeControls } from 'ui/components/theme-controls'
 
-<section className="flex text-sm justify-end items-center -mb-6">
+<section className="-mb-6 flex items-center justify-end text-sm">
   <em className="text-gray-500">Toggle dark mode:</em>
   <ThemeControls className="ml-2" />
 </section>
@@ -158,7 +158,7 @@ the following result:
   </ol>
   <a
     href="https://www.desmos.com/calculator/cenpmgvqdy"
-    className="block !-mb-4 text-sm"
+    className="!-mb-4 block text-sm"
   >
     More details
   </a>
@@ -166,7 +166,7 @@ the following result:
 
 Not very pleasing either. How about a mix of both ?<br/><small>(Play with the slider to blend between equal radii and equal areas)</small>
 
-<figure className="max-w-xs mx-auto mb-8">
+<figure className="mx-auto mb-8 max-w-xs">
   <AdjustableRadiusFactorSHA256Avatar
     className="mx-auto"
     showGrid
@@ -295,7 +295,7 @@ function mapValueToColor(value) {
 
 We can adjust the range for each component to get nice results:
 
-<section className="flex text-sm justify-end items-center -mb-6">
+<section className="-mb-6 flex items-center justify-end text-sm">
   <em className="text-gray-500">Toggle dark mode:</em>
   <ThemeControls className="ml-2" />
 </section>
@@ -387,15 +387,15 @@ export function mapValueToColor({ value, hashSoul, ringSoul }) {
 We can also introduce structural variations by changing each ring's starting
 angle based on the ring soul, to create a staggering effect:
 
-<section className="flex text-sm justify-end items-center -mb-6">
+<section className="-mb-6 flex items-center justify-end text-sm">
   <em className="text-gray-500">Toggle dark mode:</em>
   <ThemeControls className="ml-2" />
 </section>
 
 <figure className="mb-8">
-  <div className="flex justify-around mb-2">
+  <div className="mb-2 flex justify-around">
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3"
       mapColor={function mapValueToColor({ value }) {
         const colorH = value >> 4
@@ -411,17 +411,17 @@ angle based on the ring soul, to create a staggering effect:
       }}
     />
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3"
       variant="normal"
     />
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3"
       variant="stagger"
     />
   </div>
-  <div className="flex justify-around text-sm text-center">
+  <div className="flex justify-around text-center text-sm">
     <p className="w-24 sm:w-32">Without souls</p>
     <p className="w-24 sm:w-32">With souls</p>
     <p className="w-24 sm:w-32">With souls &amp; staggering</p>
@@ -437,29 +437,29 @@ If we change the radius and flags for the arc part of the section paths and
 play with each ring's starting angle, we can obtain interesting variations:
 
 <figure className="mb-8">
-  <div className="flex justify-around mb-2">
+  <div className="mb-2 flex justify-around">
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
       variant="stagger"
     />
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9"
       variant="spider"
     />
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="34707c3f40dfa20c3902b807b627d420d6d474d9d98066ba637953d1cfd6b914"
       variant="flower"
     />
     <SHA256Avatar
-      className="w-24 sm:w-32 h-24 sm:h-32"
+      className="h-24 w-24 sm:h-32 sm:w-32"
       hash="851cfc3d60d379af774e1e92dbd0648dd2f512ef1894ccd182ec5e05239b6f50"
       variant="gem"
     />
   </div>
-  <div className="flex justify-around text-sm text-center">
+  <div className="flex justify-around text-center text-sm">
     <p className="w-24 sm:w-32">Normal</p>
     <p className="w-24 sm:w-32">Spider</p>
     <p className="w-24 sm:w-32">Flower</p>

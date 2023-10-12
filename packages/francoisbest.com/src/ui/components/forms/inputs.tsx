@@ -13,7 +13,7 @@ export const Input: React.FC<InputProps> = ({ className, ...props }) => {
       type="text"
       dir="auto"
       className={twMerge(
-        `appearance-none block w-full px-4 h-10 rounded border relative bg-bgLight dark:bg-bgDark`,
+        `bg-bgLight dark:bg-bgDark relative block h-10 w-full appearance-none rounded border px-4`,
         className
       )}
       {...props}
@@ -30,7 +30,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   ...props
 }) => {
   return (
-    <div className="flex relative">
+    <div className="relative flex">
       <Input
         type="number"
         inputMode="decimal"
@@ -52,7 +52,7 @@ export const Textarea: React.FC<TextareaProps> = ({ className, ...props }) => {
       id={name}
       name={name}
       className={twMerge(
-        `appearance-none block w-full px-2 py-1 rounded border relative bg-bgLight dark:bg-bgDark`,
+        `bg-bgLight dark:bg-bgDark relative block w-full appearance-none rounded border px-2 py-1`,
         className
       )}
       {...props}

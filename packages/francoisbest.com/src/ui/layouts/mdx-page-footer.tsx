@@ -23,14 +23,14 @@ export const MdxPageFooter: React.FC<MdxPageFooterProps> = ({ file }) => {
       {isBlogPost(filePath) && (
         <>
           <hr />
-          <div className="flex not-prose items-center">
+          <div className="not-prose flex items-center">
             <Logo size={16} />
             <div className="ml-4">
               <Link href="/" className="text-xl font-bold">
                 François Best
               </Link>
               <p>Freelance developer & founder</p>
-              <nav className="text-sm font-medium mt-1">
+              <nav className="mt-1 text-sm font-medium">
                 <a href="https://github.com/47ng" className="underline">
                   47ng
                 </a>
@@ -54,14 +54,14 @@ export const MdxPageFooter: React.FC<MdxPageFooterProps> = ({ file }) => {
       }
       <nav
         role="list"
-        className="text-center text-sm !mt-12 flex flex-col gap-4 sm:block items-center"
+        className="!mt-12 flex flex-col items-center gap-4 text-center text-sm sm:block"
       >
         <a role="listitem" href={editUrl} className="!text-gray-500">
           Edit this page on GitHub
         </a>
         {isBlogPost(filePath) && (
           <>
-            <span className="hidden sm:inline text-gray-500">{separator}</span>
+            <span className="hidden text-gray-500 sm:inline">{separator}</span>
             <a role="listitem" href={hnUrl} className="!text-gray-500">
               Discuss on Hacker News
             </a>

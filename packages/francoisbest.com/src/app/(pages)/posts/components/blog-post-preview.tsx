@@ -17,17 +17,17 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
     <article className="not-prose">
       <hgroup>
         <Heading
-          className="text-2xl font-bold mb-1"
+          className="mb-1 text-2xl font-bold"
           style={{ color: 'var(--tw-prose-headings)' }}
         >
           <Link href={urlPath}>{title}</Link>
         </Heading>
-        <figcaption className="flex text-gray-500 text-sm flex-wrap gap-y-1">
-          <span className="inline-block mr-2">
+        <figcaption className="flex flex-wrap gap-y-1 text-sm text-gray-500">
+          <span className="mr-2 inline-block">
             {publicationDate ? (
               formatDate(publicationDate)
             ) : (
-              <span className="text-amber-600 font-semibold italic">
+              <span className="font-semibold italic text-amber-600">
                 Unpublished
               </span>
             )}

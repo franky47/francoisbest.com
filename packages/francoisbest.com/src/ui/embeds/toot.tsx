@@ -16,17 +16,17 @@ export const Toot: React.FC<TootProps> = async ({ url, className }) => {
       <EmbedFrame
         Icon={BsMastodon}
         iconFill
-        className={twMerge('max-w-xl mx-auto', className)}
+        className={twMerge('mx-auto max-w-xl', className)}
       >
         <article className="not-prose space-y-3">
-          <header className="flex gap-3 items-center pt-1">
+          <header className="flex items-center gap-3 pt-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={data.account.avatar}
               alt={data.account.username}
               width={48}
               height={48}
-              className="rounded w-12 h-12"
+              className="h-12 w-12 rounded"
             />
             <div className="leading-tight">
               <a
@@ -43,7 +43,7 @@ export const Toot: React.FC<TootProps> = async ({ url, className }) => {
           </header>
           <section
             dangerouslySetInnerHTML={{ __html: data.content }}
-            className="leading-normal toot-content"
+            className="toot-content leading-normal"
           />
           <MediaSection attachments={data.media_attachments} />
           <nav className="text-sm text-gray-500">
@@ -59,13 +59,13 @@ export const Toot: React.FC<TootProps> = async ({ url, className }) => {
       <EmbedFrame
         Icon={BsMastodon}
         iconFill
-        className={twMerge('max-w-xl mx-auto', className)}
+        className={twMerge('mx-auto max-w-xl', className)}
         isError
       >
         <div className="not-prose">
           <p className="font-medium">Error displaying toot</p>
           <code className="text-sm text-red-500">{String(error)}</code>
-          <p className="text-sm mt-2 underline">
+          <p className="mt-2 text-sm underline">
             <a href={url}>Open on Mastodon</a>
           </p>
         </div>

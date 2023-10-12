@@ -70,7 +70,7 @@ See what happens when you toggle the theme and only invert the colours:
 
 _Toggle Dark Mode:_ <ThemeControls className="ml-2" />
 
-<StatusText className="max-w-xs mx-auto mb-4 dark:filter-invert" />
+<StatusText className="dark:filter-invert mx-auto mb-4 max-w-xs" />
 
 The hue change breaks the meaning associated to each line, so we need to keep
 the general hue and only invert the lightness.
@@ -88,9 +88,9 @@ therefore only the lightness will have changed:
 
 _Toggle Dark Mode:_ <ThemeControls className="ml-2" />
 
-<StatusText className="max-w-xs mx-auto mb-4 dark:invert dark:hue-rotate-180" />
+<StatusText className="mx-auto mb-4 max-w-xs dark:hue-rotate-180 dark:invert" />
 
-<VennDiagram className="mx-auto mb-4 dark:invert dark:hue-rotate-180" />
+<VennDiagram className="mx-auto mb-4 dark:hue-rotate-180 dark:invert" />
 
 import { GoLightBulb } from 'react-icons/go'
 

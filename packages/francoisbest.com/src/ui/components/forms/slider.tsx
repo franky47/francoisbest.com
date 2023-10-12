@@ -14,7 +14,7 @@ export const Slider: React.FC<SliderProps> = ({
     <input
       type="range"
       className={twMerge(
-        'appearance-none block w-full h-1 my-2 cursor-pointer border-transparent',
+        'my-2 block h-1 w-full cursor-pointer appearance-none border-transparent',
         className
       )}
       onInput={e => onChange(e.currentTarget.valueAsNumber)}

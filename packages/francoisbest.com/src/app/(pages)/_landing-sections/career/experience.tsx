@@ -17,16 +17,16 @@ export const Experience: React.FC<
   React.ComponentProps<'section'> & ExperienceProps
 > = ({ title, url, description, Icon, years, tags = [], ...props }) => {
   return (
-    <section className="not-prose flex flex-col space-y-4 mb-12" {...props}>
+    <section className="not-prose mb-12 flex flex-col space-y-4" {...props}>
       <div className="flex items-center">
-        <Icon alt={title} className="w-8 h-8 mr-2" />
+        <Icon alt={title} className="mr-2 h-8 w-8" />
         <a href={url} className="mr-auto">
-          <h3 className="text-xl font-bold my-0">{title}</h3>
+          <h3 className="my-0 text-xl font-bold">{title}</h3>
         </a>
         {years && <span className="text-sm text-gray-500">{years}</span>}
       </div>
       <div className="my-0">{description}</div>
-      <div className="empty:hidden flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 empty:hidden">
         {tags.map(tag => (
           <StaticTag key={tag} className={tagClassName}>
             {tag}
@@ -55,9 +55,9 @@ export const Client: React.FC<ClientProps> = ({
 }) => {
   return (
     <li className="ml-4" {...props}>
-      <div className="flex flex-col space-y-2 mb-8">
+      <div className="mb-8 flex flex-col space-y-2">
         <div className="flex items-center">
-          {Icon && <Icon alt={title} className="w-6 h-6 mr-2" />}
+          {Icon && <Icon alt={title} className="mr-2 h-6 w-6" />}
           {url ? (
             <a href={url}>
               <h4 className="my-0 font-bold">{title}</h4>
@@ -67,7 +67,7 @@ export const Client: React.FC<ClientProps> = ({
           )}
         </div>
         <div className="my-0">{description}</div>
-        <div className="empty:hidden flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 empty:hidden">
           {tags.map(tag => (
             <StaticTag key={tag} className={tagClassName}>
               {tag}

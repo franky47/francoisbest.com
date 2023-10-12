@@ -16,7 +16,7 @@ export function GET(req: NextRequest) {
       geo: req.geo,
       ref: req.referrer,
       key: phoneNumber ? 'valid' : Boolean(key) ? 'invalid' : 'not-provided',
-    }),
+    })
   )
   const res = new Response(vcard(phoneNumber))
   res.headers.set('content-type', 'text/vcard')

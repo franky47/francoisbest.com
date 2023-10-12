@@ -9,7 +9,7 @@ export const metadata = {
 export default function DovtailDesignerPage() {
   return (
     <>
-      <h1 className="font-bold text-4xl md:text-5xl">Dovetail Designer</h1>
+      <h1 className="text-4xl font-bold md:text-5xl">Dovetail Designer</h1>
       <p className="text-sm text-gray-500">
         Design perfect-looking dovetail joints
       </p>

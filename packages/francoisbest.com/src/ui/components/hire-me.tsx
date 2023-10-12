@@ -31,9 +31,9 @@ export const HireMe: React.FC<HireMeProps> = ({ ...props }) => {
       )}
       <a
         href="mailto:freelance@francoisbest.com"
-        className="bg-green-600 !text-white px-4 text-lg py-2 rounded no-underline hover:no-underline hover:bg-green-500 active:bg-green-600/75 inline-block"
+        className="inline-block rounded bg-green-600 px-4 py-2 text-lg !text-white no-underline hover:bg-green-500 hover:no-underline active:bg-green-600/75"
       >
-        <FiMail className="inline-block mr-2 -mt-[2px]" />
+        <FiMail className="-mt-[2px] mr-2 inline-block" />
         Contact me
       </a>
     </Note>

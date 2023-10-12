@@ -25,18 +25,18 @@ export default function HashvatarDemoPage() {
         width="16rem"
         height="16rem"
         variant={variant}
-        className="block mx-auto my-8"
+        className="mx-auto my-8 block"
       />
       <p
-        className="font-mono text-sm text-gray-500 text-center"
+        className="text-center font-mono text-sm text-gray-500"
         dangerouslySetInnerHTML={{ __html: hashText }}
       />
       <Input
         value={text}
         onChange={e => setText(e.target.value)}
-        className="mx-auto max-w-xs mt-4"
+        className="mx-auto mt-4 max-w-xs"
       />
-      <nav className="max-w-xl mx-auto flex justify-between flex-wrap my-12">
+      <nav className="mx-auto my-12 flex max-w-xl flex-wrap justify-between">
         <VariantButton variant="normal" hash={hash} onClick={setVariant} />
         <VariantButton variant="stagger" hash={hash} onClick={setVariant} />
         <VariantButton variant="spider" hash={hash} onClick={setVariant} />
@@ -63,10 +63,10 @@ const VariantButton: React.FC<VariantButtonProps> = ({
   return (
     <button
       onClick={() => onClick(variant)}
-      className="p-2 rounded hover:bg-gray-50 dark:hover:bg-gray-800 text-sm font-medium"
+      className="rounded p-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
     >
       <SHA256Avatar width="4rem" height="4rem" hash={hash} variant={variant} />
-      <span className="block mt-1">
+      <span className="mt-1 block">
         {variant[0].toUpperCase() + variant.slice(1)}
       </span>
     </button>

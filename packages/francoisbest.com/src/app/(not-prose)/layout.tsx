@@ -9,7 +9,7 @@ export default function PageLayout({
   return (
     <>
       <NavHeader />
-      <main className="max-w-2xl mx-auto px-2">{children}</main>
+      <main className="mx-auto max-w-2xl px-2">{children}</main>
       <Footer />
     </>
   )

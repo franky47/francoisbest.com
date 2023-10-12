@@ -24,7 +24,7 @@ export function decryptPhoneNumber(key: string) {
   const phoneNumber = nacl.secretbox.open(
     hex.decode(ciphertext),
     hex.decode(nonce),
-    hex.decode(key),
+    hex.decode(key)
   )
   if (!phoneNumber) {
     throw new Error('Failed to decrypt phone number')

@@ -28,7 +28,7 @@ export const GitHubRepo: React.FC<GitHubRepoProps> = async ({
       className={twMerge('not-prose space-y-4', className)}
       {...props}
     >
-      <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mt-0">
+      <h3 className="mt-0 text-xl font-semibold text-gray-900 dark:text-gray-100">
         <a href={url}>{slug}</a>
       </h3>
       <p>{description}</p>

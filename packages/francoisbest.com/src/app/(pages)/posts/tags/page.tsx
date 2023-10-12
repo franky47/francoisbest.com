@@ -27,7 +27,7 @@ export default async function TagsIndex() {
   return (
     <>
       <BlogRollHeader title="Articles" description={metadata.description} />
-      <nav className="mt-12 flex flex-wrap gap-4 not-prose">
+      <nav className="not-prose mt-12 flex flex-wrap gap-4">
         {Object.entries(sortedByFrequency).map(([tag, frequency]) => (
           <LinkedTag key={tag} href={`/posts/tags/${tag}`}>
             {tag} ({frequency})

@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
 export async function GET(
   _: Request,
-  { params }: { params: { format: string } },
+  { params }: { params: { format: string } }
 ) {
   const format =
     params.format === 'rss.xml'
@@ -31,14 +31,14 @@ export async function GET(
       },
       {
         status: 400,
-      },
+      }
     )
   }
 
   const now = Date.now()
   const allPosts = await getAllPosts()
   const publishedPosts = allPosts.filter(
-    post => (post.meta.publicationDate?.valueOf() ?? Infinity) < now,
+    post => (post.meta.publicationDate?.valueOf() ?? Infinity) < now
   )
   const tags = new Set(publishedPosts.flatMap(post => post.meta.tags ?? []))
   const feed = new Feed({

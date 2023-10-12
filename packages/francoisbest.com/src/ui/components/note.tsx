@@ -76,7 +76,7 @@ export const Note: React.FC<NoteProps> = ({
       role="note"
       aria-details={status}
       className={twMerge(
-        '-mx-2 my-6 rounded-sm border-l-4 bg-opacity-50 dark:bg-opacity-40 px-4 pt-3 pb-4 md:mx-0',
+        '-mx-2 my-6 rounded-sm border-l-4 bg-opacity-50 px-4 pb-4 pt-3 dark:bg-opacity-40 md:mx-0',
         colors,
         outerClass
       )}

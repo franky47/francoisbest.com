@@ -44,7 +44,7 @@ const repositoryQuerySchema = z.object({
 })
 
 export async function fetchRepository(
-  slug: string,
+  slug: string
 ): Promise<GitHubRepositoryData> {
   const [owner, repo] = slug.split('/')
   const query = `query {
@@ -120,7 +120,7 @@ const starHistoryQuerySchema = z.object({
               .string()
               .datetime()
               .transform(d => new Date(d)),
-          }),
+          })
         ),
       }),
     }),
@@ -171,7 +171,7 @@ export async function getStarHistory(slug: string): Promise<GitHubStarHistory> {
 }
 
 function groupStarHistoryByDate(
-  edges: { starredAt: Date }[],
+  edges: { starredAt: Date }[]
 ): GitHubStarHistory['bins'] {
   const bins = new Map<string, number>()
   for (const { starredAt } of edges) {

@@ -39,7 +39,7 @@ function formatGraphData(
   const scaleY = actualH / (maxY - minY)
   const points: Point[] = data.map((value, i) => [
     i * scaleX,
-    scale.mt + scaleY * (maxY - value + minY),
+    scale.mt + scaleY * (maxY - value),
   ])
   return points
 }
@@ -176,17 +176,17 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
                 r={3}
                 strokeWidth={2}
                 className={twJoin(
-                  'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out',
+                  'opacity-0 transition-opacity ease-out group-hover/bar:opacity-100 group-hover/all:transition-none',
                   'stroke-current',
                   'fill-white dark:fill-gray-900'
                 )}
               />
               <text
                 className={twJoin(
-                  'text-sm font-semibold fill-current select-none tabular-nums',
+                  'select-none fill-current text-sm font-semibold tabular-nums',
                   // Fade in and out when the whole graph is hovered, but
                   // don't fade between bars
-                  'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out'
+                  'opacity-0 transition-opacity ease-out group-hover/bar:opacity-100 group-hover/all:transition-none'
                 )}
                 strokeWidth={2.5}
                 strokeLinejoin="round"
@@ -200,10 +200,10 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
               </text>
               <text
                 className={twJoin(
-                  'text-xs select-none fill-gray-500 tabular-nums',
+                  'select-none fill-gray-500 text-xs tabular-nums',
                   // Fade in and out when the whole graph is hovered, but
                   // don't fade between bars
-                  'opacity-0 group-hover/bar:opacity-100 transition-opacity group-hover/all:transition-none ease-out'
+                  'opacity-0 transition-opacity ease-out group-hover/bar:opacity-100 group-hover/all:transition-none'
                 )}
                 strokeWidth={2.5}
                 strokeLinejoin="round"
@@ -222,7 +222,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
         </g>
         <g className="pointer-events-none select-none opacity-100 group-hover/all:opacity-0">
           <text
-            className="text-sm font-semibold fill-current tabular-nums"
+            className="fill-current text-sm font-semibold tabular-nums"
             strokeWidth={2.5}
             strokeLinejoin="round"
             x={w}
@@ -234,7 +234,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
             {formatNumber(sum)}
           </text>
           <text
-            className="text-xs fill-gray-500 tabular-nums"
+            className="fill-gray-500 text-xs tabular-nums"
             strokeWidth={2.5}
             strokeLinejoin="round"
             x={w}

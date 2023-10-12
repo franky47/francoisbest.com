@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="my-8">
-      <nav className="flex flex-row gap-2 p-2 justify-center">
+      <nav className="flex flex-row justify-center gap-2 p-2">
         <a href="https://mamot.fr/@Franky47" rel="me">
           <IconButton
             icon={<BsMastodon />}
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
           />
         </a>
       </nav>
-      <p className="text-xs text-center text-gray-500 leading-5">
+      <p className="text-center text-xs leading-5 text-gray-500">
         © 2019, François Best •{' '}
         <a
           href={`https://github.com/franky47/francoisbest.com/tree/${gitSha1}`}

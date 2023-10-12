@@ -85,7 +85,7 @@ export const DovetailDesigner: React.FC = () => {
       <WideContainer>
         <DovetailSVG className="my-12" data={dovetailData} />
       </WideContainer>
-      <section className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+      <section className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
         <FormControl>
           <FormLabel>Joint Width</FormLabel>
           <NumberInput
@@ -131,7 +131,7 @@ export const DovetailDesigner: React.FC = () => {
           </NumberInput>
         </FormControl>
         <FormControl>
-          <div className="flex justify-between items-baseline">
+          <div className="flex items-baseline justify-between">
             <FormLabel>Angle</FormLabel>
             <span className="text-sm">
               {dovetailData.angleDegrees.toFixed(1)}°
@@ -155,7 +155,7 @@ export const DovetailDesigner: React.FC = () => {
           </NumberInput>
         </FormControl>
         <FormControl>
-          <div className="flex justify-between items-baseline">
+          <div className="flex items-baseline justify-between">
             <FormLabel>Pin to Tail Ratio</FormLabel>
             <span className="text-sm">{pinToTailRatio}</span>
           </div>
@@ -178,7 +178,7 @@ export const DovetailDesigner: React.FC = () => {
           </FormHelperText>
         </FormControl>
         <FormControl>
-          <div className="flex justify-between items-baseline">
+          <div className="flex items-baseline justify-between">
             <FormLabel>Half Pin Ratio</FormLabel>
             <span className="text-sm">{halfPinRatio}</span>
           </div>
@@ -201,7 +201,7 @@ export const DovetailDesigner: React.FC = () => {
         To layout this joint, set your dividers to{' '}
         <strong>{dividersLength.toFixed(1)}</strong> mm.
       </Note>
-      <h3 className="font-semibold text-xl mt-8 mb-4">Measurements</h3>
+      <h3 className="mb-4 mt-8 text-xl font-semibold">Measurements</h3>
       <section className="space-y-8">
         <div className="flex items-center">
           <Stat>

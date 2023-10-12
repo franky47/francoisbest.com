@@ -14,7 +14,7 @@ export const NavHeader: React.FC<React.ComponentProps<'header'>> = ({
   return (
     <header
       className={twMerge(
-        'flex items-center gap-1 flex-wrap max-w-3xl px-2 mx-auto pt-2 md:pt-12 pb-8',
+        'mx-auto flex max-w-3xl flex-wrap items-center gap-1 px-2 pb-8 pt-2 md:pt-12',
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ export const NavHeader: React.FC<React.ComponentProps<'header'>> = ({
           Blog
         </NavLink>
       </nav>
-      <nav aria-label="Settings" className="flex ml-auto space-x-2">
+      <nav aria-label="Settings" className="ml-auto flex space-x-2">
         <a href="https://mamot.fr/@Franky47" rel="me" tabIndex={-1}>
           <IconButton
             icon={<BsMastodon />}

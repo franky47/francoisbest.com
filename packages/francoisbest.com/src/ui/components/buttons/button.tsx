@@ -62,12 +62,12 @@ export function Button({
     <button
       className={twMerge(
         `
-      appearance-none font-medium
-      inline-flex justify-center items-center
-      rounded
+      inline-flex appearance-none
+      items-center justify-center rounded
+      font-medium
       leading-5
       transition-colors ease-out
-      disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+      disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none
       `,
         sizeClass,
         colorClass,
@@ -89,7 +89,7 @@ const ButtonIcon: React.FC<React.ComponentProps<'span'>> = ({
 }) => (
   <span
     aria-hidden
-    className={twMerge('inline-flex self-center shrink-0', className)}
+    className={twMerge('inline-flex shrink-0 self-center', className)}
     {...props}
   />
 )

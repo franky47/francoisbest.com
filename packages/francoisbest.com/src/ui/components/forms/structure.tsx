@@ -36,7 +36,7 @@ export const FormLabel: React.FC<React.ComponentProps<'label'>> = ({
   return (
     <label
       htmlFor={name}
-      className={twMerge('block font-semibold mb-1', className)}
+      className={twMerge('mb-1 block font-semibold', className)}
       {...props}
     />
   )

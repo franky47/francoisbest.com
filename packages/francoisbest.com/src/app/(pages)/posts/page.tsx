@@ -13,7 +13,7 @@ export default async function BlogIndex() {
   return (
     <>
       <BlogRollHeader title="Articles" />
-      <section role="feed" aria-busy={false} className="space-y-12 mt-12">
+      <section role="feed" aria-busy={false} className="mt-12 space-y-12">
         {posts.map(post => (
           <BlogPostPreview {...post} key={post.urlPath} />
         ))}

@@ -13,9 +13,9 @@ export const BlogRollHeader: React.FC<BlogRollHeaderProps> = ({
     <>
       <header className="flex items-baseline">
         <h1>{title}</h1>
-        <nav className="not-prose text-sm text-gray-500 space-x-2 ml-auto">
+        <nav className="not-prose ml-auto space-x-2 text-sm text-gray-500">
           <FiRss
-            className="inline-block -mt-1 stroke-amber-500"
+            className="-mt-1 inline-block stroke-amber-500"
             strokeWidth={3}
           />
           <a href="/posts/feed/rss.xml">RSS</a>

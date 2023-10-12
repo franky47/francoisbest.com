@@ -9,7 +9,8 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/FG_Virgil.woff2') format('woff2'),
+    src:
+      url('/fonts/FG_Virgil.woff2') format('woff2'),
       url('/fonts/FG_Virgil.woff') format('woff');
   }
   @font-face {
@@ -17,7 +18,8 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/Cascadia.woff2') format('woff2'),
+    src:
+      url('/fonts/Cascadia.woff2') format('woff2'),
       url('/fonts/Cascadia.woff') format('woff');
   }
 }
@@ -85,13 +87,13 @@ h4 > a:hover > .icon.icon-link::after {
 }
 
 .prose blockquote.hacker-news {
-  @apply not-italic bg-gray-50/50 dark:bg-gray-800/50 py-2;
+  @apply bg-gray-50/50 py-2 not-italic dark:bg-gray-800/50;
 }
 
 /* Code highlighting with rehype-pretty-code / shiki */
 
 pre {
-  @apply !px-0 rounded-lg;
+  @apply rounded-lg !px-0;
 }
 
 pre > code {
@@ -109,12 +111,12 @@ pre > code {
 }
 
 [data-highlighted-chars] {
-  @apply bg-zinc-600/50 rounded;
+  @apply rounded bg-zinc-600/50;
   box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
 }
 
 span[data-rehype-pretty-code-fragment] > code {
-  @apply py-1 rounded-md;
+  @apply rounded-md py-1;
 }
 
 /* Dark mode ---------------------------------------------------------------- */

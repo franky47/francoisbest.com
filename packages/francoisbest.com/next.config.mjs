@@ -64,7 +64,7 @@ const nextConfig = {
     // Grab the existing rule that handles SVG imports
     // @ts-ignore - this is a private property that is not typed
     const fileLoaderRule = config.module.rules.find(rule =>
-      rule.test?.test?.('.svg'),
+      rule.test?.test?.('.svg')
     )
 
     config.module.rules.push(
@@ -80,7 +80,7 @@ const nextConfig = {
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
         use: ['@svgr/webpack'],
-      },
+      }
     )
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
@@ -93,7 +93,7 @@ const nextConfig = {
 /** @type {import('rehype-pretty-code').Options} */
 const codeHighlightingOptions = {
   theme: JSON.parse(
-    fs.readFileSync('./src/ui/theme/moonlight-ii.json', 'utf-8'),
+    fs.readFileSync('./src/ui/theme/moonlight-ii.json', 'utf-8')
   ),
   onVisitTitle(element) {
     element.tagName = 'figcaption'
@@ -124,7 +124,7 @@ const codeHighlightingOptions = {
         <line x1="16" y1="17" x2="8" y2="17"></line>
         <polyline points="10 9 9 9 8 9"></polyline>
       </svg>`,
-      { fragment: true, space: 'svg' },
+      { fragment: true, space: 'svg' }
     )
     // @ts-ignore
     element.children.unshift(fileIcon.children[0])

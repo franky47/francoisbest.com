@@ -10,9 +10,9 @@ export async function HackerNewsComment({ url }: HackerNewsCommentProps) {
   try {
     const data = await getHackerNewsItem(url)
     return (
-      <blockquote className="border-l-orange-500 hacker-news">
+      <blockquote className="hacker-news border-l-orange-500">
         <div dangerouslySetInnerHTML={{ __html: data.text }} />
-        <figcaption className="!text-sm flex">
+        <figcaption className="flex !text-sm">
           <a
             href={`https://news.ycombinator.com/user?id=${data.by}`}
             className="text-current no-underline"
@@ -25,7 +25,7 @@ export async function HackerNewsComment({ url }: HackerNewsCommentProps) {
           </a>
           <SiYcombinator
             title="Hacker News"
-            className="text-orange-500 inline-block ml-auto mr-3"
+            className="ml-auto mr-3 inline-block text-orange-500"
             size={16}
           />
         </figcaption>
@@ -34,17 +34,17 @@ export async function HackerNewsComment({ url }: HackerNewsCommentProps) {
   } catch (error) {
     console.error(error)
     return (
-      <blockquote className="border-l-orange-500 hacker-news">
+      <blockquote className="hacker-news border-l-orange-500">
         <p>
           Failed to fetch Hacker News item:
           <br />
           <span className="text-red-500">{String(error)}</span>
         </p>
         <a href={url}>{url}</a>
-        <figcaption className="!text-sm flex">
+        <figcaption className="flex !text-sm">
           <SiYcombinator
             title="Hacker News"
-            className="text-orange-500 inline-block ml-auto mr-3"
+            className="ml-auto mr-3 inline-block text-orange-500"
             size={16}
           />
         </figcaption>

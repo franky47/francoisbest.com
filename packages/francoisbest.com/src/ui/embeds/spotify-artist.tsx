@@ -9,7 +9,7 @@ export const SpotifyArtistGrid: React.FC<{
   <section
     role="feed"
     aria-busy={false}
-    className="not-prose grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 overflow-hidden"
+    className="not-prose grid grid-cols-2 gap-x-4 gap-y-8 overflow-hidden md:grid-cols-4"
     {...props}
   />
 )
@@ -35,7 +35,7 @@ export const SpotifyArtistLoading: React.FC = props => (
   <div
     role="presentation"
     aria-hidden
-    className="mx-auto rounded-full w-24 h-24 bg-gray-300 animate-pulse"
+    className="mx-auto h-24 w-24 animate-pulse rounded-full bg-gray-300"
     {...props}
   />
 )
@@ -64,11 +64,11 @@ export const SpotifyArtistView: React.FC<SpotifyData> = ({
     <figure className="text-center" {...props}>
       <a
         href={link}
-        className="block w-24 h-24 rounded-full mx-auto drop-shadow-lg overflow-hidden"
+        className="mx-auto block h-24 w-24 overflow-hidden rounded-full drop-shadow-lg"
       >
         <Image width={24 * 4} height={24 * 4} src={image} alt={title} />
       </a>
-      <figcaption className="text-center text-gray-500 text-sm mt-2">
+      <figcaption className="mt-2 text-center text-sm text-gray-500">
         <a href={link}>{title}</a>
       </figcaption>
     </figure>

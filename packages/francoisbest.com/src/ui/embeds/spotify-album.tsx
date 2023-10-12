@@ -11,7 +11,7 @@ export const SpotifyAlbumGrid: React.FC<{
     <section
       role="feed"
       aria-busy={false}
-      className="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 justify-center overflow-hidden"
+      className="not-prose grid grid-cols-1 justify-center gap-x-4 gap-y-8 overflow-hidden sm:grid-cols-2 md:grid-cols-3"
       {...props}
     />
   </WideContainer>
@@ -52,9 +52,9 @@ export const EmptyAlbumView: React.FC<EmptyAlbumViewProps> = ({
             : '/img/album-cover-placeholder.jpg'
         }
         alt="Album not found"
-        className="rounded drop-shadow-lg h-64 w-64 mx-auto overflow-hidden flex justify-center items-center bg-black font-xs relative"
+        className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded bg-black drop-shadow-lg"
       />
-      <figcaption className="text-center text-gray-500 text-sm italic mt-2">
+      <figcaption className="mt-2 text-center text-sm italic text-gray-500">
         {type === 'error' ? 'Missing album data' : 'Loading...'}
       </figcaption>
     </figure>
@@ -79,11 +79,11 @@ const SpotifyAlbumView: React.FC<SpotifyData> = ({
           height={256}
           src={image}
           alt={`${title}, an album by ${artist}`}
-          className="rounded drop-shadow-lg h-64 w-64 mx-auto overflow-hidden flex justify-center items-center bg-gray-200 dark:bg-gray-800 font-xs relative"
+          className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded bg-gray-200 drop-shadow-lg dark:bg-gray-800"
           unoptimized
         />
       </a>
-      <figcaption className="text-center text-gray-500 text-sm mt-2">
+      <figcaption className="mt-2 text-center text-sm text-gray-500">
         <a href={link}>{title === artist ? title : title + ' • ' + artist}</a>
       </figcaption>
     </figure>

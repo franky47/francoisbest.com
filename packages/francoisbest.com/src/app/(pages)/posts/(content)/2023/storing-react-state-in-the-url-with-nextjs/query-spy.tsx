@@ -31,7 +31,7 @@ export const QuerySpy: React.FC = () => {
 
   return (
     <figure className="not-prose !my-0">
-      <figcaption className="text-sm font-medium flex justify-between items-center">
+      <figcaption className="flex items-center justify-between text-sm font-medium">
         <span>Query string</span>
         <Link href="?" replace scroll={false} tabIndex={-1}>
           <Button size="xs" variant="ghost">
@@ -42,7 +42,7 @@ export const QuerySpy: React.FC = () => {
       <pre
         aria-label="Querystring spy"
         aria-description="For browsers where the query is hard to see (eg: on mobile)"
-        className="text-sm bg-gray-50/50 dark:bg-gray-950 border dark:border-gray-800 dark:shadow-inner rounded !p-2 my-2 overflow-auto"
+        className="my-2 overflow-auto rounded border bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner"
       >
         {search.size === 0 && (
           <span className="italic text-gray-500/50">{'<empty>'}</span>
