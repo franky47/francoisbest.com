@@ -9,7 +9,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "isr": "node --env-file=.env ./scripts/isr.mjs"
   },
   "dependencies": {
     "@47ng/codec": "^1.1.0",
