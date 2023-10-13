@@ -6,7 +6,7 @@ import {
   FiFileText,
   FiPackage,
   FiStar,
-  FiTag,
+  FiTag
 } from 'react-icons/fi'
 
 import Image from 'next/image'
@@ -36,7 +36,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
   try {
     const [npm, github] = await Promise.all([
       fetchNpmPackage(pkg),
-      fetchRepository(repo),
+      fetchRepository(repo)
     ])
     return (
       <EmbedFrame
@@ -173,7 +173,7 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
   versions,
   accent,
   latestVersion,
-  limit,
+  limit
 }) => {
   const data = Object.entries(versions).slice(0, limit)
   const totalCount = Object.values(versions).reduce((sum, count) => sum + count)
@@ -202,7 +202,7 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
                 accent
               )}
               style={{
-                maxWidth: `${(100 * count) / totalCount}%`,
+                maxWidth: `${(100 * count) / totalCount}%`
               }}
             />
             <div className="ml-auto text-right tabular-nums">

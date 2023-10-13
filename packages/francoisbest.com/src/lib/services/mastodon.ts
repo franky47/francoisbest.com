@@ -10,17 +10,17 @@ const mediaAttachmentSchema = z
       z.literal('image'),
       z.literal('gifv'),
       z.literal('video'),
-      z.literal('audio'),
+      z.literal('audio')
     ]),
     url: z.string().url(),
     meta: z.object({
       small: z.object({
         width: z.number(),
-        height: z.number(),
-      }),
+        height: z.number()
+      })
     }),
     description: z.string().nullable(),
-    blurhash: z.string(),
+    blurhash: z.string()
   })
   .transform(async obj => {
     obj.blurhash = createPngDataUri(obj.blurhash, { size: 9 })
@@ -29,7 +29,7 @@ const mediaAttachmentSchema = z
 
 const emojiSchema = z.object({
   shortcode: z.string(),
-  url: z.string().url(),
+  url: z.string().url()
 })
 
 type Emoji = z.infer<typeof emojiSchema>
@@ -42,10 +42,10 @@ const tootDataSchema = z.object({
     display_name: z.string(),
     avatar: z.string().url(),
     url: z.string().url(),
-    emojis: z.array(emojiSchema),
+    emojis: z.array(emojiSchema)
   }),
   emojis: z.array(emojiSchema),
-  media_attachments: z.array(mediaAttachmentSchema),
+  media_attachments: z.array(mediaAttachmentSchema)
 })
 
 export type TootMediaAttachment = z.infer<typeof mediaAttachmentSchema>
@@ -61,8 +61,8 @@ export async function fetchTootData(tootUrl: string) {
   const response = await (
     await fetch(url, {
       next: {
-        revalidate: 86_400,
-      },
+        revalidate: 86_400
+      }
     })
   ).json()
   const data = await tootDataSchema.parseAsync(response)

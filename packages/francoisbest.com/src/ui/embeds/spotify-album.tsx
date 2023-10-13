@@ -39,7 +39,7 @@ type EmptyAlbumViewProps = {
 }
 
 export const EmptyAlbumView: React.FC<EmptyAlbumViewProps> = ({
-  type = 'error',
+  type = 'error'
 }) => {
   return (
     <figure>
@@ -65,7 +65,7 @@ const SpotifyAlbumView: React.FC<SpotifyData> = ({
   link,
   title,
   artist,
-  image,
+  image
 }) => {
   // @ts-expect-error
   ReactDOM.preconnect('https://i.scdn.co')

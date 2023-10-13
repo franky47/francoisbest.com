@@ -3,12 +3,12 @@ export const metadata = {
   description:
     'How to turn 256 bits of entropy into a beautiful, avatar-friendly circular SVG: the Hashvatar.',
   publicationDate: '2021-04-18',
-  tags: ['cryptography', 'svg'],
+  tags: ['cryptography', 'svg']
 }
 
 import {
   InteractiveAvatar,
-  AdjustableRadiusFactorSHA256Avatar,
+  AdjustableRadiusFactorSHA256Avatar
 } from 'ui/components/hashvatar.client'
 import { SHA256Avatar } from 'ui/components/hashvatar.server'
 import { FiAlertTriangle } from 'react-icons/fi'
@@ -232,7 +232,7 @@ function polarPoint(radius: number, angle: number): Point {
   // Trigonometric rotation + inverted Y axis = clockwise rotation, nifty!
   return {
     x: radius * Math.cos(2 * Math.PI * angle - Math.PI / 2),
-    y: radius * Math.sin(2 * Math.PI * angle - Math.PI / 2),
+    y: radius * Math.sin(2 * Math.PI * angle - Math.PI / 2)
   }
 }
 
@@ -255,7 +255,7 @@ const Section = ({ index, radius }) => {
     moveTo({ x: 0, y: 0 }),
     lineTo(polarPoint(radius, angleA)),
     arcTo(polarPoint(radius, angleB), radius),
-    'Z', // close the path
+    'Z' // close the path
   ].join(' ')
   return <path d={path} />
 }
@@ -347,12 +347,12 @@ function computeSouls(bytes: string[]) {
     bytes.slice(0, ringLength),
     bytes.slice(1 * ringLength, 2 * ringLength),
     bytes.slice(2 * ringLength, 3 * ringLength),
-    bytes.slice(3 * ringLength, 4 * ringLength),
+    bytes.slice(3 * ringLength, 4 * ringLength)
   ]
   const xorReducer = (xor: number, byte: string) => xor ^ parseInt(byte, 16)
   return {
     hashSoul: (bytes.reduce(xorReducer, 0) / 0xff) * 2 - 1,
-    ringSouls: rings.map(ring => (ring.reduce(xorReducer, 0) / 0xff) * 2 - 1),
+    ringSouls: rings.map(ring => (ring.reduce(xorReducer, 0) / 0xff) * 2 - 1)
   }
 }
 

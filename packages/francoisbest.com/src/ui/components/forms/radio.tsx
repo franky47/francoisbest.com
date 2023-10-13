@@ -14,7 +14,7 @@ export type RadioGroupProps = React.ComponentProps<'fieldset'> &
 
 const RadioStateContext = React.createContext<RadioStateContext>({
   value: '',
-  onChange: () => {},
+  onChange: () => {}
 })
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({

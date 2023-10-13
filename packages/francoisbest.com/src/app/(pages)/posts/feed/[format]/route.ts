@@ -7,7 +7,7 @@ export async function generateStaticParams() {
   return [
     { format: 'rss.xml' },
     { format: 'atom.xml' },
-    { format: 'articles.json' },
+    { format: 'articles.json' }
   ]
 }
 
@@ -27,10 +27,10 @@ export async function GET(
   if (format === null) {
     return NextResponse.json(
       {
-        error: 'Unsupported feed format',
+        error: 'Unsupported feed format'
       },
       {
-        status: 400,
+        status: 400
       }
     )
   }
@@ -54,13 +54,13 @@ export async function GET(
     feedLinks: {
       json: url('/posts/feed/articles.json'),
       atom: url('/posts/feed/atom.xml'),
-      rss: url('/posts/feed/rss.xml'),
+      rss: url('/posts/feed/rss.xml')
     },
     author: {
       name: 'François Best',
       email: 'rss@francoisbest.com',
-      link: url('/'),
-    },
+      link: url('/')
+    }
   })
 
   // Register tags as categories
@@ -78,7 +78,7 @@ export async function GET(
       image: post.ogImageUrlPath && url(post.ogImageUrlPath),
       category: post.meta.tags?.map(tag => ({
         name: tag,
-        term: tag,
+        term: tag
       })),
       description: post.meta.description,
       content: `${post.meta.description}
@@ -88,11 +88,11 @@ export async function GET(
         {
           name: 'François Best',
           email: `${format}@francoisbest.com`,
-          link: url('/'),
-        },
+          link: url('/')
+        }
       ],
       published: new Date(post.meta.publicationDate!),
-      date: new Date(post.meta.publicationDate!),
+      date: new Date(post.meta.publicationDate!)
     })
   })
 

@@ -2,7 +2,7 @@ export const metadata = {
   title: 'Dotenv is dead',
   description: 'Long live type-safe environment variable management in Node.js',
   tags: ['til', 'nodejs', 'env'],
-  publicationDate: '2023-10-02',
+  publicationDate: '2023-10-02'
 }
 
 Today I learned from [Liran Tal](https://lirantal.com/blog/environment-variables-configuration-anti-patterns-node-js-applications)
@@ -62,7 +62,7 @@ const envSchema = z.object({
     .transform(value =>
       ['true', 'yes', '1', 'on'].includes(value.toLowerCase())
     )
-    .default('false'),
+    .default('false')
 })
 
 export const env = envSchema.parse(process.env)
@@ -144,7 +144,7 @@ parsed `env` object:
 const secretEnvs: Array<keyof typeof envSchema.shape> = [
   'POSTGRESQL_URL',
   'REDIS_URL',
-  'SIGNATURE_PRIVATE_KEY',
+  'SIGNATURE_PRIVATE_KEY'
 ]
 
 for (const secretEnv of secretEnvs) {

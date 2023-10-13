@@ -13,7 +13,7 @@ export function getDovetailData({
   pinsBoardThickness,
   jointWidth,
   halfPinRatio,
-  angleRatio,
+  angleRatio
 }: DovetailParameters) {
   const n = numTails
   const b =
@@ -36,7 +36,7 @@ export function getDovetailData({
     n,
     w: jointWidth,
     tp: pinsBoardThickness,
-    angleDegrees: 90 - (Math.atan(1 / angleRatio) * 180) / Math.PI,
+    angleDegrees: 90 - (Math.atan(1 / angleRatio) * 180) / Math.PI
   }
 }
 
@@ -53,7 +53,7 @@ export function getDovetailPath({
   b_,
   c_,
   w,
-  tp,
+  tp
 }: DovetailData) {
   const points = [[0, tp]]
   Array(n)
@@ -70,7 +70,7 @@ export function getDovetailPath({
   return [
     `M ${points[0][0]} ${points[0][1]}`,
     ...points.slice(1).map(([x, y]) => `L ${x} ${y}`),
-    'Z', // close the path
+    'Z' // close the path
   ].join(' ')
 }
 
@@ -80,6 +80,6 @@ export function getDovetailMeasurements({ a, b, c, c_, b_ }: DovetailData) {
     pinNarrowWidth: c,
     pinWideWidth: c_,
     halfPinNarrowWidth: a,
-    distanceBetweenPins: b_,
+    distanceBetweenPins: b_
   }
 }

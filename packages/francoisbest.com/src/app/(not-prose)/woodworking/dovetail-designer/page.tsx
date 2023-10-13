@@ -3,7 +3,7 @@ import DovetailDesigner from './page.client'
 
 export const metadata = {
   title: 'Dovetail Designer',
-  description: 'Design perfect-looking dovetail joints',
+  description: 'Design perfect-looking dovetail joints'
 }
 
 export default function DovtailDesignerPage() {

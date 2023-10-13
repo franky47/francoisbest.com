@@ -44,7 +44,7 @@ function polarPoint(radius: number, angle: number): Point {
   // Trigonometric rotation + inverted Y = clockwise rotation, nifty!
   return {
     x: radius * Math.cos(2 * Math.PI * angle - Math.PI / 2),
-    y: radius * Math.sin(2 * Math.PI * angle - Math.PI / 2),
+    y: radius * Math.sin(2 * Math.PI * angle - Math.PI / 2)
   }
 }
 
@@ -85,7 +85,7 @@ function generateSection({
   outerRadius,
   innerRadius,
   horcrux,
-  variant = 'normal',
+  variant = 'normal'
 }: GenerateSectionArgs) {
   const circleIndex = Math.floor(index / 8)
   const staggering =
@@ -111,7 +111,7 @@ function generateSection({
     moveTo({ x: 0, y: 0 }),
     lineTo(polarPoint(outerRadius, angleA)),
     arcTo(polarPoint(outerRadius, angleB), arcRadius, variant === 'spider'),
-    'Z', // close the path
+    'Z' // close the path
   ].join(' ')
 
   return {
@@ -125,8 +125,8 @@ function generateSection({
           ? outerRadius * 0.66
           : innerRadius + (outerRadius - innerRadius) / 2,
         angle
-      ),
-    },
+      )
+    }
   }
 }
 
@@ -136,12 +136,12 @@ function getHashSoul(bytes: string[]) {
     bytes.slice(0, circleSize),
     bytes.slice(1 * circleSize, 2 * circleSize),
     bytes.slice(2 * circleSize, 3 * circleSize),
-    bytes.slice(3 * circleSize, 4 * circleSize),
+    bytes.slice(3 * circleSize, 4 * circleSize)
   ]
   const xor = (xor: number, byte: string) => xor ^ parseInt(byte, 16)
   return {
     soul: (bytes.reduce(xor, 0) / 0xff) * 2 - 1,
-    horcruxes: circles.map(circle => (circle.reduce(xor, 0) / 0xff) * 2 - 1),
+    horcruxes: circles.map(circle => (circle.reduce(xor, 0) / 0xff) * 2 - 1)
   }
 }
 
@@ -188,14 +188,14 @@ export const SHA256Avatar: React.FC<
         outerRadius,
         innerRadius,
         variant,
-        horcrux,
+        horcrux
       }),
       color: mapColor({
         value: parseInt(value, 16),
         bitCount,
         hashSoul: soul,
-        circleSoul: horcrux,
-      }),
+        circleSoul: horcrux
+      })
     }
   })
 
@@ -223,7 +223,7 @@ export const SHA256Avatar: React.FC<
             strokeWidth={0.02}
             strokeLinejoin="round"
             style={{
-              transform: section.transform,
+              transform: section.transform
             }}
           />
         ))}

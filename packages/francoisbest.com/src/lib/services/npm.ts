@@ -42,7 +42,7 @@ async function getLastNDays(
   const { downloads } = await get<RangeResponse>(url)
   return {
     downloads: downloads.map(d => d.downloads),
-    date: end,
+    date: end
   }
 }
 
@@ -85,14 +85,14 @@ export async function fetchNpmPackage(
     // lastYear,
     allTime,
     { downloads: last30Days, date: lastDate },
-    versions,
+    versions
   ] = await Promise.all([
     // getStatPoint(pkg, 'last-week'),
     // getStatPoint(pkg, 'last-month'),
     // getStatPoint(pkg, 'last-year'),
     getAllTime(pkg),
     getLastNDays(pkg, 30),
-    getVersions(pkg),
+    getVersions(pkg)
   ])
   return {
     packageName: pkg,
@@ -104,7 +104,7 @@ export async function fetchNpmPackage(
     allTime,
     lastDate: new Date(lastDate),
     last30Days,
-    updatedAt: new Date(),
+    updatedAt: new Date()
   }
 }
 
@@ -112,8 +112,8 @@ async function get<T = any>(url: string) {
   const res = await fetch(url, {
     next: {
       revalidate: 86_400,
-      tags: ['npm'],
-    },
+      tags: ['npm']
+    }
   })
   return (await res.json()) as T
 }

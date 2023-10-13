@@ -3,7 +3,7 @@ export const metadata = {
   description:
     "We forget passwords. Usually it's OK, because most websites implement a password reset feature. But how to do this in end-to-end encrypted applications that don't have access to the password in the first place ?",
   publicationDate: '2020-02-15',
-  tags: ['e2ee', 'security', 'cryptography'],
+  tags: ['e2ee', 'security', 'cryptography']
 }
 
 We all forget our passwords. And that's OK, most of the time.
@@ -144,7 +144,7 @@ import { utf8, hex } from '@47ng/codec'
 
 const shards = [
   '7db2d515c461711e28a1a099aabc7cf50202003401eceaeffaedecfafcedfaebeffeecece8f0edfbc55ecd29672227248d0a0ad74add54bce3d5ec9ffb2017242742f1bfd68d2532',
-  '7db2d515c461711e28a1a099aabc7cf50202003402565055405756404657405155445656524a57417fe47793dd989d9e37b0b06df067ee06596f5625419aad9e9df84b056c379f88',
+  '7db2d515c461711e28a1a099aabc7cf50202003402565055405756404657405155445656524a57417fe47793dd989d9e37b0b06df067ee06596f5625419aad9e9df84b056c379f88'
 ].map(shard => hex.decode(shard))
 
 const secret = utf8.decode(combine(shards))

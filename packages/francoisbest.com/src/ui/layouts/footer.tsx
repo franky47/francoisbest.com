@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
   const gitSha1 = process.env.VERCEL_GIT_COMMIT_SHA ?? 'local'
   const iconButtonProps: Omit<IconButtonProps, 'icon' | 'aria-label'> = {
     variant: 'ghost',
-    className: 'rounded-full',
+    className: 'rounded-full'
   }
 
   return (

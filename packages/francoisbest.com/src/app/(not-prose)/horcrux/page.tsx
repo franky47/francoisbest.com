@@ -5,7 +5,7 @@ import { HorcruxSplit } from './split'
 
 export const metadata = {
   title: 'Horcrux',
-  description: 'Split and recompose secrets with Shamir Secret Sharing',
+  description: 'Split and recompose secrets with Shamir Secret Sharing'
 }
 
 export default function HorcruxPage() {

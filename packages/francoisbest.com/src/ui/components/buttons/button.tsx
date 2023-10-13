@@ -98,7 +98,7 @@ const sizeClasses: Record<ButtonSize, string> = {
   xs: 'text-xs min-w-[1.5rem] h-6  px-2',
   sm: 'text-sm min-w-[2rem]   h-8  px-3',
   md: 'text-md min-w-[2.5rem] h-10 px-4',
-  lg: 'text-lg min-w-[3rem]   h-12 px-6',
+  lg: 'text-lg min-w-[3rem]   h-12 px-6'
 }
 
 type ButtonStyle = `${ButtonVariant}_${ButtonColor}`
@@ -199,5 +199,5 @@ const colorClasses: Record<ButtonStyle, string> = {
     active:text-emerald-700   dark:active:text-emerald-500
     hover:underline
     hover:disabled:no-underline
-  `,
+  `
 }

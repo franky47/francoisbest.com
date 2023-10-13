@@ -21,26 +21,26 @@ const repositoryQuerySchema = z.object({
       description: z.string().nullish(),
       licenseInfo: z
         .object({
-          spdxId: z.string().nullish(),
+          spdxId: z.string().nullish()
         })
         .nullish(),
       latestRelease: z
         .object({
-          tagName: z.string().nullish(),
+          tagName: z.string().nullish()
         })
         .nullish(),
       owner: z.object({
-        avatarUrl: z.string().url(),
+        avatarUrl: z.string().url()
       }),
       issues: z.object({
-        totalCount: z.number(),
+        totalCount: z.number()
       }),
       pullRequests: z.object({
-        totalCount: z.number(),
+        totalCount: z.number()
       }),
-      stargazerCount: z.number(),
-    }),
-  }),
+      stargazerCount: z.number()
+    })
+  })
 })
 
 export async function fetchRepository(
@@ -73,16 +73,16 @@ export async function fetchRepository(
   const res = await fetch(`https://api.github.com/graphql?repo=${slug}`, {
     method: 'POST',
     headers: {
-      Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `bearer ${process.env.GITHUB_TOKEN}`
     },
     body: JSON.stringify({ query }),
     next: {
       tags: ['github'],
-      revalidate: 86_400, // 24h
-    },
+      revalidate: 86_400 // 24h
+    }
   })
   const {
-    data: { repository },
+    data: { repository }
   } = repositoryQuerySchema.parse(await res.json())
   return {
     url: `https://github.com/${slug}`,
@@ -94,7 +94,7 @@ export async function fetchRepository(
     stars: repository.stargazerCount,
     license: repository.licenseInfo?.spdxId ?? undefined,
     version: repository.latestRelease?.tagName?.replace(/^v/, '') ?? undefined,
-    updatedAt: new Date(),
+    updatedAt: new Date()
   }
 }
 
@@ -119,12 +119,12 @@ const starHistoryQuerySchema = z.object({
             starredAt: z
               .string()
               .datetime()
-              .transform(d => new Date(d)),
+              .transform(d => new Date(d))
           })
-        ),
-      }),
-    }),
-  }),
+        )
+      })
+    })
+  })
 })
 
 export async function getStarHistory(slug: string): Promise<GitHubStarHistory> {
@@ -142,20 +142,20 @@ export async function getStarHistory(slug: string): Promise<GitHubStarHistory> {
   const res = await fetch(`https://api.github.com/graphql?stars=${slug}`, {
     method: 'POST',
     headers: {
-      Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `bearer ${process.env.GITHUB_TOKEN}`
     },
     body: JSON.stringify({ query }),
     next: {
       tags: ['github'],
-      revalidate: 86_400, // 24h
-    },
+      revalidate: 86_400 // 24h
+    }
   })
   const {
     data: {
       repository: {
-        stargazers: { totalCount, edges },
-      },
-    },
+        stargazers: { totalCount, edges }
+      }
+    }
   } = starHistoryQuerySchema.parse(await res.json())
   const bins = groupStarHistoryByDate(edges)
   bins[0].diff = bins[0].stars
@@ -166,7 +166,7 @@ export async function getStarHistory(slug: string): Promise<GitHubStarHistory> {
   }
   return {
     count: totalCount,
-    bins,
+    bins
   }
 }
 
@@ -181,6 +181,6 @@ function groupStarHistoryByDate(
   return Array.from(bins.entries()).map(([date, stars]) => ({
     date: new Date(date),
     stars,
-    diff: 0,
+    diff: 0
   }))
 }

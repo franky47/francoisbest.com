@@ -48,9 +48,6 @@ importers:
       '@mdx-js/react':
         specifier: ^2.3.0
         version: 2.3.0(react@18.2.0)
-      '@mertasan/tailwindcss-variables':
-        specifier: ^2.6.1
-        version: 2.6.1(autoprefixer@10.4.15)(postcss@8.4.31)
       '@next/mdx':
         specifier: 13.4.12
         version: 13.4.12(@mdx-js/loader@2.3.0)(@mdx-js/react@2.3.0)
@@ -109,8 +106,8 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(next@13.4.12)
       next-usequerystate:
-        specifier: ^1.8.0
-        version: 1.8.0(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^1.8.3
+        version: 1.8.3(next@13.4.12)
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -1860,18 +1857,6 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mertasan/tailwindcss-variables@2.6.1(autoprefixer@10.4.15)(postcss@8.4.31):
-    resolution: {integrity: sha512-tiOU/BIVEYaVbzeD34kEEFfdSkKQJ4t4t8GMo9PP8owtr6HEU9j3QquwIeWdt92/zKzkXVeLIuCMlj4now5fhA==}
-    engines: {node: '>=12.13.0'}
-    peerDependencies:
-      autoprefixer: ^10.0.2
-      postcss: ^8.0.9
-    dependencies:
-      autoprefixer: 10.4.15(postcss@8.4.31)
-      lodash: 4.17.21
-      postcss: 8.4.31
-    dev: false
-
   /@next/env@13.4.12:
     resolution: {integrity: sha512-RmHanbV21saP/6OEPBJ7yJMuys68cIf8OBBWd7+uj40LdpmswVAwe1uzeuFyUsd6SfeITWT3XnQfn6wULeKwDQ==}
 
@@ -2858,6 +2843,7 @@ packages:
       picocolors: 1.0.0
       postcss: 8.4.31
       postcss-value-parser: 4.2.0
+    dev: true
 
   /axe-core@4.7.2:
     resolution: {integrity: sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==}
@@ -3953,6 +3939,7 @@ packages:
 
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
+    dev: true
 
   /fs-constants@1.0.0:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}
@@ -4583,10 +4570,6 @@ packages:
   /lodash.uniqby@4.7.0:
     resolution: {integrity: sha512-e/zcLx6CSbmaEgFHCA7BnoQKyCtKMxnuWrJygbwPs/AIn+IMKl66L8/s+wBUn5LRw2pZx3bUHibiV1b6aTWIww==}
     dev: true
-
-  /lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: false
 
   /longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
@@ -5307,17 +5290,13 @@ packages:
       next: 13.4.12(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
-  /next-usequerystate@1.8.0(next@13.4.12)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-iK5eqTJXZC2NuaZhCSKB0LwPyLMm6ORGKE2G0i37dsGmcQ8TWtH5zQ2kJZmYbJ2yOROTYX7BRmMGSaqfgIWB+w==}
+  /next-usequerystate@1.8.3(next@13.4.12):
+    resolution: {integrity: sha512-klr3PvMS1jnWzrH11LpZDLoWosPmb6dBWK7TCJIYzZqBw8wyxG3hSxuSKB6Fu+23MTAC7N8JLUqsuX3qn/cEKg==}
     peerDependencies:
       next: ^13.4
-      react: '*'
-      react-dom: '*'
     dependencies:
       mitt: 3.0.1
       next: 13.4.12(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /next@13.4.12(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0):
@@ -5396,6 +5375,7 @@ packages:
   /normalize-range@0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
+    dev: true
 
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}

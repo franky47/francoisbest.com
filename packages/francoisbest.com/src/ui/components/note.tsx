@@ -3,7 +3,7 @@ import {
   FiAlertTriangle,
   FiCheckCircle,
   FiInfo,
-  FiPaperclip,
+  FiPaperclip
 } from 'react-icons/fi'
 import { twMerge } from 'tailwind-merge'
 
@@ -19,32 +19,32 @@ const noteConfigs: Record<NoteStatus, NoteConfig> = {
     colors:
       'border-l-gray-400 bg-gray-50 dark:border-l-gray-600 dark:bg-gray-800',
     stroke: 'stroke-gray-500',
-    icon: FiPaperclip,
+    icon: FiPaperclip
   },
   info: {
     colors:
       'border-l-blue-500 bg-sky-50 text-blue-950 dark:bg-sky-950 dark:text-blue-100',
     stroke: 'stroke-blue-500',
-    icon: FiInfo,
+    icon: FiInfo
   },
   success: {
     colors:
       'border-l-green-500 bg-green-50 text-green-950 dark:bg-green-950/30 dark:text-green-100',
     stroke: 'stroke-green-500',
-    icon: FiCheckCircle,
+    icon: FiCheckCircle
   },
   warning: {
     colors:
       'border-l-amber-500 bg-amber-50 text-amber-950 dark:bg-amber-950 dark:text-amber-100',
     stroke: 'stroke-amber-500',
-    icon: FiAlertTriangle,
+    icon: FiAlertTriangle
   },
   error: {
     colors:
       'border-l-red-500 bg-red-50 text-red-950 dark:bg-red-950 dark:text-red-100',
     stroke: 'stroke-red-500',
-    icon: FiAlertCircle,
-  },
+    icon: FiAlertCircle
+  }
 }
 
 // --

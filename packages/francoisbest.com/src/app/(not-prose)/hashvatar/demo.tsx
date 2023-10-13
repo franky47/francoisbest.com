@@ -58,7 +58,7 @@ type VariantButtonProps = {
 const VariantButton: React.FC<VariantButtonProps> = ({
   variant,
   onClick,
-  hash,
+  hash
 }) => {
   return (
     <button

@@ -3,7 +3,7 @@ import { AgeClient } from './age.client'
 
 export const metadata = {
   title: 'Age',
-  description: "What's my age again?",
+  description: "What's my age again?"
 }
 
 export default function AgePage() {

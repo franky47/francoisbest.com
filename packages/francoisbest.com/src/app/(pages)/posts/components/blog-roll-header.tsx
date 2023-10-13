@@ -7,7 +7,7 @@ type BlogRollHeaderProps = {
 
 export const BlogRollHeader: React.FC<BlogRollHeaderProps> = ({
   title,
-  description = 'I usually write about stuff. Not regularly.',
+  description = 'I usually write about stuff. Not regularly.'
 }) => {
   return (
     <>

@@ -9,14 +9,14 @@ module.exports = {
       // This is the default parser of ESLint
       parser: 'espree',
       parserOptions: {
-        ecmaVersion: 2020,
-      },
-    },
+        ecmaVersion: 2020
+      }
+    }
   ],
   rules: { 'react/no-unescaped-entities': 0 },
   parserOptions: {
     babelOptions: {
-      presets: [require.resolve('next/babel')],
-    },
-  },
+      presets: [require.resolve('next/babel')]
+    }
+  }
 }

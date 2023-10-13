@@ -59,7 +59,7 @@ export async function getPost(filePath: string): Promise<Post> {
       ogImageUrlPath,
       readingTime: readingTime(articleBody).text,
       filePath,
-      urlPath,
+      urlPath
     }
   } catch (error) {
     console.error(`Failed to parse metadata for post ${urlPath}:`)

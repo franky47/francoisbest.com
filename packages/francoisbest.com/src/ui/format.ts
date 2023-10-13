@@ -16,7 +16,7 @@ export function formatDate(
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    ...options,
+    ...options
   })
 }
 
@@ -24,7 +24,7 @@ export function formatTime(date: Date | string | number) {
   return new Date(date).toLocaleTimeString(LOCALE, {
     hour12: false,
     hour: '2-digit',
-    minute: '2-digit',
+    minute: '2-digit'
   })
 }
 
@@ -37,7 +37,7 @@ export function formatNumber(value: number) {
 export function formatSEOKeyValues(dict: Record<string, string>) {
   return Object.keys(dict).flatMap((key, index) => [
     { name: `twitter:label${index + 1}`, content: key },
-    { name: `twitter:data${index + 1}`, content: dict[key] },
+    { name: `twitter:data${index + 1}`, content: dict[key] }
   ])
 }
 
@@ -48,6 +48,6 @@ export function formatStatNumber(
   return number.toLocaleString(LOCALE, {
     notation: 'compact',
     unitDisplay: 'short',
-    ...options,
+    ...options
   })
 }

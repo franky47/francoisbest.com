@@ -44,7 +44,7 @@ export async function generateMetadata({ params: { year } }: PageProps) {
     title: year,
     description: `I wrote ${count} article${
       count > 1 ? 's' : ''
-    } in ${year}, about ${tagsString}`,
+    } in ${year}, about ${tagsString}`
   }
 }
 

@@ -33,7 +33,7 @@ export const Toot: React.FC<TootProps> = async ({ url, className }) => {
                 href={data.account.url}
                 className="font-medium"
                 dangerouslySetInnerHTML={{
-                  __html: data.account.display_name,
+                  __html: data.account.display_name
                 }}
               />
               <div className="text-sm text-gray-500">

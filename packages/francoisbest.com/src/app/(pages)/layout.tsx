@@ -2,7 +2,7 @@ import { Footer } from 'ui/layouts/footer'
 import { NavHeader } from 'ui/layouts/nav-header'
 
 export default function PageLayout({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) {

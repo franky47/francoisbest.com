@@ -14,7 +14,7 @@ export const QRCode: React.FC<QRCodeProps> = async ({
 }) => {
   const svg = await qr.toString(text, {
     type: 'svg',
-    errorCorrectionLevel: 'M',
+    errorCorrectionLevel: 'M'
   })
   return (
     <figure

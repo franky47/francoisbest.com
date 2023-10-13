@@ -14,6 +14,6 @@ export const chiffreConfig: ChiffreConfig =
     ? {
         enabled: true,
         projectId: process.env.CHIFFRE_PROJECT_ID!,
-        publicKey: process.env.CHIFFRE_PUBLIC_KEY!,
+        publicKey: process.env.CHIFFRE_PUBLIC_KEY!
       }
     : { enabled: false }

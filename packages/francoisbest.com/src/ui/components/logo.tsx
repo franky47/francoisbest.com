@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 const sizes = {
   6: 'w-6 h-6',
   8: 'w-8 h-8',
-  16: 'w-16 h-16',
+  16: 'w-16 h-16'
 } as const
 
 type LogoProps = React.ComponentProps<'svg'> & {

@@ -4,7 +4,7 @@ import { QRCode } from './qrcode'
 
 export const metadata = {
   title: 'Business card',
-  description: 'Why cut trees when you can send a link?',
+  description: 'Why cut trees when you can send a link?'
 }
 
 export const dynamic = 'force-dynamic' // SSR
@@ -16,7 +16,7 @@ type PageProps = {
 }
 
 export default function BusinessCardPage({
-  searchParams: { loadKey },
+  searchParams: { loadKey }
 }: PageProps) {
   let phoneNumber: string | undefined = undefined
   const key = cookies().get('phoneNumberKey')?.value
@@ -50,7 +50,7 @@ async function loadKey(form: FormData) {
     httpOnly: true,
     secure: true,
     expires: new Date('2100-01-01'),
-    sameSite: 'strict',
+    sameSite: 'strict'
   })
 }
 

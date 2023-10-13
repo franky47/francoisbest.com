@@ -4,7 +4,7 @@ import { BlogRollHeader } from '../components/blog-roll-header'
 
 export const metadata = {
   title: 'Tags',
-  description: 'A list of the common topics I talk about',
+  description: 'A list of the common topics I talk about'
 }
 
 export default async function TagsIndex() {
@@ -16,7 +16,7 @@ export default async function TagsIndex() {
     .reduce(
       (dict, tag) => ({
         ...dict,
-        [tag]: (dict[tag] ?? 0) + 1,
+        [tag]: (dict[tag] ?? 0) + 1
       }),
       {} as Record<string, number>
     )

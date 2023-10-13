@@ -52,7 +52,7 @@ export const Career: React.FC = () => {
                   'PostgreSQL',
                   'Redis',
                   'Turborepo',
-                  'TypeScript',
+                  'TypeScript'
                 ]}
               />
               <Client
@@ -68,7 +68,7 @@ export const Career: React.FC = () => {
                   'PlanetScale',
                   'Prisma',
                   'Recharts',
-                  'TypeScript',
+                  'TypeScript'
                 ]}
               />
               <Client
@@ -81,7 +81,7 @@ export const Career: React.FC = () => {
                   'Redux',
                   'Chakra-UI',
                   'VisX',
-                  'Full-Stack',
+                  'Full-Stack'
                 ]}
               />
               <Client
@@ -144,7 +144,7 @@ export const Career: React.FC = () => {
           'Ruby',
           'Digital Signal Processing',
           'Algorithm Design',
-          'Real-Time Audio',
+          'Real-Time Audio'
         ]}
       />
       <Experience
@@ -173,7 +173,7 @@ export const Career: React.FC = () => {
           'C++',
           'Analog Electronics',
           'Synthesizer Design',
-          'Hardware Design',
+          'Hardware Design'
         ]}
       />
     </>

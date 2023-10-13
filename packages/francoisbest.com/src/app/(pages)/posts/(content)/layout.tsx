@@ -1,5 +1,5 @@
 export default function PostLayout({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) {

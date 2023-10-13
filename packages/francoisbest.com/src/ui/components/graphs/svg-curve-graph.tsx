@@ -31,7 +31,7 @@ function formatGraphData(
   const { min: minY, max: maxY } = data.reduce(
     ({ min, max }, value) => ({
       min: Math.min(min, value),
-      max: Math.max(max, value),
+      max: Math.max(max, value)
     }),
     { min: Infinity, max: -Infinity }
   )
@@ -39,7 +39,7 @@ function formatGraphData(
   const scaleY = actualH / (maxY - minY)
   const points: Point[] = data.map((value, i) => [
     i * scaleX,
-    scale.mt + scaleY * (maxY - value),
+    scale.mt + scaleY * (maxY - value)
   ])
   return points
 }
@@ -64,7 +64,7 @@ const line = (pointA: Point, pointB: Point) => {
   const lengthY = pointB[1] - pointA[1]
   return {
     length: Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2)),
-    angle: Math.atan2(lengthY, lengthX),
+    angle: Math.atan2(lengthY, lengthX)
   }
 }
 
@@ -98,7 +98,7 @@ const bezierCommand: CommandFn = (point, i, a) => {
     'C',
     coordinates(cpsX, cpsY),
     coordinates(cpeX, cpeY),
-    coordinates(point[0], point[1]),
+    coordinates(point[0], point[1])
   ].join(' ')
 }
 
@@ -143,7 +143,7 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
             // Background gradient
             d={`${svgPath(graphPoints, bezierCommand)} ${lineCommand([
               w,
-              h,
+              h
             ])} ${lineCommand([0, h])}`}
             fill={`url(#${gradientId})`}
             strokeWidth={0}

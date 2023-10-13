@@ -9,7 +9,7 @@ type BlogPostEmbedProps = Omit<EmbedFrameProps, 'Icon' | 'children'> & {
 
 export const BlogPostEmbed: React.FC<BlogPostEmbedProps> = async ({
   className = 'my-8',
-  filePath,
+  filePath
 }) => {
   const post = await getPost(filePath)
   return (

@@ -7,7 +7,7 @@ import { Slider } from 'ui/components/forms/slider'
 import {
   FormControl,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from 'ui/components/forms/structure'
 import { Note } from 'ui/components/note'
 import { Stat, StatHelpText, StatLabel, StatNumber } from 'ui/components/stat'
@@ -16,7 +16,7 @@ import { WideContainer } from 'ui/layouts/wide-container'
 import { DovetailSVG } from './components/dovetail-svg'
 import {
   getDovetailData,
-  getDovetailMeasurements,
+  getDovetailMeasurements
 } from './components/dovetails'
 
 export interface DovetailDesignerProps {}
@@ -62,14 +62,14 @@ export const DovetailDesigner: React.FC = () => {
     angleRatio,
     numTails,
     pinToTailRatio,
-    halfPinRatio,
+    halfPinRatio
   })
   const {
     dividersLength,
     halfPinNarrowWidth,
     pinNarrowWidth,
     pinWideWidth,
-    distanceBetweenPins,
+    distanceBetweenPins
   } = getDovetailMeasurements(dovetailData)
 
   if (!hydrated) {

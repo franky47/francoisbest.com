@@ -4,7 +4,7 @@ import HashvatarDemoPage from './demo'
 
 export const metadata = {
   title: 'Hashvatar',
-  description: 'Generate your own SHA-256 based avatar',
+  description: 'Generate your own SHA-256 based avatar'
 }
 
 export default async function HashvatarPage() {

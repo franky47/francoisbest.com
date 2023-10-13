@@ -4,8 +4,7 @@ import { BlogRollHeader } from './components/blog-roll-header'
 
 export const metadata = {
   title: 'Articles',
-  description:
-    'I write about TypeScript, Node.js, React, security and privacy.',
+  description: 'I write about TypeScript, Node.js, React, security and privacy.'
 }
 
 export default async function BlogIndex() {

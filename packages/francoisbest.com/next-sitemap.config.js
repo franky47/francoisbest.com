@@ -17,22 +17,22 @@ const config = {
         userAgent: '*',
         // Don't crawl preview deployments
         allow: isPreviewDeployement ? undefined : '/',
-        disallow: isPreviewDeployement ? '/' : undefined,
+        disallow: isPreviewDeployement ? '/' : undefined
       },
       {
         userAgent: 'CCBot',
-        disallow: '/',
+        disallow: '/'
       },
       {
         userAgent: 'GPTBot',
-        disallow: '/',
+        disallow: '/'
       },
       {
         userAgent: 'ChatGPT-User',
-        disallow: '/',
-      },
-    ],
-  },
+        disallow: '/'
+      }
+    ]
+  }
 }
 
 export default config

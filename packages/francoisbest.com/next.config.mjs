@@ -17,7 +17,7 @@ import { unified } from 'unified'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: true,
+    serverActions: true
   },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
@@ -26,34 +26,34 @@ const nextConfig = {
         // Spotify albums & artists
         protocol: 'https',
         hostname: 'i.scdn.co',
-        pathname: '/image/*',
+        pathname: '/image/*'
       },
       {
         // GitHub hosted images
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
-        pathname: '/47ng/*',
+        pathname: '/47ng/*'
       },
       {
         // GitHub avatars
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
-        pathname: '/u/*',
-      },
-    ],
+        pathname: '/u/*'
+      }
+    ]
   },
   async redirects() {
     return [
       {
         source: '/resume',
         destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
-        permanent: false,
+        permanent: false
       },
       {
         source: '/resume.pdf',
         destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
-        permanent: false,
-      },
+        permanent: false
+      }
     ]
   },
 
@@ -72,14 +72,14 @@ const nextConfig = {
       {
         ...fileLoaderRule,
         test: /\.svg$/i,
-        resourceQuery: /url/, // *.svg?url
+        resourceQuery: /url/ // *.svg?url
       },
       // Convert all other *.svg imports to React components
       {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ['@svgr/webpack'],
+        use: ['@svgr/webpack']
       }
     )
 
@@ -87,7 +87,7 @@ const nextConfig = {
     fileLoaderRule.exclude = /\.svg$/i
 
     return config
-  },
+  }
 }
 
 /** @type {import('rehype-pretty-code').Options} */
@@ -135,12 +135,12 @@ const codeHighlightingOptions = {
       element.properties = {}
     }
     element.properties.style = 'margin-top:-1.5rem;text-align:center;'
-  },
+  }
 }
 
 const withAnalyzer = configureBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
-  clientOnly: true,
+  clientOnly: true
 })
 
 const withMdx = configureMdx({
@@ -150,14 +150,14 @@ const withMdx = configureMdx({
       remarkGfm,
       remarkMdxImages,
       remarkSmartypants,
-      injectPageHeaderAndFooter,
+      injectPageHeaderAndFooter
     ],
     rehypePlugins: [
       [rehypePrettyCode, codeHighlightingOptions],
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'append' }],
-    ],
-  },
+      [rehypeAutolinkHeadings, { behavior: 'append' }]
+    ]
+  }
 })
 
 export default withAnalyzer(withMdx(nextConfig))

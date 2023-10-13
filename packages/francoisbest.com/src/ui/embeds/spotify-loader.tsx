@@ -9,7 +9,7 @@ const spotifyDataSchema = z.object({
   title: z.string(),
   artist: z.string(),
   image: z.string().url(),
-  link: z.string().url(),
+  link: z.string().url()
 })
 
 export type SpotifyData = z.infer<typeof spotifyDataSchema>

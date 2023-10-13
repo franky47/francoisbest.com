@@ -15,7 +15,7 @@ type PageProps = {
 export function generateMetadata({ params: { tag } }: PageProps) {
   return Promise.resolve({
     title: `${tag} posts`,
-    description: `A list of posts talking about \'${tag}\'`,
+    description: `A list of posts talking about \'${tag}\'`
   })
 }
 

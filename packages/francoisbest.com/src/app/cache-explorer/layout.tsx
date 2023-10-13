@@ -1,7 +1,7 @@
 import { NavHeader } from 'ui/layouts/nav-header'
 
 export default function CacheExplorerLayout({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) {

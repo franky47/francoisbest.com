@@ -8,11 +8,11 @@ import './global.css'
 
 export const metadata = {
   metadataBase: new URL(url('/')),
-  ...seo,
+  ...seo
 }
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) {

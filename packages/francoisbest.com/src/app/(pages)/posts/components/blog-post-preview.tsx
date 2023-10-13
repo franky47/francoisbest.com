@@ -11,7 +11,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   meta: { title, publicationDate, description, tags },
   readingTime,
   urlPath,
-  Heading = 'h2',
+  Heading = 'h2'
 }) => {
   return (
     <article className="not-prose">

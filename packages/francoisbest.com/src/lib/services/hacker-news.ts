@@ -8,13 +8,13 @@ const hackerNewsItemSchema = z.object({
   type: z.enum([
     // 'job',
     'story',
-    'comment',
+    'comment'
     // 'poll',
     // 'pollopt',
   ]),
   by: z.string(),
   text: z.string().transform(html => sanitizeHTML(html.trim())),
-  time: z.number().transform(t => new Date(t * 1000)),
+  time: z.number().transform(t => new Date(t * 1000))
   // descendants: z.number().int().positive().optional(),
   // parent: hackerNewsId.optional(),
   // kids: z.array(hackerNewsId).optional().default([]),

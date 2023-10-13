@@ -5,7 +5,7 @@ import {
   FiGitPullRequest,
   FiGithub,
   FiStar,
-  FiTag,
+  FiTag
 } from 'react-icons/fi'
 import { twMerge } from 'tailwind-merge'
 import { EmbedFrame } from './embed-frame'
@@ -73,7 +73,7 @@ type MetaListItemProps = {
 const MetaListItem: React.FC<MetaListItemProps> = ({
   Icon,
   iconAlt,
-  text = '--',
+  text = '--'
 }) => {
   return (
     <li className="flex items-center gap-x-2" title={iconAlt}>

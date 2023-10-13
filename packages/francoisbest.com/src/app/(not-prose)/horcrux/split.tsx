@@ -9,7 +9,7 @@ import { Radio, RadioGroup } from 'ui/components/forms/radio'
 import {
   FormControl,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from 'ui/components/forms/structure'
 import { useClipboard } from 'ui/hooks/useClipboard'
 import { useHydration } from 'ui/hooks/useHydration'
@@ -21,7 +21,7 @@ type HorcruxSplitProps = {
 }
 
 export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
-  gitHubSourceUrl,
+  gitHubSourceUrl
 }) => {
   const hydrated = useHydration()
   const [secret, setSecret] = React.useState('')

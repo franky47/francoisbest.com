@@ -65,6 +65,6 @@ export function useClipboard(
     value: valueState,
     setValue: setValueState,
     onCopy,
-    hasCopied,
+    hasCopied
   }
 }

@@ -28,6 +28,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         return <Link href={href} {...props} />
       }
       return <a href={href} {...props} />
-    },
+    }
   }
 }
