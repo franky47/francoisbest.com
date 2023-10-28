@@ -78,7 +78,7 @@ export async function fetchRepository(
     body: JSON.stringify({ query }),
     next: {
       tags: ['github'],
-      revalidate: 86_400 // 24h
+      revalidate: 3600 // 1h
     }
   })
   const {
@@ -147,7 +147,7 @@ export async function getStarHistory(slug: string): Promise<GitHubStarHistory> {
     body: JSON.stringify({ query }),
     next: {
       tags: ['github'],
-      revalidate: 86_400 // 24h
+      revalidate: 3600 // 1h
     }
   })
   const {
