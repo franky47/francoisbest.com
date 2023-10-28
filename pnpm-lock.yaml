@@ -112,8 +112,8 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(next@13.4.12)
       next-usequerystate:
-        specifier: ^1.8.3
-        version: 1.8.3(next@13.4.12)
+        specifier: ^1.9.1
+        version: 1.9.1(next@13.4.12)
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -166,8 +166,8 @@ importers:
         specifier: ^0.14.3
         version: 0.14.3
       spotify-url-info:
-        specifier: ^3.2.6
-        version: 3.2.6
+        specifier: ^3.2.9
+        version: 3.2.9
       sqlocal:
         specifier: ^0.6.1
         version: 0.6.1
@@ -5582,10 +5582,10 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: false
 
-  /next-usequerystate@1.8.3(next@13.4.12):
-    resolution: {integrity: sha512-klr3PvMS1jnWzrH11LpZDLoWosPmb6dBWK7TCJIYzZqBw8wyxG3hSxuSKB6Fu+23MTAC7N8JLUqsuX3qn/cEKg==}
+  /next-usequerystate@1.9.1(next@13.4.12):
+    resolution: {integrity: sha512-6QrUBqj4hl68j0PHBkWPE3OZiWZyA28rMmLVkPxUIVR1Sac6VYp66+iyWsS/8roykNm8wHkAb16E1gshS9SMBA==}
     peerDependencies:
-      next: ^13.4
+      next: ^13.4 || ^14
     dependencies:
       mitt: 3.0.1
       next: 13.4.12(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
@@ -6600,8 +6600,8 @@ packages:
     engines: {node: '>= 16'}
     dev: false
 
-  /spotify-url-info@3.2.6:
-    resolution: {integrity: sha512-AOGU4uyT0FqyEXbyvZc+ZShnTGBY1eMd50BBZBPfiXPT4ihuzmxAmkWj9VzHT9NIjX7MtVDrszATllR8+WeFkw==}
+  /spotify-url-info@3.2.9:
+    resolution: {integrity: sha512-e/hXlXMecNKtxQLLr2MOoQD3m8VVTru+L0zQk5oTMvXhRrnIGK1JFSUqay7GNyEn8dQgBpwH/lZ5aJ3uzoU0Cw==}
     engines: {node: '>= 12'}
     dependencies:
       himalaya: 1.1.0
