@@ -29,8 +29,8 @@ export function resolve(importMetaUrl: string, ...paths: string[]) {
 }
 
 export function isBlogPost(filePath: string) {
-  const relativePath = filePath.slice(filePath.indexOf('francoisbest.com') + 1)
-  const relativeBase = postsDir.slice(postsDir.indexOf('francoisbest.com') + 1)
+  const relativePath = filePath.slice(filePath.indexOf('francoisbest.com'))
+  const relativeBase = postsDir.slice(postsDir.indexOf('francoisbest.com'))
   console.dir({ relativePath, relativeBase })
   return relativePath.startsWith(relativeBase) && filePath.endsWith('/page.mdx')
 }
