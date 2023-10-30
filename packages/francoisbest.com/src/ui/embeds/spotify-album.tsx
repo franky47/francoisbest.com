@@ -81,6 +81,7 @@ const SpotifyAlbumView: React.FC<SpotifyData> = ({
           alt={`${title}, an album by ${artist}`}
           className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded bg-gray-200 drop-shadow-lg dark:bg-gray-800"
           unoptimized
+          crossOrigin="anonymous"
         />
       </a>
       <figcaption className="mt-2 text-center text-sm text-gray-500">
