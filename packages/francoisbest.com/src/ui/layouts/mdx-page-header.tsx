@@ -9,7 +9,6 @@ type MdxPageHeaderProps = {
 
 export const MdxPageHeader: React.FC<MdxPageHeaderProps> = async ({ file }) => {
   const filePath = resolve(file)
-  console.dir({ file, filePath, isBlogPost: isBlogPost(filePath) })
   if (!isBlogPost(filePath)) {
     return null
   }
