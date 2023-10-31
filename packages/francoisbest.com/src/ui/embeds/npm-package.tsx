@@ -176,7 +176,10 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
   limit
 }) => {
   const data = Object.entries(versions).slice(0, limit)
-  const totalCount = Object.values(versions).reduce((sum, count) => sum + count)
+  const totalCount = Object.values(versions).reduce(
+    (sum, count) => sum + count,
+    0
+  )
   return (
     <>
       <div className="px-4 pb-2 text-xs">
