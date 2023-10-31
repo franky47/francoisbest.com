@@ -1,9 +1,13 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import DovetailDesigner from './page.client'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Dovetail Designer',
-  description: 'Design perfect-looking dovetail joints'
+  description: 'Design perfect-looking dovetail joints',
+  alternates: {
+    canonical: '/woodworking/dovetail-designer'
+  }
 }
 
 export default function DovtailDesignerPage() {
