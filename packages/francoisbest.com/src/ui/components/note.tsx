@@ -70,7 +70,7 @@ export const Note: React.FC<NoteProps> = ({
   ...props
 }) => {
   const { colors, stroke, icon: defaultIcon } = noteConfigs[status]
-  const Icon = icon ?? defaultIcon
+  const Icon = (typeof icon === 'string' ? () => icon : icon) ?? defaultIcon
   return (
     <aside
       role="note"
