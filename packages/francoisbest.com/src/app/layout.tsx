@@ -4,9 +4,10 @@ import seo from 'lib/seo.json'
 import { Favicons } from 'ui/head/favicons'
 
 import { chiffreConfig } from 'lib/services/chiffre'
+import { Metadata } from 'next'
 import './global.css'
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(url('/')),
   ...seo
 }

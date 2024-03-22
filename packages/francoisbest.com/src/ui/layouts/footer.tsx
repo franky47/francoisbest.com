@@ -1,9 +1,8 @@
 import { chiffreConfig } from 'lib/services/chiffre'
 import Link from 'next/link'
 import React from 'react'
-import { BsMastodon } from 'react-icons/bs'
-import { FaKeybase } from 'react-icons/fa'
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
+import { BsDiscord, BsMastodon } from 'react-icons/bs'
+import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi'
 import { IconButton, IconButtonProps } from 'ui/components/buttons/icon-button'
 
 export const Footer: React.FC = () => {
@@ -23,10 +22,24 @@ export const Footer: React.FC = () => {
             {...iconButtonProps}
           />
         </a>
-        <a href="https://keybase.io/franky47">
+        {/* <a href="https://keybase.io/franky47">
           <IconButton
-            icon={<FaKeybase />}
-            aria-label="Keybase"
+          icon={<FaKeybase />}
+          aria-label="Keybase"
+            {...iconButtonProps}
+          />
+        </a> */}
+        <a href="https://discord.com/users/francois.best#7881">
+          <IconButton
+            icon={<BsDiscord />}
+            aria-label="Discord"
+            {...iconButtonProps}
+          />
+        </a>
+        <a href="https://twitter.com/fortysevenfx" rel="me">
+          <IconButton
+            icon={<FiTwitter />}
+            aria-label="Twitter/X"
             {...iconButtonProps}
           />
         </a>

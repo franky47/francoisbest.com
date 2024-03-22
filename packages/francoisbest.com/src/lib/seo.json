@@ -12,7 +12,9 @@
     }
   ],
   "twitter": {
-    "cardType": "summary_large_image"
+    "cardType": "summary_large_image",
+    "handle": "fortysevenfx",
+    "site": "fortysevenfx"
   },
   "openGraph": {
     "type": "website",
