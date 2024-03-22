@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { BsMastodon } from 'react-icons/bs'
+import { FiTwitter } from 'react-icons/fi'
 import { twMerge } from 'tailwind-merge'
 import { IconButton } from 'ui/components/buttons/icon-button'
 import { Logo } from 'ui/components/logo'
@@ -34,6 +35,14 @@ export const NavHeader: React.FC<React.ComponentProps<'header'>> = ({
           <IconButton
             icon={<BsMastodon />}
             aria-label="Mastodon"
+            variant="ghost"
+            className="rounded-full"
+          />
+        </a>
+        <a href="https://twitter.com/fortysevenfx" rel="me" tabIndex={-1}>
+          <IconButton
+            icon={<FiTwitter />}
+            aria-label="Twitter/X"
             variant="ghost"
             className="rounded-full"
           />
