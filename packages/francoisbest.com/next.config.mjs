@@ -53,6 +53,41 @@ const nextConfig = {
         source: '/resume.pdf',
         destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
         permanent: false
+      },
+      {
+        source: '/x',
+        destination: 'https://x.com/fortysevenfx',
+        permanent: true
+      },
+      {
+        source: '/twitter',
+        destination: 'https://twitter.com/fortysevenfx',
+        permanent: true
+      },
+      {
+        source: '/mastodon',
+        destination: 'https://mamot.fr/@Franky47',
+        permanent: true
+      },
+      {
+        source: '/discord',
+        destination: 'https://discord.com/users/francois.best#7881',
+        permanent: true
+      },
+      {
+        source: '/github',
+        destination: 'https://github.com/franky47',
+        permanent: true
+      },
+      {
+        source: '/linkedin',
+        destination: 'https://www.linkedin.com/in/francoisbest',
+        permanent: true
+      },
+      {
+        source: '/keybase',
+        destination: 'https://keybase.io/franky47',
+        permanent: true
       }
     ]
   },
