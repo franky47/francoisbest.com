@@ -54,6 +54,7 @@ const nextConfig = {
         destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
         permanent: false
       },
+      // Inspired by https://atila.io/x (et al)
       {
         source: '/x',
         destination: 'https://x.com/fortysevenfx',
