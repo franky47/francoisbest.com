@@ -1,6 +1,6 @@
 'use client'
 
-import { parseAsFloat, parseAsInteger, useQueryState } from 'next-usequerystate'
+import { parseAsFloat, parseAsInteger, useQueryState } from 'nuqs'
 import { ChangeEvent } from 'react'
 import { NumberInput } from 'ui/components/forms/inputs'
 import { Slider } from 'ui/components/forms/slider'
