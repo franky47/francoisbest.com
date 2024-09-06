@@ -1,7 +1,7 @@
 'use client'
 
 import dayjs from 'dayjs'
-import { parseAsIsoDateTime, useQueryState } from 'next-usequerystate'
+import { parseAsIsoDateTime, useQueryState } from 'nuqs'
 import React from 'react'
 import { Input } from 'ui/components/forms/inputs'
 import { FormControl, FormLabel } from 'ui/components/forms/structure'

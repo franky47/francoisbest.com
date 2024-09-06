@@ -1,8 +1,8 @@
 'use client'
 
-import { subscribeToQueryUpdates } from 'next-usequerystate'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { subscribeToQueryUpdates } from 'nuqs'
 import React from 'react'
 import { Button } from 'ui/components/buttons/button'
 
