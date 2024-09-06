@@ -55,11 +55,8 @@ export const SpotifyArtistView: React.FC<SpotifyData> = ({
   image,
   ...props
 }) => {
-  // @ts-expect-error
   ReactDOM.preconnect('https://i.scdn.co')
-  // @ts-expect-error
   ReactDOM.prefetchDNS('https://i.scdn.co')
-
   return (
     <figure className="text-center" {...props}>
       <a
