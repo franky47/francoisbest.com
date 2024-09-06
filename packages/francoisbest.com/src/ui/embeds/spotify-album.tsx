@@ -61,15 +61,13 @@ export const EmptyAlbumView: React.FC<EmptyAlbumViewProps> = ({
   )
 }
 
-const SpotifyAlbumView: React.FC<SpotifyData> = ({
+const SpotifyAlbumView = ({
   link,
   title,
   artist,
   image
-}) => {
-  // @ts-expect-error
+}: SpotifyData) => {
   ReactDOM.preconnect('https://i.scdn.co')
-  // @ts-expect-error
   ReactDOM.prefetchDNS('https://i.scdn.co')
   return (
     <figure>

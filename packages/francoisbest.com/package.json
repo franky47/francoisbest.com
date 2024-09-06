@@ -45,7 +45,7 @@
     "react-icons": "^4.12.0",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^6.1.1",
-    "rehype-pretty-code": "^0.10.2",
+    "rehype-pretty-code": "^0.14.0",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
     "remark-mdx": "^2.3.0",
