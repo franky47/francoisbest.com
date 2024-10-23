@@ -1,10 +1,10 @@
 import 'lib/blog/engine'
 import { url } from 'lib/paths'
 import seo from 'lib/seo.json'
-import { Favicons } from 'ui/head/favicons'
-
 import { chiffreConfig } from 'lib/services/chiffre'
 import { Metadata } from 'next'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { Favicons } from 'ui/head/favicons'
 import './global.css'
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         {chiffreConfig.enabled && (
           <>
             <script
