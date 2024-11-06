@@ -53,7 +53,7 @@ const nextConfig = {
       },
       // Inspired by https://atila.io/x (et al)
       {
-        source: 'bsky',
+        source: '/bsky',
         destination: 'https://bsky.app/profile/francoisbest.com',
         permanent: true
       },
