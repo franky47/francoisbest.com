@@ -53,13 +53,8 @@ const nextConfig = {
       },
       // Inspired by https://atila.io/x (et al)
       {
-        source: '/x',
-        destination: 'https://x.com/fortysevenfx',
-        permanent: true
-      },
-      {
-        source: '/twitter',
-        destination: 'https://twitter.com/fortysevenfx',
+        source: 'bsky',
+        destination: 'https://bsky.app/profile/francoisbest.com',
         permanent: true
       },
       {
@@ -82,9 +77,20 @@ const nextConfig = {
         destination: 'https://www.linkedin.com/in/francoisbest',
         permanent: true
       },
+      // Legacy
       {
         source: '/keybase',
         destination: 'https://keybase.io/franky47',
+        permanent: true
+      },
+      {
+        source: '/x',
+        destination: 'https://x.com/fortysevenfx',
+        permanent: true
+      },
+      {
+        source: '/twitter',
+        destination: 'https://twitter.com/fortysevenfx',
         permanent: true
       }
     ]

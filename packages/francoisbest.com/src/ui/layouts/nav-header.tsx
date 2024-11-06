@@ -57,14 +57,14 @@ export const NavHeader: React.FC<React.ComponentProps<'header'>> = ({
             className="rounded-full"
           />
         </a>
-        <a href="https://twitter.com/fortysevenfx" rel="me" tabIndex={-1}>
+        {/* <a href="https://twitter.com/fortysevenfx" rel="me" tabIndex={-1}>
           <IconButton
             icon={<FiTwitter />}
             aria-label="Twitter/X"
             variant="ghost"
             className="rounded-full"
           />
-        </a>
+        </a> */}
       </nav>
       <ThemeControls />
     </header>
