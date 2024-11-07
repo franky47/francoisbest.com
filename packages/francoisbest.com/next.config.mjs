@@ -53,6 +53,11 @@ const nextConfig = {
       },
       // Inspired by https://atila.io/x (et al)
       {
+        source: '/sponsor(s)?',
+        destination: 'https://github.com/sponsors/franky47',
+        permanent: true
+      },
+      {
         source: '/bsky',
         destination: 'https://bsky.app/profile/francoisbest.com',
         permanent: true
