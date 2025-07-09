@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { decryptPhoneNumber, vcard } from './vcard'
 
 export const dynamic = 'force-dynamic'
@@ -13,7 +13,6 @@ export function GET(req: NextRequest) {
     JSON.stringify({
       GET: '/vcard',
       ua: req.headers.get('user-agent') ?? 'anonymous',
-      geo: req.geo,
       ref: req.referrer,
       key: phoneNumber ? 'valid' : Boolean(key) ? 'invalid' : 'not-provided'
     })

@@ -6,9 +6,9 @@ import { BlogPostPreview } from '../../components/blog-post-preview'
 import { BlogRollHeader } from '../../components/blog-roll-header'
 
 type PageProps = {
-  params: {
+  params: Promise<{
     year: string
-  }
+  }>
 }
 
 export const dynamicParams = false
@@ -25,7 +25,8 @@ export async function generateStaticParams() {
   return years.map(year => ({ year: year!.toString() }))
 }
 
-export async function generateMetadata({ params: { year } }: PageProps) {
+export async function generateMetadata({ params }: PageProps) {
+  const { year } = await params
   const posts = await getAllPosts()
   const fromThisYear = posts.filter(
     post => post.meta.publicationDate?.getFullYear() === parseInt(year)
@@ -48,7 +49,8 @@ export async function generateMetadata({ params: { year } }: PageProps) {
   }
 }
 
-export default async function YearIndex({ params: { year } }: PageProps) {
+export default async function YearIndex({ params }: PageProps) {
+  const { year } = await params
   const posts = await getAllPosts()
   const fromThisYear = posts.filter(
     post => post.meta.publicationDate?.getFullYear() === parseInt(year)

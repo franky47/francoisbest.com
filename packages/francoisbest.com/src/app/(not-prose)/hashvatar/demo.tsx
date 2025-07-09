@@ -63,7 +63,7 @@ const VariantButton: React.FC<VariantButtonProps> = ({
   return (
     <button
       onClick={() => onClick(variant)}
-      className="rounded p-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
+      className="rounded-sm p-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
     >
       <SHA256Avatar width="4rem" height="4rem" hash={hash} variant={variant} />
       <span className="mt-1 block">

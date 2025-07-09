@@ -27,7 +27,7 @@ export const BrowserWindowFrame: React.FC<BrowserWindowFrameProps> = ({
           <span className="h-3 w-3 rounded-full bg-yellow-500" />
           <span className="h-3 w-3 rounded-full bg-green-500" />
         </nav>
-        <span className="flex-1 rounded bg-gray-100 px-2 py-0.5 text-sm text-gray-500 dark:bg-gray-900">
+        <span className="flex-1 rounded-sm bg-gray-100 px-2 py-0.5 text-sm text-gray-500 dark:bg-gray-900">
           {protocol + '//'}
           <span className="text-gray-900 dark:text-gray-300">{host}</span>
           {pathname === '/' ? null : pathname}

@@ -26,7 +26,7 @@ export const Toot: React.FC<TootProps> = async ({ url, className }) => {
               alt={data.account.username}
               width={48}
               height={48}
-              className="h-12 w-12 rounded"
+              className="h-12 w-12 rounded-sm"
             />
             <div className="leading-tight">
               <a
@@ -95,7 +95,7 @@ const MediaSection: React.FC<MediaSectionProps> = ({ attachments }) => {
         width={img.meta.small.width}
         height={img.meta.small.height}
         unoptimized
-        className="w-full rounded object-cover"
+        className="w-full rounded-sm object-cover"
       />
     )
   }
@@ -119,7 +119,7 @@ const MediaSection: React.FC<MediaSectionProps> = ({ attachments }) => {
             blurDataURL={img.blurhash}
             fill
             unoptimized
-            className="rounded object-cover"
+            className="rounded-sm object-cover"
           />
         </div>
       ))}

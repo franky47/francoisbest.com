@@ -13,16 +13,17 @@ export async function generateStaticParams() {
 
 export async function GET(
   _: Request,
-  { params }: { params: { format: string } }
+  { params }: { params: Promise<{ format: string }> }
 ) {
+  const { format: formatSlug } = await params
   const format =
-    params.format === 'rss.xml'
+    formatSlug === 'rss.xml'
       ? 'rss'
-      : params.format === 'atom.xml'
-      ? 'atom'
-      : params.format === 'articles.json'
-      ? 'json'
-      : null
+      : formatSlug === 'atom.xml'
+        ? 'atom'
+        : formatSlug === 'articles.json'
+          ? 'json'
+          : null
 
   if (format === null) {
     return NextResponse.json(
