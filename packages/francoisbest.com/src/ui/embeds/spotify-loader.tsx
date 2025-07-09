@@ -1,9 +1,12 @@
+import { SpotifyApi } from '@spotify/web-api-ts-sdk'
+import { env } from 'lib/env'
+import { parse as parseSpotifyUri } from 'spotify-uri'
 import { z } from 'zod'
 
-// @ts-ignore
-import spotifyUrlInfo from 'spotify-url-info'
-
-const { getPreview } = spotifyUrlInfo(fetch)
+const spotify = SpotifyApi.withClientCredentials(
+  env.SPOTIFY_CLIENT_ID,
+  env.SPOTIFY_CLIENT_SECRET
+)
 
 const spotifyDataSchema = z.object({
   title: z.string(),
@@ -28,7 +31,7 @@ export async function SpotifyLoader<OtherProps>({
   ...props
 }: SpotifyLoaderProps<OtherProps>) {
   try {
-    const data = spotifyDataSchema.parse(await getPreview(url))
+    const data = await loadSpotifyData(url)
     return <Success {...data} {...props} />
   } catch (error) {
     console.group('Failed to fetch Spotify data')
@@ -37,5 +40,27 @@ export async function SpotifyLoader<OtherProps>({
     console.dir(error)
     console.groupEnd()
     return <Failure {...props} />
+  }
+}
+
+function loadSpotifyData(url: string): Promise<SpotifyData> {
+  const { id, type } = parseSpotifyUri(url)
+  switch (type) {
+    case 'artist':
+      return spotify.artists.get(id).then(artist => ({
+        title: artist.name,
+        artist: artist.name,
+        image: artist.images[0]?.url ?? '',
+        link: artist.external_urls.spotify
+      }))
+    case 'album':
+      return spotify.albums.get(id).then(album => ({
+        title: album.name,
+        artist: album.artists.map(a => a.name).join(', '),
+        image: album.images[0]?.url ?? '',
+        link: album.external_urls.spotify
+      }))
+    default:
+      throw new Error(`Unsupported Spotify type: ${type}`)
   }
 }
