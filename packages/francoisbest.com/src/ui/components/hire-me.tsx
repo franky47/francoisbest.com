@@ -1,7 +1,7 @@
 import { FiMail } from 'react-icons/fi'
 import { Note, NoteProps } from 'ui/components/note'
 
-const AVAILABLE = '2025'
+const AVAILABLE = 'September 2025'
 
 type HireMeProps = Omit<NoteProps, 'status' | 'title' | 'children'>
 
