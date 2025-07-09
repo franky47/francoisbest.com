@@ -15,11 +15,12 @@ type PageProps = {
   }
 }
 
-export default function BusinessCardPage({
+export default async function BusinessCardPage({
   searchParams: { loadKey }
 }: PageProps) {
   let phoneNumber: string | undefined = undefined
-  const key = cookies().get('phoneNumberKey')?.value
+  const cookieStore = await cookies()
+  const key = cookieStore.get('phoneNumberKey')?.value
   try {
     phoneNumber = decryptPhoneNumber(key ?? '')
   } catch (err) {
@@ -46,7 +47,8 @@ export default function BusinessCardPage({
 
 async function loadKey(form: FormData) {
   'use server'
-  cookies().set('phoneNumberKey', form.get('key') as string, {
+  const cookiesStore = await cookies()
+  cookiesStore.set('phoneNumberKey', form.get('key') as string, {
     httpOnly: true,
     secure: true,
     expires: new Date('2100-01-01'),

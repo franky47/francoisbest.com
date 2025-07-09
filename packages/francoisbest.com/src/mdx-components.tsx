@@ -20,11 +20,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     GitHubRepo,
     Image,
     HackerNewsComment,
-    // @ts-expect-error - Required for remark-mdx-images to work
     img: Image,
     // Smart link (internal routes vs outgoing links)
     a: ({ href, ref: _, ...props }) => {
-      if (href?.startsWith('/' || href?.startsWith('#'))) {
+      if (href?.startsWith('/') || href?.startsWith('#')) {
         return <Link href={href} {...props} />
       }
       return <a href={href} {...props} />
