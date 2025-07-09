@@ -106,7 +106,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
           </RadioGroup>
         </FormControl>
       </div>
-      <hr className="mt-8" />
+      <hr className="mt-8 border-gray-200 dark:border-gray-800" />
       <h2 className="mb-2 mt-8 text-2xl font-bold">Horcrux Shards</h2>
       <p>
         <strong className="font-medium">Individually</strong>, these can be
@@ -137,7 +137,7 @@ const ReadOnlyCodeBlock: React.FC<ReadOnlyCodeBlock> = ({ text, index }) => {
   const { onCopy, hasCopied } = useClipboard(text, 2000)
   return (
     <code
-      className="relative my-0 break-all rounded border bg-gray-50/30 px-4 pb-4 pt-10 text-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-inner"
+      className="relative my-0 break-all rounded-sm border border-gray-200 bg-gray-50/30 px-4 pb-4 pt-10 text-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-inner"
       style={{ overflowWrap: 'anywhere' }}
     >
       <span className="absolute left-4 top-2 select-none font-sans font-medium text-gray-500">

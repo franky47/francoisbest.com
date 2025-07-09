@@ -18,7 +18,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en-GB" className="motion-safe:scroll-smooth">
+    <html
+      lang="en-GB"
+      className="motion-safe:scroll-smooth"
+      suppressHydrationWarning
+    >
       <head>
         <Favicons />
         <link

@@ -19,9 +19,8 @@ export const QuerySpy: React.FC = () => {
         </Link>
       </figcaption>
       <pre
-        aria-label="Querystring spy"
-        aria-description="For browsers where the query is hard to see (eg: on mobile)"
-        className="my-2 overflow-auto rounded border bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner"
+        aria-label="Querystring spy - For browsers where the query is hard to see (eg: on mobile)"
+        className="my-2 overflow-auto rounded-sm border border-gray-200 bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner"
       >
         {searchParams.size === 0 && (
           <span className="italic text-gray-500/50">{'<empty>'}</span>

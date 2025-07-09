@@ -98,7 +98,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             </header>
             <p className="my-4">{github.description}</p>
             {children}
-            <pre className="my-4 rounded border bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner">
+            <pre className="my-4 rounded-sm border border-gray-200 bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner">
               <details className="text-gray-500">
                 <summary>
                   <span className="select-none text-red-500/75">$ </span>pnpm
@@ -201,7 +201,7 @@ const VersionRollout: React.FC<VersionRolloutProps> = ({
             <div
               aria-hidden
               className={twMerge(
-                'absolute bottom-0 left-0 right-24 top-0 my-0.5 appearance-none rounded-sm bg-current opacity-10',
+                'rounded-xs absolute bottom-0 left-0 right-24 top-0 my-0.5 appearance-none bg-current opacity-10',
                 accent
               )}
               style={{

@@ -1,5 +1,6 @@
 import { decryptPhoneNumber, vcard } from 'app/vcard/vcard'
 import { cookies } from 'next/headers'
+import { SearchParams } from 'nuqs/server'
 import { QRCode } from './qrcode'
 
 export const metadata = {
@@ -10,14 +11,11 @@ export const metadata = {
 export const dynamic = 'force-dynamic' // SSR
 
 type PageProps = {
-  searchParams: {
-    loadKey: string
-  }
+  searchParams: Promise<SearchParams>
 }
 
-export default async function BusinessCardPage({
-  searchParams: { loadKey }
-}: PageProps) {
+export default async function BusinessCardPage({ searchParams }: PageProps) {
+  const { loadKey } = await searchParams
   let phoneNumber: string | undefined = undefined
   const cookieStore = await cookies()
   const key = cookieStore.get('phoneNumberKey')?.value

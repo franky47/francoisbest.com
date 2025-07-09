@@ -73,7 +73,7 @@ export const HorcruxRecompose: React.FC = () => {
         <>
           <h3 className="text-md my-4 mb-2 font-semibold">Your secret:</h3>
           <code
-            className="relative my-4 block break-all rounded border bg-gray-50/30 px-4 py-4 text-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-inner"
+            className="relative my-4 block break-all rounded-sm border border-gray-200 bg-gray-50/30 px-4 py-4 text-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-inner"
             style={{ overflowWrap: 'anywhere' }}
           >
             {secret}

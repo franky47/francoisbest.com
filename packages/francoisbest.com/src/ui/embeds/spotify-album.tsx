@@ -52,7 +52,7 @@ export const EmptyAlbumView: React.FC<EmptyAlbumViewProps> = ({
             : '/img/album-cover-placeholder.jpg'
         }
         alt="Album not found"
-        className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded bg-black drop-shadow-lg"
+        className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded-sm bg-black drop-shadow-lg"
       />
       <figcaption className="mt-2 text-center text-sm italic text-gray-500">
         {type === 'error' ? 'Missing album data' : 'Loading...'}
@@ -61,12 +61,7 @@ export const EmptyAlbumView: React.FC<EmptyAlbumViewProps> = ({
   )
 }
 
-const SpotifyAlbumView = ({
-  link,
-  title,
-  artist,
-  image
-}: SpotifyData) => {
+const SpotifyAlbumView = ({ link, title, artist, image }: SpotifyData) => {
   ReactDOM.preconnect('https://i.scdn.co')
   ReactDOM.prefetchDNS('https://i.scdn.co')
   return (
@@ -77,7 +72,7 @@ const SpotifyAlbumView = ({
           height={256}
           src={image}
           alt={`${title}, an album by ${artist}`}
-          className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded bg-gray-200 drop-shadow-lg dark:bg-gray-800"
+          className="font-xs relative mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded-sm bg-gray-200 drop-shadow-lg dark:bg-gray-800"
           unoptimized
           crossOrigin="anonymous"
         />

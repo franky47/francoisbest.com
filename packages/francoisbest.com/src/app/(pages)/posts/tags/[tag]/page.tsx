@@ -7,12 +7,13 @@ import { BlogPostPreview } from '../../components/blog-post-preview'
 import { BlogRollHeader } from '../../components/blog-roll-header'
 
 type PageProps = {
-  params: {
+  params: Promise<{
     tag: string
-  }
+  }>
 }
 
-export function generateMetadata({ params: { tag } }: PageProps) {
+export async function generateMetadata({ params }: PageProps) {
+  const { tag } = await params
   return Promise.resolve({
     title: `${tag} posts`,
     description: `A list of posts talking about \'${tag}\'`
@@ -20,7 +21,7 @@ export function generateMetadata({ params: { tag } }: PageProps) {
 }
 
 export default async function TagPage({ params }: PageProps) {
-  const tag = decodeURIComponent(params.tag)
+  const tag = decodeURIComponent((await params).tag)
   const posts = await getAllPosts()
   const filtered = posts.filter(post => post.meta.tags?.includes(tag))
   return (

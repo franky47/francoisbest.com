@@ -9,7 +9,7 @@ export default function PageLayout({
   return (
     <>
       <NavHeader />
-      <main className="prose dark:prose-invert md:prose-lg prose-h1:font-bold prose-img:rounded prose-li:my-1 mx-auto px-2">
+      <main className="prose dark:prose-invert md:prose-lg prose-h1:font-bold prose-img:rounded-sm prose-li:my-1 mx-auto px-2">
         {children}
       </main>
       <Footer />
