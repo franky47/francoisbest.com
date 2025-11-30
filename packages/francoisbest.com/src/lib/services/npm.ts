@@ -109,11 +109,17 @@ export async function fetchNpmPackage(
 }
 
 async function get<T = any>(url: string) {
-  const res = await fetch(url, {
-    next: {
-      revalidate: 86_400,
-      tags: ['npm']
-    }
-  })
-  return (await res.json()) as T
+  try {
+    const res = await fetch(url, {
+      next: {
+        revalidate: 86_400,
+        tags: ['npm']
+      }
+    })
+    return (await res.json()) as T
+  } catch (error) {
+    throw new Error(`Failed to fetch ${url}: ${String(error)}`, {
+      cause: error
+    })
+  }
 }
