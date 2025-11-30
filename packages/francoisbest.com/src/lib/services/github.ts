@@ -69,8 +69,7 @@ export async function fetchRepository(
     stargazerCount
   }
 }`.replace(/\s+/g, ' ') // Minify
-  // The querystring is not necessary but it helps tagging cache entries in Cache Explorer
-  const res = await fetch(`https://api.github.com/graphql?repo=${slug}`, {
+  const res = await fetch(`https://api.github.com/graphql`, {
     method: 'POST',
     headers: {
       Authorization: `bearer ${process.env.GITHUB_TOKEN}`
