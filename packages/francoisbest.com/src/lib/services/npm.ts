@@ -16,15 +16,6 @@ export type NpmPackageStatsData = {
 
 // const regexp = /https:\/\/npmjs\.com\/package\/([\w.-]+|@[\w.-]+\/[\w.-]+)/gm
 
-async function getStatPoint(
-  pkg: string,
-  point: 'last-week' | 'last-month' | 'last-year'
-): Promise<number> {
-  const url = `https://api.npmjs.org/downloads/point/${point}/${pkg}`
-  const data = await get(url)
-  return data.downloads
-}
-
 type RangeResponse = {
   downloads: Array<{
     downloads: number
@@ -108,7 +99,8 @@ export async function fetchNpmPackage(
   }
 }
 
-async function get<T = any>(url: string) {
+async function get<T = unknown>(url: string): Promise<T> {
+  let responseText = ''
   try {
     const res = await fetch(url, {
       next: {
@@ -116,10 +108,14 @@ async function get<T = any>(url: string) {
         tags: ['npm']
       }
     })
-    return (await res.json()) as T
+    responseText = await res.text()
+    return JSON.parse(responseText) as T
   } catch (error) {
-    throw new Error(`Failed to fetch ${url}: ${String(error)}`, {
-      cause: error
-    })
+    throw new Error(
+      `Failed to fetch ${url}: ${String(error)}\n\n${responseText}`,
+      {
+        cause: error
+      }
+    )
   }
 }
