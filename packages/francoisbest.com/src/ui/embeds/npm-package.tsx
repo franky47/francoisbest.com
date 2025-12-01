@@ -33,131 +33,139 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
   versionRollout = 5,
   ...props
 }) => {
-  try {
-    const [npm, github] = await Promise.all([
-      fetchNpmPackage(pkg),
-      fetchRepository(repo)
-    ])
-    return (
-      <EmbedFrame
-        Icon={FiPackage}
-        className={twMerge('relative px-0', className)}
-        {...props}
-      >
-        <data aria-hidden className="hidden">
-          NPM updated at: {npm.updatedAt.toISOString()}
-          <br />
-          GitHub updated at: {github.updatedAt.toISOString()}
-        </data>
-        <figure className="not-prose !my-0">
-          <div className="px-4">
-            <header
-              className="mb-2 flex flex-wrap justify-between gap-2"
-              style={{ alignItems: 'last baseline' }}
-            >
-              <a href={github.url}>
-                <h3 className="mt-0 flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
-                  <Image
-                    width={24}
-                    height={24}
-                    src={github.avatarUrl}
-                    alt={`Avatar for GitHub account ${repo.split('/')[0]}`}
-                    className="mr-2 rounded-full"
-                  />
-                  {repo}
-                </h3>
-              </a>
-              <div className="flex gap-6 text-sm text-gray-500">
-                <dl className="flex items-center gap-1" title="Stars">
-                  <FiStar />
-                  <dd>{formatStatNumber(github.stars)}</dd>
-                </dl>
+  const [npmResult, github] = await Promise.all([
+    fetchNpmPackage(pkg).catch(error => {
+      console.group('Failed to fetch NPM package data')
+      console.error(`package: ${pkg}`)
+      console.dir(error)
+      console.groupEnd()
+      return null
+    }),
+    fetchRepository(repo)
+  ])
+
+  return (
+    <EmbedFrame
+      Icon={FiPackage}
+      className={twMerge('relative px-0', className)}
+      {...props}
+    >
+      <data aria-hidden className="hidden">
+        {npmResult && (
+          <>
+            NPM updated at: {npmResult.updatedAt.toISOString()}
+            <br />
+          </>
+        )}
+        GitHub updated at: {github.updatedAt.toISOString()}
+      </data>
+      <figure className="not-prose !my-0">
+        <div className="px-4">
+          <header
+            className="mb-2 flex flex-wrap justify-between gap-2"
+            style={{ alignItems: 'last baseline' }}
+          >
+            <a href={github.url}>
+              <h3 className="mt-0 flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
+                <Image
+                  width={24}
+                  height={24}
+                  src={github.avatarUrl}
+                  alt={`Avatar for GitHub account ${repo.split('/')[0]}`}
+                  className="mr-2 rounded-full"
+                />
+                {repo}
+              </h3>
+            </a>
+            <div className="flex gap-6 text-sm text-gray-500">
+              <dl className="flex items-center gap-1" title="Stars">
+                <FiStar />
+                <dd>{formatStatNumber(github.stars)}</dd>
+              </dl>
+              {npmResult && (
                 <dl
                   className="flex items-center gap-1"
                   title="NPM downloads (all time)"
                 >
                   <FiDownload />
-                  <dd>{formatStatNumber(npm.allTime)}</dd>
+                  <dd>{formatStatNumber(npmResult.allTime)}</dd>
                 </dl>
-                {github.version && (
-                  <dl
-                    className="flex items-center gap-1"
-                    title="Latest version"
-                  >
-                    <FiTag />
-                    <span>{github.version}</span>
-                  </dl>
-                )}
-                {github.license && (
-                  <dl className="flex items-center gap-1" title="License">
-                    <FiFileText />
-                    <dd>{github.license.split(' ')[0]}</dd>
-                  </dl>
-                )}
+              )}
+              {github.version && (
+                <dl className="flex items-center gap-1" title="Latest version">
+                  <FiTag />
+                  <span>{github.version}</span>
+                </dl>
+              )}
+              {github.license && (
+                <dl className="flex items-center gap-1" title="License">
+                  <FiFileText />
+                  <dd>{github.license.split(' ')[0]}</dd>
+                </dl>
+              )}
+            </div>
+          </header>
+          <p className="my-4">{github.description}</p>
+          {children}
+          <pre className="my-4 rounded-sm border border-gray-200 bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner">
+            <details className="text-gray-500">
+              <summary>
+                <span className="select-none text-red-500/75">$ </span>pnpm add{' '}
+                <a
+                  href={`https://www.npmjs.com/package/${pkg}`}
+                  className={accent}
+                >
+                  {pkg}
+                </a>
+              </summary>
+              <div>
+                <span className="ml-1 select-none text-red-500/75"> $ </span>
+                yarn add {pkg}
               </div>
-            </header>
-            <p className="my-4">{github.description}</p>
-            {children}
-            <pre className="my-4 rounded-sm border border-gray-200 bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner">
-              <details className="text-gray-500">
-                <summary>
-                  <span className="select-none text-red-500/75">$ </span>pnpm
-                  add{' '}
-                  <a href={npm.url} className={accent}>
-                    {npm.packageName}
-                  </a>
-                </summary>
-                <div>
-                  <span className="ml-1 select-none text-red-500/75"> $ </span>
-                  yarn add {npm.packageName}
-                </div>
-                <div>
-                  <span className="ml-1 select-none text-red-500/75"> $ </span>
-                  npm install {npm.packageName}
-                </div>
-              </details>
-            </pre>
-          </div>
-          {versionRollout && (
-            <VersionRollout
-              versions={npm.versions}
-              accent={accent}
-              limit={versionRollout}
-              latestVersion={github.version}
-            />
-          )}
+              <div>
+                <span className="ml-1 select-none text-red-500/75"> $ </span>
+                npm install {pkg}
+              </div>
+            </details>
+          </pre>
+        </div>
+        {npmResult && versionRollout && (
+          <VersionRollout
+            versions={npmResult.versions}
+            accent={accent}
+            limit={versionRollout}
+            latestVersion={github.version}
+          />
+        )}
+        {npmResult && npmResult.last30Days && (
           <SvgCurveGraph
-            data={npm.last30Days ?? []}
+            data={npmResult.last30Days}
             className={accent}
             height={120}
-            lastDate={npm.lastDate}
+            lastDate={npmResult.lastDate}
           />
-          <footer
-            role="presentation"
-            className="absolute bottom-3 left-3 flex h-6 items-center gap-2 text-sm"
-          >
-            <Logo size={6} background={false} />
-            <span className="text-md font-semibold">47ng</span>
-            <span className="text-gray-500/80">•</span>
-            <a href="https://francoisbest.com/open-source" className={accent}>
-              francoisbest.com
-              <span className="text-gray-500/80">/open-source</span>
-            </a>
-          </footer>
-        </figure>
-      </EmbedFrame>
-    )
-  } catch (error) {
-    console.error(error)
-    return (
-      <EmbedFrame Icon={FiPackage} className={className} isError {...props}>
-        <div className="not-prose">
-          <p className="font-medium">Error displaying package {pkg}</p>
-          <code className="text-sm text-red-500">{String(error)}</code>
-        </div>
-      </EmbedFrame>
-    )
-  }
+        )}
+        {!npmResult && (
+          <div className="mb-8 p-4 text-center text-sm text-red-700 dark:text-red-400">
+            <FiPackage className="mr-1 inline-block -translate-y-px" /> NPM
+            package data is currently unavailable.
+          </div>
+        )}
+        <footer
+          role="presentation"
+          className="absolute bottom-3 left-3 flex h-6 items-center gap-2 text-sm"
+        >
+          <Logo size={6} background={false} />
+          <span className="text-md font-semibold">47ng</span>
+          <span className="text-gray-500/80">•</span>
+          <a href="https://francoisbest.com/open-source" className={accent}>
+            francoisbest.com
+            <span className="text-gray-500/80">/open-source</span>
+          </a>
+        </footer>
+      </figure>
+    </EmbedFrame>
+  )
 }
 
 // --

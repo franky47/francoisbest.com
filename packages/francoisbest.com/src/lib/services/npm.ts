@@ -1,8 +1,6 @@
 import dayjs from 'dayjs'
 import 'server-only'
 
-const NPM_API_URL = process.env.NPM_API_URL || 'https://api.npmjs.org'
-
 export type NpmPackageStatsData = {
   packageName: string
   url: string
@@ -31,7 +29,7 @@ async function getLastNDays(
 ): Promise<{ downloads: number[]; date: string }> {
   const start = dayjs().subtract(n, 'day').format('YYYY-MM-DD')
   const end = dayjs().subtract(1, 'day').endOf('day').format('YYYY-MM-DD')
-  const url = `${NPM_API_URL}/downloads/range/${start}:${end}/${pkg}`
+  const url = `https://api.npmjs.org/downloads/range/${start}:${end}/${pkg}`
   const { downloads } = await get<RangeResponse>(url)
   return {
     downloads: downloads.map(d => d.downloads),
@@ -45,7 +43,7 @@ async function getAllTime(pkg: string): Promise<number> {
   let start = dayjs('2015-01-10') // NPM stats epoch
   let end = start.add(18, 'month')
   while (start.isBefore(now)) {
-    const url = `${NPM_API_URL}/downloads/range/${start.format(
+    const url = `https://api.npmjs.org/downloads/range/${start.format(
       'YYYY-MM-DD'
     )}:${end.format('YYYY-MM-DD')}/${pkg}`
     const res = await get<RangeResponse>(url)
@@ -60,7 +58,7 @@ async function getVersions(pkg: string): Promise<Record<string, number>> {
   type VersionsReponse = {
     downloads: Record<string, number>
   }
-  const url = `${NPM_API_URL}/versions/${encodeURIComponent(pkg)}/last-week`
+  const url = `https://api.npmjs.org/versions/${encodeURIComponent(pkg)}/last-week`
   const { downloads } = await get<VersionsReponse>(url)
   return Object.fromEntries(
     Object.entries(downloads).sort(([, a], [, b]) => (a < b ? 1 : -1))
