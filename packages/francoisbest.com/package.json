@@ -36,7 +36,7 @@
     "immer": "10.1.1",
     "jsdom": "26.1.0",
     "mitt": "3.0.1",
-    "next": "15.4.8",
+    "next": "15.4.9",
     "next-sitemap": "4.2.3",
     "nuqs": "2.8.2",
     "pretty-bytes": "7.0.0",
