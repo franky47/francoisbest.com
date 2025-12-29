@@ -16,7 +16,7 @@ export default function Page() {
           <a href="https://www.youtube.com/@47ng-dev">YouTube</a>
         </li>
         <li>
-          <a href="https://www.twitch.tv/fortysevenfx">Twitch</a>
+          <a href="https://www.twitch.tv/francoisbest">Twitch</a>
         </li>
       </ul>
     </>
