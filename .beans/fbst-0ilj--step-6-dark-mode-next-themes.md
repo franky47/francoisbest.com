@@ -1,13 +1,14 @@
 ---
 # fbst-0ilj
 title: 'Step 6: Dark mode → next-themes'
-status: todo
+status: completed
 type: task
+priority: normal
 created_at: 2026-04-01T13:36:10Z
-updated_at: 2026-04-01T13:36:10Z
+updated_at: 2026-04-01T16:20:12Z
 parent: fbst-9pj9
 blocked_by:
-  - fbst-qp1g
+    - fbst-qp1g
 ---
 
 Replace hand-rolled dark mode system with next-themes.
@@ -37,3 +38,12 @@ Replace hand-rolled dark mode system with next-themes.
 - Theme syncs across tabs
 - No FOUC on initial load
 - System preference detection works
+
+
+## Summary of Changes
+
+- Added `next-themes` with ThemeProvider (attribute="class", defaultTheme="system")
+- Rewrote ThemeControls to use `useTheme()` hook
+- Deleted `ui/theme/theme.ts` (hand-rolled applyTheme + mitt emitter)
+- Removed inline loadTheme script from layout.tsx (next-themes handles FOUC prevention)
+- localStorage key is compatible — no user-facing regression for existing visitors

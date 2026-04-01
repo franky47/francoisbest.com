@@ -74,6 +74,9 @@ importers:
       next:
         specifier: 15.5.10
         version: 15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next-themes:
+        specifier: 0.4.6
+        version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       nuqs:
         specifier: 2.8.6
         version: 2.8.6(@remix-run/react@2.13.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@6.0.2))(next@15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-router-dom@6.27.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-router@6.27.0(react@19.1.0))(react@19.1.0)
@@ -2697,6 +2700,12 @@ packages:
     resolution: {integrity: sha512-mt5vZf7JTSYv5FkPP2hZh3fQ4YKYPFw3TZJ/1mASVBavKtlYolOVnAm/UVt/kepTNXz0cR3EdVTtIEOmqaEINg==}
     peerDependencies:
       next: 10 || 11 || 12 || 13 || 14
+
+  next-themes@0.4.6:
+    resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   next@15.5.10:
     resolution: {integrity: sha512-r0X65PNwyDDyOrWNKpQoZvOatw7BcsTPRKdwEqtc9cj3wv7mbBIk9tKed4klRaFXJdX0rugpuMTHslDrAU1bBg==}
@@ -5880,6 +5889,11 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  next-themes@0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   next@15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
