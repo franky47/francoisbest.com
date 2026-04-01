@@ -1,0 +1,7 @@
+export default function StatusText(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 339.5 259" {...props}>
+<g><text x="0" y="18" fill="#2b8a3e" fontFamily="Virgil" fontSize="20" textAnchor="start" transform="translate(10 137) rotate(0 119 13)" style={{ whiteSpace: 'pre' }}>Green: Everything is OK!</text></g><g><text x="0" y="18" fill="#e67700" fontFamily="Virgil" fontSize="20" textAnchor="start" transform="translate(10.5 179) rotate(0 159.5 13)" style={{ whiteSpace: 'pre' }}>Orange: There might be issues...</text></g><g><text x="0" y="18" fill="#c92a2a" fontFamily="Virgil" fontSize="20" textAnchor="start" transform="translate(12.5 223) rotate(0 153.5 13)" style={{ whiteSpace: 'pre' }}>Red: Definitely a problem here.</text></g><g><text x="0" y="18" fill="#1864ab" fontFamily="Virgil" fontSize="20" textAnchor="start" transform="translate(11.5 94) rotate(0 142.5 13)" style={{ whiteSpace: 'pre' }}>Blue: Just to let you know...</text></g><g><text x="0" y="18" fill="#000" fontFamily="Virgil" fontSize="20" textAnchor="start" transform="translate(13 10) rotate(0 61 13)" style={{ whiteSpace: 'pre' }}>Normal text</text></g><g><text x="0" y="18" fill="#888" fontFamily="Virgil" fontSize="20" textAnchor="start" transform="translate(10 49) rotate(0 107 13)" style={{ whiteSpace: 'pre' }}>Slightly less important</text></g>
+    </svg>
+  )
+}

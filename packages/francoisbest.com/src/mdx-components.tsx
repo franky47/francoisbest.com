@@ -21,7 +21,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Image,
     HackerNewsComment,
     img: Image,
-    // Smart link (internal routes vs outgoing links)
     a: ({ href, ref: _, ...props }) => {
       if (href?.startsWith('/') || href?.startsWith('#')) {
         return <Link href={href} {...props} />

@@ -20,7 +20,6 @@
     "@next/mdx": "15.3.5",
     "@spotify/web-api-ts-sdk": "1.2.0",
     "@stablelib/tss": "2.0.1",
-    "@svgr/webpack": "8.1.0",
     "@tailwindcss/postcss": "4.1.11",
     "@tailwindcss/typography": "0.5.16",
     "dayjs": "1.11.13",

@@ -1,11 +1,10 @@
-// @ts-check
-
 import configureMdx from '@next/mdx'
+import type { NextConfig } from 'next'
 import { fromHtml } from 'hast-util-from-html'
 import configureBundleAnalyzer from 'next-bundle-analyzer'
 import fs from 'node:fs'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypePrettyCode from 'rehype-pretty-code'
+import rehypePrettyCode, { type Options as PrettyCodeOptions } from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import remarkMdx from 'remark-mdx'
@@ -14,8 +13,7 @@ import remarkParse from 'remark-parse'
 import remarkSmartypants from 'remark-smartypants'
 import { unified } from 'unified'
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
     remotePatterns: [
@@ -51,7 +49,6 @@ const nextConfig = {
         destination: '/francois-best-full-stack-typescript-dev-resume.pdf',
         permanent: false
       },
-      // Inspired by https://atila.io/x (et al)
       {
         source: '/sponsor(s)?',
         destination: 'https://github.com/sponsors/franky47',
@@ -115,43 +112,10 @@ const nextConfig = {
         ]
       }
     ]
-  },
-
-  webpack(config) {
-    // Configures webpack to handle SVG files with SVGR. SVGR optimizes and transforms SVG files
-    // into React components. See https://react-svgr.com/docs/next/
-
-    // Grab the existing rule that handles SVG imports
-    // @ts-ignore - this is a private property that is not typed
-    const fileLoaderRule = config.module.rules.find(rule =>
-      rule.test?.test?.('.svg')
-    )
-
-    config.module.rules.push(
-      // Reapply the existing rule, but only for svg imports ending in ?url
-      {
-        ...fileLoaderRule,
-        test: /\.svg$/i,
-        resourceQuery: /url/ // *.svg?url
-      },
-      // Convert all other *.svg imports to React components
-      {
-        test: /\.svg$/i,
-        issuer: fileLoaderRule.issuer,
-        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ['@svgr/webpack']
-      }
-    )
-
-    // Modify the file loader rule to ignore *.svg, since we have it handled now.
-    fileLoaderRule.exclude = /\.svg$/i
-
-    return config
   }
 }
 
-/** @type {import('rehype-pretty-code').Options} */
-const codeHighlightingOptions = {
+const codeHighlightingOptions: PrettyCodeOptions = {
   theme: JSON.parse(
     fs.readFileSync('./src/ui/theme/moonlight-ii.json', 'utf-8')
   ),
@@ -163,7 +127,6 @@ const codeHighlightingOptions = {
     element.properties.style = 'margin-bottom:-1.5rem;font-size:0.85em;'
     element.properties.className = ['font-mono']
     const fileIcon = fromHtml(
-      // SVG from FiFileText in 'react-icons/fi'
       `<svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -186,7 +149,7 @@ const codeHighlightingOptions = {
       </svg>`,
       { fragment: true, space: 'svg' }
     )
-    // @ts-ignore
+    // @ts-expect-error - hast types don't expose children array
     element.children.unshift(fileIcon.children[0])
   },
   onVisitCaption(element) {
@@ -224,9 +187,15 @@ export default withAnalyzer(withMdx(nextConfig))
 
 function injectPageHeaderAndFooter() {
   const mdxParser = unified().use(remarkParse).use(remarkMdx)
-  const headerNode = mdxParser.parse('<MdxPageHeader file={import.meta.url} />')
-  const footerNode = mdxParser.parse('<MdxPageFooter file={import.meta.url} />')
-  return function injectPageHeaderAndFooter(tree) {
+  const headerNode = mdxParser.parse(
+    '<MdxPageHeader file={import.meta.url} />'
+  )
+  const footerNode = mdxParser.parse(
+    '<MdxPageFooter file={import.meta.url} />'
+  )
+  return function injectPageHeaderAndFooter(
+    tree: { children: unknown[] }
+  ) {
     tree.children.unshift(headerNode)
     tree.children.push(footerNode)
   }
