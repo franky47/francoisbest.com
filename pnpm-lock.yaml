@@ -74,9 +74,6 @@ importers:
       next:
         specifier: 15.5.10
         version: 15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      next-sitemap:
-        specifier: 4.2.3
-        version: 4.2.3(next@15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       nuqs:
         specifier: 2.8.6
         version: 2.8.6(@remix-run/react@2.13.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@6.0.2))(next@15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-router-dom@6.27.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-router@6.27.0(react@19.1.0))(react@19.1.0)
@@ -212,9 +209,6 @@ packages:
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
-
-  '@corex/deepmerge@4.0.43':
-    resolution: {integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==}
 
   '@csstools/color-helpers@5.0.2':
     resolution: {integrity: sha512-JqWH1vsgdGcw2RR6VliXXdA0/59LttzlU8UlRT/iUUsEeWfYq8I+K0yhihEUTTHLRm1EXvpsCx3083EU15ecsA==}
@@ -890,9 +884,6 @@ packages:
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
-
-  '@next/env@13.5.6':
-    resolution: {integrity: sha512-Yac/bV5sBGkkEXmAX5FWPS9Mmo2rthrOPRQQNfycJPkjUAUclomCPH7QFVCDQ4Mp2k2K1SSM6m0zrxYrOwtFQw==}
 
   '@next/env@15.5.10':
     resolution: {integrity: sha512-plg+9A/KoZcTS26fe15LHg+QxReTazrIOoKKUC3Uz4leGGeNPgLHdevVraAAOX0snnUs3WkRx3eUQpj9mreG6A==}
@@ -2671,9 +2662,6 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
-  minimist@1.2.8:
-    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
@@ -2709,13 +2697,6 @@ packages:
     resolution: {integrity: sha512-mt5vZf7JTSYv5FkPP2hZh3fQ4YKYPFw3TZJ/1mASVBavKtlYolOVnAm/UVt/kepTNXz0cR3EdVTtIEOmqaEINg==}
     peerDependencies:
       next: 10 || 11 || 12 || 13 || 14
-
-  next-sitemap@4.2.3:
-    resolution: {integrity: sha512-vjdCxeDuWDzldhCnyFCQipw5bfpl4HmZA7uoo3GAaYGjGgfL4Cxb1CiztPuWGmS+auYs7/8OekRS8C2cjdAsjQ==}
-    engines: {node: '>=14.18'}
-    hasBin: true
-    peerDependencies:
-      next: '*'
 
   next@15.5.10:
     resolution: {integrity: sha512-r0X65PNwyDDyOrWNKpQoZvOatw7BcsTPRKdwEqtc9cj3wv7mbBIk9tKed4klRaFXJdX0rugpuMTHslDrAU1bBg==}
@@ -3551,8 +3532,6 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 10.4.3
 
-  '@corex/deepmerge@4.0.43': {}
-
   '@csstools/color-helpers@5.0.2': {}
 
   '@csstools/css-calc@2.1.4(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)':
@@ -4009,8 +3988,6 @@ snapshots:
       '@types/mdx': 2.0.13
       '@types/react': 19.1.8
       react: 19.1.0
-
-  '@next/env@13.5.6': {}
 
   '@next/env@15.5.10': {}
 
@@ -5876,8 +5853,6 @@ snapshots:
       mime-db: 1.52.0
     optional: true
 
-  minimist@1.2.8: {}
-
   minipass@7.1.2: {}
 
   minizlib@3.0.2:
@@ -5905,14 +5880,6 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  next-sitemap@4.2.3(next@15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
-    dependencies:
-      '@corex/deepmerge': 4.0.43
-      '@next/env': 13.5.6
-      fast-glob: 3.3.3
-      minimist: 1.2.8
-      next: 15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
   next@15.5.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:

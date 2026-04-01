@@ -46,7 +46,6 @@ export default function RootLayout({
           href="/posts/feed/articles.json"
           title="Articles by François Best (JSON)"
         />
-        <link rel="sitemap" href="sitemap.xml" type="application/xml" />
         <meta name="twitter:dnt" content="on" />
         <script
           id="load-theme"
