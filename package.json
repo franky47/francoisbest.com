@@ -17,37 +17,8 @@
     "link:posts": "rm -f posts && ln -s ./packages/francoisbest.com/src/app/\\(pages\\)/posts/\\(content\\)/$(date +%Y) posts"
   },
   "devDependencies": {
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.5.14",
-    "turbo": "^1.13.4"
+    "oxfmt": "0.42.0",
+    "turbo": "^2.9.1"
   },
-  "prettier": {
-    "arrowParens": "avoid",
-    "semi": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "useTabs": false,
-    "trailingComma": "none",
-    "plugins": [
-      "prettier-plugin-tailwindcss"
-    ]
-  },
-  "pnpm": {
-    "overrides": {
-      "array-includes": "npm:@nolyfill/array-includes@latest",
-      "array.prototype.findlastindex": "npm:@nolyfill/array.prototype.findlastindex@latest",
-      "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
-      "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@latest",
-      "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
-      "es-iterator-helpers": "npm:@nolyfill/es-iterator-helpers@latest",
-      "has": "npm:@nolyfill/has@latest",
-      "object.assign": "npm:@nolyfill/object.assign@latest",
-      "object.entries": "npm:@nolyfill/object.entries@latest",
-      "object.fromentries": "npm:@nolyfill/object.fromentries@latest",
-      "object.groupby": "npm:@nolyfill/object.groupby@latest",
-      "object.hasown": "npm:@nolyfill/object.hasown@latest",
-      "object.values": "npm:@nolyfill/object.values@latest",
-      "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest"
-    }
-  }
+  "packageManager": "pnpm@10.33.0"
 }

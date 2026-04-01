@@ -66,7 +66,6 @@ export default function RootLayout({
               async
             />
             <noscript>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://chiffre.io/noscript/${chiffreConfig.projectId}`}
                 alt="Chiffre.io anonymous visit counting for clients without JavaScript"
