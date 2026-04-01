@@ -1,13 +1,14 @@
 ---
 # fbst-xhgq
 title: 'Step 2: TypeScript 6.0 upgrade'
-status: todo
+status: completed
 type: task
+priority: normal
 created_at: 2026-04-01T13:35:22Z
-updated_at: 2026-04-01T13:35:22Z
+updated_at: 2026-04-01T14:08:42Z
 parent: fbst-9pj9
 blocked_by:
-  - fbst-2evh
+    - fbst-2evh
 ---
 
 Upgrade TypeScript from 5.8 to 6.0.
@@ -34,3 +35,12 @@ Upgrade TypeScript from 5.8 to 6.0.
 
 - `pnpm typecheck` passes
 - `pnpm build` passes
+
+
+## Summary of Changes
+
+- Bumped TypeScript from 5.8.3 to 6.0.2
+- Removed `esModuleInterop` from tsconfig (redundant with `module: "esnext"` + `moduleResolution: "bundler"`)
+- Bumped `target` from ES2017 to ES2022
+- Added `src/css.d.ts` ambient module declaration for plain CSS imports (TS6 now requires declarations for side-effect imports)
+- ts5to6 migration CLI confirmed no rootDir/baseUrl changes needed
