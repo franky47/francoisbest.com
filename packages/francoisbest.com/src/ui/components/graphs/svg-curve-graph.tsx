@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import { Temporal } from '@js-temporal/polyfill'
 import React from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
 import { formatNumber } from 'ui/format'
@@ -213,9 +213,14 @@ export const SvgCurveGraph: React.FC<SvgCurveGraphProps> = ({
                 dx={-8}
                 textAnchor="end"
               >
-                {dayjs(lastDate)
-                  .subtract(data.length - 1 - i, 'day')
-                  .format('DD MMM')}
+                {Temporal.PlainDate.from(
+                  lastDate.toISOString().slice(0, 10)
+                )
+                  .subtract({ days: data.length - 1 - i })
+                  .toLocaleString('en', {
+                    day: '2-digit',
+                    month: 'short'
+                  })}
               </text>
             </g>
           ))}

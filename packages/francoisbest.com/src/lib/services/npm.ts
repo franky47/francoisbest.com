@@ -1,20 +1,15 @@
-import dayjs from 'dayjs'
+import { Temporal } from '@js-temporal/polyfill'
 import 'server-only'
 
 export type NpmPackageStatsData = {
   packageName: string
   url: string
-  // lastWeek: number
-  // lastMonth: number
-  // lastYear: number
   allTime: number
   last30Days: number[]
   versions: Record<string, number>
   lastDate: Date
   updatedAt: Date
 }
-
-// const regexp = /https:\/\/npmjs\.com\/package\/([\w.-]+|@[\w.-]+\/[\w.-]+)/gm
 
 type RangeResponse = {
   downloads: Array<{
@@ -27,8 +22,9 @@ async function getLastNDays(
   pkg: string,
   n: number
 ): Promise<{ downloads: number[]; date: string }> {
-  const start = dayjs().subtract(n, 'day').format('YYYY-MM-DD')
-  const end = dayjs().subtract(1, 'day').endOf('day').format('YYYY-MM-DD')
+  const today = Temporal.Now.plainDateISO()
+  const start = today.subtract({ days: n }).toString()
+  const end = today.subtract({ days: 1 }).toString()
   const url = `https://api.npmjs.org/downloads/range/${start}:${end}/${pkg}`
   const { downloads } = await get<RangeResponse>(url)
   return {
@@ -39,17 +35,15 @@ async function getLastNDays(
 
 async function getAllTime(pkg: string): Promise<number> {
   let downloads: number = 0
-  const now = dayjs()
-  let start = dayjs('2015-01-10') // NPM stats epoch
-  let end = start.add(18, 'month')
-  while (start.isBefore(now)) {
-    const url = `https://api.npmjs.org/downloads/range/${start.format(
-      'YYYY-MM-DD'
-    )}:${end.format('YYYY-MM-DD')}/${pkg}`
+  const now = Temporal.Now.plainDateISO()
+  let start = Temporal.PlainDate.from('2015-01-10') // NPM stats epoch
+  let end = start.add({ months: 18 })
+  while (Temporal.PlainDate.compare(start, now) < 0) {
+    const url = `https://api.npmjs.org/downloads/range/${start.toString()}:${end.toString()}/${pkg}`
     const res = await get<RangeResponse>(url)
     downloads += res.downloads.reduce((sum, d) => sum + d.downloads, 0)
     start = end
-    end = start.add(18, 'month')
+    end = start.add({ months: 18 })
   }
   return downloads
 }
@@ -68,27 +62,11 @@ async function getVersions(pkg: string): Promise<Record<string, number>> {
 export async function fetchNpmPackage(
   pkg: string
 ): Promise<NpmPackageStatsData> {
-  const [
-    // lastWeek,
-    // lastMonth,
-    // lastYear,
-    allTime,
-    { downloads: last30Days, date: lastDate },
-    versions
-  ] = await Promise.all([
-    // getStatPoint(pkg, 'last-week'),
-    // getStatPoint(pkg, 'last-month'),
-    // getStatPoint(pkg, 'last-year'),
-    getAllTime(pkg),
-    getLastNDays(pkg, 30),
-    getVersions(pkg)
-  ])
+  const [allTime, { downloads: last30Days, date: lastDate }, versions] =
+    await Promise.all([getAllTime(pkg), getLastNDays(pkg, 30), getVersions(pkg)])
   return {
     packageName: pkg,
     url: `https://npmjs.com/package/${pkg}`,
-    // lastWeek,
-    // lastMonth,
-    // lastYear,
     versions,
     allTime,
     lastDate: new Date(lastDate),

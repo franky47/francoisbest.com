@@ -1,13 +1,14 @@
 ---
 # fbst-p7fj
 title: 'Step 9: dayjs → Temporal'
-status: todo
+status: completed
 type: task
+priority: normal
 created_at: 2026-04-01T13:36:47Z
-updated_at: 2026-04-01T13:36:47Z
+updated_at: 2026-04-01T17:13:42Z
 parent: fbst-9pj9
 blocked_by:
-  - fbst-abdk
+    - fbst-abdk
 ---
 
 Replace dayjs with Temporal API + polyfill for server-side date operations.
@@ -38,3 +39,12 @@ Replace dayjs with Temporal API + polyfill for server-side date operations.
 - NPM package embeds display correct date ranges and download counts
 - SVG curve graph tooltips show correct dates
 - `pnpm build` passes
+
+
+## Summary of Changes
+
+- Replaced dayjs with @js-temporal/polyfill in npm.ts and svg-curve-graph.tsx
+- npm.ts: Temporal.Now.plainDateISO() for current date, .subtract({days: n}), .add({months: 18}), Temporal.PlainDate.compare() for date comparison
+- svg-curve-graph.tsx: Temporal.PlainDate.from() with .subtract() and .toLocaleString() for date formatting
+- Dropped dayjs dependency
+- Node.js 24 doesn't have native Temporal yet, so the polyfill is required
