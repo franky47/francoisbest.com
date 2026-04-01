@@ -3,8 +3,8 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export const nextJsRootDir = path.resolve(__dirname, '../../')
-export const repoRoot = path.resolve(nextJsRootDir, '../../')
+const nextJsRootDir = path.resolve(__dirname, '../../')
+const repoRoot = path.resolve(nextJsRootDir, '../../')
 
 export function resolve(importMetaUrl: string, ...paths: string[]) {
   const filePath = fileURLToPath(importMetaUrl)

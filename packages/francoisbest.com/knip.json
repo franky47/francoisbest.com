@@ -1,0 +1,7 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignore": ["content/**"],
+  "ignoreDependencies": ["sharp", "drizzle-kit", "@types/dompurify"],
+  "entry": ["source.config.ts"],
+  "exclude": ["types", "duplicates", "exports"]
+}

@@ -1,11 +1,11 @@
 ---
 # fbst-9pj9
 title: Modernise francoisbest.com codebase
-status: todo
+status: completed
 type: feature
 priority: high
 created_at: 2026-04-01T13:35:00Z
-updated_at: 2026-04-01T13:35:00Z
+updated_at: 2026-04-01T17:28:33Z
 ---
 
 ## Problem Statement
@@ -90,3 +90,18 @@ The migration is split into 10 sequential steps with strict ordering to respect 
 - TypeScript 6.0 is the last JS-based release before the Go rewrite (TS 7.0). The ts5to6 migration CLI handles most mechanical changes.
 - The Temporal polyfill is server-only after removing the age page, so there is no client bundle size concern.
 - Dependabot PRs on the repository (next bump, dompurify bump) will be superseded by this work.
+
+
+## Summary
+
+All 10 migration steps completed:
+1. Turbo v2, oxfmt, oxlint, Vitest 4
+2. TypeScript 6.0
+3. Dead code cleanup
+4. SVG → TSX, next.config.ts migration
+5. Built-in sitemap & robots
+6. next-themes dark mode
+7. fumadocs-mdx + Next.js 16 (merged with step 8)
+8. Non-blog MDX → TSX (merged into step 7)
+9. dayjs → Temporal
+10. knip + final cleanup
