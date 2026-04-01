@@ -1,14 +1,14 @@
 ---
 # fbst-9w5o
 title: 'Step 7: MDX pipeline → fumadocs-mdx'
-status: todo
+status: completed
 type: task
 priority: high
 created_at: 2026-04-01T13:36:28Z
-updated_at: 2026-04-01T13:36:28Z
+updated_at: 2026-04-01T17:10:27Z
 parent: fbst-9pj9
 blocked_by:
-  - fbst-0ilj
+    - fbst-0ilj
 ---
 
 Replace @next/mdx with fumadocs-mdx + fumadocs-core for the blog content pipeline. This is the largest and riskiest migration step.
@@ -60,3 +60,22 @@ Replace @next/mdx with fumadocs-mdx + fumadocs-core for the blog content pipelin
 - Code syntax highlighting works (rehype-pretty-code with moonlight-ii theme)
 - `pnpm build` passes
 - `pnpm dev` works
+
+
+## Summary of Changes
+
+- Set up fumadocs-mdx + fumadocs-core as the blog content engine
+- Created source.config.ts with blog collection, rehype-pretty-code config (moonlight-ii theme), and remark plugins
+- Migrated all 16 blog posts from app/(pages)/posts/(content)/ to content/blog/ with YAML frontmatter
+- Created dynamic posts/[...slug]/page.tsx with inline PostHeader and PostFooter
+- Rewrote lib/blog/engine.ts to use fumadocs source loader instead of globby + eval
+- Created lib/source.ts and lib/mdx-components.tsx for the new pipeline
+- Converted all 8 non-blog MDX pages to TSX (homepage, music, uses, open-source, public-keys, safari-speedrun, sitemap, about-me)
+- Upgraded Next.js from 15.5.10 to 16.2.2 with Turbopack
+- Simplified next.config.ts (removed @next/mdx, all remark/rehype imports, injectPageHeaderAndFooter)
+- Updated revalidateTag API for Next.js 16
+- Updated all blog consumers (listings, tags, year filter, feed route, featured posts, blog embeds) to use synchronous loader
+- Dropped: @next/mdx, @mdx-js/loader, @mdx-js/react, globby, unified, remark-parse, remark-mdx, remark-mdx-images
+
+Note: Zod version mismatch (fumadocs uses Zod 4, project has Zod 3) — used frontmatterSchema without custom extension, accessing custom fields via type assertions in the engine.
+Note: Merged with Step 8 (non-blog MDX → TSX) since dropping @next/mdx requires both to happen simultaneously.

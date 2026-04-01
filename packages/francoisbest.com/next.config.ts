@@ -1,20 +1,10 @@
-import configureMdx from '@next/mdx'
 import type { NextConfig } from 'next'
-import { fromHtml } from 'hast-util-from-html'
 import configureBundleAnalyzer from 'next-bundle-analyzer'
-import fs from 'node:fs'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypePrettyCode, { type Options as PrettyCodeOptions } from 'rehype-pretty-code'
-import rehypeSlug from 'rehype-slug'
-import remarkGfm from 'remark-gfm'
-import remarkMdx from 'remark-mdx'
-import remarkMdxImages from 'remark-mdx-images'
-import remarkParse from 'remark-parse'
-import remarkSmartypants from 'remark-smartypants'
-import { unified } from 'unified'
+import { createMDX } from 'fumadocs-mdx/next'
 
 const nextConfig: NextConfig = {
-  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  pageExtensions: ['ts', 'tsx'],
+  turbopack: {},
   images: {
     remotePatterns: [
       {
@@ -115,88 +105,11 @@ const nextConfig: NextConfig = {
   }
 }
 
-const codeHighlightingOptions: PrettyCodeOptions = {
-  theme: JSON.parse(
-    fs.readFileSync('./src/ui/theme/moonlight-ii.json', 'utf-8')
-  ),
-  onVisitTitle(element) {
-    element.tagName = 'figcaption'
-    if (!element.properties) {
-      element.properties = {}
-    }
-    element.properties.style = 'margin-bottom:-1.5rem;font-size:0.85em;'
-    element.properties.className = ['font-mono']
-    const fileIcon = fromHtml(
-      `<svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        height="1em"
-        width="1em"
-        stroke="currentColor"
-        fill="none"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="inline-block -mt-[2px] mr-2"
-        aria-label="File name"
-        role="presentation"
-      >
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-        <line x1="16" y1="13" x2="8" y2="13"></line>
-        <line x1="16" y1="17" x2="8" y2="17"></line>
-        <polyline points="10 9 9 9 8 9"></polyline>
-      </svg>`,
-      { fragment: true, space: 'svg' }
-    )
-    // @ts-expect-error - hast types don't expose children array
-    element.children.unshift(fileIcon.children[0])
-  },
-  onVisitCaption(element) {
-    element.tagName = 'figcaption'
-    if (!element.properties) {
-      element.properties = {}
-    }
-    element.properties.style = 'margin-top:-1.5rem;text-align:center;'
-  }
-}
-
 const withAnalyzer = configureBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
   clientOnly: true
 })
 
-const withMdx = configureMdx({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [
-      remarkGfm,
-      remarkMdxImages,
-      remarkSmartypants,
-      injectPageHeaderAndFooter
-    ],
-    rehypePlugins: [
-      [rehypePrettyCode, codeHighlightingOptions],
-      rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'append' }]
-    ]
-  }
-})
+const withMDX = createMDX()
 
-export default withAnalyzer(withMdx(nextConfig))
-
-function injectPageHeaderAndFooter() {
-  const mdxParser = unified().use(remarkParse).use(remarkMdx)
-  const headerNode = mdxParser.parse(
-    '<MdxPageHeader file={import.meta.url} />'
-  )
-  const footerNode = mdxParser.parse(
-    '<MdxPageFooter file={import.meta.url} />'
-  )
-  return function injectPageHeaderAndFooter(
-    tree: { children: unknown[] }
-  ) {
-    tree.children.unshift(headerNode)
-    tree.children.push(footerNode)
-  }
-}
+export default withAnalyzer(withMDX(nextConfig))

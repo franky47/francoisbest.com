@@ -1,4 +1,3 @@
-import { globby } from 'globby'
 import { resolve } from 'lib/paths'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -16,7 +15,8 @@ const migrationNameRegex = /^(\d+)_(.+)\.sql$/
 
 export async function getServerMigrations(): Promise<ServerMigration[]> {
   const __dirname = path.dirname(fileURLToPath(import.meta.url))
-  const migrationFiles = await globby(['*.sql'], { cwd: __dirname })
+  const files = await fs.readdir(__dirname)
+  const migrationFiles = files.filter(f => f.endsWith('.sql'))
   return Promise.all(
     migrationFiles.map(async file => {
       const filePath = resolve(import.meta.url, file)

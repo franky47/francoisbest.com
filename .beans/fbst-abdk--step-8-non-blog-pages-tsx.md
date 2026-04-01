@@ -1,13 +1,14 @@
 ---
 # fbst-abdk
 title: 'Step 8: Non-blog pages → TSX'
-status: todo
+status: completed
 type: task
+priority: normal
 created_at: 2026-04-01T13:36:37Z
-updated_at: 2026-04-01T13:36:37Z
+updated_at: 2026-04-01T17:10:34Z
 parent: fbst-9pj9
 blocked_by:
-  - fbst-9w5o
+    - fbst-9w5o
 ---
 
 Convert remaining MDX pages to plain TSX components.
@@ -31,3 +32,8 @@ Convert remaining MDX pages to plain TSX components.
 - About me section shows images and prose
 - Links page renders correctly
 - No remaining non-blog MDX files in app/
+
+
+## Summary of Changes
+
+Merged into Step 7 (fbst-9w5o). Converting non-blog MDX pages to TSX had to happen simultaneously with the fumadocs-mdx migration because Next.js 16 is incompatible with @next/mdx.

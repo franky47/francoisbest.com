@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   if (!tag || !ACCEPTED_TAGS.includes(tag)) {
     return NextResponse.json({ error: 'Invalid tag' }, { status: 400 })
   }
-  revalidateTag(tag)
+  revalidateTag(tag, 'max')
   return NextResponse.json({
     at: now.toISOString(),
     revalidated: tag

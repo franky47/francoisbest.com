@@ -7,8 +7,8 @@ export const metadata = {
   description: 'I write about TypeScript, Node.js, React, security and privacy.'
 }
 
-export default async function BlogIndex() {
-  const posts = await getAllPosts()
+export default function BlogIndex() {
+  const posts = getAllPosts()
   return (
     <>
       <BlogRollHeader title="Articles" />

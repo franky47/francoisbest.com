@@ -1,4 +1,3 @@
-import 'lib/blog/engine'
 import { url } from 'lib/paths'
 import seo from 'lib/seo.json'
 import { chiffreConfig } from 'lib/services/chiffre'

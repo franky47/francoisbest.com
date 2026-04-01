@@ -1,9 +1,11 @@
 import { describe, expect, test } from 'vitest'
-import { filePathToUrlPath } from './paths'
+import { url } from './paths'
 
 describe('paths', () => {
-  test('filePathToUrlPath', () => {
-    expect(filePathToUrlPath('/a/(b)/c/(d)/e/page.mdx')).toEqual('/a/c/e')
-    expect(filePathToUrlPath('a/(b)/c/(d)/e/page.mdx')).toEqual('a/c/e')
+  test('url generates correct URLs', () => {
+    const original = process.env.DEPLOYMENT_URL
+    process.env.DEPLOYMENT_URL = 'example.com'
+    expect(url('/posts')).toEqual('https://example.com/posts')
+    process.env.DEPLOYMENT_URL = original
   })
 })

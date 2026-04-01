@@ -14,15 +14,15 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const { tag } = await params
-  return Promise.resolve({
+  return {
     title: `${tag} posts`,
-    description: `A list of posts talking about \'${tag}\'`
-  })
+    description: `A list of posts talking about '${tag}'`
+  }
 }
 
 export default async function TagPage({ params }: PageProps) {
   const tag = decodeURIComponent((await params).tag)
-  const posts = await getAllPosts()
+  const posts = getAllPosts()
   const filtered = posts.filter(post => post.meta.tags?.includes(tag))
   return (
     <>
@@ -51,8 +51,8 @@ export default async function TagPage({ params }: PageProps) {
   )
 }
 
-export async function generateStaticParams() {
-  const posts = await getAllPosts()
+export function generateStaticParams() {
+  const posts = getAllPosts()
   const tags = Array.from(new Set(posts.flatMap(post => post.meta.tags ?? [])))
   return tags.map(tag => ({ tag }))
 }

@@ -37,7 +37,7 @@ export async function GET(
   }
 
   const now = Date.now()
-  const allPosts = await getAllPosts()
+  const allPosts = getAllPosts()
   const publishedPosts = allPosts.filter(
     post => (post.meta.publicationDate?.valueOf() ?? Infinity) < now
   )
@@ -76,7 +76,7 @@ export async function GET(
       title: post.meta.title,
       id: post.urlPath,
       link: postUrl.toString(),
-      image: post.ogImageUrlPath && url(post.ogImageUrlPath),
+      image: url(`${post.urlPath}/opengraph-image`),
       category: post.meta.tags?.map(tag => ({
         name: tag,
         term: tag
