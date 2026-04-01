@@ -58,15 +58,6 @@ aside[role='note'] strong {
   color: currentColor;
 }
 
-@layer components {
-  .toot-content a {
-    @apply font-medium text-gray-600 dark:text-gray-400;
-  }
-  .toot-content p {
-    margin-bottom: 1rem;
-  }
-}
-
 /* Header links */
 
 h2,
