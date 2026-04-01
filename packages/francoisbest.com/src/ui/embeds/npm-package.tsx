@@ -1,5 +1,5 @@
 import { fetchRepository } from 'lib/services/github'
-import { fetchNpmPackage } from 'lib/services/npm'
+import { fetchNpmPackage, type NpmPackageStatsData } from 'lib/services/npm'
 import React from 'react'
 import {
   FiDownload,
@@ -21,6 +21,7 @@ export type NpmPackageProps = Omit<EmbedFrameProps, 'Icon' | 'children'> & {
   repo: string
   accent?: string
   versionRollout?: number
+  npmData?: NpmPackageStatsData | null
   children?: React.ReactNode
 }
 
@@ -30,17 +31,20 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
   accent = 'text-blue-500',
   className = 'my-8',
   children,
+  npmData,
   versionRollout = 5,
   ...props
 }) => {
   const [npmResult, github] = await Promise.all([
-    fetchNpmPackage(pkg).catch(error => {
-      console.group('Failed to fetch NPM package data')
-      console.error(`package: ${pkg}`)
-      console.dir(error)
-      console.groupEnd()
-      return null
-    }),
+    npmData !== undefined
+      ? Promise.resolve(npmData)
+      : fetchNpmPackage(pkg).catch(error => {
+          console.group('Failed to fetch NPM package data')
+          console.error(`package: ${pkg}`)
+          console.dir(error)
+          console.groupEnd()
+          return null
+        }),
     fetchRepository(repo).catch(error => {
       console.group('Failed to fetch GitHub repository data')
       console.error(`repo: ${repo}`)
