@@ -4,6 +4,7 @@ import {
   applyMdxPreset,
   frontmatterSchema
 } from 'fumadocs-mdx/config'
+import { z } from 'zod'
 import { fromHtml } from 'hast-util-from-html'
 import fs from 'node:fs'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -63,7 +64,10 @@ const codeHighlightingOptions: PrettyCodeOptions = {
 export const blog = defineCollections({
   type: 'doc',
   dir: './content/blog',
-  schema: frontmatterSchema,
+  schema: frontmatterSchema.extend({
+    publicationDate: z.coerce.date().optional(),
+    tags: z.array(z.string()).optional()
+  }),
   mdxOptions: applyMdxPreset({
     remarkPlugins: [remarkGfm, remarkSmartypants],
     rehypePlugins: (v: any[]) => [

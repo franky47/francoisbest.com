@@ -34,14 +34,7 @@ export default async function BlogPost({ params }: PageProps) {
   const page = blogSource.getPage(slug)
   if (!page) notFound()
 
-  const data = page.data as typeof page.data & {
-    body: React.ComponentType<{ components?: Record<string, React.ComponentType> }>
-    publicationDate?: Date
-    tags?: string[]
-  }
-  const Content = data.body
-
-  const { title, publicationDate, tags } = data
+  const { body: Content, title, publicationDate, tags } = page.data
   const slugPath = slug.join('/')
   const editUrl = `https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/content/blog/${slugPath}/index.mdx`
   const hnUrl = `https://hn.algolia.com/?q=${encodeURIComponent(url(`/posts/${slugPath}`))}`

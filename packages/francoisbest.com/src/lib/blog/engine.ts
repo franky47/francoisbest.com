@@ -33,19 +33,15 @@ export function getPost(slug: string[]): Post | undefined {
 type FumadocsPage = ReturnType<typeof blogSource.getPages>[number]
 
 function pageToPost(page: FumadocsPage): Post {
-  const data = page.data as FumadocsPage['data'] & {
-    publicationDate?: Date
-    tags?: string[]
-  }
   return {
     slug: page.slugs,
     urlPath: page.url,
     meta: {
-      title: data.title ?? '',
-      description: data.description ?? '',
-      publicationDate: data.publicationDate,
-      tags: data.tags
+      title: page.data.title ?? '',
+      description: page.data.description ?? '',
+      publicationDate: page.data.publicationDate,
+      tags: page.data.tags
     },
-    readingTime: readingTime(data.description ?? '').text
+    readingTime: readingTime(page.data.description ?? '').text
   }
 }

@@ -52,7 +52,7 @@
     "tailwind-merge": "3.3.1",
     "tweetnacl": "1.0.3",
     "vegemite": "1.0.0",
-    "zod": "3.25.76"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@types/dompurify": "3.2.0",
