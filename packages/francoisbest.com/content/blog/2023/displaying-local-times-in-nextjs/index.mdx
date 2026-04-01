@@ -27,13 +27,15 @@ will likely be a _timestamp_, or be a Date object rooted in _UTC_.
 
 import { LocalDateTime } from 'ui/components/local-time'
 
+export const publicationDate = '2023-09-27T08:00:00Z'
+
 Rendering it statically as-is will be impractical for most of your users.
 UTC is great for machines, but humans prefer to see times in their **local timezone**.
 
 For example, this post was published on:
 
 - <LocalDateTime
-    date={metadata.publicationDate}
+    date={publicationDate}
     separator=", at "
     hydratedSuffix={
       <>
@@ -43,7 +45,7 @@ For example, this post was published on:
     }
   />
 - 27 September 2023, at 10:00 in _my_ local time _(Europe/Paris)_
-- <code>{metadata.publicationDate}</code> in UTC
+- <code>{publicationDate}</code> in UTC
 
 We're going to build a React component that deals with that, that works with
 Next.js 13.4+ and React 18, in a mix of server and client components.

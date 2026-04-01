@@ -80,9 +80,14 @@ export async function fetchRepository(
       revalidate: 3600 // 1h
     }
   })
-  const {
-    data: { repository }
-  } = repositoryQuerySchema.parse(await res.json())
+  const json = await res.json()
+  const parsed = repositoryQuerySchema.safeParse(json)
+  if (!parsed.success) {
+    throw new Error(
+      `GitHub API error for ${slug}: ${JSON.stringify(json.errors ?? json.message ?? parsed.error.message)}`
+    )
+  }
+  const { repository } = parsed.data.data
   return {
     url: `https://github.com/${slug}`,
     avatarUrl: repository.owner.avatarUrl,

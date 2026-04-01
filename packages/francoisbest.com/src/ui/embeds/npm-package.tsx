@@ -41,8 +41,29 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
       console.groupEnd()
       return null
     }),
-    fetchRepository(repo)
+    fetchRepository(repo).catch(error => {
+      console.group('Failed to fetch GitHub repository data')
+      console.error(`repo: ${repo}`)
+      console.dir(error)
+      console.groupEnd()
+      return null
+    })
   ])
+
+  if (!github && !npmResult) {
+    return (
+      <EmbedFrame
+        Icon={FiPackage}
+        className={twMerge('not-prose', className)}
+        {...props}
+      >
+        <div className="p-4 text-center text-sm text-red-700 dark:text-red-400">
+          <FiPackage className="mr-1 inline-block -translate-y-px" /> Package
+          data is currently unavailable.
+        </div>
+      </EmbedFrame>
+    )
+  }
 
   return (
     <EmbedFrame
@@ -57,7 +78,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             <br />
           </>
         )}
-        GitHub updated at: {github.updatedAt.toISOString()}
+        {github && <>GitHub updated at: {github.updatedAt.toISOString()}</>}
       </data>
       <figure className="not-prose !my-0">
         <div className="px-4">
@@ -65,23 +86,27 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             className="mb-2 flex flex-wrap justify-between gap-2"
             style={{ alignItems: 'last baseline' }}
           >
-            <a href={github.url}>
+            <a href={github?.url ?? `https://github.com/${repo}`}>
               <h3 className="mt-0 flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
-                <Image
-                  width={24}
-                  height={24}
-                  src={github.avatarUrl}
-                  alt={`Avatar for GitHub account ${repo.split('/')[0]}`}
-                  className="mr-2 rounded-full"
-                />
+                {github && (
+                  <Image
+                    width={24}
+                    height={24}
+                    src={github.avatarUrl}
+                    alt={`Avatar for GitHub account ${repo.split('/')[0]}`}
+                    className="mr-2 rounded-full"
+                  />
+                )}
                 {repo}
               </h3>
             </a>
             <div className="flex gap-6 text-sm text-gray-500">
-              <dl className="flex items-center gap-1" title="Stars">
-                <FiStar />
-                <dd>{formatStatNumber(github.stars)}</dd>
-              </dl>
+              {github && (
+                <dl className="flex items-center gap-1" title="Stars">
+                  <FiStar />
+                  <dd>{formatStatNumber(github.stars)}</dd>
+                </dl>
+              )}
               {npmResult && (
                 <dl
                   className="flex items-center gap-1"
@@ -91,13 +116,13 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
                   <dd>{formatStatNumber(npmResult.allTime)}</dd>
                 </dl>
               )}
-              {github.version && (
+              {github?.version && (
                 <dl className="flex items-center gap-1" title="Latest version">
                   <FiTag />
                   <span>{github.version}</span>
                 </dl>
               )}
-              {github.license && (
+              {github?.license && (
                 <dl className="flex items-center gap-1" title="License">
                   <FiFileText />
                   <dd>{github.license.split(' ')[0]}</dd>
@@ -105,7 +130,9 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
               )}
             </div>
           </header>
-          <p className="my-4">{github.description}</p>
+          {github?.description && (
+            <p className="my-4">{github.description}</p>
+          )}
           {children}
           <pre className="my-4 rounded-sm border border-gray-200 bg-gray-50/50 !p-2 text-sm dark:border-gray-800 dark:bg-gray-950 dark:shadow-inner">
             <details className="text-gray-500">
@@ -134,7 +161,7 @@ export const NpmPackage: React.FC<NpmPackageProps> = async ({
             versions={npmResult.versions}
             accent={accent}
             limit={versionRollout}
-            latestVersion={github.version}
+            latestVersion={github?.version}
           />
         )}
         {npmResult && npmResult.last30Days && (

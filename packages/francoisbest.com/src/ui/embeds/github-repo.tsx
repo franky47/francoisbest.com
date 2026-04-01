@@ -20,8 +20,29 @@ export const GitHubRepo: React.FC<GitHubRepoProps> = async ({
   children,
   ...props
 }) => {
-  const { url, description, stars, issues, prs, version, license } =
-    await fetchRepository(slug)
+  const github = await fetchRepository(slug).catch(error => {
+    console.group('Failed to fetch GitHub repository data')
+    console.error(`repo: ${slug}`)
+    console.dir(error)
+    console.groupEnd()
+    return null
+  })
+  if (!github) {
+    return (
+      <EmbedFrame
+        Icon={FiGithub}
+        className={twMerge('not-prose space-y-4', className)}
+        {...props}
+      >
+        <h3 className="mt-0 text-xl font-semibold text-gray-900 dark:text-gray-100">
+          <a href={`https://github.com/${slug}`}>{slug}</a>
+        </h3>
+        <p className="text-sm text-red-700 dark:text-red-400">
+          GitHub data is currently unavailable.
+        </p>
+      </EmbedFrame>
+    )
+  }
   return (
     <EmbedFrame
       Icon={FiGithub}
@@ -29,33 +50,33 @@ export const GitHubRepo: React.FC<GitHubRepoProps> = async ({
       {...props}
     >
       <h3 className="mt-0 text-xl font-semibold text-gray-900 dark:text-gray-100">
-        <a href={url}>{slug}</a>
+        <a href={github.url}>{slug}</a>
       </h3>
-      <p>{description}</p>
+      <p>{github.description}</p>
       {children}
       <ul className="flex space-x-6 text-sm text-gray-500">
-        {stars > 0 && (
-          <MetaListItem Icon={FiStar} text={stars} iconAlt="Stars" />
+        {github.stars > 0 && (
+          <MetaListItem Icon={FiStar} text={github.stars} iconAlt="Stars" />
         )}
         <MetaListItem
           Icon={FiAlertCircle}
-          text={issues}
+          text={github.issues}
           iconAlt="Open Issues"
         />
         <MetaListItem
           Icon={FiGitPullRequest}
-          text={prs}
+          text={github.prs}
           iconAlt="Open Pull Requests"
         />
-        {Boolean(version) && (
+        {Boolean(github.version) && (
           <MetaListItem
             Icon={FiTag}
-            text={`v${version}`}
+            text={`v${github.version}`}
             iconAlt="Last release"
           />
         )}
-        {Boolean(license) && (
-          <MetaListItem Icon={FiFileText} text={license} iconAlt="License" />
+        {Boolean(github.license) && (
+          <MetaListItem Icon={FiFileText} text={github.license} iconAlt="License" />
         )}
       </ul>
     </EmbedFrame>

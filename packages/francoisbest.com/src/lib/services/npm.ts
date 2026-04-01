@@ -1,6 +1,8 @@
 import { Temporal } from '@js-temporal/polyfill'
 import 'server-only'
 
+const NPM_API_URL = process.env.NPM_API_URL || 'https://api.npmjs.org'
+
 export type NpmPackageStatsData = {
   packageName: string
   url: string
@@ -25,7 +27,7 @@ async function getLastNDays(
   const today = Temporal.Now.plainDateISO()
   const start = today.subtract({ days: n }).toString()
   const end = today.subtract({ days: 1 }).toString()
-  const url = `https://api.npmjs.org/downloads/range/${start}:${end}/${pkg}`
+  const url = `${NPM_API_URL}/downloads/range/${start}:${end}/${pkg}`
   const { downloads } = await get<RangeResponse>(url)
   return {
     downloads: downloads.map(d => d.downloads),
@@ -39,7 +41,7 @@ async function getAllTime(pkg: string): Promise<number> {
   let start = Temporal.PlainDate.from('2015-01-10') // NPM stats epoch
   let end = start.add({ months: 18 })
   while (Temporal.PlainDate.compare(start, now) < 0) {
-    const url = `https://api.npmjs.org/downloads/range/${start.toString()}:${end.toString()}/${pkg}`
+    const url = `${NPM_API_URL}/downloads/range/${start.toString()}:${end.toString()}/${pkg}`
     const res = await get<RangeResponse>(url)
     downloads += res.downloads.reduce((sum, d) => sum + d.downloads, 0)
     start = end
@@ -52,7 +54,7 @@ async function getVersions(pkg: string): Promise<Record<string, number>> {
   type VersionsReponse = {
     downloads: Record<string, number>
   }
-  const url = `https://api.npmjs.org/versions/${encodeURIComponent(pkg)}/last-week`
+  const url = `${NPM_API_URL}/versions/${encodeURIComponent(pkg)}/last-week`
   const { downloads } = await get<VersionsReponse>(url)
   return Object.fromEntries(
     Object.entries(downloads).sort(([, a], [, b]) => (a < b ? 1 : -1))
