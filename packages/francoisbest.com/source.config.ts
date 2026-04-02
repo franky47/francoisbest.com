@@ -70,6 +70,7 @@ export const blog = defineCollections({
     canonical: z.string().optional()
   }),
   mdxOptions: applyMdxPreset({
+    rehypeCodeOptions: false,
     remarkPlugins: [remarkGfm, remarkSmartypants],
     rehypePlugins: (v: any[]) => [
       [rehypePrettyCode, codeHighlightingOptions],
