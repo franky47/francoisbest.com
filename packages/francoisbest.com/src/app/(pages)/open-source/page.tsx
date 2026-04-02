@@ -1,5 +1,6 @@
 import { fetchAllNpmPackages, type NpmPackageStatsData } from 'lib/services/npm'
 import { Metadata } from 'next'
+import { HireMe } from 'ui/components/hire-me'
 import { BlogPostEmbed } from 'ui/embeds/blog-post-embed'
 import { GitHubRepo } from 'ui/embeds/github-repo'
 import { NpmPackage } from 'ui/embeds/npm-package'
@@ -182,6 +183,14 @@ export default async function OpenSourcePage() {
       </p>
 
       <GitHubRepo slug="franky47/francoisbest.com" />
+
+      <HireMe outerClass="mt-12" />
+
+      <nav role="list" className="!mt-12 flex flex-col items-center text-center text-sm">
+        <a role="listitem" href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/open-source/page.tsx" className="!text-gray-500">
+          Edit this page on GitHub
+        </a>
+      </nav>
     </>
   )
 }

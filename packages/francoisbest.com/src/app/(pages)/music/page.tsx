@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { FiVolume2 } from 'react-icons/fi'
+import { HireMe } from 'ui/components/hire-me'
 import { Note } from 'ui/components/note'
 import { SpotifyAlbum, SpotifyAlbumGrid } from 'ui/embeds/spotify-album'
 
@@ -169,6 +170,14 @@ export default function MusicPage() {
           url="https://open.spotify.com/album/1rxWlYQcH945S3jpIMYR35"
         />
       </SpotifyAlbumGrid>
+
+      <HireMe outerClass="mt-12" />
+
+      <nav role="list" className="!mt-12 flex flex-col items-center text-center text-sm">
+        <a role="listitem" href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/music/page.tsx" className="!text-gray-500">
+          Edit this page on GitHub
+        </a>
+      </nav>
     </>
   )
 }

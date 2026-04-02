@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { HireMe } from 'ui/components/hire-me'
 import { Note } from 'ui/components/note'
 
 export const metadata: Metadata = {
@@ -78,6 +79,14 @@ export default function SitemapPage() {
           </ul>
         </li>
       </ul>
+
+      <HireMe outerClass="mt-12" />
+
+      <nav role="list" className="!mt-12 flex flex-col items-center text-center text-sm">
+        <a role="listitem" href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/sitemap/page.tsx" className="!text-gray-500">
+          Edit this page on GitHub
+        </a>
+      </nav>
     </>
   )
 }
