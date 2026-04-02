@@ -54,8 +54,8 @@ export default async function OpenSourcePage() {
         beautiful and accessible interfaces.
       </p>
       <p>
-        Because of its CSS-in-JS approach, it's a bit awkward to use with the
-        new Next.js app router and server components, so I'm now letting
+        Because of its CSS-in-JS approach, it&apos;s a bit awkward to use with the
+        new Next.js app router and server components, so I&apos;m now letting
         Tailwind deal with styling. ChatGPT makes a perfect companion for
         refactoring one into the other anyway.
       </p>

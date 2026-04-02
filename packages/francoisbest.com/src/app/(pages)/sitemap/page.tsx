@@ -23,7 +23,7 @@ export default function SitemapPage() {
       </Note>
 
       <p>
-        Also available in <Link href="/sitemap.xml">XML</Link>, if that's your
+        Also available in <Link href="/sitemap.xml">XML</Link>, if that&apos;s your
         thing.
       </p>
 

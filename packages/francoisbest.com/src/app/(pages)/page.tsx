@@ -10,14 +10,14 @@ import { Career } from './_landing-sections/career/career'
 export default function HomePage() {
   return (
     <>
-      <h1>Hi, I'm François Best</h1>
+      <h1>Hi, I&apos;m François Best</h1>
       <p>
         I am a web developer and an{' '}
         <Link href="/open-source">open sourcerer</Link> from France.
       </p>
       <p>
-        This is my digital garden, where I write about the things I'm working on
-        and share what I've learned.
+        This is my digital garden, where I write about the things I&apos;m working on
+        and share what I&apos;ve learned.
       </p>
 
       <HireMe />

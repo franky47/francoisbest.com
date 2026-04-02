@@ -122,7 +122,7 @@ export default function MusicPage() {
 
       <h3>Extreme Prog</h3>
 
-      <p>It gets wild. You've been warned.</p>
+      <p>It gets wild. You&apos;ve been warned.</p>
 
       <SpotifyAlbumGrid>
         <SpotifyAlbum

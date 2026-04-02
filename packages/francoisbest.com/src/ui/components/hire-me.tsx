@@ -17,7 +17,7 @@ export const HireMe: React.FC<HireMeProps> = ({ ...props }) => {
     >
       <p>
         I build <strong>web apps</strong> for startups, businesses and public
-        institutions as a <strong>freelance</strong> web developer and designer.
+        institutions as a <strong>freelance</strong>{' '}web developer and designer.
         Let&apos;s <strong>discuss your needs</strong> and see how I can help.
       </p>
       {typeof AVAILABLE === 'string' && (

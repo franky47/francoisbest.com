@@ -20,13 +20,13 @@ export function AboutMe() {
       </p>
       <p>
         My hobbies vary a lot based on my current interests, but playing music
-        (piano/synths & guitar) is always a constant. I'm currently learning
+        (piano/synths & guitar) is always a constant. I&apos;m currently learning
         woodworking to build toys for my kids, and take sunrise hikes to enjoy
         the surrounding mountains.
       </p>
       <p>
         I also love cycling, both for transportation and tourism. With my
-        friends, I've toured across 7 countries on my bike, along the French
+        friends, I&apos;ve toured across 7 countries on my bike, along the French
         Atlantic coast, in the Alps and in the Balkans:
       </p>
 
@@ -40,7 +40,7 @@ export function AboutMe() {
 
       <p>
         This is a screenshot of a progressive web app I made for us to track our
-        journeys, it's called <a href="https://stravels.io">Stravels</a> and
+        journeys, it&apos;s called <a href="https://stravels.io">Stravels</a> and
         allowed us to stitch together our Strava activities onto a map.
       </p>
     </>
