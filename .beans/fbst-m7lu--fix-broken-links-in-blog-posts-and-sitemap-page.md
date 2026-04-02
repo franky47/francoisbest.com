@@ -1,11 +1,11 @@
 ---
 # fbst-m7lu
-title: Untitled
+title: Fix broken links in blog posts and sitemap page
 status: completed
 type: bug
 priority: normal
 created_at: 2026-04-02T08:13:55Z
-updated_at: 2026-04-02T09:33:31Z
+updated_at: 2026-04-02T11:11:29Z
 parent: fbst-tzpj
 ---
 

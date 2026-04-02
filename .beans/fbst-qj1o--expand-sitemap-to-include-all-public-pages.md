@@ -1,11 +1,11 @@
 ---
 # fbst-qj1o
-title: Untitled
+title: Expand sitemap to include all public pages
 status: completed
 type: bug
 priority: high
 created_at: 2026-04-02T08:13:13Z
-updated_at: 2026-04-02T08:33:40Z
+updated_at: 2026-04-02T11:11:29Z
 parent: fbst-tzpj
 ---
 

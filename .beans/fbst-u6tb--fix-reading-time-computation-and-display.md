@@ -1,11 +1,11 @@
 ---
 # fbst-u6tb
-title: Untitled
+title: Fix reading time computation and display
 status: completed
 type: bug
 priority: high
 created_at: 2026-04-02T08:13:00Z
-updated_at: 2026-04-02T08:28:19Z
+updated_at: 2026-04-02T11:11:29Z
 parent: fbst-tzpj
 ---
 

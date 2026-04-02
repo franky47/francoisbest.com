@@ -1,11 +1,11 @@
 ---
 # fbst-nv8l
-title: Untitled
+title: Restore HireMe CTA and edit links on static pages
 status: completed
 type: bug
 priority: high
 created_at: 2026-04-02T08:13:26Z
-updated_at: 2026-04-02T09:21:38Z
+updated_at: 2026-04-02T11:11:29Z
 parent: fbst-tzpj
 ---
 
