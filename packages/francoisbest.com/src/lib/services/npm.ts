@@ -94,7 +94,7 @@ async function getAllTimeBulk(
   )
   const now = Temporal.Now.plainDateISO()
   let start = Temporal.PlainDate.from('2015-01-10')
-  let end = start.add({ months: 18 })
+  let end = start.add({ days: 365 })
   const slug = packages.join(',')
   while (Temporal.PlainDate.compare(start, now) < 0) {
     const clampedEnd = Temporal.PlainDate.compare(end, now) > 0 ? now : end
@@ -106,7 +106,7 @@ async function getAllTimeBulk(
       }
     }
     start = end
-    end = start.add({ months: 18 })
+    end = start.add({ days: 365 })
   }
   return totals
 }
@@ -207,9 +207,7 @@ async function get<T = unknown>(
     let responseText = ''
     try {
       const res = await fetch(url, {
-        ...(attempt === 0
-          ? { next: { revalidate: 86_400, tags: ['npm'] } }
-          : { cache: 'no-store' })
+        next: { revalidate: 86_400, tags: ['npm'] }
       })
       responseText = await res.text()
       if (!res.ok) {
