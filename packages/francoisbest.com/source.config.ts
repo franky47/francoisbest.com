@@ -24,7 +24,6 @@ const codeHighlightingOptions: PrettyCodeOptions = {
     if (!element.properties) {
       element.properties = {}
     }
-    element.properties.style = 'margin-bottom:-1.5rem;font-size:0.85em;'
     element.properties.className = ['font-mono']
     const fileIcon = fromHtml(
       `<svg
@@ -57,7 +56,7 @@ const codeHighlightingOptions: PrettyCodeOptions = {
     if (!element.properties) {
       element.properties = {}
     }
-    element.properties.style = 'margin-top:-1.5rem;text-align:center;'
+    element.properties.style = 'text-align:center;'
   }
 }
 

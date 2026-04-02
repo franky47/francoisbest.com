@@ -103,6 +103,36 @@ h4 > a:hover > .icon.icon-link::after {
 
 /* Code highlighting with rehype-pretty-code / shiki */
 
+figure[data-rehype-pretty-code-figure] > figcaption:first-child {
+  background: #1f2028;
+  font-size: 0.85em;
+  color: #828bb8;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #2f334d;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+figure[data-rehype-pretty-code-figure]:has(> figcaption:first-child) > pre {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+figure[data-rehype-pretty-code-figure] > figcaption:last-child {
+  background: #1f2028;
+  font-size: 0.85em;
+  color: #828bb8;
+  padding: 0.4rem 1rem;
+  border-top: 1px solid #2f334d;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+figure[data-rehype-pretty-code-figure]:has(> figcaption:last-child) > pre {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
 pre {
   @apply rounded-lg !px-0;
 }
