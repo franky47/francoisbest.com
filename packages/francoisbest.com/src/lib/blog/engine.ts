@@ -1,7 +1,7 @@
-import readingTime from 'reading-time'
 import 'server-only'
 import { blogSource } from 'lib/source'
 import { PostMetadata } from './defs'
+import { computeReadingTime } from './reading-time'
 
 export type Post = {
   slug: string[]
@@ -42,6 +42,6 @@ function pageToPost(page: FumadocsPage): Post {
       publicationDate: page.data.publicationDate,
       tags: page.data.tags
     },
-    readingTime: readingTime(page.data.description ?? '').text
+    readingTime: computeReadingTime(page.slugs)
   }
 }

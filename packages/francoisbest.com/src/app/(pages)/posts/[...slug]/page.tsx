@@ -1,4 +1,5 @@
 import { getAllPosts } from 'lib/blog'
+import { computeReadingTime } from 'lib/blog/reading-time'
 import { getMdxComponents } from 'lib/mdx-components'
 import { blogSource } from 'lib/source'
 import type { Metadata } from 'next'
@@ -35,6 +36,7 @@ export default async function BlogPost({ params }: PageProps) {
   if (!page) notFound()
 
   const { body: Content, title, publicationDate, tags } = page.data
+  const readingTimeText = computeReadingTime(slug)
   const slugPath = slug.join('/')
   const editUrl = `https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/content/blog/${slugPath}/index.mdx`
   const hnUrl = `https://hn.algolia.com/?q=${encodeURIComponent(url(`/posts/${slugPath}`))}`
@@ -56,6 +58,7 @@ export default async function BlogPost({ params }: PageProps) {
               Unpublished
             </span>
           )}
+          {separator}{readingTimeText}
           {tags && Boolean(tags.length) && (
             <TagsNav tags={tags} className="ml-auto" />
           )}
