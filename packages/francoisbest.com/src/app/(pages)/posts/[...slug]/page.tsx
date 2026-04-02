@@ -26,7 +26,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!page) return {}
   return {
     title: page.data.title,
-    description: page.data.description
+    description: page.data.description,
+    ...(page.data.canonical && {
+      alternates: { canonical: page.data.canonical }
+    })
   }
 }
 

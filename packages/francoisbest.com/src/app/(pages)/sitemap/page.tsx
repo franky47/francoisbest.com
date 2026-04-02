@@ -63,21 +63,6 @@ export default function SitemapPage() {
           <Link href="/horcrux">Horcrux</Link>, a playground for Shamir Secret
           Sharing
         </li>
-        <li>
-          End-to-end encryption demo (for{' '}
-          <a href="https://github.com/47ng/simple-e2ee">
-            <code>47ng/simple-e2ee</code>
-          </a>
-          )
-          <ul>
-            <li>
-              <Link href="/e2ee/encrypt">Encrypt</Link>
-            </li>
-            <li>
-              <Link href="/e2ee/decrypt">Decrypt</Link>
-            </li>
-          </ul>
-        </li>
       </ul>
 
       <HireMe outerClass="mt-12" />

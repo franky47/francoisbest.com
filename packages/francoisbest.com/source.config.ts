@@ -66,7 +66,8 @@ export const blog = defineCollections({
   dir: './content/blog',
   schema: frontmatterSchema.extend({
     publicationDate: z.coerce.date().optional(),
-    tags: z.array(z.string()).optional()
+    tags: z.array(z.string()).optional(),
+    canonical: z.string().optional()
   }),
   mdxOptions: applyMdxPreset({
     remarkPlugins: [remarkGfm, remarkSmartypants],
