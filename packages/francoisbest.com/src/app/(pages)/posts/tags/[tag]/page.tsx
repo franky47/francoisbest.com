@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function TagPage({ params }: PageProps) {
   const tag = decodeURIComponent((await params).tag)
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
   const filtered = posts.filter(post => post.meta.tags?.includes(tag))
   return (
     <>
@@ -51,8 +51,8 @@ export default async function TagPage({ params }: PageProps) {
   )
 }
 
-export function generateStaticParams() {
-  const posts = getAllPosts()
+export async function generateStaticParams() {
+  const posts = await getAllPosts()
   const tags = Array.from(new Set(posts.flatMap(post => post.meta.tags ?? [])))
   return tags.map(tag => ({ tag }))
 }

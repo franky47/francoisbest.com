@@ -37,7 +37,7 @@ export async function GET(
   }
 
   const now = Date.now()
-  const allPosts = getAllPosts()
+  const allPosts = await getAllPosts()
   const publishedPosts = allPosts.filter(
     post => (post.meta.publicationDate?.valueOf() ?? Infinity) < now
   )

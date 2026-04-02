@@ -11,7 +11,7 @@ export const BlogPostEmbed: React.FC<BlogPostEmbedProps> = async ({
   className = 'my-8',
   slug
 }) => {
-  const post = getPost(slug)
+  const post = await getPost(slug)
   if (!post) return null
   return (
     <EmbedFrame Icon={FiBookmark} className={className}>

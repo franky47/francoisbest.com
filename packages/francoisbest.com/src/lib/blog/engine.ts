@@ -10,21 +10,20 @@ export type Post = {
   readingTime: string
 }
 
-export function getAllPosts(): Post[] {
+export async function getAllPosts(): Promise<Post[]> {
   const pages = blogSource.getPages()
-  return pages
-    .map(pageToPost)
-    .sort((a, b) => {
-      const aPub = a.meta.publicationDate?.valueOf() ?? Infinity
-      const bPub = b.meta.publicationDate?.valueOf() ?? Infinity
-      if (aPub === bPub) {
-        return a.meta.title > b.meta.title ? 1 : -1
-      }
-      return aPub > bPub ? -1 : 1
-    })
+  const posts = await Promise.all(pages.map(pageToPost))
+  return posts.sort((a, b) => {
+    const aPub = a.meta.publicationDate?.valueOf() ?? Infinity
+    const bPub = b.meta.publicationDate?.valueOf() ?? Infinity
+    if (aPub === bPub) {
+      return a.meta.title > b.meta.title ? 1 : -1
+    }
+    return aPub > bPub ? -1 : 1
+  })
 }
 
-export function getPost(slug: string[]): Post | undefined {
+export async function getPost(slug: string[]): Promise<Post | undefined> {
   const page = blogSource.getPage(slug)
   if (!page) return undefined
   return pageToPost(page)
@@ -32,7 +31,7 @@ export function getPost(slug: string[]): Post | undefined {
 
 type FumadocsPage = ReturnType<typeof blogSource.getPages>[number]
 
-function pageToPost(page: FumadocsPage): Post {
+async function pageToPost(page: FumadocsPage): Promise<Post> {
   return {
     slug: page.slugs,
     urlPath: page.url,
@@ -42,6 +41,6 @@ function pageToPost(page: FumadocsPage): Post {
       publicationDate: page.data.publicationDate,
       tags: page.data.tags
     },
-    readingTime: computeReadingTime(page.slugs)
+    readingTime: await computeReadingTime(page.slugs)
   }
 }

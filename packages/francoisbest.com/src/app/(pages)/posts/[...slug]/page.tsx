@@ -15,8 +15,8 @@ type PageProps = {
   params: Promise<{ slug: string[] }>
 }
 
-export function generateStaticParams() {
-  const posts = getAllPosts()
+export async function generateStaticParams() {
+  const posts = await getAllPosts()
   return posts.map(post => ({ slug: post.slug }))
 }
 
@@ -39,7 +39,7 @@ export default async function BlogPost({ params }: PageProps) {
   if (!page) notFound()
 
   const { body: Content, title, publicationDate, tags } = page.data
-  const readingTimeText = computeReadingTime(slug)
+  const readingTimeText = await computeReadingTime(slug)
   const slugPath = slug.join('/')
   const editUrl = `https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/content/blog/${slugPath}/index.mdx`
   const hnUrl = `https://hn.algolia.com/?q=${encodeURIComponent(url(`/posts/${slugPath}`))}`

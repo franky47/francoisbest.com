@@ -7,8 +7,8 @@ export const metadata = {
   description: 'A list of the common topics I talk about'
 }
 
-export default function TagsIndex() {
-  const posts = getAllPosts()
+export default async function TagsIndex() {
+  const posts = await getAllPosts()
   // Count tag frequency
   const tags = posts
     .flatMap(post => post.meta.tags ?? [])

@@ -13,8 +13,8 @@ type PageProps = {
 
 export const dynamicParams = false
 
-export function generateStaticParams() {
-  const posts = getAllPosts()
+export async function generateStaticParams() {
+  const posts = await getAllPosts()
   const years = Array.from(
     new Set(
       posts
@@ -27,7 +27,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { year } = await params
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
   const fromThisYear = posts.filter(
     post => post.meta.publicationDate?.getFullYear() === parseInt(year)
   )
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function YearIndex({ params }: PageProps) {
   const { year } = await params
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
   const fromThisYear = posts.filter(
     post => post.meta.publicationDate?.getFullYear() === parseInt(year)
   )
