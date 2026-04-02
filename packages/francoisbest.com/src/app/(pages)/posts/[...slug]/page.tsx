@@ -1,15 +1,15 @@
-import { getAllPosts } from 'lib/blog'
+import { getAllPosts, getPost } from 'lib/blog'
 import { computeReadingTime } from 'lib/blog/reading-time'
 import { getMdxComponents } from 'lib/mdx-components'
+import { url } from 'lib/paths'
 import { blogSource } from 'lib/source'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { formatDate } from 'ui/format'
 import { HireMe } from 'ui/components/hire-me'
 import { Logo } from 'ui/components/logo'
 import { TagsNav } from 'ui/components/tag'
-import { url } from 'lib/paths'
+import { formatDate } from 'ui/format'
 
 type PageProps = {
   params: Promise<{ slug: string[] }>
@@ -24,9 +24,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const page = blogSource.getPage(slug)
   if (!page) return {}
+  const post = await getPost(slug)
   return {
     title: page.data.title,
     description: page.data.description,
+    ...(post?.ogImageExtension && {
+      openGraph: {
+        images: [{ url: url(`/posts/og/${slug.join('/')}`) }]
+      }
+    }),
     ...(page.data.canonical && {
       alternates: { canonical: page.data.canonical }
     })

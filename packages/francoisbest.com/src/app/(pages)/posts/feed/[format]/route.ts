@@ -76,6 +76,9 @@ export async function GET(
       title: post.meta.title,
       id: post.urlPath,
       link: postUrl.toString(),
+      image: post.ogImageExtension
+        ? url(`/posts/og/${post.slug.join('/')}`)
+        : undefined,
       category: post.meta.tags?.map(tag => ({
         name: tag,
         term: tag

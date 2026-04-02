@@ -1,13 +1,20 @@
+import fs from 'node:fs/promises'
+import path from 'node:path'
 import 'server-only'
 import { blogSource } from 'lib/source'
 import { PostMetadata } from './defs'
 import { computeReadingTime } from './reading-time'
+
+const CONTENT_DIR = path.join(process.cwd(), 'content/blog')
+
+export type OgImageExtension = 'jpg' | 'png'
 
 export type Post = {
   slug: string[]
   urlPath: string
   meta: PostMetadata
   readingTime: string
+  ogImageExtension?: OgImageExtension
 }
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -32,6 +39,10 @@ export async function getPost(slug: string[]): Promise<Post | undefined> {
 type FumadocsPage = ReturnType<typeof blogSource.getPages>[number]
 
 async function pageToPost(page: FumadocsPage): Promise<Post> {
+  const [readingTime, ogImageExtension] = await Promise.all([
+    computeReadingTime(page.slugs),
+    detectOgImage(page.slugs)
+  ])
   return {
     slug: page.slugs,
     urlPath: page.url,
@@ -41,6 +52,22 @@ async function pageToPost(page: FumadocsPage): Promise<Post> {
       publicationDate: page.data.publicationDate,
       tags: page.data.tags
     },
-    readingTime: await computeReadingTime(page.slugs)
+    readingTime,
+    ogImageExtension
   }
+}
+
+async function detectOgImage(
+  slugs: string[]
+): Promise<OgImageExtension | undefined> {
+  const dir = path.join(CONTENT_DIR, ...slugs)
+  for (const ext of ['jpg', 'png'] as const) {
+    try {
+      await fs.access(path.join(dir, `opengraph-image.${ext}`))
+      return ext
+    } catch {
+      continue
+    }
+  }
+  return undefined
 }
