@@ -53,7 +53,7 @@ export default function SitemapPage() {
           </Link>
         </li>
         <li>
-          <Link href="/music">Music I enjoy listening too</Link>
+          <Link href="/music">Music I enjoy listening to</Link>
         </li>
       </ul>
 

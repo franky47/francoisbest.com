@@ -8,6 +8,6 @@ export async function computeReadingTime(slug: string[]): Promise<string> {
   const filePath = path.join(CONTENT_DIR, ...slug, 'index.mdx')
   const content = await fs.readFile(filePath, 'utf-8')
   // Strip YAML frontmatter before computing
-  const body = content.replace(/^---\n[\s\S]*?\n---/, '')
+  const body = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '')
   return readingTime(body).text
 }

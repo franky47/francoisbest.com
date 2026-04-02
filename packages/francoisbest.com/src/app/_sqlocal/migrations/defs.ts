@@ -17,6 +17,7 @@ export async function getServerMigrations(): Promise<ServerMigration[]> {
   const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const files = await fs.readdir(__dirname)
   const migrationFiles = files.filter(f => f.endsWith('.sql'))
+  migrationFiles.sort()
   return Promise.all(
     migrationFiles.map(async file => {
       const filePath = resolve(import.meta.url, file)

@@ -76,7 +76,6 @@ export async function GET(
       title: post.meta.title,
       id: post.urlPath,
       link: postUrl.toString(),
-      image: url(`${post.urlPath}/opengraph-image`),
       category: post.meta.tags?.map(tag => ({
         name: tag,
         term: tag
@@ -98,10 +97,16 @@ export async function GET(
   })
 
   if (format === 'rss') {
-    return new Response(feed.rss2())
+    return new Response(feed.rss2(), {
+      headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' }
+    })
   }
   if (format === 'atom') {
-    return new Response(feed.atom1())
+    return new Response(feed.atom1(), {
+      headers: { 'Content-Type': 'application/atom+xml; charset=utf-8' }
+    })
   }
-  return new Response(feed.json1())
+  return new Response(feed.json1(), {
+    headers: { 'Content-Type': 'application/json; charset=utf-8' }
+  })
 }

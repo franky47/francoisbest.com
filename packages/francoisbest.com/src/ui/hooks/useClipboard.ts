@@ -4,10 +4,14 @@ export function useClipboard(value: string, timeout = 1500) {
   const [hasCopied, setHasCopied] = useState(false)
 
   const onCopy = useCallback(() => {
-    navigator.clipboard.writeText(value).then(
-      () => setHasCopied(true),
-      () => {} // Clipboard write failed; hasCopied stays false
-    )
+    try {
+      navigator.clipboard.writeText(value).then(
+        () => setHasCopied(true),
+        () => {} // Clipboard write failed; hasCopied stays false
+      )
+    } catch {
+      // Clipboard API unavailable (non-secure context, etc.)
+    }
   }, [value])
 
   useEffect(() => {
