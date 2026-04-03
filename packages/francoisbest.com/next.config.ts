@@ -87,22 +87,6 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  async headers() {
-    return [
-      // For sqlocal / OPFS
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: "worker-src 'self';"
-          },
-          { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
-          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' }
-        ]
-      }
-    ]
-  }
 }
 
 const withAnalyzer = configureBundleAnalyzer({
