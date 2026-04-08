@@ -27,7 +27,7 @@
     "dayjs": "1.11.13",
     "dompurify": "3.2.6",
     "drizzle-kit": "0.31.4",
-    "drizzle-orm": "0.44.2",
+    "drizzle-orm": "0.45.2",
     "eslint": "9.30.1",
     "eslint-config-next": "15.3.5",
     "feed": "5.1.0",
