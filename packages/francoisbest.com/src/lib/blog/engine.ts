@@ -1,24 +1,26 @@
-import { globby } from 'globby'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import readingTime from 'reading-time'
 import 'server-only'
-import { filePathToUrlPath, nextJsAppDir, postsDir } from '../paths'
-import { PostMetadata, postMetadataSchema } from './defs'
+import { blogSource } from 'lib/source'
+import { PostMetadata } from './defs'
+import { computeReadingTime } from './reading-time'
+
+const CONTENT_DIR = path.join(process.cwd(), 'content/blog')
+
+export type OgImageExtension = 'jpg' | 'png'
 
 export type Post = {
-  filePath: string
+  slug: string[]
   urlPath: string
   meta: PostMetadata
-  ogImageUrlPath?: string
   readingTime: string
+  ogImageExtension?: OgImageExtension
 }
 
-export async function getAllPosts() {
-  const mdxFiles = await listAllMdxFiles()
-  const allPosts = await Promise.all(mdxFiles.map(getPost))
-  // Drafts first in lexicographic order, then newest on top
-  return allPosts.sort((a, b) => {
+export async function getAllPosts(): Promise<Post[]> {
+  const pages = blogSource.getPages()
+  const posts = await Promise.all(pages.map(pageToPost))
+  return posts.sort((a, b) => {
     const aPub = a.meta.publicationDate?.valueOf() ?? Infinity
     const bPub = b.meta.publicationDate?.valueOf() ?? Infinity
     if (aPub === bPub) {
@@ -28,85 +30,44 @@ export async function getAllPosts() {
   })
 }
 
-async function listAllMdxFiles(sourceDir = postsDir): Promise<string[]> {
-  // const tick = performance.now()
-  const files = await globby(['**/page.mdx'], { cwd: sourceDir })
-  // console.trace(
-  //   `${process.pid} listAllMdxFiles (${performance.now() - tick}ms)`
-  // )
-  // Return absolute paths
-  return files.map(file => path.resolve(sourceDir, file))
+export async function getPost(slug: string[]): Promise<Post | undefined> {
+  const page = blogSource.getPage(slug)
+  if (!page) return undefined
+  return pageToPost(page)
 }
 
-export async function getPost(filePath: string): Promise<Post> {
-  // const tick = performance.now()
-  const urlPath = filePathToUrlPath(filePath)
-  const contents = await fs.readFile(filePath, 'utf-8')
-  const metadataHeader = contents.slice(0, contents.indexOf('\n}\n') + 2)
-  const articleBody = contents.slice(metadataHeader.length)
-  try {
-    const meta = postMetadataSchema.parse(
-      new Function(
-        metadataHeader.replace(/^export const metadata =/, 'return')
-      )()
-    )
-    const ogImageUrlPath = await getOpenGraphImageUrlPath(filePath)
-    if (meta.publicationDate && !ogImageUrlPath) {
-      console.warn(`Missing OpenGraph image for published post ${urlPath}`)
-    }
-    return {
-      meta,
-      ogImageUrlPath,
-      readingTime: readingTime(articleBody).text,
-      filePath,
-      urlPath
-    }
-  } catch (error) {
-    console.error(`Failed to parse metadata for post ${urlPath}:`)
-    console.error(metadataHeader)
-    throw error
-  } finally {
-    // console.trace(
-    //   `${process.pid} getPost ${filePath} (${performance.now() - tick}ms)`
-    // )
+type FumadocsPage = ReturnType<typeof blogSource.getPages>[number]
+
+async function pageToPost(page: FumadocsPage): Promise<Post> {
+  const [readingTime, ogImageExtension] = await Promise.all([
+    computeReadingTime(page.slugs),
+    detectOgImage(page.slugs)
+  ])
+  return {
+    slug: page.slugs,
+    urlPath: page.url,
+    meta: {
+      title: page.data.title ?? '',
+      description: page.data.description ?? '',
+      publicationDate: page.data.publicationDate,
+      tags: page.data.tags
+    },
+    readingTime,
+    ogImageExtension
   }
 }
 
-/**
- * Next.js injects a suffix for og:images when under a route group, see
- * https://github.com/vercel/next.js/pull/47985
- * In order to correctly resolve the right URLs, we're replicating this here.
- */
-async function getOpenGraphImageUrlPath(pageFilePath: string) {
-  const extensions = ['jpg', 'png']
-  for (const ext of extensions) {
-    const ogPath = path.resolve(
-      path.dirname(pageFilePath),
-      `opengraph-image.${ext}`
-    )
+async function detectOgImage(
+  slugs: string[]
+): Promise<OgImageExtension | undefined> {
+  const dir = path.join(CONTENT_DIR, ...slugs)
+  for (const ext of ['jpg', 'png'] as const) {
     try {
-      const stat = await fs.stat(ogPath)
-      if (!stat.isFile()) {
-        continue
-      }
-      const segment = path.dirname(ogPath.replace(nextJsAppDir, ''))
-      const suffix = djb2Hash(segment)
-      return filePathToUrlPath(
-        ogPath.replace(new RegExp(`\\.${ext}$`), `-${suffix}.${ext}`)
-      )
+      await fs.access(path.join(dir, `opengraph-image.${ext}`))
+      return ext
     } catch {
       continue
     }
   }
   return undefined
-}
-
-// http://www.cse.yorku.ca/~oz/hash.html
-function djb2Hash(str: string) {
-  let hash = 5381
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i)
-    hash = (hash << 5) + hash + char
-  }
-  return Math.abs(hash).toString(36).slice(0, 6)
 }

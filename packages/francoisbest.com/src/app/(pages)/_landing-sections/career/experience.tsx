@@ -19,7 +19,7 @@ export const Experience: React.FC<
   return (
     <section className="not-prose mb-12 flex flex-col space-y-4" {...props}>
       <div className="flex items-center">
-        <Icon alt={title} className="mr-2 h-8 w-8" />
+        <Icon aria-label={title} className="mr-2 h-8 w-8" />
         <a href={url} className="mr-auto">
           <h3 className="my-0 text-xl font-bold">{title}</h3>
         </a>
@@ -57,7 +57,7 @@ export const Client: React.FC<ClientProps> = ({
     <li className="ml-4" {...props}>
       <div className="mb-8 flex flex-col space-y-2">
         <div className="flex items-center">
-          {Icon && <Icon alt={title} className="mr-2 h-6 w-6" />}
+          {Icon && <Icon aria-label={title} className="mr-2 h-6 w-6" />}
           {url ? (
             <a href={url}>
               <h4 className="my-0 font-bold">{title}</h4>

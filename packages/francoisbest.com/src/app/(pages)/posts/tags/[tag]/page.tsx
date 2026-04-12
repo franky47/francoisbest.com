@@ -14,10 +14,10 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const { tag } = await params
-  return Promise.resolve({
+  return {
     title: `${tag} posts`,
-    description: `A list of posts talking about \'${tag}\'`
-  })
+    description: `A list of posts talking about '${tag}'`
+  }
 }
 
 export default async function TagPage({ params }: PageProps) {

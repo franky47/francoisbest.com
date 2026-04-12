@@ -94,8 +94,8 @@ function generateSection({
         ? 0.5
         : 0
       : variant === 'stagger'
-      ? horcrux
-      : 0
+        ? horcrux
+        : 0
   const angle = (index + 0.5) / 8
   const angleA = index / 8
   const angleB = (index + 1) / 8
@@ -104,8 +104,8 @@ function generateSection({
     variant === 'gem'
       ? 0
       : variant === 'flower'
-      ? 0.25 * outerRadius
-      : outerRadius
+        ? 0.25 * outerRadius
+        : outerRadius
 
   const path = [
     moveTo({ x: 0, y: 0 }),

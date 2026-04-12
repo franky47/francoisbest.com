@@ -1,4 +1,3 @@
-import { resolve } from 'lib/paths'
 import { BlogPostEmbed } from 'ui/embeds/blog-post-embed'
 import HashvatarDemoPage from './demo'
 
@@ -7,16 +6,11 @@ export const metadata = {
   description: 'Generate your own SHA-256 based avatar'
 }
 
-export default async function HashvatarPage() {
+export default function HashvatarPage() {
   return (
     <>
       <HashvatarDemoPage />
-      <BlogPostEmbed
-        filePath={resolve(
-          import.meta.url,
-          '../../(pages)/posts/(content)/2021/hashvatars/page.mdx'
-        )}
-      />
+      <BlogPostEmbed slug={['2021', 'hashvatars']} />
     </>
   )
 }

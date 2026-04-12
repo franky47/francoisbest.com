@@ -1,13 +1,13 @@
 import { Logo } from 'ui/components/logo'
 import { Note } from 'ui/components/note'
 import { Client, Experience } from './experience'
-import ArturiaLogo from './icons/arturia.svg'
-import GaelLogo from './icons/gael.svg'
-import HeronLogo from './icons/heron.svg'
-import AcquereurLogo from './icons/lacquereur.svg'
-import MarianneLogo from './icons/marianne.svg'
-import PulsarLogo from './icons/pulsar.svg'
-import SlateLogo from './icons/slate-digital.svg'
+import ArturiaLogo from './icons/arturia'
+import GaelLogo from './icons/gael'
+import HeronLogo from './icons/heron'
+import AcquereurLogo from './icons/lacquereur'
+import MarianneLogo from './icons/marianne'
+import PulsarLogo from './icons/pulsar'
+import SlateLogo from './icons/slate-digital'
 
 export type CareerProps = React.ComponentProps<'div'> & {}
 

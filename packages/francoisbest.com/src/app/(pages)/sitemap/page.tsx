@@ -1,0 +1,77 @@
+import { Metadata } from 'next'
+import Link from 'next/link'
+import { HireMe } from 'ui/components/hire-me'
+import { Note } from 'ui/components/note'
+
+export const metadata: Metadata = {
+  title: 'Site map',
+  description:
+    "Welcome to the Dungeon. It's dangerous to go alone. Here be dragons."
+}
+
+export default function SitemapPage() {
+  return (
+    <>
+      <h1>Site map</h1>
+
+      <Note status="warning" title="Here be dragons.">
+        Links might break. If they do, let me know by{' '}
+        <a href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/sitemap/page.tsx">
+          editing this page on GitHub
+        </a>
+        .
+      </Note>
+
+      <p>
+        Also available in <Link href="/sitemap.xml">XML</Link>, if that&apos;s your
+        thing.
+      </p>
+
+      <h2>Main Content</h2>
+      <ul>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/posts">Articles</Link>
+        </li>
+        <li>
+          <Link href="/open-source">Open Source</Link>
+        </li>
+      </ul>
+      <p>
+        Here are a few other pages not worthy of featuring on the main index
+        page:
+      </p>
+      <ul>
+        <li>
+          <Link href="/public-keys">My public keys</Link>
+        </li>
+        <li>
+          <Link href="/uses">
+            <code>/uses</code>
+          </Link>
+        </li>
+        <li>
+          <Link href="/music">Music I enjoy listening to</Link>
+        </li>
+      </ul>
+
+      <h2>Demos & Tests</h2>
+      <ul>
+        <li>
+          <Link href="/horcrux">Horcrux</Link>, a playground for Shamir Secret
+          Sharing
+        </li>
+      </ul>
+
+      <HireMe outerClass="mt-12" />
+
+      <nav role="list" className="!mt-12 flex flex-col items-center text-center text-sm">
+        <a role="listitem" href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/sitemap/page.tsx" className="!text-gray-500">
+          Edit this page on GitHub
+        </a>
+      </nav>
+    </>
+  )
+}
