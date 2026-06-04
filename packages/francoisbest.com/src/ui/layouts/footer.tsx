@@ -2,7 +2,7 @@ import { chiffreConfig } from 'lib/services/chiffre'
 import Link from 'next/link'
 import React from 'react'
 import { BsDiscord, BsMastodon } from 'react-icons/bs'
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi'
 import { IconButton, IconButtonProps } from 'ui/components/buttons/icon-button'
 
 export const Footer: React.FC = () => {
@@ -39,13 +39,13 @@ export const Footer: React.FC = () => {
             {...iconButtonProps}
           />
         </a>
-        {/* <a href="https://twitter.com/fortysevenfx" rel="me">
+        <a href="https://twitter.com/fortysevenfx" rel="me">
           <IconButton
             icon={<FiTwitter />}
             aria-label="Twitter/X"
             {...iconButtonProps}
           />
-        </a> */}
+        </a>
         <a href="https://discord.com/users/francois.best#7881">
           <IconButton
             icon={<BsDiscord />}

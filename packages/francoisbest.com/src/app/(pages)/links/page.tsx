@@ -4,6 +4,7 @@ export default function Page() {
   return (
     <>
       <h1>Links</h1>
+      <p>Where to find me online:</p>
       <ul>
         <li>
           <a href="https://bsky.app/profile/francoisbest.com">Bluesky</a>
