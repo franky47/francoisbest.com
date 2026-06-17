@@ -21,7 +21,7 @@
     "@stablelib/tss": "2.0.1",
     "@tailwindcss/postcss": "4.1.11",
     "@tailwindcss/typography": "0.5.16",
-    "dompurify": "3.3.3",
+    "dompurify": "3.4.9",
     "feed": "5.1.0",
     "fumadocs-core": "16.7.9",
     "fumadocs-mdx": "14.2.11",
