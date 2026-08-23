@@ -1,3 +1,104 @@
+---
+lockfileVersion: '9.0'
+
+importers:
+
+  .:
+    configDependencies: {}
+    packageManagerDependencies:
+      pnpm:
+        specifier: 12.0.0-rc.8
+        version: 12.0.0-rc.8
+
+packages:
+
+  '@pnpm/exe.darwin-arm64@12.0.0-rc.8':
+    resolution: {integrity: sha512-XYgZKxljZDstk+AWEL9c7VVtOYXy2axsNuovybAiZdn3Te2UtpijeaflwVhoHGDuyNKn1Kx/732efkDuAmaVvQ==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@pnpm/exe.darwin-x64@12.0.0-rc.8':
+    resolution: {integrity: sha512-Sp7QH8SE4oUyq1H27vEN2EwMu71Ai2hnaD7I51RDb9XgoyzkCqPvOS4ArTacF6PHzem83DikM96ri8UALNnBYg==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@pnpm/exe.linux-arm64-musl@12.0.0-rc.8':
+    resolution: {integrity: sha512-zDykZQZSheZqwJhtFXOXB6jJdzYM7/e63TM4yDwFGulu1wglsXzlxUbGXe4h/JoARaTxi3aNNrY/vjPA3qE0RA==}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@pnpm/exe.linux-arm64@12.0.0-rc.8':
+    resolution: {integrity: sha512-cB4h4MuzTCUGJ+jwOTLq+Mn6v5ACqmr63OuFhbfjXtaGGsevEdNkOpDZPVTECtrL9QafgxHwSwXOHDuX+khXSg==}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@pnpm/exe.linux-x64-musl@12.0.0-rc.8':
+    resolution: {integrity: sha512-nATQIAF7FhZURrb5pchSxGln+Oo2AIQk/pLmiPY4CImQpqQA3kfCFA3cIpR0B5Wd+YLSztXnOfbmtIi2JqC+tw==}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@pnpm/exe.linux-x64@12.0.0-rc.8':
+    resolution: {integrity: sha512-hyl3+mcTHO29oAM7nlsSlZBDaVQa1EOKIJk6UP89w0YvEcW7QlFmqrIkyVU/WdVi4/zfMnlokvz5+Goa+plPzg==}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@pnpm/exe.win32-arm64@12.0.0-rc.8':
+    resolution: {integrity: sha512-C8zZEjUT/c4XgWdSAxga7hd+ycCbYFG+odYUxBNajgcAvihT9K0jkLQy1ZjjFnioSjOelTU1hBBcTvNE4rmHdw==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@pnpm/exe.win32-x64@12.0.0-rc.8':
+    resolution: {integrity: sha512-qMIjnUQZvADhJd8dIlvJ9P6TJwwp2umZfD2/JMJ9ioMx53dCOtvsjMMOQTHabsDuJNWz/xZPQBa7BkPpiOzXeA==}
+    cpu: [x64]
+    os: [win32]
+
+  pnpm@12.0.0-rc.8:
+    resolution: {integrity: sha512-mmOJqeXlh1fc2f4BG6gmN9tGQOD9+zc+wzVuXK9s+cvWrXaQsDD2eRU7M9QMJKm+blPnU0/B8Q3cqFXn8dci1g==}
+    engines: {node: '>=18.*'}
+    hasBin: true
+
+snapshots:
+
+  '@pnpm/exe.darwin-arm64@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.darwin-x64@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.linux-arm64-musl@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.linux-arm64@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.linux-x64-musl@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.linux-x64@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.win32-arm64@12.0.0-rc.8':
+    optional: true
+
+  '@pnpm/exe.win32-x64@12.0.0-rc.8':
+    optional: true
+
+  pnpm@12.0.0-rc.8:
+    optionalDependencies:
+      '@pnpm/exe.darwin-arm64': 12.0.0-rc.8
+      '@pnpm/exe.darwin-x64': 12.0.0-rc.8
+      '@pnpm/exe.linux-arm64': 12.0.0-rc.8
+      '@pnpm/exe.linux-arm64-musl': 12.0.0-rc.8
+      '@pnpm/exe.linux-x64': 12.0.0-rc.8
+      '@pnpm/exe.linux-x64-musl': 12.0.0-rc.8
+      '@pnpm/exe.win32-arm64': 12.0.0-rc.8
+      '@pnpm/exe.win32-x64': 12.0.0-rc.8
+
+---
 lockfileVersion: '9.0'
 
 settings:
@@ -1407,9 +1508,6 @@ packages:
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
-  '@types/node@26.2.0':
-    resolution: {integrity: sha512-5IviulTZeRNp2vAJ514cc/HUlY5nZ9fCbq9DMyC52BrhFZACo3nI0R7qBxhQmo/d27NFe96ur/b7Wwxklda+kg==}
-
   '@types/qrcode@1.5.6':
     resolution: {integrity: sha512-te7NQcV2BOvdj2b1hCAHzAoMNuj65kNBMz0KBaxM6c3VGBOhU0dURQKOtH8CFNI/dsKkwlv32p26qYQTWoB5bw==}
 
@@ -1563,8 +1661,8 @@ packages:
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
-  baseline-browser-mapping@2.11.18:
-    resolution: {integrity: sha512-1iEmLEYSiE1SeBoAfPo/Mnx3PzfzHUkDK61ASkCpuk3YXugYLH5DYK1SzqV55F8FMI6s0F+/tCP7Polz1QRjxw==}
+  baseline-browser-mapping@2.11.17:
+    resolution: {integrity: sha512-KAUDn1OSS0fmPlGO+NOUMRcOQ/b/shUBH3OgkG73mPgdf+JD/BQ6fHboGxNOxnUmlwcq+lLq3dTkayRPuSfXwg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2753,9 +2851,6 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici-types@8.3.0:
-    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
-
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
@@ -3752,17 +3847,14 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
-  '@types/node@26.2.0':
-    dependencies:
-      undici-types: 8.3.0
-
   '@types/qrcode@1.5.6':
     dependencies:
-      '@types/node': 26.2.0
+      '@types/node': 24.13.3
 
   '@types/react-dom@19.2.4(@types/react@19.2.18)':
     dependencies:
       '@types/react': 19.2.18
+      react: 19.2.8
 
   '@types/react@19.2.18':
     dependencies:
@@ -3877,7 +3969,7 @@ snapshots:
 
   bail@2.0.2: {}
 
-  baseline-browser-mapping@2.11.18: {}
+  baseline-browser-mapping@2.11.17: {}
 
   camelcase@5.3.1: {}
 
@@ -4911,7 +5003,7 @@ snapshots:
     dependencies:
       '@next/env': 16.3.2
       '@swc/helpers': 0.5.23
-      baseline-browser-mapping: 2.11.18
+      baseline-browser-mapping: 2.11.17
       caniuse-lite: 1.0.30001809
       postcss: 8.5.23
       react: 19.2.8
@@ -5478,8 +5570,6 @@ snapshots:
   unbash@4.0.10: {}
 
   undici-types@7.18.2: {}
-
-  undici-types@8.3.0: {}
 
   unified@11.0.5:
     dependencies:
