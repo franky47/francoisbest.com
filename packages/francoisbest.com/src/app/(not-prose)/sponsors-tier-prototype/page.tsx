@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type Model = 'floors' | 'ranked' | 'flat'
+type Model = 'floors' | 'adjusted' | 'flat'
 type Tier = 'Gold' | 'Silver' | 'Bronze' | 'Other'
 type Sponsor = {
   login: string
@@ -126,7 +126,7 @@ const sponsors: Sponsor[] = [
   }
 ]
 
-const models: Model[] = ['floors', 'ranked', 'flat']
+const models: Model[] = ['floors', 'adjusted', 'flat']
 
 const modelCopy = {
   floors: {
@@ -136,12 +136,12 @@ const modelCopy = {
     verdict:
       'Stable and easy to explain, but the current Gold section is empty and most sponsors collapse into Other.'
   },
-  ranked: {
-    name: 'Distribution-aware ranks',
-    shortName: 'Ranked',
-    rule: 'The highest distinct monthly amount is Gold, the second is Silver, the third is Bronze, and every lower positive amount is Other.',
+  adjusted: {
+    name: 'Distribution-adjusted floors',
+    shortName: 'Adjusted floors',
+    rule: 'Gold ≥ $100; Silver $50–99; Bronze $20–49; Other $1–19.',
     verdict:
-      'Produces useful density now, but tier meaning changes whenever the amount distribution changes.'
+      'Keeps stable, understandable boundaries while producing useful density for the current distribution.'
   },
   flat: {
     name: 'Flat control',
@@ -164,11 +164,12 @@ function classify(model: Model, sponsor: Sponsor): Tier {
     if (sponsor.amount >= 50) return 'Bronze'
     return 'Other'
   }
-  const distinctAmounts = [...new Set(sponsors.map(item => item.amount))].sort(
-    (a, b) => b - a
-  )
-  const rank = distinctAmounts.indexOf(sponsor.amount)
-  return tiers[Math.min(rank, tiers.length - 1)]
+  if (model === 'adjusted') {
+    if (sponsor.amount >= 100) return 'Gold'
+    if (sponsor.amount >= 50) return 'Silver'
+    if (sponsor.amount >= 20) return 'Bronze'
+  }
+  return 'Other'
 }
 
 function SponsorGrid({ members }: { members: Sponsor[] }) {
@@ -303,10 +304,10 @@ export default async function SponsorsTierPrototype({
 
         <aside className="mt-16 border-t border-gray-200 pt-8 text-sm text-gray-500 dark:border-gray-800 dark:text-gray-400">
           <p>
-            Boundary probe: the fixed-floor model classifies $200 as Gold, $199
-            and $100 as Silver, $99 and $50 as Bronze, and $49 as Other. Ranked
-            tiers use distinct amount rank rather than dollar boundaries. Flat
-            has no tier boundaries.
+            Boundary probe: fixed floors classify $200 as Gold, $199 and $100 as
+            Silver, $99 and $50 as Bronze, and $49 as Other. Adjusted floors
+            classify $100 as Gold, $99 and $50 as Silver, $49 and $20 as Bronze,
+            and $19 as Other. Flat has no tier boundaries.
           </p>
         </aside>
       </div>
