@@ -1,5 +1,6 @@
 import { Temporal } from '@js-temporal/polyfill'
 import 'server-only'
+import { z } from 'zod'
 
 const NPM_API_URL = process.env.NPM_API_URL || 'https://api.npmjs.org'
 
@@ -13,12 +14,14 @@ export type NpmPackageStatsData = {
   updatedAt: Date
 }
 
-type RangeResponse = {
-  downloads: Array<{
-    downloads: number
-    day: string
-  }>
-}
+const rangeResponseSchema = z.object({
+  downloads: z.array(
+    z.object({
+      downloads: z.number(),
+      day: z.string()
+    })
+  )
+})
 
 async function getLastNDays(
   pkg: string,
@@ -28,16 +31,14 @@ async function getLastNDays(
   const start = today.subtract({ days: n }).toString()
   const end = today.subtract({ days: 1 }).toString()
   const url = `${NPM_API_URL}/downloads/range/${start}:${end}/${pkg}`
-  const { downloads } = await get<RangeResponse>(url)
+  const { downloads } = await get(url, rangeResponseSchema)
   return {
     downloads: downloads.map(d => d.downloads),
     date: end
   }
 }
 
-type PointResponse = {
-  downloads: number
-}
+const pointResponseSchema = z.object({ downloads: z.number() })
 
 async function getAllTime(pkg: string): Promise<number> {
   let downloads: number = 0
@@ -47,7 +48,7 @@ async function getAllTime(pkg: string): Promise<number> {
   while (Temporal.PlainDate.compare(start, now) < 0) {
     const clampedEnd = Temporal.PlainDate.compare(end, now) > 0 ? now : end
     const url = `${NPM_API_URL}/downloads/point/${start.toString()}:${clampedEnd.toString()}/${pkg}`
-    const res = await get<PointResponse | null>(url, 3, [404])
+    const res = await getOptional(url, pointResponseSchema, 3, [404])
     downloads += res?.downloads ?? 0
     start = end
     end = start.add({ months: 18 })
@@ -56,11 +57,11 @@ async function getAllTime(pkg: string): Promise<number> {
 }
 
 async function getVersions(pkg: string): Promise<Record<string, number>> {
-  type VersionsReponse = {
-    downloads: Record<string, number>
-  }
+  const versionsResponseSchema = z.object({
+    downloads: z.record(z.string(), z.number())
+  })
   const url = `${NPM_API_URL}/versions/${encodeURIComponent(pkg)}/last-week`
-  const { downloads } = await get<VersionsReponse>(url)
+  const { downloads } = await get(url, versionsResponseSchema)
   return Object.fromEntries(
     Object.entries(downloads).sort(([, a], [, b]) => (a < b ? 1 : -1))
   )
@@ -70,7 +71,11 @@ export async function fetchNpmPackage(
   pkg: string
 ): Promise<NpmPackageStatsData> {
   const [allTime, { downloads: last30Days, date: lastDate }, versions] =
-    await Promise.all([getAllTime(pkg), getLastNDays(pkg, 30), getVersions(pkg)])
+    await Promise.all([
+      getAllTime(pkg),
+      getLastNDays(pkg, 30),
+      getVersions(pkg)
+    ])
   return {
     packageName: pkg,
     url: `https://npmjs.com/package/${pkg}`,
@@ -83,8 +88,8 @@ export async function fetchNpmPackage(
 }
 
 // Bulk API types
-type BulkPointResponse = Record<string, PointResponse>
-type BulkRangeResponse = Record<string, RangeResponse>
+const bulkPointResponseSchema = z.record(z.string(), pointResponseSchema)
+const bulkRangeResponseSchema = z.record(z.string(), rangeResponseSchema)
 
 async function getAllTimeBulk(
   packages: string[]
@@ -99,7 +104,7 @@ async function getAllTimeBulk(
   while (Temporal.PlainDate.compare(start, now) < 0) {
     const clampedEnd = Temporal.PlainDate.compare(end, now) > 0 ? now : end
     const url = `${NPM_API_URL}/downloads/point/${start.toString()}:${clampedEnd.toString()}/${slug}`
-    const res = await get<BulkPointResponse | null>(url, 3, [404])
+    const res = await getOptional(url, bulkPointResponseSchema, 3, [404])
     if (res) {
       for (const pkg of packages) {
         totals[pkg] += res[pkg]?.downloads ?? 0
@@ -120,7 +125,7 @@ async function getLastNDaysBulk(
   const end = today.subtract({ days: 1 }).toString()
   const slug = packages.join(',')
   const url = `${NPM_API_URL}/downloads/range/${start}:${end}/${slug}`
-  const res = await get<BulkRangeResponse>(url)
+  const res = await get(url, bulkRangeResponseSchema)
   const result: Record<string, { downloads: number[]; date: string }> = {}
   for (const pkg of packages) {
     const data = res[pkg]
@@ -139,33 +144,29 @@ export async function fetchAllNpmPackages(
   const unscoped = packages.filter(p => !p.startsWith('@'))
   const scoped = packages.filter(p => p.startsWith('@'))
 
-  const [
-    bulkAllTime,
-    bulkLast30Days,
-    scopedResults,
-    versionsEntries
-  ] = await Promise.all([
-    unscoped.length > 0
-      ? getAllTimeBulk(unscoped)
-      : Promise.resolve({} as Record<string, number>),
-    unscoped.length > 0
-      ? getLastNDaysBulk(unscoped, 30)
-      : Promise.resolve(
-          {} as Record<string, { downloads: number[]; date: string }>
-        ),
-    Promise.all(
-      scoped.map(async pkg => {
-        const [allTime, last30Days] = await Promise.all([
-          getAllTime(pkg),
-          getLastNDays(pkg, 30)
-        ])
-        return [pkg, { allTime, last30Days }] as const
-      })
-    ),
-    Promise.all(
-      packages.map(pkg => getVersions(pkg).then(v => [pkg, v] as const))
-    )
-  ])
+  const [bulkAllTime, bulkLast30Days, scopedResults, versionsEntries] =
+    await Promise.all([
+      unscoped.length > 0
+        ? getAllTimeBulk(unscoped)
+        : Promise.resolve<Record<string, number>>({}),
+      unscoped.length > 0
+        ? getLastNDaysBulk(unscoped, 30)
+        : Promise.resolve<
+            Record<string, { downloads: number[]; date: string }>
+          >({}),
+      Promise.all(
+        scoped.map(async pkg => {
+          const [allTime, last30Days] = await Promise.all([
+            getAllTime(pkg),
+            getLastNDays(pkg, 30)
+          ])
+          return [pkg, { allTime, last30Days }] as const
+        })
+      ),
+      Promise.all(
+        packages.map(pkg => getVersions(pkg).then(v => [pkg, v] as const))
+      )
+    ])
 
   const scopedMap = Object.fromEntries(scopedResults)
   const versionsMap = Object.fromEntries(versionsEntries)
@@ -197,11 +198,33 @@ export async function fetchAllNpmPackages(
   return result
 }
 
-async function get<T = unknown>(
+async function get<T>(
   url: string,
-  retries = 3,
-  nullOnStatus: number[] = []
+  schema: z.ZodType<T>,
+  retries = 3
 ): Promise<T> {
+  const result = await request(url, schema, retries)
+  if (result === null) {
+    throw new Error(`Unexpected empty response for ${url}`)
+  }
+  return result
+}
+
+async function getOptional<T>(
+  url: string,
+  schema: z.ZodType<T>,
+  retries: number,
+  nullOnStatus: number[]
+): Promise<T | null> {
+  return request(url, schema, retries, nullOnStatus)
+}
+
+async function request<T>(
+  url: string,
+  schema: z.ZodType<T>,
+  retries: number,
+  nullOnStatus: number[] = []
+): Promise<T | null> {
   let lastError: unknown
   for (let attempt = 0; attempt < retries; attempt++) {
     let responseText = ''
@@ -212,7 +235,7 @@ async function get<T = unknown>(
       responseText = await res.text()
       if (!res.ok) {
         if (nullOnStatus.includes(res.status)) {
-          return null as T
+          return null
         }
         const isRetryable = res.status === 429 || res.status >= 500
         if (isRetryable && attempt < retries - 1) {
@@ -220,11 +243,9 @@ async function get<T = unknown>(
           await new Promise(resolve => setTimeout(resolve, delay))
           continue
         }
-        throw new Error(
-          `NPM API ${res.status} for ${url}\n\n${responseText}`
-        )
+        throw new Error(`NPM API ${res.status} for ${url}\n\n${responseText}`)
       }
-      return JSON.parse(responseText) as T
+      return schema.parse(JSON.parse(responseText))
     } catch (error) {
       lastError = error
       if (error instanceof Error && error.message.startsWith('NPM API')) {

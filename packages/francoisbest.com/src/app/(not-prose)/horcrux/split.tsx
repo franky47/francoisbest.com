@@ -14,7 +14,10 @@ import {
 import { useClipboard } from 'ui/hooks/useClipboard'
 import { useHydration } from 'ui/hooks/useHydration'
 import { WideContainer } from 'ui/layouts/wide-container'
+import { z } from 'zod'
 import { splitSecret } from './tss'
+
+const encodingSchema = z.enum(['base64', 'hex'])
 
 type HorcruxSplitProps = {
   gitHubSourceUrl: string
@@ -93,7 +96,7 @@ export const HorcruxSplit: React.FC<HorcruxSplitProps> = ({
           <FormLabel>Output encoding</FormLabel>
           <RadioGroup
             value={encoding}
-            onChange={e => setEncoding(e as Encoding)}
+            onChange={e => setEncoding(encodingSchema.parse(e))}
           >
             <div className="flex space-x-8">
               <Radio value="base64" checked={encoding === 'base64'}>

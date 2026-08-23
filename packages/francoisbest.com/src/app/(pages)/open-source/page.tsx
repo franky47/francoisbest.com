@@ -8,7 +8,7 @@ import { NpmPackage } from 'ui/embeds/npm-package'
 export const metadata: Metadata = {
   title: 'Open-Source',
   description:
-    'Some of the OSS packages and projects I published and contribute to.',
+    'Some of the OSS packages and projects I published and contribute to.'
 }
 
 export const revalidate = 86400
@@ -22,14 +22,16 @@ const npmPackages = [
   'redact-env',
   'env-alias',
   '@47ng/check-env',
-  '@47ng/codec',
+  '@47ng/codec'
 ] as const
 
 export default async function OpenSourcePage() {
-  const npmData = await fetchAllNpmPackages([...npmPackages]).catch((error) => {
-    console.error('Failed to batch-fetch NPM data:', error)
-    return {} as Record<string, NpmPackageStatsData>
-  })
+  const npmData = await fetchAllNpmPackages([...npmPackages]).catch(
+    (error): Record<string, NpmPackageStatsData> => {
+      console.error('Failed to batch-fetch NPM data:', error)
+      return {}
+    }
+  )
   return (
     <>
       <h1>Open Source</h1>
@@ -54,10 +56,10 @@ export default async function OpenSourcePage() {
         beautiful and accessible interfaces.
       </p>
       <p>
-        Because of its CSS-in-JS approach, it&apos;s a bit awkward to use with the
-        new Next.js app router and server components, so I&apos;m now letting
-        Tailwind deal with styling. ChatGPT makes a perfect companion for
-        refactoring one into the other anyway.
+        Because of its CSS-in-JS approach, it&apos;s a bit awkward to use with
+        the new Next.js app router and server components, so I&apos;m now
+        letting Tailwind deal with styling. ChatGPT makes a perfect companion
+        for refactoring one into the other anyway.
       </p>
 
       <NpmPackage
@@ -186,8 +188,15 @@ export default async function OpenSourcePage() {
 
       <HireMe outerClass="mt-12" />
 
-      <nav role="list" className="!mt-12 flex flex-col items-center text-center text-sm">
-        <a role="listitem" href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/open-source/page.tsx" className="!text-gray-500">
+      <nav
+        role="list"
+        className="!mt-12 flex flex-col items-center text-center text-sm"
+      >
+        <a
+          role="listitem"
+          href="https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/src/app/(pages)/open-source/page.tsx"
+          className="!text-gray-500"
+        >
           Edit this page on GitHub
         </a>
       </nav>

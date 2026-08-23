@@ -20,7 +20,9 @@ export async function generateStaticParams() {
   return posts.map(post => ({ slug: post.slug }))
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params
+}: PageProps): Promise<Metadata> {
   const { slug } = await params
   const page = blogSource.getPage(slug)
   if (!page) return {}
@@ -50,6 +52,8 @@ export default async function BlogPost({ params }: PageProps) {
   const editUrl = `https://github.com/franky47/francoisbest.com/blob/next/packages/francoisbest.com/content/blog/${slugPath}/index.mdx`
   const hnUrl = `https://hn.algolia.com/?q=${encodeURIComponent(url(`/posts/${slugPath}`))}`
   const separator = <>&nbsp;•&nbsp;</>
+  // SAFETY: Fumadocs and MDX expose structurally compatible component maps.
+  const mdxComponents = getMdxComponents() as any
 
   return (
     <article>
@@ -67,7 +71,8 @@ export default async function BlogPost({ params }: PageProps) {
               Unpublished
             </span>
           )}
-          {separator}{readingTimeText}
+          {separator}
+          {readingTimeText}
           {tags && Boolean(tags.length) && (
             <TagsNav tags={tags} className="ml-auto" />
           )}
@@ -75,7 +80,7 @@ export default async function BlogPost({ params }: PageProps) {
       </figure>
 
       {/* Post Content */}
-      <Content components={getMdxComponents() as any} />
+      <Content components={mdxComponents} />
 
       {/* Post Footer */}
       <hr />

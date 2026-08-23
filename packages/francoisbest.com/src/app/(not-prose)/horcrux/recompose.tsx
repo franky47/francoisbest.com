@@ -52,7 +52,7 @@ function useSecret(shards: string[]) {
       setSecret(secret)
       setError(undefined)
     } catch (error) {
-      setError(error as any)
+      setError(error instanceof Error ? error : new Error(String(error)))
     }
   }, [shards])
   return { secret, error }

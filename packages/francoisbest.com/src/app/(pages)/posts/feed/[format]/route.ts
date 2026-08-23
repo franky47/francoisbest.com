@@ -74,7 +74,7 @@ export async function GET(
     postUrl.searchParams.set('utm_source', format)
     feed.addItem({
       title: post.meta.title,
-      id: post.urlPath,
+      id: url(post.urlPath),
       link: postUrl.toString(),
       image: post.ogImageExtension
         ? url(`/posts/og/${post.slug.join('/')}`)

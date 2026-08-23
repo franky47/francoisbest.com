@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next'
-import configureBundleAnalyzer from 'next-bundle-analyzer'
 import { createMDX } from 'fumadocs-mdx/next'
 
 const nextConfig: NextConfig = {
@@ -86,14 +85,9 @@ const nextConfig: NextConfig = {
         permanent: true
       }
     ]
-  },
+  }
 }
-
-const withAnalyzer = configureBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-  clientOnly: true
-})
 
 const withMDX = createMDX()
 
-export default withAnalyzer(withMDX(nextConfig))
+export default withMDX(nextConfig)

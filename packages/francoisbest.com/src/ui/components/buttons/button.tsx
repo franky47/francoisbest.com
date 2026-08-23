@@ -94,16 +94,16 @@ const ButtonIcon: React.FC<React.ComponentProps<'span'>> = ({
   />
 )
 
-const sizeClasses: Record<ButtonSize, string> = {
+const sizeClasses = {
   xs: 'text-xs min-w-[1.5rem] h-6  px-2',
   sm: 'text-sm min-w-[2rem]   h-8  px-3',
   md: 'text-md min-w-[2.5rem] h-10 px-4',
   lg: 'text-lg min-w-[3rem]   h-12 px-6'
-}
+} satisfies Record<ButtonSize, string>
 
 type ButtonStyle = `${ButtonVariant}_${ButtonColor}`
 
-const colorClasses: Record<ButtonStyle, string> = {
+const colorClasses = {
   solid_gray: `
     bg-gray-100                   dark:bg-white/20
     text-gray-800                 dark:text-white/90
@@ -200,4 +200,4 @@ const colorClasses: Record<ButtonStyle, string> = {
     hover:underline
     hover:disabled:no-underline
   `
-}
+} satisfies Record<ButtonStyle, string>

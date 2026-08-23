@@ -11,10 +11,10 @@ type NoteStatus = 'default' | 'info' | 'success' | 'warning' | 'error'
 type NoteConfig = {
   colors: string
   stroke: string
-  icon: any
+  icon: React.ElementType
 }
 
-const noteConfigs: Record<NoteStatus, NoteConfig> = {
+const noteConfigs = {
   default: {
     colors:
       'border-l-gray-400 bg-gray-50 dark:border-l-gray-600 dark:bg-gray-800/40',
@@ -45,14 +45,15 @@ const noteConfigs: Record<NoteStatus, NoteConfig> = {
     stroke: 'stroke-red-500',
     icon: FiAlertCircle
   }
-}
+} satisfies Record<NoteStatus, NoteConfig>
 
 // --
 
 export type NoteProps = React.ComponentProps<'aside'> & {
   status?: NoteStatus
   title?: React.ReactNode
-  icon?: any
+  icon?: React.ElementType
+  iconText?: string
   children: React.ReactNode
   titleClass?: string
   outerClass?: string
@@ -63,6 +64,7 @@ export const Note: React.FC<NoteProps> = ({
   status = 'default',
   title = 'Note',
   icon,
+  iconText,
   children,
   titleClass = '',
   outerClass = '',
@@ -70,7 +72,7 @@ export const Note: React.FC<NoteProps> = ({
   ...props
 }) => {
   const { colors, stroke, icon: defaultIcon } = noteConfigs[status]
-  const Icon = (typeof icon === 'string' ? () => icon : icon) ?? defaultIcon
+  const Icon = icon ?? defaultIcon
   return (
     <aside
       role="note"
@@ -83,11 +85,17 @@ export const Note: React.FC<NoteProps> = ({
       {...props}
     >
       <p className="not-prose !my-1 text-lg leading-snug">
-        <Icon
-          className={`-mt-1 mr-1 inline-block ${stroke}`}
-          role="presentation"
-          aria-hidden
-        />{' '}
+        {iconText ? (
+          <span className="mr-1" role="presentation" aria-hidden>
+            {iconText}
+          </span>
+        ) : (
+          <Icon
+            className={`-mt-1 mr-1 inline-block ${stroke}`}
+            role="presentation"
+            aria-hidden
+          />
+        )}{' '}
         <span className={twMerge('font-semibold', titleClass)}>{title}</span>
       </p>
       <div className={twMerge('!prose-base text-current', innerClass)}>

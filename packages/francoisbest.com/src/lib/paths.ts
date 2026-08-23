@@ -14,7 +14,10 @@ export function resolve(importMetaUrl: string, ...paths: string[]) {
     dirname,
     ...(paths.length === 0 ? [fileName] : paths)
   )
-  return path.resolve(process.cwd(), absPath.replace(nextJsRootDir, '.'))
+  return path.resolve(
+    /* turbopackIgnore: true */ process.cwd(),
+    absPath.replace(nextJsRootDir, '.')
+  )
 }
 
 export function url(routePath: string) {
