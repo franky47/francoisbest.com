@@ -15,8 +15,10 @@ export function getMdxComponents(): MDXComponents {
     GitHubRepo,
     Image,
     HackerNewsComment,
+    // SAFETY: Next Image accepts the image props emitted by the MDX compiler.
     img: Image as MDXComponents['img'],
-    a: ({ href, ref: _, ...props }) => {
+    a: ({ href, ref, ...props }) => {
+      void ref
       if (href?.startsWith('/') || href?.startsWith('#')) {
         return <Link href={href} {...props} />
       }

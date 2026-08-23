@@ -13,12 +13,12 @@ export default async function TagsIndex() {
   const tags = posts
     .flatMap(post => post.meta.tags ?? [])
     .map(decodeURIComponent)
-    .reduce(
+    .reduce<Record<string, number>>(
       (dict, tag) => ({
         ...dict,
         [tag]: (dict[tag] ?? 0) + 1
       }),
-      {} as Record<string, number>
+      {}
     )
   const sortedByFrequency = Object.fromEntries(
     Object.entries(tags).sort(([, a], [, b]) => b - a)

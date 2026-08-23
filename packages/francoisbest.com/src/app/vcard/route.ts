@@ -14,7 +14,7 @@ export function GET(req: NextRequest) {
       GET: '/vcard',
       ua: req.headers.get('user-agent') ?? 'anonymous',
       ref: req.referrer,
-      key: phoneNumber ? 'valid' : Boolean(key) ? 'invalid' : 'not-provided'
+      key: phoneNumber ? 'valid' : key ? 'invalid' : 'not-provided'
     })
   )
   const res = new Response(vcard(phoneNumber))

@@ -1,6 +1,7 @@
 import { decryptPhoneNumber, vcard } from 'app/vcard/vcard'
 import { cookies } from 'next/headers'
 import { SearchParams } from 'nuqs/server'
+import { z } from 'zod'
 import { QRCode } from './qrcode'
 
 export const metadata = {
@@ -46,7 +47,8 @@ export default async function BusinessCardPage({ searchParams }: PageProps) {
 async function loadKey(form: FormData) {
   'use server'
   const cookiesStore = await cookies()
-  cookiesStore.set('phoneNumberKey', form.get('key') as string, {
+  const key = z.string().parse(form.get('key'))
+  cookiesStore.set('phoneNumberKey', key, {
     httpOnly: true,
     secure: true,
     expires: new Date('2100-01-01'),

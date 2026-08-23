@@ -1,7 +1,7 @@
 import { FiMail } from 'react-icons/fi'
 import { Note, NoteProps } from 'ui/components/note'
 
-const AVAILABLE = undefined // eg: 'January 2026'
+const AVAILABLE: string | undefined = undefined // eg: 'January 2026'
 
 type HireMeProps = Omit<NoteProps, 'status' | 'title' | 'children'>
 
@@ -17,10 +17,10 @@ export const HireMe: React.FC<HireMeProps> = ({ ...props }) => {
     >
       <p>
         I build <strong>web apps</strong> for startups, businesses and public
-        institutions as a <strong>freelance</strong>{' '}web developer and designer.
+        institutions as a <strong>freelance</strong> web developer and designer.
         Let&apos;s <strong>discuss your needs</strong> and see how I can help.
       </p>
-      {typeof AVAILABLE === 'string' && (
+      {AVAILABLE && (
         <p>
           <em>
             <strong className="text-current">Note:</strong> my earliest

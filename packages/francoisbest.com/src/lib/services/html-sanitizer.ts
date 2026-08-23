@@ -1,9 +1,12 @@
-import DOMPurify from 'dompurify'
-import { JSDOM } from 'jsdom'
+import sanitizeHtml from 'sanitize-html'
 
-const window = new JSDOM('').window
-const purify = DOMPurify(window)
+const options: sanitizeHtml.IOptions = {
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    a: [...(sanitizeHtml.defaults.allowedAttributes.a ?? []), 'rel']
+  }
+}
 
 export function sanitizeHTML(unsafeHTML: string) {
-  return purify.sanitize(unsafeHTML)
+  return sanitizeHtml(unsafeHTML, options)
 }
