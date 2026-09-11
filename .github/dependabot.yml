@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    # pnpm workspaces must be updated from the workspace root so the shared
+    # lockfile is updated together with package manifests.
+    directory: /
+    schedule:
+      interval: weekly
+    # Keep version updates disabled. This entry only configures security PRs.
+    open-pull-requests-limit: 0
