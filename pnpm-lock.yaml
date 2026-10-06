@@ -253,9 +253,6 @@ importers:
       server-only:
         specifier: 0.0.1
         version: 0.0.1
-      sharp:
-        specifier: 0.35.5
-        version: 0.35.5(@types/node@24.13.3)
       shiki:
         specifier: 4.4.3
         version: 4.4.3
@@ -3219,7 +3216,8 @@ snapshots:
     dependencies:
       react: 19.2.8
 
-  '@img/colour@1.1.0': {}
+  '@img/colour@1.1.0':
+    optional: true
 
   '@img/sharp-darwin-arm64@0.35.5':
     optionalDependencies:
@@ -5501,7 +5499,8 @@ snapshots:
     dependencies:
       compute-scroll-into-view: 3.1.1
 
-  semver@7.8.5: {}
+  semver@7.8.5:
+    optional: true
 
   server-only@0.0.1: {}
 
@@ -5539,6 +5538,7 @@ snapshots:
       '@img/sharp-win32-ia32': 0.35.5
       '@img/sharp-win32-x64': 0.35.5
       '@types/node': 24.13.3
+    optional: true
 
   shiki@4.4.3:
     dependencies:
