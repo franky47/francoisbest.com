@@ -1,7 +1,7 @@
 import { getAllPosts } from 'lib/blog'
-import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { FiX } from 'react-icons/fi'
 import { Button } from 'ui/components/buttons/button'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { StaticTag } from 'ui/components/tag'
 import { BlogPostPreview } from '../../components/blog-post-preview'
 import { BlogRollHeader } from '../../components/blog-roll-header'

@@ -1,7 +1,7 @@
-import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { FiMap } from 'react-icons/fi'
 import { Note } from 'ui/components/note'
 import { HireMe } from 'ui/components/hire-me'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { FavouriteAlbums, FavouriteArtists } from './_landing-sections/music'
 import { FeaturedPosts } from './_landing-sections/featured-posts'
 import { AboutMe } from './_landing-sections/about-me'
