@@ -1,5 +1,5 @@
 import { Post } from 'lib/blog'
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { formatDate } from 'ui/format'
 import { TagsNav } from '../../../../ui/components/tag'
 
@@ -20,7 +20,7 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
           className="mb-1 text-2xl font-bold"
           style={{ color: 'var(--tw-prose-headings)' }}
         >
-          <Link href={urlPath}>{title}</Link>
+          <HoverPrefetchLink href={urlPath}>{title}</HoverPrefetchLink>
         </Heading>
         <figcaption className="flex flex-wrap gap-y-1 text-sm text-gray-500">
           <span className="mr-2 inline-block">

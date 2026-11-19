@@ -20,7 +20,13 @@ export const StaticTag: React.FC<StaticTagProps> = ({
 export const LinkedTag: React.FC<LinkedTagProps> = ({
   className,
   ...props
-}) => <Link className={twMerge(tagClassName, className)} {...props} />
+}) => (
+  <Link
+    prefetch={false}
+    className={twMerge(tagClassName, className)}
+    {...props}
+  />
+)
 
 // --
 

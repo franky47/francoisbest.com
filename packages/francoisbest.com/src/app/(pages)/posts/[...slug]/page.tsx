@@ -4,7 +4,7 @@ import { getMdxComponents } from 'lib/mdx-components'
 import { url } from 'lib/paths'
 import { blogSource } from 'lib/source'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { notFound } from 'next/navigation'
 import { HireMe } from 'ui/components/hire-me'
 import { Logo } from 'ui/components/logo'
@@ -87,9 +87,9 @@ export default async function BlogPost({ params }: PageProps) {
       <div className="not-prose flex items-center">
         <Logo size={16} />
         <div className="ml-4">
-          <Link href="/" className="text-xl font-bold">
+          <HoverPrefetchLink href="/" className="text-xl font-bold">
             François Best
-          </Link>
+          </HoverPrefetchLink>
           <p>Freelance developer & founder</p>
           <nav className="mt-1 text-sm font-medium">
             <a href="https://github.com/47ng" className="underline">

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { BlogPostEmbed } from '../../../ui/embeds/blog-post-embed'
 
 const featuredPosts = [
@@ -14,7 +14,7 @@ export const FeaturedPosts: React.FC = () => {
         <BlogPostEmbed key={slug.join('/')} slug={slug} className="my-4" />
       ))}
       <p className="text-center">
-        <Link href="/posts">All posts</Link>
+        <HoverPrefetchLink href="/posts">All posts</HoverPrefetchLink>
       </p>
     </section>
   )

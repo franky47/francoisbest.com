@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { FiMap } from 'react-icons/fi'
 import { Note } from 'ui/components/note'
 import { HireMe } from 'ui/components/hire-me'
@@ -13,11 +13,14 @@ export default function HomePage() {
       <h1>Hi, I&apos;m François Best</h1>
       <p>
         I am a web developer and an{' '}
-        <Link href="/open-source">open sourcerer</Link> from France.
+        <HoverPrefetchLink href="/open-source">
+          open sourcerer
+        </HoverPrefetchLink>{' '}
+        from France.
       </p>
       <p>
-        This is my digital garden, where I write about the things I&apos;m working on
-        and share what I&apos;ve learned.
+        This is my digital garden, where I write about the things I&apos;m
+        working on and share what I&apos;ve learned.
       </p>
 
       <HireMe />
@@ -48,7 +51,7 @@ export default function HomePage() {
       <FavouriteAlbums />
 
       <p className="text-center">
-        <Link href="/music">More albums</Link>
+        <HoverPrefetchLink href="/music">More albums</HoverPrefetchLink>
       </p>
 
       <hr />
@@ -65,14 +68,14 @@ export default function HomePage() {
         I used to style my apps and websites with CSS-in-JS (using{' '}
         <a href="https://chakra-ui.com/">Chakra-UI</a>), but the introduction of
         React Server Components in Next.js 13+ helped me switch to a leaner HTML
-        + CSS static render, only shipping client components where interaction is
-        needed, while keeping external content (Spotify albums, GitHub repo stats
-        etc..).
+        + CSS static render, only shipping client components where interaction
+        is needed, while keeping external content (Spotify albums, GitHub repo
+        stats etc..).
       </Note>
 
       <p className="!mt-12 text-center text-sm">
         <FiMap className="-mt-0.5 mr-1.5 inline-block" />
-        <Link href="/sitemap">Site map</Link>
+        <HoverPrefetchLink href="/sitemap">Site map</HoverPrefetchLink>
       </p>
     </>
   )

@@ -1,5 +1,5 @@
 import { getAllPosts } from 'lib/blog'
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { FiX } from 'react-icons/fi'
 import { Button } from 'ui/components/buttons/button'
 import { StaticTag } from 'ui/components/tag'
@@ -28,7 +28,7 @@ export default async function TagPage({ params }: PageProps) {
     <>
       <BlogRollHeader title="Articles" />
       <nav className="flex items-center justify-between">
-        <Link href="/posts">
+        <HoverPrefetchLink href="/posts">
           <Button
             size="sm"
             className="rounded-full"
@@ -37,10 +37,10 @@ export default async function TagPage({ params }: PageProps) {
           >
             Clear filter &nbsp;<StaticTag>{tag}</StaticTag>
           </Button>
-        </Link>
-        <Link href="/posts/tags" className="text-sm">
+        </HoverPrefetchLink>
+        <HoverPrefetchLink href="/posts/tags" className="text-sm">
           All tags
-        </Link>
+        </HoverPrefetchLink>
       </nav>
       <section role="feed" aria-busy={false} className="mt-12 space-y-12">
         {filtered.map(post => (

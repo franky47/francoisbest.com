@@ -1,6 +1,6 @@
 import type { MDXComponents } from 'mdx/types'
 import Image from 'next/image'
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { Note } from 'ui/components/note'
 import { GitHubRepo } from 'ui/embeds/github-repo'
 import { HackerNewsComment } from 'ui/embeds/hacker-news'
@@ -20,7 +20,7 @@ export function getMdxComponents(): MDXComponents {
     a: ({ href, ref, ...props }) => {
       void ref
       if (href?.startsWith('/') || href?.startsWith('#')) {
-        return <Link href={href} {...props} />
+        return <HoverPrefetchLink href={href} {...props} />
       }
       return <a href={href} {...props} />
     }
