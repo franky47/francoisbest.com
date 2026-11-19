@@ -1,9 +1,9 @@
 import { chiffreConfig } from 'lib/services/chiffre'
-import Link from 'next/link'
 import React from 'react'
 import { BsDiscord, BsMastodon } from 'react-icons/bs'
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi'
 import { IconButton, IconButtonProps } from 'ui/components/buttons/icon-button'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 
 export const Footer: React.FC = () => {
   const gitSha1 = process.env.VERCEL_GIT_COMMIT_SHA ?? 'local'
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
         >
           {gitSha1.slice(0, 8)}
         </a>{' '}
-        • <Link href="/sitemap">Site map</Link>
+        • <HoverPrefetchLink href="/sitemap">Site map</HoverPrefetchLink>
         {chiffreConfig.enabled && (
           <>
             <br />

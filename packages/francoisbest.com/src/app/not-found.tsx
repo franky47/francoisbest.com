@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import PageLayout from './(not-prose)/layout'
 
 export default function NotFound() {
@@ -16,12 +16,12 @@ export default function NotFound() {
           Page not found
         </h2>
         <p className="text-sm text-gray-500">Sorry, there's nothing here.</p>
-        <Link
+        <HoverPrefetchLink
           href="/"
           className="mt-8 inline-block text-sm font-medium underline"
         >
           Return Home
-        </Link>
+        </HoverPrefetchLink>
       </section>
     </PageLayout>
   )

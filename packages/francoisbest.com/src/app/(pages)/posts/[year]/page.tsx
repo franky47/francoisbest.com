@@ -1,7 +1,7 @@
 import { getAllPosts } from 'lib/blog'
-import Link from 'next/link'
 import { FiX } from 'react-icons/fi'
 import { Button } from 'ui/components/buttons/button'
+import { HoverPrefetchLink } from 'ui/components/hover-prefetch-link'
 import { BlogPostPreview } from '../components/blog-post-preview'
 import { BlogRollHeader } from '../components/blog-roll-header'
 
@@ -58,7 +58,7 @@ export default async function YearIndex({ params }: PageProps) {
   return (
     <>
       <BlogRollHeader title="Articles" />
-      <Link href="/posts">
+      <HoverPrefetchLink href="/posts">
         <Button
           size="sm"
           className="rounded-full"
@@ -67,7 +67,7 @@ export default async function YearIndex({ params }: PageProps) {
         >
           Clear filter {year}
         </Button>
-      </Link>
+      </HoverPrefetchLink>
       <section role="feed" aria-busy={false} className="mt-12 space-y-12">
         {fromThisYear.map(post => (
           <BlogPostPreview {...post} key={post.urlPath} />
